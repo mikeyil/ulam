@@ -13,7 +13,9 @@
   "exports": {
     ".": "./core/index.js",
     "./react": "./react/index.js",
-    "./remix": "./remix/index.js"
+    "./remix": "./remix/index.js",
+    "./bayabas": "./react/index.js",
+    "./pandan": "./remix/index.js"
   },
   "files": ["core", "react", "remix", "README.md"],
   "peerDependencies": {

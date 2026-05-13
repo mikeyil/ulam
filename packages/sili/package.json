@@ -13,7 +13,9 @@
   "exports": {
     ".": "./core/index.js",
     "./react": "./react/index.js",
-    "./remix": "./remix/index.js"
+    "./remix": "./remix/index.js",
+    "./labuyo": "./react/index.js",
+    "./mahaba": "./remix/index.js"
   },
   "files": ["core", "react", "remix", "README.md"],
   "peerDependencies": {
