@@ -1,6 +1,6 @@
 import { callAnthropicWithTools } from './fetch.js'
 import { makeSearchTool } from './search.js'
-import { getAdapter } from '../sawsawan/platformAdapter.js'
+import { getAdapter } from '@ulam/sawsawan'
 import { AI_AGENTIC_MAX_TOKENS, AGENTIC_MAX_TOOL_TURNS, LS_APIKEY_PREFIX } from './constants.js'
 import { getAiModel } from './prefs.js'
 import { parseAiResponse } from './aiService.js'

@@ -20,5 +20,8 @@
   },
   "peerDependenciesMeta": {
     "react": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -22,12 +22,17 @@
     "react": ">=18",
     "react-dom": ">=18",
     "@ulam/sili": "*",
-    "@ulam/taho": "*"
+    "@ulam/taho": "*",
+    "@ulam/calamansi": "*"
   },
   "peerDependenciesMeta": {
     "react": { "optional": true },
     "react-dom": { "optional": true },
     "@ulam/sili": { "optional": true },
-    "@ulam/taho": { "optional": true }
+    "@ulam/taho": { "optional": true },
+    "@ulam/calamansi": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

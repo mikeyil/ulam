@@ -17,10 +17,15 @@
   "files": ["*.js", "README.md"],
   "peerDependencies": {
     "react": ">=18",
-    "fuse.js": ">=7"
+    "fuse.js": ">=7",
+    "@ulam/sawsawan": "*"
   },
   "peerDependenciesMeta": {
     "react": { "optional": true },
-    "fuse.js": { "optional": true }
+    "fuse.js": { "optional": true },
+    "@ulam/sawsawan": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -28,5 +28,8 @@
     "@ulam/calamansi": { "optional": true },
     "@ulam/taho": { "optional": true },
     "@ulam/halohalo": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
