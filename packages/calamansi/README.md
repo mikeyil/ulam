@@ -10,9 +10,11 @@ Calamansi is one of four ulam packages:
 
 ```text
 ulam
-├── @ulam/ube          sweet   — UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour    — i18n, hooks, utilities, logic  ← you are here
-└── @ulam/sawsawan     bridge  — wires the three together
+├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic  ← you are here
+├── @ulam/taho         warm   : ARIA live region announcer
+├── @ulam/sili         hot    : focus management, overlays, routing
+├── @ulam/ube          sweet  : React UI components, theming
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
 ## i18n
@@ -36,15 +38,15 @@ function MyComponent() {
 
 ### Supported features
 
-- **Interpolation** — `t('hello', { name: 'Mikey' })` → `"Hello, Mikey"`
-- **Fallback** — missing keys fall back to `en`, never show a raw key
-- **No bundled translations** — bring your own locale data; any `{ key: value }` object works
+- **Interpolation:** `t('hello', { name: 'Mikey' })` → `"Hello, Mikey"`
+- **Fallback:** missing keys fall back to `en`, never show a raw key
+- **No bundled translations:** bring your own locale data; any `{ key: value }` object works
 
 ### Design principles
 
-- **Data-agnostic** — pass any `{ key: value }` object; JSON files, API responses, CMS payloads all work
-- **Thin** — just lookup and interpolation; number/date formatting defers to native `Intl` APIs
-- **Independently usable** — no dependency on ube; any JS project can use calamansi i18n
+- **Data-agnostic:** pass any `{ key: value }` object; JSON files, API responses, CMS payloads all work
+- **Thin:** just lookup and interpolation; number/date formatting defers to native `Intl` APIs
+- **Independently usable:** no dependency on ube; any JS project can use calamansi i18n
 
 ## Independence
 
@@ -61,10 +63,10 @@ Neither ube nor sawsawan import from calamansi directly.
 Planned subpath split:
 
 ```text
-@ulam/calamansi          — everything
-@ulam/calamansi/react    — I18nProvider, useT()
-@ulam/calamansi/hooks    — React hooks
-@ulam/calamansi/utils    — utilities
+@ulam/calamansi          : everything
+@ulam/calamansi/react    : I18nProvider, useT()
+@ulam/calamansi/hooks    : React hooks
+@ulam/calamansi/utils    : utilities
 ```
 
 ## License
