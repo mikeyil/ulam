@@ -1,10 +1,10 @@
 /**
  * localStorage / sessionStorage helpers.
  *
- * All functions swallow storage errors silently — storage may be unavailable
+ * All functions swallow storage errors silently. Storage may be unavailable
  * in private browsing, sandboxed iframes, or SSR environments.
  *
- * In-memory fallback is not provided here — callers should treat a null/false
+ * In-memory fallback is not provided here. Callers should treat a null/false
  * return as "storage unavailable" and handle state locally if needed.
  */
 

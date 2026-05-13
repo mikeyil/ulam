@@ -1,6 +1,6 @@
 # @ulam/taho
 
-ARIA live region announcer. Vanilla core with React and Remix adapters.
+ARIA live region announcer. Vanilla core with React, Remix, Vue, and Angular adapters.
 
 Named for taho, the Filipino street drink: warm, light, and always there when you need it.
 
@@ -38,7 +38,6 @@ announce('Invalid key', { priority: 'assertive' })
 
 ```jsx
 import { Announcer, announce, useAnnounce } from '@ulam/taho/react'
-// alias: @ulam/taho/bayabas
 
 // Mount once at app root
 <Announcer />
@@ -55,7 +54,6 @@ announce('Search: 12 results')
 
 ```jsx
 import { Announcer, useRouteAnnouncer } from '@ulam/taho/remix'
-// alias: @ulam/taho/pandan
 
 // In root.jsx
 export default function Root() {
@@ -106,13 +104,55 @@ The pattern here follows the research-backed guidance from Marcy Sutton's 2019 u
 
 Pair with `@ulam/sili/remix` for complete coverage. Taho handles the screen reader announcement; sili handles moving keyboard focus to the new content.
 
+### Vue
+
+The vanilla `announce()` function works in Vue without any adapter. Call it directly from `<script setup>` or composables. The Vue adapter provides a composable for consistency with Vue's Composition API style.
+
+```js
+import { useAnnounce } from '@ulam/taho/vue'
+
+// Inside setup()
+const announce = useAnnounce()
+announce('Settings: Saved')
+
+// Or import vanilla directly (both are equivalent)
+import { announce } from '@ulam/taho'
+announce('Settings: Saved')
+```
+
+`useAnnounce()` returns the same vanilla `announce` function. There is no reactivity overhead. The composable exists purely so Vue developers can use a consistent `use*` import style.
+
+### Angular
+
+The Angular adapter provides an injectable `AnnounceService` wrapping the vanilla core.
+
+```ts
+import { AnnounceService } from '@ulam/taho/angular'
+
+@Component({ ... })
+export class SettingsComponent {
+  constructor(private announcer: AnnounceService) {}
+
+  save() {
+    // ... save logic
+    this.announcer.announce('Settings: Saved')
+  }
+}
+```
+
+`AnnounceService` is `providedIn: 'root'`. No module or explicit provider needed. Import it and inject it anywhere.
+
+For Angular 14+ standalone apps, you can also call `provideAnnounce()` explicitly in `bootstrapApplication()`, though this is optional since the service is already root-provided.
+
 ## Subpath exports
 
-| Import | Alias | Contents |
-| ------ | ----- | -------- |
-| `@ulam/taho` | | Vanilla core: `announce`, `clearAnnouncements` |
-| `@ulam/taho/react` | `/bayabas` | `Announcer`, `useAnnounce`, vanilla re-exports |
-| `@ulam/taho/remix` | `/pandan` | `useRouteAnnouncer`, `mountRouteAnnouncer`, `notifyRouteChange`, React re-exports |
+| Import | Contents |
+| ------ | -------- |
+| `@ulam/taho` | Vanilla core: `announce`, `clearAnnouncements` |
+| `@ulam/taho/react` | `Announcer`, `useAnnounce`, vanilla re-exports |
+| `@ulam/taho/remix` | `useRouteAnnouncer`, `mountRouteAnnouncer`, `notifyRouteChange`, React re-exports |
+| `@ulam/taho/vue` | `useAnnounce`, vanilla re-exports |
+| `@ulam/taho/angular` | `AnnounceService`, `provideAnnounce` |
 
 ## Message format
 

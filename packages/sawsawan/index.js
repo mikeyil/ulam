@@ -1,4 +1,4 @@
-// @ulam/sawsawan — integration bridge between ube and calamansi
+// @ulam/sawsawan: integration bridge between ube and calamansi
 //
 // Wires cross-package concerns that neither package can own alone:
 //   - locale change → announce() the switch

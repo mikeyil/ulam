@@ -1,6 +1,6 @@
 # @ulam/sili
 
-Focus management, ARIA hide, escape key, scroll lock, and routing hooks. Vanilla core with React and Remix adapters.
+Focus management, ARIA hide, escape key, scroll lock, and routing hooks. Vanilla core with React, Remix, Vue, and Angular adapters.
 
 Named for sili, the Filipino chili pepper: small, sharp, does exactly what it needs to.
 
@@ -57,7 +57,6 @@ Move focus to the page heading after each client-side navigation:
 
 ```js
 import { mountRouteFocus } from '@ulam/sili/react'
-// alias: @ulam/sili/labuyo
 
 const unmount = mountRouteFocus()
 unmount() // clean up on teardown
@@ -86,7 +85,6 @@ import {
   useMediaQuery,
   usePageTitle,
 } from '@ulam/sili/react'
-// alias: @ulam/sili/labuyo
 
 // Focus trap
 const containerRef = useRef(null)
@@ -131,7 +129,7 @@ All three overlays handle focus trap, ARIA hide, Escape to dismiss, and return f
 
 ### Remix
 
-`@ulam/sili/remix` (alias: `/mahaba`) is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
+`@ulam/sili/remix` is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
 
 ```jsx
 import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
@@ -149,13 +147,125 @@ User research (Sutton, 2019) found that moving focus to the page's main `<h1>` h
 
 Pair with `@ulam/taho/remix` for complete coverage. Sili handles moving keyboard focus to the new content; taho handles the screen reader announcement.
 
+### Vue
+
+All composables in `@ulam/sili/vue` wrap the same vanilla sili core used by the React adapter. They accept Vue `ref`s instead of React refs and use `watchEffect`/`onMounted`/`onUnmounted` instead of `useEffect`.
+
+```js
+import {
+  useFocusTrap,
+  useAriaHide,
+  useReturnFocus,
+  useEscapeKey,
+  useFocusOnMount,
+  useDir,
+  useMediaQuery,
+  usePageTitle,
+} from '@ulam/sili/vue'
+```
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { useFocusTrap, useAriaHide, useReturnFocus, useEscapeKey } from '@ulam/sili/vue'
+
+const props = defineProps(['open'])
+const emit = defineEmits(['close'])
+const panelRef = ref(null)
+
+useFocusTrap(panelRef, () => props.open)
+useAriaHide(panelRef, () => props.open)
+useReturnFocus()
+useEscapeKey(() => props.open, () => emit('close'))
+</script>
+
+<template>
+  <div v-if="open" ref="panelRef">
+    <slot />
+  </div>
+</template>
+```
+
+`useDir()` returns a reactive ref (`'ltr'` or `'rtl'`) that updates whenever `html[dir]` changes. `useMediaQuery(query)` returns a reactive boolean ref.
+
+`useFocusOnMount()` returns a template ref; attach it to any element with `tabindex="-1"` to receive focus when the component mounts (WCAG 2.4.3).
+
+The vanilla functions are also re-exported from `@ulam/sili/vue` for cases where you need them outside a component.
+
+### Angular
+
+The Angular adapter provides injectable services and standalone directives. All services are `providedIn: 'root'` and tree-shakeable. Directives are standalone and can be imported directly into component `imports` arrays without a shared module.
+
+```ts
+import {
+  FocusTrapDirective,
+  FocusOnMountDirective,
+  AriaHideService,
+  EscapeKeyService,
+  ScrollLockService,
+} from '@ulam/sili/angular'
+```
+
+**Declarative focus trap (directive):**
+
+```ts
+@Component({
+  imports: [FocusTrapDirective],
+  template: `<div [siliTrapFocus]="isOpen"><ng-content /></div>`
+})
+export class ModalComponent {
+  @Input() isOpen = false
+}
+```
+
+The `[siliTrapFocus]` directive activates and deactivates the focus trap whenever its input changes.
+
+**Focus on mount (directive):**
+
+```html
+<h1 siliFocusOnMount tabindex="-1">Page Title</h1>
+```
+
+Attach `siliFocusOnMount` to any element with `tabindex="-1"` to move focus to it when the view initializes (WCAG 2.4.3).
+
+**Programmatic services:**
+
+```ts
+@Component({ ... })
+export class DrawerComponent implements OnInit, OnDestroy {
+  private ariaHide = inject(AriaHideService)
+  private escapeKey = inject(EscapeKeyService)
+  private scrollLock = inject(ScrollLockService)
+  private el = inject(ElementRef)
+
+  #cleanups = []
+
+  open() {
+    this.#cleanups.push(
+      this.ariaHide.hide(this.el.nativeElement),
+      this.escapeKey.listen(() => this.close()),
+      this.scrollLock.lock()
+    )
+  }
+
+  close() {
+    this.#cleanups.forEach(fn => fn())
+    this.#cleanups = []
+  }
+}
+```
+
+Each service method returns a cleanup function that reverses exactly what it set, making stacking safe (multiple overlays do not interfere with each other).
+
 ## Subpath exports
 
-| Import | Alias | Contents |
-| ------ | ----- | -------- |
-| `@ulam/sili` | | Vanilla core: `trapFocus`, `getFocusable`, `hideBackground`, `returnFocus`, `onEscapeKey`, `lockScroll` |
-| `@ulam/sili/react` | `/labuyo` | React hooks, overlay components, hash router |
-| `@ulam/sili/remix` | `/mahaba` | Remix adapter: same hooks and overlays, Remix router instead of hash router |
+| Import | Contents |
+| ------ | -------- |
+| `@ulam/sili` | Vanilla core: `trapFocus`, `getFocusable`, `hideBackground`, `returnFocus`, `onEscapeKey`, `lockScroll` |
+| `@ulam/sili/react` | React hooks, overlay components, hash router |
+| `@ulam/sili/remix` | Remix adapter: same hooks and overlays, Remix router instead of hash router |
+| `@ulam/sili/vue` | Vue composables: all hooks, vanilla re-exports |
+| `@ulam/sili/angular` | Angular services and directives, vanilla re-exports |
 
 ## Overlay components
 

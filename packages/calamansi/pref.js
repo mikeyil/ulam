@@ -1,6 +1,6 @@
 /**
  * Plain get/set user preference backed by localStorage.
- * No React dependency — use from services, event handlers, or any framework.
+ * No React dependency. Use from services, event handlers, or any framework.
  *
  * @example
  * import { getPref, setPref } from '@ulam/calamansi'
@@ -24,6 +24,6 @@ export function setPref(key, value) {
   try {
     localStorage.setItem(key, String(value))
   } catch {
-    // storage unavailable — no-op
+    // storage unavailable, no-op
   }
 }

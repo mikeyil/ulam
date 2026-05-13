@@ -1,4 +1,4 @@
-import { getAdapter } from '../sawsawan/platformAdapter.js'
+import { getAdapter } from '@ulam/sawsawan'
 import { LS_AI_MODEL_PREFIX, LS_APIKEY_PREFIX, DEFAULT_AI_MODELS } from './constants.js'
 
 export const PROVIDERS = [

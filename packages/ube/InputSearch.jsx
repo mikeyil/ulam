@@ -5,8 +5,8 @@ import './InputSearch.css'
  * Self-contained search field with form[role="search"] wrapper,
  * optional live search mode, clear button, and submit icon button.
  *
- * liveSearch={true}  — fires onChange on every keystroke, hides submit button
- * liveSearch={false} — shows submit icon button, fires onSubmit on Enter or click
+ * liveSearch={true}  : fires onChange on every keystroke, hides submit button
+ * liveSearch={false} : shows submit icon button, fires onSubmit on Enter or click
  *
  * Pair with a visible <label> or pass label to set aria-label on the form.
  */

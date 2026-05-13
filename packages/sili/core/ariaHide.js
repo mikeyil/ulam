@@ -3,7 +3,7 @@ const MARKER = 'data-overlay-hidden'
 /**
  * Hides all body children except the panel's ancestor from the a11y tree
  * using the `inert` attribute. Returns a cleanup fn that restores only what
- * this call set (stacking-safe — each overlay cleans up after itself only).
+ * this call set (stacking-safe; each overlay cleans up after itself only).
  *
  * @param {HTMLElement} panel - the overlay panel element
  */

@@ -2,7 +2,7 @@ import Fuse from 'fuse.js'
 
 // ─── searchItems ──────────────────────────────────────────────────────────────
 // Generic Fuse.js search over any corpus array.
-// fields     — Fuse key/weight config: [{ name, weight }, ...]
+// fields     : Fuse key/weight config: [{ name, weight }, ...]
 // Returns simplified result objects containing only the requested fields.
 
 export function searchItems(query, corpus, { fields, threshold = 0.4, minMatchCharLength = 2, limit = 3, pick } = {}) {
@@ -25,11 +25,11 @@ export function searchItems(query, corpus, { fields, threshold = 0.4, minMatchCh
 // Builds an Anthropic tool-use schema + handler pair for a corpus search tool.
 // The returned { schema, handler } can be passed directly to callAnthropicWithTools.
 //
-// options.name        — tool name (default: 'search_corpus')
-// options.description — tool description string
-// options.fields      — Fuse key/weight config
-// options.pick        — fields to include in returned results
-// options.limit       — max results (default: 3)
+// options.name        : tool name (default: 'search_corpus')
+// options.description : tool description string
+// options.fields      : Fuse key/weight config
+// options.pick        : fields to include in returned results
+// options.limit       : max results (default: 3)
 
 export function makeSearchTool(corpus, options = {}) {
   const {

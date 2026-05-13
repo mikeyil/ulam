@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 /**
- * Drawer shell — structure only, no focus management or escape handling.
+ * Drawer shell: structure only, no focus management or escape handling.
  * Use Drawer (from @ulam/sili/react) for the fully-wired React + sili version.
  *
  * Props:

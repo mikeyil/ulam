@@ -1,5 +1,5 @@
 /**
- * Vanilla route focus manager — no React dependency.
+ * Vanilla route focus manager. No React dependency.
  *
  * Moves focus to the page's main heading (h1) after each client-side
  * navigation, per user testing that found heading focus outperforms skip
@@ -10,11 +10,11 @@
  * routeAnnouncer announces the new route, routeFocus moves keyboard
  * position to the new content. Both together are needed for full coverage.
  *
- * Usage -- automatic (browser Navigation API / popstate):
+ * Usage, automatic (browser Navigation API / popstate):
  *   import { mountRouteFocus } from '@ulam/sili/remix'
  *   const unmount = mountRouteFocus()
  *
- * Usage -- manual (custom router callback):
+ * Usage, manual (custom router callback):
  *   import { focusPageHeading } from '@ulam/sili/remix'
  *   router.on('navigate', () => focusPageHeading())
  *

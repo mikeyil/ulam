@@ -22,7 +22,7 @@ ulam
 npm install @ulam/halohalo
 ```
 
-Peer dependencies: `fuse.js >= 7` (for search), `react >= 18` (for the hooks adapter).
+Peer dependencies: `fuse.js >= 7` (for search). Framework adapters add `react >= 18`, `vue >= 3`, or `@angular/core >= 17` as needed.
 
 ## Supported providers
 
@@ -98,13 +98,95 @@ function AISettings() {
 }
 ```
 
+### Vue composables adapter
+
+`@ulam/halohalo/vue` provides composables that wrap the vanilla `createCompletion` and `createProviderConfig` with Vue reactivity. Loading and animating state are `readonly` refs that update as the completion runs.
+
+```js
+import { useCompletion, useProviderConfig } from '@ulam/halohalo/vue'
+import { onUnmounted } from 'vue'
+
+// In setup()
+const { loading, animating, complete, cancel, cleanup } = useCompletion()
+onUnmounted(cleanup)
+
+// loading.value and animating.value are reactive
+await complete({ prompt: 'Rewrite this for mobile.' })
+```
+
+`useProviderConfig()` returns reactive refs for `provider`, `models`, and `mode`, plus all setter functions from the vanilla config store.
+
+```js
+const { provider, setProvider } = useProviderConfig()
+// provider.value is reactive
+setProvider('openai')
+```
+
+Both composables return a `cleanup` function. Call it in `onUnmounted()` if the composable is used inside a component. For app-level use outside a component, cleanup is optional.
+
+### Angular services adapter
+
+`@ulam/halohalo/angular` provides two injectable services backed by Angular signals.
+
+**`CompletionService`** is not `providedIn: 'root'`. Each injection creates a separate completion instance with its own loading state. Provide it at the component level for scoped instances, or at the application level for a shared one.
+
+```ts
+import { CompletionService, ProviderConfigService, provideHalohalo } from '@ulam/halohalo/angular'
+
+// Application root (shared singleton):
+bootstrapApplication(AppComponent, {
+  providers: [provideHalohalo()]
+})
+
+// Or component-level (scoped per component):
+@Component({
+  providers: [CompletionService],
+  template: `
+    <button (click)="rewrite()" [disabled]="completion.loading()">
+      {{ completion.loading() ? 'Revising...' : 'Rewrite' }}
+    </button>
+  `
+})
+export class RewriteButtonComponent {
+  completion = inject(CompletionService)
+
+  async rewrite() {
+    await this.completion.complete({ prompt: 'Rewrite for mobile.' })
+  }
+}
+```
+
+`completion.loading()` and `completion.animating()` are Angular `computed` signals that work directly in templates and in `effect()` calls.
+
+**`ProviderConfigService`** is `providedIn: 'root'`, giving you one config store for the whole app.
+
+```ts
+@Component({ ... })
+export class SettingsComponent {
+  providerConfig = inject(ProviderConfigService)
+
+  // In template:
+  // {{ providerConfig.provider() }}
+  // (click)="providerConfig.setProvider('openai')"
+}
+```
+
 ## Design
 
 **Bring your own key.** No proxy, no server, no account. API keys are stored in localStorage and sent directly to the provider.
 
 **Provider-agnostic core.** `createCompletion` works the same regardless of which provider is active. Switch providers without changing call sites.
 
-**Vanilla-first.** The core has no React dependency. Import from `@ulam/halohalo/react` only when you need hooks.
+**Vanilla-first.** The core has no framework dependency. Import from `/react`, `/vue`, or `/angular` only when you need framework reactivity.
+
+## Subpath exports
+
+| Import | Contents |
+| ------ | -------- |
+| `@ulam/halohalo` | Vanilla core: `createCompletion`, `createProviderConfig`, `callProvider`, `callAnthropicWithTools`, `getAgenticRefinement`, `searchItems`, `makeSearchTool`, and more |
+| `@ulam/halohalo/react` | `useCompletion`, `useProviderConfig` |
+| `@ulam/halohalo/vue` | `useCompletion`, `useProviderConfig` |
+| `@ulam/halohalo/angular` | `CompletionService`, `ProviderConfigService`, `provideHalohalo` |
 
 ## License
 

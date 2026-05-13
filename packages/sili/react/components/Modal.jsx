@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 /**
- * Modal shell — structure only, no focus management or escape handling.
+ * Modal shell: structure only, no focus management or escape handling.
  * Use Modal (from @ulam/sili/react) for the fully-wired React + sili version.
  *
  * Props:

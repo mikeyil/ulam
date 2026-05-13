@@ -3,20 +3,20 @@
 // (calamansi, halohalo) call getAdapter() instead of touching localStorage,
 // sessionStorage, or window.electronAPI directly.
 //
-// Web apps: zero configuration — the default adapter uses localStorage/sessionStorage.
+// Web apps: zero configuration. The default adapter uses localStorage/sessionStorage.
 // Electron: call setPlatformAdapter({ getKey, setKey, ... }) once at startup.
 // Extensions: swap chrome.storage in via the same call.
 // React Native: provide AsyncStorage-backed implementations.
 //
 // Key/Pref distinction:
-//   getKey/setKey/removeKey — async, for secrets (API keys). Electron routes
+//   getKey/setKey/removeKey: async, for secrets (API keys). Electron routes
 //     these through keytar/safeStorage; web falls back to localStorage.
-//   readPref/writePref/removePref — sync, for user preferences (provider, model,
+//   readPref/writePref/removePref: sync, for user preferences (provider, model,
 //     toggles). Always returns a value immediately.
-//   readSession/writeSession/removeSession — sync, scoped to the current session.
+//   readSession/writeSession/removeSession: sync, scoped to the current session.
 
 const defaultAdapter = {
-  // Secrets — async because Electron IPC is async
+  // Secrets: async because Electron IPC is async
   getKey: async (key) => {
     try { return localStorage.getItem(key) ?? null } catch { return null }
   },
@@ -27,7 +27,7 @@ const defaultAdapter = {
     try { localStorage.removeItem(key) } catch { /* storage unavailable */ }
   },
 
-  // Preferences — sync
+  // Preferences: sync
   readPref: (key, fallback = null) => {
     try { return localStorage.getItem(key) ?? fallback } catch { return fallback }
   },
@@ -44,7 +44,7 @@ const defaultAdapter = {
     try { localStorage.setItem(key, JSON.stringify(value)) } catch { /* storage unavailable */ }
   },
 
-  // Session — sync, cleared when tab closes
+  // Session: sync, cleared when tab closes
   readSession: (key, fallback = null) => {
     try { return sessionStorage.getItem(key) ?? fallback } catch { return fallback }
   },
@@ -78,7 +78,7 @@ export function getAdapter() {
   return _adapter
 }
 
-// Convenience — Electron adapter factory.
+// Convenience: Electron adapter factory.
 // Pass window.electronAPI and it produces a ready-to-use adapter object.
 export function makeElectronAdapter(electronAPI) {
   return {

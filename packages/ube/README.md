@@ -1,21 +1,21 @@
 # @ulam/ube
 
-Accessible React UI components, theming, routing, and screen reader announcements. The sweet layer of the ulam framework.
+Accessible React UI components, theming, and design tokens. The sweet layer of the ulam framework.
 
 Purple-first. Accessible out of the box. Zero external dependencies beyond React.
 
 ## The ulam framework
 
-Ube is one of four ulam packages:
-
 ```text
 ulam
-├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce  ← you are here
+├── @ulam/ube          sweet  : React UI components, theming, design tokens  ← you are here
+├── @ulam/sili         hot    : focus management, overlays, routing
+├── @ulam/taho         warm   : ARIA live region announcer
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     bridge : wires the three together
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
-Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from calamansi or sawsawan.
+Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from taho, sili, calamansi, or sawsawan.
 
 ## Install
 
@@ -23,7 +23,7 @@ Use ube independently, or with the full ulam stack. No cross-package dependencie
 npm install @ulam/ube
 ```
 
-Peer dependencies: `react >= 18`, `react-dom >= 18`, `lucide-react` (icons).
+Peer dependencies: `react >= 18`, `react-dom >= 18`.
 
 ### Optional: import aliases
 
@@ -68,9 +68,9 @@ The canonical package names (`@ulam/ube` etc.) are always the stable reference. 
 ## Quick start
 
 ```jsx
-import { Button, Toggle, SearchInput, Modal } from '@ulam/ube'
-import { Announcer, announce } from '@ulam/ube/announce'
-import { Router, useRouter } from '@ulam/ube/router'
+import { Button, Toggle, InputSearch, Modal } from '@ulam/ube'
+import { Announcer, announce } from '@ulam/taho/react'
+import { Router, useRouter } from '@ulam/sili/react'
 import '@ulam/ube/tokens.css'
 import '@ulam/ube/ui.css'
 
@@ -115,15 +115,15 @@ import { Button } from '@ulam/ube'
 
 ---
 
-### IconButton
+### ButtonIcon
 
 Icon-only button. Always requires `label` for screen readers.
 
 ```jsx
-import { IconButton } from '@ulam/ube'
+import { ButtonIcon } from '@ulam/ube'
 
-<IconButton icon={<X size={20} />} label="Close" variant="accent" onClick={onClose} />
-<IconButton icon={<Settings size={20} />} label="Settings" variant="tertiary" onClick={onSettings} />
+<ButtonIcon icon={<X size={20} />} label="Close" variant="accent" onClick={onClose} />
+<ButtonIcon icon={<Settings size={20} />} label="Settings" variant="tertiary" onClick={onSettings} />
 ```
 
 | Prop | Type | Default | Description |
@@ -242,15 +242,15 @@ import { Select } from '@ulam/ube'
 
 ---
 
-### SearchInput
+### InputSearch
 
 Self-contained search field with `form[role="search"]` wrapper, live or submit mode, clear button, and submit icon button.
 
 ```jsx
-import { SearchInput } from '@ulam/ube'
+import { InputSearch } from '@ulam/ube'
 
 // Live search: fires onChange on every keystroke, no submit button
-<SearchInput
+<InputSearch
   id="site-search"
   value={query}
   onChange={setQuery}
@@ -260,7 +260,7 @@ import { SearchInput } from '@ulam/ube'
 />
 
 // Submit mode: shows search icon submit button, fires onSubmit on Enter or click
-<SearchInput
+<InputSearch
   id="site-search"
   value={query}
   onChange={setQuery}
@@ -352,33 +352,6 @@ import { Badge } from '@ulam/ube'
 
 ---
 
-### Field
-
-Textarea with auto-sizing, copy to clipboard, reset to original, and undo history.
-
-```jsx
-import { Field } from '@ulam/ube'
-
-<Field
-  id="notes"
-  label="Notes"
-  value={notes}
-  onChange={setNotes}
-  placeholder="Add notes…"
-/>
-```
-
-| Prop | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | string | Input id |
-| `label` | string | Visible label |
-| `value` | string | Controlled value |
-| `onChange` | function | `(value: string) => void` |
-| `placeholder` | string | Placeholder text |
-| `readOnly` | boolean | Read-only mode |
-
----
-
 ### InfoBox
 
 Informational callout for tips, warnings, or supplemental content.
@@ -391,18 +364,16 @@ import { InfoBox } from '@ulam/ube'
 
 ---
 
----
+### Panel
 
-### PanelShell
-
-Header + title + content wrapper for drawer and sheet panels. Use when you need a panel frame without focus management.
+Detail panel with `useFocusOnMount` and `usePageTitle` built in. Use for routed detail panels.
 
 ```jsx
-import { PanelShell } from '@ulam/ube'
+import { Panel } from '@ulam/ube'
 
-<PanelShell heading="Filters" onClose={onClose} closeAriaLabel="Close filters">
+<Panel heading="Finding Detail" onClose={onClose} closeAriaLabel="Close panel">
   {children}
-</PanelShell>
+</Panel>
 ```
 
 | Prop | Type | Description |
@@ -414,30 +385,14 @@ import { PanelShell } from '@ulam/ube'
 
 ---
 
-### Panel
-
-PanelShell with `useFocusOnMount` and `usePageTitle` built in. Use for routed detail panels.
-
-```jsx
-import { Panel } from '@ulam/ube'
-
-<Panel heading="Finding Detail" onClose={onClose} closeAriaLabel="Close panel">
-  {children}
-</Panel>
-```
-
-Same props as `PanelShell`.
-
----
-
-### BackButton
+### ButtonBack
 
 RTL-aware back chevron button. Flips direction when `html[dir="rtl"]`.
 
 ```jsx
-import { BackButton } from '@ulam/ube'
+import { ButtonBack } from '@ulam/ube'
 
-<BackButton onClick={onBack} label="Back to results" />
+<ButtonBack onClick={onBack} label="Back to results" />
 ```
 
 | Prop | Type | Description |
@@ -471,52 +426,16 @@ import { DataError } from '@ulam/ube'
 
 ---
 
-### ResultListSkeleton
-
-Animated skeleton loading state for result lists.
-
-```jsx
-import { ResultListSkeleton } from '@ulam/ube'
-
-{loading && <ResultListSkeleton />}
-```
-
----
-
-### LinkTitle
-
-Formatted source link with domain and title display.
-
-```jsx
-import { LinkTitle } from '@ulam/ube'
-
-<LinkTitle href="https://example.com/article" title="Article title" />
-```
-
----
-
-### SourceLinks
-
-Source citation list. Renders inline for a single link, bulleted list for multiple.
-
-```jsx
-import { SourceLinks } from '@ulam/ube'
-
-<SourceLinks links={[{ href: '...', title: '...' }]} />
-```
-
----
-
 ## Plugins
 
-Ube ships three plugins. Import each from its subpath.
+Ube works with two companion packages for live region announcements and routing. Both are part of the ulam framework and listed as optional peer dependencies.
 
 ### Announce
 
-ARIA live region system. Call `announce()` from anywhere: no prop drilling, no context wiring.
+ARIA live region system from `@ulam/taho`. Call `announce()` from anywhere: no prop drilling, no context wiring.
 
 ```jsx
-import { Announcer, announce, useAnnounce } from '@ulam/ube/announce'
+import { Announcer, announce, useAnnounce } from '@ulam/taho/react'
 
 // Mount once at app root
 <Announcer />
@@ -545,15 +464,15 @@ announce('Copy: Copied to clipboard')
 
 ### Router
 
-Hash-based routing with built-in focus management, RTL support, Escape handling, and page title updates. Zero dependencies.
+Hash-based routing with built-in focus management, RTL support, Escape handling, and page title updates. Comes from `@ulam/sili/react`.
 
 ```jsx
-import { Router, useRouter, Drawer, BottomSheet, Modal } from '@ulam/ube/router'
+import { Router, useRouter, Drawer, Sheet, Modal } from '@ulam/sili/react'
 import {
   useFocusOnMount, useReturnFocus, useFocusTrap,
   usePaginationFocus, useAriaHide, useDir,
   useMediaQuery, usePageTitle, useEscapeKey,
-} from '@ulam/ube/router'
+} from '@ulam/sili/react'
 
 // Wrap app
 <Router>
@@ -691,6 +610,19 @@ Import order:
 
 ---
 
+## Subpath exports
+
+| Import | Contents |
+| ------ | -------- |
+| `@ulam/ube` | `Button`, `ButtonIcon`, `ButtonLink`, `ButtonBack`, `Toggle`, `RadioChip`, `RadioChipGroup`, `Radio`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `NoResults`, `DataError`, `SkipLink`, `PanelRowSetting`, `IconExternalLink`, `announce`, `Announcer`, `applyTheme`, `useThemeManager` |
+| `@ulam/ube/tokens.css` | Design token primitives and component defaults |
+| `@ulam/ube/typography.css` | Structural typography baseline |
+| `@ulam/ube/ui.css` | Component styles and reset |
+
+Announce and routing come from `@ulam/taho/react` and `@ulam/sili/react` respectively.
+
+---
+
 ## Design principles
 
 **Accessible by default.** Every component meets WCAG 2.2 AA. Keyboard navigation, focus management, and screen reader semantics are built in, not bolted on.
@@ -701,7 +633,7 @@ Import order:
 
 **Motion-respectful.** All animations and transitions are suppressed under `prefers-reduced-motion: reduce`.
 
-**RTL-aware.** Direction-sensitive components (BackButton, overlays, layout) respond to `html[dir="rtl"]` automatically.
+**RTL-aware.** Direction-sensitive components (`ButtonBack`, overlays, layout) respond to `html[dir="rtl"]` automatically.
 
 **Zero opinion on data.** Components accept props and call handlers. No built-in state management, no assumptions about routing libraries (beyond the included router plugin), no opinions about where your data lives.
 

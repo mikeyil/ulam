@@ -1,16 +1,16 @@
 /**
- * PanelRowSetting — label + optional description + control (toggle, select, etc.)
+ * PanelRowSetting: label + optional description + control (toggle, select, etc.)
  *
  * Covers both panel-toggle-row (inline control) and panel-group (block content below).
  * The distinction is just layout: inline puts children beside the label,
  * block puts children below.
  *
- * @example — toggle row
+ * @example toggle row
  * <PanelRowSetting label={<label htmlFor="tog">Live search</label>} description="Results appear as you type.">
  *   <Toggle id="tog" checked={v} onChange={setV} />
  * </PanelRowSetting>
  *
- * @example — group (block children)
+ * @example group (block children)
  * <PanelRowSetting label="Theme" description="Choose your colour scheme." block>
  *   <RadioChipGroup ... />
  * </PanelRowSetting>

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { returnFocus } from '../../sili/core/returnFocus.js'
+import { returnFocus } from '../../core/returnFocus.js'
 
 /**
  * Saves the currently focused element on mount and returns focus to it on unmount.

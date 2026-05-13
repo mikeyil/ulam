@@ -46,7 +46,7 @@ export function setLocale(locale) {
 
 /**
  * Returns the current translate function synchronously.
- * Use outside React — in services, event handlers, vanilla JS.
+ * Use outside React: in services, event handlers, vanilla JS.
  *
  * @returns {(key: string, vars?: Record<string, string>) => string}
  */

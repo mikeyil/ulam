@@ -1,6 +1,6 @@
 import './ui.css'
 
-// @ulam/ube — UI components
+// @ulam/ube: UI components
 export { default as Toggle } from './Toggle.jsx'
 export { default as RadioChip } from './RadioChip.jsx'
 export { default as Select } from './Select.jsx'
@@ -9,7 +9,7 @@ export { default as ButtonIcon } from './ButtonIcon.jsx'
 export { default as ButtonLink } from './ButtonLink.jsx'
 export { default as InputWithClear } from './InputWithClear.jsx'
 export { default as Badge } from './Badge.jsx'
-export { default as BackButton } from './BackButton.jsx'
+export { default as ButtonBack } from './ButtonBack.jsx'
 export { default as Panel } from './PanelReact.jsx'
 export { default as NoResults } from './NoResults.jsx'
 export { default as InputSearch } from './InputSearch.jsx'

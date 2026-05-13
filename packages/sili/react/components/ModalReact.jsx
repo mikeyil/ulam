@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useFocusTrap } from '../hooks/useFocusTrap.js'
 import { useAriaHide } from '../hooks/useAriaHide.js'
-import { returnFocus } from '../../sili/core/returnFocus.js'
-import { onEscapeKey } from '../../sili/core/escapeKey.js'
+import { returnFocus } from '../../core/returnFocus.js'
+import { onEscapeKey } from '../../core/escapeKey.js'
 import ModalPrimitive from './Modal.jsx'
 
 export default function Modal({ open, onClose, returnFocusRef, children, ...rest }) {

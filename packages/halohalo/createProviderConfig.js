@@ -1,8 +1,8 @@
 import { DEFAULT_MODELS, DEFAULT_PROVIDERS, DEFAULT_PROVIDER_LABELS } from './providers.js'
-import { getAdapter } from '../sawsawan/platformAdapter.js'
+import { getAdapter } from '@ulam/sawsawan'
 
 /**
- * Vanilla provider config store — no React required.
+ * Vanilla provider config store. No React required.
  * Returns a plain object with getters, setters, and a subscribe() for change notifications.
  *
  * storageKeys: { provider, modelPrefix, keyPrefix, mode? }

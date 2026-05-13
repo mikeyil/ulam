@@ -1,7 +1,7 @@
 {
   "name": "@ulam/taho",
   "version": "0.1.0",
-  "description": "ARIA live region announcer. Vanilla core with React and Remix adapters.",
+  "description": "ARIA live region announcer. Vanilla core with React, Remix, Vue, and Angular adapters.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -9,22 +9,26 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/taho"
   },
-  "keywords": ["accessibility", "a11y", "aria-live", "announcer", "screen-reader", "react", "ulam"],
+  "keywords": ["accessibility", "a11y", "aria-live", "announcer", "screen-reader", "react", "vue", "angular", "ulam"],
   "exports": {
     ".": "./core/index.js",
     "./react": "./react/index.js",
     "./remix": "./remix/index.js",
-    "./bayabas": "./react/index.js",
-    "./pandan": "./remix/index.js"
+    "./vue": "./vue/index.js",
+    "./angular": "./angular/index.js"
   },
-  "files": ["core", "react", "remix", "README.md"],
+  "files": ["core", "react", "remix", "vue", "angular", "README.md"],
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "vue": ">=3",
+    "@angular/core": ">=17"
   },
   "peerDependenciesMeta": {
     "react": { "optional": true },
-    "react-dom": { "optional": true }
+    "react-dom": { "optional": true },
+    "vue": { "optional": true },
+    "@angular/core": { "optional": true }
   },
   "publishConfig": {
     "access": "public"

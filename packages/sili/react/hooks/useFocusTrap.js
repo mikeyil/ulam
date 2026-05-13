@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { trapFocus } from '../../sili/core/focusTrap.js'
+import { trapFocus } from '../../core/focusTrap.js'
 
 /**
  * Restricts Tab / Shift+Tab to elements within `ref.current` while `active`.

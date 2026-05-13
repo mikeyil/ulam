@@ -3,7 +3,7 @@ import { _subscribe } from '../core/announce.js'
 const IS_DEV = import.meta.env.DEV
 
 /**
- * Vanilla dev-mode announcer toast — no React required.
+ * Vanilla dev-mode announcer toast. No React required.
  * Creates a DOM node that shows screen reader announcements as a visible toast.
  * Returns a destroy() function.
  *

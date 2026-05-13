@@ -9,19 +9,25 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/halohalo"
   },
-  "keywords": ["ai", "llm", "anthropic", "openai", "react", "hooks", "ulam"],
+  "keywords": ["ai", "llm", "anthropic", "openai", "react", "vue", "angular", "hooks", "ulam"],
   "exports": {
     ".": "./index.js",
-    "./react": "./react.js"
+    "./react": "./react.js",
+    "./vue": "./vue.js",
+    "./angular": "./angular.js"
   },
   "files": ["*.js", "README.md"],
   "peerDependencies": {
     "react": ">=18",
+    "vue": ">=3",
+    "@angular/core": ">=17",
     "fuse.js": ">=7",
     "@ulam/sawsawan": "*"
   },
   "peerDependenciesMeta": {
     "react": { "optional": true },
+    "vue": { "optional": true },
+    "@angular/core": { "optional": true },
     "fuse.js": { "optional": true },
     "@ulam/sawsawan": { "optional": true }
   },

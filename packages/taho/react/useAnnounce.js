@@ -10,7 +10,7 @@ import { announce } from '../core/announce.js'
  *   const announce = useAnnounce()
  *   announce('Settings: Saved')
  *
- *   // direct import (anywhere — components, handlers, services)
+ *   // direct import (anywhere: components, handlers, services)
  *   import { announce } from '@ulam/taho'
  *   announce('Settings: Saved')
  */

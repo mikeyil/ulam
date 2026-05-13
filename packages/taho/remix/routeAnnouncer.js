@@ -1,12 +1,12 @@
 import { announce } from '../core/announce.js'
 
 /**
- * Vanilla route announcer — no React dependency.
+ * Vanilla route announcer. No React dependency.
  *
  * Listens for navigation events and announces the new route to screen readers
  * via taho's live region. Works with any router that fires either:
- *   - The browser Navigation API (navigate event) — modern browsers
- *   - hashchange / popstate — legacy SPA routers
+ *   - The browser Navigation API (navigate event): modern browsers
+ *   - hashchange / popstate: legacy SPA routers
  *
  * Usage:
  *   import { mountRouteAnnouncer } from '@ulam/taho/remix'
@@ -42,7 +42,7 @@ export function mountRouteAnnouncer(getLabel) {
 
   const cleanups = []
 
-  // Navigation API — fires for all navigations including push-state
+  // Navigation API: fires for all navigations including push-state
   if ('navigation' in window) {
     const onNavigate = (e) => {
       // navigateSuccess fires after the navigation commits

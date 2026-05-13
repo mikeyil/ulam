@@ -1,7 +1,7 @@
 /**
  * No-op shim for the Remix migration period.
  *
- * In Remix, page titles are set via the `meta` export on each route module —
+ * In Remix, page titles are set via the `meta` export on each route module;
  * not imperatively via a hook. This shim lets existing usePageTitle() call
  * sites compile without errors during the migration so they can be removed
  * one route at a time.

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { onEscapeKey } from '../../sili/core/escapeKey.js'
+import { onEscapeKey } from '../../core/escapeKey.js'
 
 export function useEscapeKey(isActive, onEscape) {
   useEffect(() => {

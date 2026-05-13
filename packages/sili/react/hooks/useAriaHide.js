@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { hideBackground } from '../../sili/core/ariaHide.js'
+import { hideBackground } from '../../core/ariaHide.js'
 
 /**
  * Hides all document.body children from the a11y tree while the overlay is open,
- * then restores them on close. Stacking-safe — only restores what this call set.
+ * then restores them on close. Stacking-safe; only restores what this call set.
  *
  * @param {React.RefObject} panelRef - ref attached to the overlay panel element
  * @param {boolean}         open     - whether the overlay is currently visible

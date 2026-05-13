@@ -1,8 +1,10 @@
 # ulam
 
-Accessibility utilities for the modern web. Vanilla-first, with optional React and Remix adapters.
+Accessibility utilities for the modern web. Vanilla-first, with optional React, Remix, Vue, and Angular adapters.
 
 Named for the Filipino word for dish: the thing everything else is built around.
+
+> Accessibility utilities for the modern web. Focus management, live region announcements, i18n, and UI components, each independently installable, vanilla-first, with optional React, Remix, Vue, and Angular adapters. Named for the Filipino word for dish.
 
 ## Packages
 
@@ -30,12 +32,13 @@ None of the four core packages import from each other or from sawsawan. Sawsawan
 
 ## Install
 
-Most packages are vanilla-first with optional React and Remix adapters. Install only what you need:
+Most packages are vanilla-first with optional framework adapters. Install only what you need:
 
 ```bash
-npm install @ulam/taho           # vanilla announcer, React and Remix adapters optional
-npm install @ulam/sili           # vanilla focus management, React and Remix adapters optional
-npm install @ulam/calamansi      # vanilla i18n, React adapter optional
+npm install @ulam/taho           # vanilla announcer; React, Remix, Vue, Angular adapters optional
+npm install @ulam/sili           # vanilla focus management; React, Remix, Vue, Angular adapters optional
+npm install @ulam/calamansi      # vanilla i18n; React, Vue, Angular adapters optional
+npm install @ulam/halohalo       # vanilla AI adapters; React, Vue, Angular adapters optional
 npm install @ulam/ube            # React only: UI components, theming, design tokens
 ```
 
@@ -51,16 +54,27 @@ npm install calamansi@npm:@ulam/calamansi
 
 Packages with framework-specific behavior ship subpath exports:
 
-| Subpath | Description |
-| ------- | ----------- |
-| `@ulam/taho` | Vanilla core |
-| `@ulam/taho/react` or `/bayabas` | React adapter |
-| `@ulam/taho/remix` or `/pandan` | Remix adapter |
-| `@ulam/sili` | Vanilla core |
-| `@ulam/sili/react` or `/labuyo` | React hooks, overlays, hash router |
-| `@ulam/sili/remix` or `/mahaba` | Remix adapter, same hooks, Remix router |
+| Subpath | Framework | Description |
+| ------- | --------- | ----------- |
+| `@ulam/taho` | any | Vanilla core |
+| `@ulam/taho/react` | React | `useAnnounce`, `Announcer` |
+| `@ulam/taho/remix` | Remix | Route announcer, React re-exports |
+| `@ulam/taho/vue` | Vue 3 | `useAnnounce` composable |
+| `@ulam/taho/angular` | Angular 17+ | `AnnounceService` |
+| `@ulam/sili` | any | Vanilla core |
+| `@ulam/sili/react` | React | Hooks, overlay components, hash router |
+| `@ulam/sili/remix` | Remix | Same hooks, Remix router |
+| `@ulam/sili/vue` | Vue 3 | Composables matching all React hooks |
+| `@ulam/sili/angular` | Angular 17+ | Services and standalone directives |
+| `@ulam/calamansi` | any | Vanilla core |
+| `@ulam/calamansi/react` | React | `I18nProvider`, `useT`, `usePref` |
+| `@ulam/calamansi/vue` | Vue 3 | `useT`, `usePref` composables |
+| `@ulam/calamansi/angular` | Angular 17+ | `I18nService`, `PrefService` |
+| `@ulam/halohalo` | any | Vanilla core |
+| `@ulam/halohalo/react` | React | `useCompletion`, `useProviderConfig` |
+| `@ulam/halohalo/vue` | Vue 3 | `useCompletion`, `useProviderConfig` composables |
+| `@ulam/halohalo/angular` | Angular 17+ | `CompletionService`, `ProviderConfigService` |
 
-The food name aliases (`/bayabas`, `/pandan`, `/labuyo`, `/mahaba`) resolve to the same entry points as the generic subpath names.
 
 ## License
 

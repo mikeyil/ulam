@@ -1,11 +1,11 @@
 /**
- * @ulam/calamansi/react — React adapter
+ * @ulam/calamansi/react: React adapter
  *
  * Thin React wrappers around the vanilla calamansi module API.
  * Use these in React apps during transition; vanilla consumers import
  * directly from '@ulam/calamansi'.
  *
- * REMIX 3 MIGRATION — I18nProvider:
+ * REMIX 3 MIGRATION: I18nProvider:
  *   In Remix 3, locale comes from a loader, not a React provider.
  *   Replace <I18nProvider locale={locale}> in root.jsx with:
  *
@@ -16,7 +16,7 @@
  *     }
  *     export default function Root() {
  *       const { locale } = useLoaderData()
- *       setLocale(locale)                      // vanilla call — no provider needed
+ *       setLocale(locale)                      // vanilla call, no provider needed
  *       return <Outlet />
  *     }
  *

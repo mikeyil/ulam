@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useFocusTrap } from '../hooks/useFocusTrap.js'
 import { useAriaHide } from '../hooks/useAriaHide.js'
 import { useEscapeKey } from '../hooks/useEscapeKey.js'
-import { returnFocus } from '../../sili/core/returnFocus.js'
+import { returnFocus } from '../../core/returnFocus.js'
 import DrawerPrimitive from './Drawer.jsx'
 
 export default function Drawer({ open, onClose, focusOnClose, children, ...rest }) {

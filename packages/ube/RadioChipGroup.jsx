@@ -1,7 +1,7 @@
 import RadioChip from './RadioChip.jsx'
 
 /**
- * RadioChipGroup — fieldset + visually hidden legend + RadioChip options.
+ * RadioChipGroup: fieldset + visually hidden legend + RadioChip options.
  *
  * @example
  * <RadioChipGroup

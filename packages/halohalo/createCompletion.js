@@ -4,20 +4,20 @@ import { AiApiError } from './providers.js'
 const DEFAULT_TYPEWRITER = { tickMs: 33, minCharsPerTick: 2, charDivisor: 40 }
 
 /**
- * Vanilla completion runner — no React required.
+ * Vanilla completion runner. No React required.
  * Returns { complete(options), cancel() } plus a subscribe() for state changes.
  *
  * State: { loading: boolean, animating: boolean }
  *
  * options for complete():
- *   provider, model, key, prompt, maxTokens — for standard completions
- *   agentOptions: { system, tools, messages, maxTurns, onToolCall } — for agentic
- *   onResult(fields)       — called with parsed result after completion
- *   onError(error)         — called with AiApiError on failure
- *   parseResponse(text)    — maps raw text to result fields object
- *   typewriter             — { tickMs, minCharsPerTick, charDivisor } or false
- *   onAnimate(field, text) — called each tick with field + current text slice
- *   onAnimateDone()        — called when typewriter finishes
+ *   provider, model, key, prompt, maxTokens: for standard completions
+ *   agentOptions: { system, tools, messages, maxTurns, onToolCall }: for agentic
+ *   onResult(fields)       : called with parsed result after completion
+ *   onError(error)         : called with AiApiError on failure
+ *   parseResponse(text)    : maps raw text to result fields object
+ *   typewriter             : { tickMs, minCharsPerTick, charDivisor } or false
+ *   onAnimate(field, text) : called each tick with field + current text slice
+ *   onAnimateDone()        : called when typewriter finishes
  */
 export function createCompletion() {
   let loading = false

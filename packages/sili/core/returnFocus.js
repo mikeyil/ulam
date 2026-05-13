@@ -1,5 +1,5 @@
 /**
- * returnFocus(el) — programmatic focus that always shows the visible focus ring.
+ * returnFocus(el): programmatic focus that always shows the visible focus ring.
  *
  * Plain .focus() only triggers :focus-visible when the browser's keyboard-modality
  * flag is set. When a dialog closes after a mouse-click open, .focus() returns

@@ -1,14 +1,14 @@
 /**
  * Vanilla DOM live region announcer.
  *
- * announce() can be called from anywhere — event handlers, async callbacks,
- * service files, outside the React tree — with no setup required. The live
+ * announce() can be called from anywhere: event handlers, async callbacks,
+ * service files, outside the React tree, with no setup required. The live
  * region DOM nodes are created lazily on the first call and persist for the
  * lifetime of the page.
  *
  * The optional <Announcer /> React component (@ulam/taho/react) provides a
  * dev-mode toast overlay that makes announcements visible during development.
- * It does not drive the actual screen reader announcements — this module does.
+ * It does not drive the actual screen reader announcements; this module does.
  *
  * Adapted from adobe/react-spectrum @react-aria/live-announcer.
  * Copyright 2020 Adobe. All rights reserved. Apache-2.0.
@@ -92,13 +92,13 @@ const _listeners = new Set()
  * @param {string} message
  * @param {object} [options]
  * @param {'polite' | 'assertive'} [options.priority='polite']
- *   'polite'    — waits for a natural pause before reading. Default. Use for
+ *   'polite'    : waits for a natural pause before reading. Default. Use for
  *                 status updates, confirmations, background notifications.
- *   'assertive' — interrupts the screen reader immediately. Use only for
+ *   'assertive' : interrupts the screen reader immediately. Use only for
  *                 time-critical errors the user must act on right now.
  * @param {boolean} [options.alert=false]
  *   Explicitly route the message through role="alert" (same DOM node as
- *   priority:'assertive'). Use when semantics matter — e.g. a form validation
+ *   priority:'assertive'). Use when semantics matter, e.g. a form validation
  *   summary that should be recognised as an alert by ATs, not just a loud
  *   live region. Implies assertive interruption.
  *
@@ -132,7 +132,7 @@ export function clearAnnouncements() {
   if (_assertiveEl) { clearTimeout(_assertiveTimer); _assertiveEl.textContent = '' }
 }
 
-/** @internal -- used only by @ulam/taho/react Announcer dev toast */
+/** @internal: used only by @ulam/taho/react Announcer dev toast */
 export function _subscribe(fn) {
   _listeners.add(fn)
   return () => _listeners.delete(fn)
