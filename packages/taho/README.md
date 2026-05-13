@@ -4,16 +4,15 @@ ARIA live region announcer. Vanilla core with React and Remix adapters.
 
 Named for taho, the Filipino street drink: warm, light, and always there when you need it.
 
-## Packages
-
-Taho is one of four ulam packages:
+## The ulam framework
 
 ```text
 ulam
-├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
 ├── @ulam/taho         warm   : ARIA live region announcer  ← you are here
-└── @ulam/sawsawan     bridge : wires the three together
+├── @ulam/sili         hot    : focus management, overlays, routing
+├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet  : React UI components, theming
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
 ## Install
@@ -24,30 +23,30 @@ npm install @ulam/taho
 
 ## Usage
 
-### Vanilla (no framework)
+### Vanilla
+
+No setup required. The live region DOM nodes are created lazily on first call.
 
 ```js
 import { announce } from '@ulam/taho'
 
-announce('Settings: Saved')
-announce('Error: Invalid key', { priority: 'assertive' })
+announce('Settings saved')
+announce('Invalid key', { priority: 'assertive' })
 ```
-
-No setup required. The live region DOM nodes are created lazily on first call and persist for the lifetime of the page.
 
 ### React
 
 ```jsx
 import { Announcer, announce, useAnnounce } from '@ulam/taho/react'
-// or: import { Announcer, announce, useAnnounce } from '@ulam/taho/bayabas'
+// alias: @ulam/taho/bayabas
 
 // Mount once at app root
 <Announcer />
 
-// Direct call from anywhere
-announce('Copy: Copied to clipboard')
+// From anywhere in the app
+announce('Copy: copied to clipboard')
 
-// Hook style inside a component
+// Or via hook inside a component
 const announce = useAnnounce()
 announce('Search: 12 results')
 ```
@@ -56,7 +55,7 @@ announce('Search: 12 results')
 
 ```jsx
 import { Announcer, useRouteAnnouncer } from '@ulam/taho/remix'
-// or: import { Announcer, useRouteAnnouncer } from '@ulam/taho/pandan'
+// alias: @ulam/taho/pandan
 
 // In root.jsx
 export default function Root() {
@@ -70,41 +69,63 @@ export default function Root() {
 }
 ```
 
-`useRouteAnnouncer` announces route transitions to screen readers. Remix does not manage focus or announcements on client-side navigations -- this hook fills that gap.
-
 ### Vanilla route announcer
+
+For any router that fires browser navigation events:
 
 ```js
 import { mountRouteAnnouncer } from '@ulam/taho/remix'
 
 const unmount = mountRouteAnnouncer()
-// or with a custom label:
-const unmount = mountRouteAnnouncer(() => document.querySelector('h1')?.textContent ?? document.title)
 
-// clean up on teardown
-unmount()
+// Custom label resolver (recommended):
+const unmount = mountRouteAnnouncer(
+  () => document.querySelector('h1')?.textContent ?? document.title
+)
+
+unmount() // clean up on teardown
 ```
+
+For routers that do not fire browser navigation events:
+
+```js
+import { notifyRouteChange } from '@ulam/taho/remix'
+
+router.on('navigate', ({ pathname }) => notifyRouteChange(pathname))
+```
+
+## Why Remix needs this
+
+Remix and React Router v7 do not announce route changes to screen readers. Their official docs acknowledge that "screen-reader users benefit from announcements when a route has changed" but provide no built-in solution, noting only that they are "actively investigating" the problem. That investigation has not shipped.
+
+Without an explicit announcement, screen reader users have no signal that navigation occurred. They can be left reading stale content with no indication the page changed.
+
+SvelteKit ships a built-in route announcer. Nuxt added one in v4.4. React Router does not have one.
+
+The pattern here follows the research-backed guidance from Marcy Sutton's 2019 user testing with disabled users: announce the new page to a live region after navigation settles, using the page heading or document title as the announcement string.
+
+Pair with `@ulam/sili/remix` for complete coverage. Taho handles the screen reader announcement; sili handles moving keyboard focus to the new content.
 
 ## Subpath exports
 
 | Import | Alias | Contents |
 | ------ | ----- | -------- |
-| `@ulam/taho` | -- | Vanilla core: `announce`, `clearAnnouncements` |
-| `@ulam/taho/react` | `@ulam/taho/bayabas` | React adapter: `Announcer`, `useAnnounce` + vanilla re-exports |
-| `@ulam/taho/remix` | `@ulam/taho/pandan` | Remix adapter: `useRouteAnnouncer`, `mountRouteAnnouncer`, `notifyRouteChange` + React re-exports |
+| `@ulam/taho` | | Vanilla core: `announce`, `clearAnnouncements` |
+| `@ulam/taho/react` | `/bayabas` | `Announcer`, `useAnnounce`, vanilla re-exports |
+| `@ulam/taho/remix` | `/pandan` | `useRouteAnnouncer`, `mountRouteAnnouncer`, `notifyRouteChange`, React re-exports |
 
 ## Message format
 
-Prefix announcements with context: `"Settings: Saved"` not `"Saved"`. Bare messages are ambiguous to screen reader users who may have missed where the action came from.
+Prefix with context: `"Settings: Saved"` not `"Saved"`. Bare messages are ambiguous to screen reader users who may have missed where the action came from.
 
 ## Priority
 
-- `'polite'` (default) -- waits for a natural pause. Use for confirmations, results, background updates.
-- `'assertive'` -- interrupts immediately. Use only for errors and urgent alerts.
+- `'polite'` (default): waits for a natural pause. Use for confirmations, results, background updates.
+- `'assertive'`: interrupts immediately. Use only for errors and urgent alerts.
 
 ## What not to announce
 
-Do not announce focus-managed transitions (modals opening, page navigation). Screen readers announce focus targets automatically. Only announce things the user cannot see or that happen outside their current focus.
+Do not announce focus-managed transitions like modals opening or page navigation. Screen readers announce focus targets automatically. Only announce things that happen outside the user's current focus.
 
 ## Implementation
 

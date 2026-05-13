@@ -4,16 +4,15 @@ Focus management, ARIA hide, escape key, scroll lock, and routing hooks. Vanilla
 
 Named for sili, the Filipino chili pepper: small, sharp, does exactly what it needs to.
 
-## Packages
-
-Sili is one of four ulam packages:
+## The ulam framework
 
 ```text
 ulam
-├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
 ├── @ulam/sili         hot    : focus management, overlays, routing  ← you are here
-└── @ulam/sawsawan     bridge : wires the three together
+├── @ulam/taho         warm   : ARIA live region announcer
+├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet  : React UI components, theming
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
 ## Install
@@ -24,19 +23,19 @@ npm install @ulam/sili
 
 ## Usage
 
-### Vanilla (no framework)
+### Vanilla
 
 ```js
 import { trapFocus, getFocusable, hideBackground, returnFocus, onEscapeKey, lockScroll } from '@ulam/sili'
 
 // Focus trap
 const release = trapFocus(containerEl)
-release() // restore
+release()
 
 // Get all focusable elements
 const focusable = getFocusable(containerEl)
 
-// ARIA hide background content
+// ARIA hide background content while an overlay is open
 const restore = hideBackground(panelEl)
 restore()
 
@@ -52,73 +51,113 @@ const unlock = lockScroll()
 unlock()
 ```
 
-### React
+### React route focus
+
+Move focus to the page heading after each client-side navigation:
+
+```js
+import { mountRouteFocus } from '@ulam/sili/react'
+// alias: @ulam/sili/labuyo
+
+const unmount = mountRouteFocus()
+unmount() // clean up on teardown
+```
+
+Or call manually from a router callback:
+
+```js
+import { focusPageHeading } from '@ulam/sili/react'
+
+router.on('navigate', () => focusPageHeading())
+```
+
+### React hooks
 
 ```jsx
 import {
-  useFocusTrap, useAriaHide, useReturnFocus, useEscapeKey,
-  useFocusOnMount, useFocusOnChange, usePaginationFocus,
-  useDir, useMediaQuery, usePageTitle,
-  Modal, Drawer, Sheet,
-  Router, useRouter,
+  useFocusTrap,
+  useAriaHide,
+  useReturnFocus,
+  useEscapeKey,
+  useFocusOnMount,
+  useFocusOnChange,
+  usePaginationFocus,
+  useDir,
+  useMediaQuery,
+  usePageTitle,
 } from '@ulam/sili/react'
-// or: import { ... } from '@ulam/sili/labuyo'
+// alias: @ulam/sili/labuyo
 
 // Focus trap
 const containerRef = useRef(null)
 useFocusTrap(containerRef, isOpen)
 
-// Focus on mount (page headings, modal open)
+// Focus the heading when a page or panel mounts
 const headingRef = useFocusOnMount()
 <h1 ref={headingRef} tabIndex={-1}>Page Title</h1>
 
-// Restore focus to trigger on unmount
+// Restore focus to the trigger element when this component unmounts
 useReturnFocus()
 
-// Escape key
+// Dismiss on Escape
 useEscapeKey(() => onClose(), isOpen)
 
-// RTL-aware direction
+// RTL-aware direction, reactive to html[dir]
 const dir = useDir() // 'ltr' | 'rtl'
 
-// Page title
+// Set document.title
 usePageTitle('Settings')
-
-// Hash-based SPA router
-<Router>
-  <AppShell />
-</Router>
-
-const { route, navigate } = useRouter()
 ```
+
+### Overlay components (React)
+
+```jsx
+import { Modal, Drawer, Sheet } from '@ulam/sili/react'
+
+<Modal open={isOpen} onClose={close} label="Confirm deletion">
+  ...
+</Modal>
+
+<Drawer open={isOpen} onClose={close} label="Filters">
+  ...
+</Drawer>
+
+<Sheet open={isOpen} onClose={close} label="Details">
+  ...
+</Sheet>
+```
+
+All three overlays handle focus trap, ARIA hide, Escape to dismiss, and return focus automatically.
 
 ### Remix
 
+`@ulam/sili/remix` (alias: `/mahaba`) is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
+
 ```jsx
-import {
-  useFocusTrap, useAriaHide, useReturnFocus, useEscapeKey,
-  useFocusOnMount, useFocusOnChange, usePaginationFocus,
-  useDir, useMediaQuery,
-  Modal, Drawer, Sheet,
-  useRouter, useRouteMatch,
-  mountRouteFocus, focusPageHeading,
-} from '@ulam/sili/remix'
-// or: import { ... } from '@ulam/sili/mahaba'
+import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
 ```
 
-`@ulam/sili/remix` is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
+## Why Remix needs this
+
+Remix and React Router v7 do not manage focus on route change. Their official docs reference Marcy Sutton's 2019 user research and acknowledge focus management as important, but nothing is implemented. An open discussion in the remix-run/react-router repo (#9555) has been unresolved since at least January 2025, with the core team noting it conflicts with scroll restoration.
+
+Without explicit focus management, keyboard and screen reader users have no consistent entry point into a new route. They may remain focused on a now-removed element, or at a stale position in the document.
+
+SvelteKit moves focus to `<body>` after every navigation by default, with opt-in customization. React Router does nothing.
+
+User research (Sutton, 2019) found that moving focus to the page's main `<h1>` heading was the most preferred pattern among disabled users. `mountRouteFocus` and `focusPageHeading` implement this pattern.
+
+Pair with `@ulam/taho/remix` for complete coverage. Sili handles moving keyboard focus to the new content; taho handles the screen reader announcement.
 
 ## Subpath exports
 
 | Import | Alias | Contents |
 | ------ | ----- | -------- |
-| `@ulam/sili` | -- | Vanilla core: `trapFocus`, `getFocusable`, `hideBackground`, `returnFocus`, `onEscapeKey`, `lockScroll` |
-| `@ulam/sili/react` | `@ulam/sili/labuyo` | React hooks + overlay components + hash router |
-| `@ulam/sili/remix` | `@ulam/sili/mahaba` | Remix adapter -- same hooks and overlays, Remix router replaces hash router |
+| `@ulam/sili` | | Vanilla core: `trapFocus`, `getFocusable`, `hideBackground`, `returnFocus`, `onEscapeKey`, `lockScroll` |
+| `@ulam/sili/react` | `/labuyo` | React hooks, overlay components, hash router |
+| `@ulam/sili/remix` | `/mahaba` | Remix adapter: same hooks and overlays, Remix router instead of hash router |
 
 ## Overlay components
-
-All three overlays handle focus trap, ARIA hide, escape to dismiss, and return focus automatically.
 
 | Component | Description |
 | --------- | ----------- |
@@ -126,7 +165,7 @@ All three overlays handle focus trap, ARIA hide, escape to dismiss, and return f
 | `Drawer` | Slide-in panel from the left |
 | `Sheet` | Slide-up bottom sheet, collapses on desktop |
 
-Primitive versions (`ModalPrimitive`, `DrawerPrimitive`, `SheetPrimitive`) are also exported -- structure only, no focus management, for cases where you need full control.
+Primitive versions (`ModalPrimitive`, `DrawerPrimitive`, `SheetPrimitive`) are also exported. Structure only, no built-in focus management, for cases where you need full control.
 
 ## Focus rules (WCAG 2.4.3)
 
@@ -136,7 +175,7 @@ Primitive versions (`ModalPrimitive`, `DrawerPrimitive`, `SheetPrimitive`) are a
 4. Overlay open: set background inert (`useAriaHide`)
 5. Escape: each overlay layer handles its own
 6. Paginated content: use `usePaginationFocus` on page change
-7. Accordion: leave focus on trigger, do not use `useFocusOnMount` on content
+7. Accordion: leave focus on the trigger, do not use `useFocusOnMount` on the panel
 
 ## License
 

@@ -4,16 +4,16 @@ AI service adapters, model configuration, and provider abstraction. Vanilla core
 
 Named for halo-halo, the Filipino shaved ice dessert: a mix of many things that somehow works together.
 
-## Packages
-
-Halohalo is one of four ulam packages:
+## The ulam framework
 
 ```text
 ulam
-├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
 ├── @ulam/halohalo     mixed  : AI provider adapters  ← you are here
-└── @ulam/sawsawan     bridge : wires the three together
+├── @ulam/taho         warm   : ARIA live region announcer
+├── @ulam/sili         hot    : focus management, overlays, routing
+├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet  : React UI components, theming
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
 ## Install
@@ -22,15 +22,15 @@ ulam
 npm install @ulam/halohalo
 ```
 
-Peer dependencies: `fuse.js >= 7` (for search), `react >= 18` (for hooks adapter).
+Peer dependencies: `fuse.js >= 7` (for search), `react >= 18` (for the hooks adapter).
 
 ## Supported providers
 
-- **Anthropic** (Claude)
-- **OpenAI** (GPT)
-- **Google** (Gemini)
+- Anthropic (Claude)
+- OpenAI (GPT)
+- Google (Gemini)
 
-Bring your own API key. Keys stay in the browser (localStorage) and are sent directly to the provider -- never to a server.
+Bring your own API key. Keys stay in the browser via localStorage and are sent directly to the provider, never to a server.
 
 ## Usage
 
@@ -68,7 +68,9 @@ const result = await callAnthropicWithTools({
 })
 ```
 
-### Agentic mode (search + rewrite)
+### Agentic mode
+
+Agentic mode uses tool calling to search the corpus for similar past revisions before rewriting, matching the tone and depth of established work.
 
 ```js
 import { getAgenticRefinement } from '@ulam/halohalo'
@@ -79,16 +81,14 @@ const revised = await getAgenticRefinement({
 })
 ```
 
-Agentic mode uses tool calling to search the corpus for similar past revisions before rewriting, matching the tone and depth of established work.
-
-### React hooks
+### React hooks adapter
 
 ```jsx
 import { useProviderConfig, useCompletion } from '@ulam/halohalo/react'
 
 function AISettings() {
   const { provider, model, setProvider } = useProviderConfig()
-  const { complete, loading, error } = useCompletion()
+  const { complete, loading } = useCompletion()
 
   return (
     <button onClick={() => complete('Rewrite this for mobile.')}>
