@@ -1,6 +1,6 @@
 # @ulam/sawsawan
 
-Integration bridge wiring ube, calamansi, and rogers together. The dipping sauce of the [ulam](../../docs/ulam.md) framework.
+Integration bridge wiring ube and calamansi together. The dipping sauce of the ulam framework.
 
 Named for sawsawan, the Filipino dipping sauce: no purpose alone, exists only to bring other things together.
 
@@ -12,18 +12,16 @@ Sawsawan is one of four ulam packages:
 ulam
 ├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-├── @a11yfred/rogers               : a11y debug panel, vanilla-first
 └── @ulam/sawsawan     bridge : wires the three together  ← you are here
 ```
 
 ## Dependency rule
 
-Sawsawan is the only package that imports from the other three. None of them import from sawsawan or from each other.
+Sawsawan is the only package that imports from the others. None of them import from sawsawan or from each other.
 
 ```text
 ube ──────────┐
-calamansi ────┤──► sawsawan
-rogers ────────┘
+calamansi ────┴──► sawsawan
 ```
 
 ## Responsibilities
@@ -31,7 +29,6 @@ rogers ────────┘
 - Set `html[lang]` when locale switches
 - Set `html[dir]` for RTL locales
 - Wire `t()` output into `announce()` on locale change
-- Connect rogers debug notifications through ube's announce channel
 
 ## Usage
 

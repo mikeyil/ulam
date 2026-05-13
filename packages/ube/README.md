@@ -12,11 +12,10 @@ Ube is one of four ulam packages:
 ulam
 ├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce  ← you are here
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-├── @a11yfred/rogers               : a11y debug panel, vanilla-first
 └── @ulam/sawsawan     bridge : wires the three together
 ```
 
-Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from calamansi, rogers, or sawsawan.
+Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from calamansi or sawsawan.
 
 ## Install
 
@@ -35,7 +34,6 @@ Install with aliases:
 ```bash
 npm install ube@npm:@ulam/ube
 npm install calamansi@npm:@ulam/calamansi
-npm install rogers@npm:@a11yfred/rogers
 npm install sawsawan@npm:@ulam/sawsawan
 ```
 
@@ -46,7 +44,6 @@ Your `package.json` will show:
   "dependencies": {
     "ube": "npm:@ulam/ube",
     "calamansi": "npm:@ulam/calamansi",
-    "rogers": "npm:@a11yfred/rogers",
     "sawsawan": "npm:@ulam/sawsawan"
   }
 }
@@ -64,7 +61,6 @@ Or use any name you like: the alias is yours to choose:
 ```bash
 npm install ui@npm:@ulam/ube
 npm install i18n@npm:@ulam/calamansi
-npm install a11y-debug@npm:@a11yfred/rogers
 ```
 
 The canonical package names (`@ulam/ube` etc.) are always the stable reference. Aliases are a local convenience and do not affect the published package.
@@ -708,10 +704,6 @@ Import order:
 **RTL-aware.** Direction-sensitive components (BackButton, overlays, layout) respond to `html[dir="rtl"]` automatically.
 
 **Zero opinion on data.** Components accept props and call handlers. No built-in state management, no assumptions about routing libraries (beyond the included router plugin), no opinions about where your data lives.
-
----
-
-All components in this folder are portable `@ulam/ube` primitives.
 
 ---
 

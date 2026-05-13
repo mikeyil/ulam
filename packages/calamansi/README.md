@@ -1,6 +1,6 @@
 # @ulam/calamansi
 
-Data-agnostic i18n, hooks, and logic utilities. The sour layer of the [ulam](../../docs/ulam.md) framework.
+Data-agnostic i18n, hooks, and logic utilities. The sour layer of the ulam framework.
 
 Named for the iconic Filipino sour citrus. Small, essential, full of character.
 
@@ -12,7 +12,6 @@ Calamansi is one of four ulam packages:
 ulam
 ├── @ulam/ube          sweet   — UI, components, CSS, theming, router, announce
 ├── @ulam/calamansi    sour    — i18n, hooks, utilities, logic  ← you are here
-├── @a11yfred/rogers               : a11y debug panel, vanilla-first
 └── @ulam/sawsawan     bridge  — wires the three together
 ```
 
@@ -39,7 +38,7 @@ function MyComponent() {
 
 - **Interpolation** — `t('hello', { name: 'Mikey' })` → `"Hello, Mikey"`
 - **Fallback** — missing keys fall back to `en`, never show a raw key
-- **59 locale files** — production demonstration included
+- **No bundled translations** — bring your own locale data; any `{ key: value }` object works
 
 ### Design principles
 
@@ -55,15 +54,14 @@ Calamansi has no dependency on ube. Dependency flows one direction only:
 calamansi ──► sawsawan (only cross-importer)
 ```
 
-Neither ube nor rogers import from calamansi.
+Neither ube nor sawsawan import from calamansi directly.
 
-## Future: Fork to @ulam/calamansi
+## Subpath exports
 
-This code lives in a11yfred until closer to the webapp launch. Planned subpath exports at fork time:
+Planned subpath split:
 
 ```text
 @ulam/calamansi          — everything
-@ulam/calamansi/i18n     — just t(), locale loader, RTL detection
 @ulam/calamansi/react    — I18nProvider, useT()
 @ulam/calamansi/hooks    — React hooks
 @ulam/calamansi/utils    — utilities
