@@ -1,0 +1,32 @@
+{
+  "name": "@ulam/sawsawan",
+  "version": "0.1.0",
+  "description": "Integration bridge wiring ube, calamansi, taho, and halohalo together.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeyil/ulam.git",
+    "directory": "packages/sawsawan"
+  },
+  "keywords": ["ulam", "integration", "bridge", "react"],
+  "exports": {
+    ".": "./index.js",
+    "./react": "./react.js"
+  },
+  "files": ["*.js", "README.md"],
+  "peerDependencies": {
+    "react": ">=18",
+    "@ulam/ube": "*",
+    "@ulam/calamansi": "*",
+    "@ulam/taho": "*",
+    "@ulam/halohalo": "*"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "@ulam/ube": { "optional": true },
+    "@ulam/calamansi": { "optional": true },
+    "@ulam/taho": { "optional": true },
+    "@ulam/halohalo": { "optional": true }
+  }
+}

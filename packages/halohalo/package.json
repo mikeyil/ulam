@@ -1,0 +1,26 @@
+{
+  "name": "@ulam/halohalo",
+  "version": "0.1.0",
+  "description": "AI service adapters, model configuration, and provider abstraction.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeyil/ulam.git",
+    "directory": "packages/halohalo"
+  },
+  "keywords": ["ai", "llm", "anthropic", "openai", "react", "hooks", "ulam"],
+  "exports": {
+    ".": "./index.js",
+    "./react": "./react.js"
+  },
+  "files": ["*.js", "README.md"],
+  "peerDependencies": {
+    "react": ">=18",
+    "fuse.js": ">=7"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "fuse.js": { "optional": true }
+  }
+}

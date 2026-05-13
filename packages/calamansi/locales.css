@@ -1,0 +1,58 @@
+/* @ulam/calamansi — locale font overrides
+   Styles off the lang attribute already on <html>. Targets semantic
+   heading elements only — no app-specific class names. */
+
+/* ─── Na'vi: Papyrus ─────────────────────────────────────────────────────── */
+:root[lang="nav"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Papyrus, fantasy;
+}
+
+/* ─── Pig Latin + Simlish: Comic Sans ───────────────────────────────────── */
+:is(:root[lang="pig"], :root[lang="sim"]) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+/* ─── Pirate + High Valyrian: old-world serif ───────────────────────────── */
+:is(:root[lang="pir"], :root[lang="val"]) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+}
+
+/* ─── Quenya + Sindarin: Tolkien serif ──────────────────────────────────── */
+:is(:root[lang="qya"], :root[lang="sjn"]) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
+}
+
+/* ─── Klingon + Hodor + Newspeak: blunt impact ──────────────────────────── */
+:is(:root[lang="tlh"], :root[lang="hod"], :root[lang="nws"]) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Impact, "Arial Black", sans-serif;
+}
+
+/* ─── Belter + Nadsat + Cityspeak: typewriter ───────────────────────────── */
+:is(:root[lang="blt"], :root[lang="nds"], :root[lang="csp"]) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Dothraki: tribal serif ────────────────────────────────────────────── */
+:root[lang="dot"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* ─── Toki Pona: handwritten ────────────────────────────────────────────── */
+:root[lang="tok"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Segoe Print", "Comic Sans MS", cursive;
+}
+
+/* ─── Dovahzul: Gothic runic ────────────────────────────────────────────── */
+:root[lang="dov"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Old English Text MT", "Palatino Linotype", fantasy;
+}
+
+/* ─── Mandoa: sci-fi terminal ───────────────────────────────────────────── */
+:root[lang="mnd"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+/* ─── Alienese: stark alien ─────────────────────────────────────────────── */
+:root[lang="ali"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Arial Black", Impact, sans-serif;
+}
