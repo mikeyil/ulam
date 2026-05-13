@@ -1,5 +1,5 @@
 // HASH ROUTER — SPA only. Remove when migrating to Remix 3.
-// Replace with Remix 3 file-based routing + siling-mahaba adapter.
+// Replace with Remix 3 file-based routing + @ulam/sili/remix adapter.
 // See REMIX-MIGRATION.md Part 2 Phase 2.
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 

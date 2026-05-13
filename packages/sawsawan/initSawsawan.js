@@ -1,4 +1,4 @@
-import { announce } from '../taho/index.js'
+import { announce } from '../taho/core/index.js'
 
 /**
  * Announces a locale change via the taho announcer.

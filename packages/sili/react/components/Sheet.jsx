@@ -36,7 +36,7 @@ function DefaultCollapseIcon() {
 /**
  * Bottom sheet shell — structure, swipe gesture, and CSS classes only.
  * No focus management, aria-hide, escape handling, or scroll lock.
- * Use SheetReact (exported as Sheet from @ulam/siling-labuyo/react) for the
+ * Use SheetReact (exported as Sheet from @ulam/sili/react) for the
  * fully-wired React + sili version.
  *
  * Props:

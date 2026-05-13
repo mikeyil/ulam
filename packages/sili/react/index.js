@@ -1,6 +1,6 @@
-// @ulam/siling-labuyo — React adapter for sili focus management
+// @ulam/sili/react — React adapter for sili focus management
 // Re-exports all hooks and component shells for React / React Router apps.
-// For Remix, use @ulam/siling-mahaba instead.
+// For Remix, use @ulam/sili/remix instead.
 
 // Vanilla core (re-exported for convenience)
 export { returnFocus } from '../sili/core/returnFocus.js'

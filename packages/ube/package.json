@@ -20,10 +20,14 @@
   "files": ["*.js", "*.jsx", "*.css", "README.md"],
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "@ulam/sili": "*",
+    "@ulam/taho": "*"
   },
   "peerDependenciesMeta": {
     "react": { "optional": true },
-    "react-dom": { "optional": true }
+    "react-dom": { "optional": true },
+    "@ulam/sili": { "optional": true },
+    "@ulam/taho": { "optional": true }
   }
 }

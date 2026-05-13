@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useNavigation, useLocation } from 'react-router'
-import { announce } from '../taho/announce.js'
+import { announce } from '../core/announce.js'
 
 /**
  * Announces route transitions to screen readers.

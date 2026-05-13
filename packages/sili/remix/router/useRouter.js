@@ -1,6 +1,5 @@
 import { useNavigate, useLocation, useMatches } from 'react-router'
-// eslint-disable-next-line @a11yfred/neighbor/no-hash-router-in-remix -- adapter layer; matchRoute is the only dependency on siling-labuyo
-import { matchRoute } from '../../siling-labuyo/hashRouter/Router.jsx'
+import { matchRoute } from '../../react/hashRouter/Router.jsx'
 
 export function useRouter() {
   const navigate = useNavigate()

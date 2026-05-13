@@ -6,7 +6,7 @@
  * region DOM nodes are created lazily on the first call and persist for the
  * lifetime of the page.
  *
- * The optional <Announcer /> React component (@ulam/taho-bayabas) provides a
+ * The optional <Announcer /> React component (@ulam/taho/react) provides a
  * dev-mode toast overlay that makes announcements visible during development.
  * It does not drive the actual screen reader announcements — this module does.
  *
@@ -132,7 +132,7 @@ export function clearAnnouncements() {
   if (_assertiveEl) { clearTimeout(_assertiveTimer); _assertiveEl.textContent = '' }
 }
 
-/** @internal — used only by taho-bayabas Announcer dev toast */
+/** @internal -- used only by @ulam/taho/react Announcer dev toast */
 export function _subscribe(fn) {
   _listeners.add(fn)
   return () => _listeners.delete(fn)

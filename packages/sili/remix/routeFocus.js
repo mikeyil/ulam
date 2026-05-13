@@ -6,16 +6,16 @@
  * links and container focus for orienting screen reader users after a
  * route change (Gatsby accessible routing research, 2019).
  *
- * Works with any router. Pairs with taho-pandan/routeAnnouncer.js:
+ * Works with any router. Pairs with @ulam/taho/remix routeAnnouncer:
  * routeAnnouncer announces the new route, routeFocus moves keyboard
  * position to the new content. Both together are needed for full coverage.
  *
- * Usage — automatic (browser Navigation API / popstate):
- *   import { mountRouteFocus } from '@ulam/siling-mahaba/routeFocus'
+ * Usage -- automatic (browser Navigation API / popstate):
+ *   import { mountRouteFocus } from '@ulam/sili/remix'
  *   const unmount = mountRouteFocus()
  *
- * Usage — manual (custom router callback):
- *   import { focusPageHeading } from '@ulam/siling-mahaba/routeFocus'
+ * Usage -- manual (custom router callback):
+ *   import { focusPageHeading } from '@ulam/sili/remix'
  *   router.on('navigate', () => focusPageHeading())
  *
  * The h1 must exist in the DOM before focusPageHeading() is called.

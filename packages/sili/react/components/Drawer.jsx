@@ -2,7 +2,7 @@ import { useRef } from 'react'
 
 /**
  * Drawer shell — structure only, no focus management or escape handling.
- * Use Drawer (from @ulam/siling-labuyo/react) for the fully-wired React + sili version.
+ * Use Drawer (from @ulam/sili/react) for the fully-wired React + sili version.
  *
  * Props:
  *   open         boolean

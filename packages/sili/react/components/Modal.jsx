@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 /**
  * Modal shell — structure only, no focus management or escape handling.
- * Use Modal (from @ulam/siling-labuyo/react) for the fully-wired React + sili version.
+ * Use Modal (from @ulam/sili/react) for the fully-wired React + sili version.
  *
  * Props:
  *   open          boolean

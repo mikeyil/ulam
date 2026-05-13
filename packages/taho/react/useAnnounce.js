@@ -1,4 +1,4 @@
-import { announce } from '../taho/announce.js'
+import { announce } from '../core/announce.js'
 
 /**
  * Returns the announce() function. Use this inside React components when

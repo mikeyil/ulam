@@ -1,4 +1,4 @@
-import { announce } from '../taho/announce.js'
+import { announce } from '../core/announce.js'
 
 /**
  * Vanilla route announcer — no React dependency.
@@ -9,7 +9,7 @@ import { announce } from '../taho/announce.js'
  *   - hashchange / popstate — legacy SPA routers
  *
  * Usage:
- *   import { mountRouteAnnouncer } from '@ulam/taho-pandan/routeAnnouncer'
+ *   import { mountRouteAnnouncer } from '@ulam/taho/remix'
  *
  *   const unmount = mountRouteAnnouncer()
  *   // or with a custom label resolver:
@@ -19,7 +19,7 @@ import { announce } from '../taho/announce.js'
  *
  * For framework routers that don't fire browser navigation events (e.g. a
  * custom Remix 3 router), use notifyRouteChange() directly:
- *   import { notifyRouteChange } from '@ulam/taho-pandan/routeAnnouncer'
+ *   import { notifyRouteChange } from '@ulam/taho/remix'
  *   router.on('navigate', ({ pathname }) => notifyRouteChange(pathname))
  *
  * @param {() => string} [getLabel]
