@@ -30,13 +30,13 @@ None of the four core packages import from each other or from sawsawan. Sawsawan
 
 ## Install
 
-Install only what you need:
+Most packages are vanilla-first with optional React and Remix adapters. Install only what you need:
 
 ```bash
-npm install @ulam/taho           # announcer only
-npm install @ulam/sili           # focus management only
-npm install @ulam/calamansi      # i18n only
-npm install @ulam/ube            # full React UI component set
+npm install @ulam/taho           # vanilla announcer, React and Remix adapters optional
+npm install @ulam/sili           # vanilla focus management, React and Remix adapters optional
+npm install @ulam/calamansi      # vanilla i18n, React adapter optional
+npm install @ulam/ube            # React only: UI components, theming, design tokens
 ```
 
 Or with npm aliases if you prefer shorter import names:
