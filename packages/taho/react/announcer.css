@@ -1,24 +1,7 @@
-/* ── Announce plugin — dev-only toast styles ─────────────────────────────────
-   Imported by Announcer.jsx so the plugin is self-contained.
-   These styles only affect the visible dev toast (shown when IS_DEV is true).
-   The sr-only live regions have no visible styling needs.
-   ────────────────────────────────────────────────────────────────────────── */
-
-/* keyframes */
-
 @keyframes announce-toast-fade-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(10px); }
 }
-
-/* toast element */
 
 .announce-toast {
   position: fixed;
@@ -41,17 +24,9 @@
   gap: 0.25em;
 }
 
-.announce-toast--hidden {
-  display: none;
-}
-
-.announce-toast--assertive {
-  background: rgb(180 0 0 / 0.88);
-}
-
-.announce-toast--fading {
-  animation: announce-toast-fade-out 0.4s ease forwards;
-}
+.announce-toast--hidden { display: none; }
+.announce-toast--assertive { background: rgb(180 0 0 / 0.88); }
+.announce-toast--fading { animation: announce-toast-fade-out 0.4s ease forwards; }
 
 .announce-toast__badge {
   font-size: 0.65em;
@@ -62,8 +37,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .announce-toast--fading {
-    animation: none;
-    opacity: 0;
-  }
+  .announce-toast--fading { animation: none; opacity: 0; }
 }
