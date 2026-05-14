@@ -1,6 +1,6 @@
 import { _subscribe } from '../core/announce.js'
 
-const IS_DEV = import.meta.env.DEV
+const IS_DEV = typeof import.meta !== 'undefined' && import.meta.env?.DEV
 
 /**
  * Vanilla dev-mode announcer toast. No React required.
