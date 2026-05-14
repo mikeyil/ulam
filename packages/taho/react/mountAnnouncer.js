@@ -10,7 +10,7 @@ const IS_DEV = typeof import.meta !== 'undefined' && import.meta.env?.DEV
  * In production (IS_DEV = false) this is a no-op that returns { destroy() {} }.
  */
 export function mountAnnouncer({ enabled = true } = {}) {
-  if (!IS_DEV) return { destroy() {} }
+  if (!IS_DEV) return { setEnabled() {}, destroy() {} }
 
   const el = document.createElement('div')
   el.className = 'announce-toast announce-toast--hidden'
