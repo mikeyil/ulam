@@ -1,6 +1,6 @@
 {
   "name": "@ulam/sili",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Focus management, ARIA hide, escape key, and routing hooks. Vanilla core with React, Remix, Vue, and Angular adapters.",
   "type": "module",
   "license": "MIT",
@@ -15,7 +15,10 @@
     "./react": "./react/index.js",
     "./remix": "./remix/index.js",
     "./vue": "./vue/index.js",
-    "./angular": "./angular/index.js"
+    "./angular": "./angular/index.js",
+    "./core/sili.css": {
+      "default": "./core/sili.css"
+    }
   },
   "files": ["core", "react", "remix", "vue", "angular", "README.md"],
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@ulam/calamansi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Data-agnostic i18n, locale hooks, and logic utilities.",
   "type": "module",
   "license": "MIT",
@@ -9,23 +9,42 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/calamansi"
   },
-  "keywords": ["i18n", "internationalization", "locale", "react", "vue", "angular", "hooks", "utilities", "ulam"],
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "locale",
+    "react",
+    "vue",
+    "angular",
+    "hooks",
+    "utilities",
+    "ulam"
+  ],
   "exports": {
     ".": "./index.js",
     "./react": "./react.js",
     "./vue": "./vue.js",
     "./angular": "./angular.js"
   },
-  "files": ["*.js", "README.md"],
+  "files": [
+    "*.js",
+    "README.md"
+  ],
   "peerDependencies": {
     "react": ">=18",
     "vue": ">=3",
     "@angular/core": ">=17"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true },
-    "vue": { "optional": true },
-    "@angular/core": { "optional": true }
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

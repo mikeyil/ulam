@@ -1,6 +1,6 @@
 {
   "name": "@ulam/sawsawan",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Integration bridge wiring taho, sili, calamansi, halohalo, and ube together.",
   "type": "module",
   "license": "MIT",
@@ -9,25 +9,43 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/sawsawan"
   },
-  "keywords": ["ulam", "integration", "bridge", "react"],
+  "keywords": [
+    "ulam",
+    "integration",
+    "bridge",
+    "react"
+  ],
   "exports": {
     ".": "./index.js",
     "./react": "./react.js"
   },
-  "files": ["*.js", "README.md"],
+  "files": [
+    "*.js",
+    "README.md"
+  ],
   "peerDependencies": {
-    "react": ">=18",
-    "@ulam/ube": "*",
     "@ulam/calamansi": "*",
+    "@ulam/halohalo": "*",
     "@ulam/taho": "*",
-    "@ulam/halohalo": "*"
+    "@ulam/ube": "^0.1.1",
+    "react": ">=18"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true },
-    "@ulam/ube": { "optional": true },
-    "@ulam/calamansi": { "optional": true },
-    "@ulam/taho": { "optional": true },
-    "@ulam/halohalo": { "optional": true }
+    "react": {
+      "optional": true
+    },
+    "@ulam/ube": {
+      "optional": true
+    },
+    "@ulam/calamansi": {
+      "optional": true
+    },
+    "@ulam/taho": {
+      "optional": true
+    },
+    "@ulam/halohalo": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"
