@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import './fade-transition.css'
 
 const DURATION_MS = 200
 

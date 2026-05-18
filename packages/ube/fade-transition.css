@@ -1,0 +1,121 @@
+
+/* ─── Fade transition (reusable cross-fade wrapper) ─────────── */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* Directional slide variants for carousel-style transitions */
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(48px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slide-out-to-left {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-48px) scale(0.97);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-48px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(48px) scale(0.97);
+  }
+}
+
+.fade-transition {
+  display: contents;
+}
+
+.fade-transition--in {
+  animation: fade-in 200ms var(--ease-out) both;
+}
+
+.fade-transition--out {
+  animation: fade-out 200ms var(--ease-out) both;
+  pointer-events: none;
+}
+
+/* ltr: advancing forward (next slide comes from right) */
+.fade-transition--in.fade-transition--ltr {
+  display: block;
+  animation: slide-in-from-right 240ms var(--ease-out) both;
+}
+
+.fade-transition--out.fade-transition--ltr {
+  display: block;
+  animation: slide-out-to-left 240ms var(--ease-out) both;
+}
+
+/* rtl: going back (prev slide comes from left) */
+.fade-transition--in.fade-transition--rtl {
+  display: block;
+  animation: slide-in-from-left 240ms var(--ease-out) both;
+}
+
+.fade-transition--out.fade-transition--rtl {
+  display: block;
+  animation: slide-out-to-right 240ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-transition--in,
+  .fade-transition--out,
+  .fade-transition--in.fade-transition--ltr,
+  .fade-transition--out.fade-transition--ltr,
+  .fade-transition--in.fade-transition--rtl,
+  .fade-transition--out.fade-transition--rtl {
+    animation: none;
+  }
+}
