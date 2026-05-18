@@ -67,12 +67,22 @@ The canonical package names (`@ulam/ube` etc.) are always the stable reference. 
 
 ## Quick start
 
+### Import stylesheets at app root
+
 ```jsx
-import { Button, Toggle, InputSearch, Modal } from '@ulam/ube'
-import { Announcer, announce } from '@ulam/taho/react'
-import { Router, useRouter } from '@ulam/sili/react'
-import '@ulam/ube/tokens.css'
-import '@ulam/ube/ui.css'
+import '@ulam/ube/base-tokens.css'     // Design token primitives
+import '@ulam/ube/base-typography.css' // Structural typography baseline
+import '@ulam/ube/ui.css'               // Reset, utility styles, print, user preferences
+```
+
+These foundational imports must come first. Component-specific CSS is automatically imported by each component.
+
+### Set up your app
+
+```jsx
+import { ButtonText, Toggle, InputSearch } from '@ulam/ube'
+import { Announcer } from '@ulam/taho/react'
+import { Router } from '@ulam/sili/react'
 
 export default function App() {
   return (
@@ -84,20 +94,22 @@ export default function App() {
 }
 ```
 
+All components are tree-shakeable: only imported components bundle their CSS.
+
 ---
 
 ## Components
 
-### Button
+### ButtonText
 
 Text button with icon support, state transitions, and semantic variants.
 
 ```jsx
-import { Button } from '@ulam/ube'
+import { ButtonText } from '@ulam/ube'
 
-<Button variant="primary" onClick={handleClick}>Save changes</Button>
-<Button variant="primary" icon={<Star size={16} />} active={saved} activeLabel="Saved">Save</Button>
-<Button variant="danger" fullWidth onClick={handleDelete}>Delete</Button>
+<ButtonText variant="primary" onClick={handleClick}>Save changes</ButtonText>
+<ButtonText variant="primary" icon={<Star size={16} />} active={saved} activeLabel="Saved">Save</ButtonText>
+<ButtonText variant="danger" fullWidth onClick={handleDelete}>Delete</ButtonText>
 ```
 
 | Prop | Type | Default | Description |
@@ -136,21 +148,21 @@ import { ButtonIcon } from '@ulam/ube'
 
 ---
 
-### ButtonLink
+### LinkBtnStyled
 
-Anchor element styled as a button, for external links or hash navigation.
+Anchor element styled with button classes, for external links or hash navigation.
 
 ```jsx
-import { ButtonLink } from '@ulam/ube'
+import { LinkBtnStyled } from '@ulam/ube'
 
-<ButtonLink href="https://example.com" variant="primary">Visit site</ButtonLink>
-<ButtonLink href="#/settings" variant="secondary">Settings</ButtonLink>
+<LinkBtnStyled href="https://example.com" className="btn--primary">Visit site</LinkBtnStyled>
+<LinkBtnStyled href="#/settings" className="btn--secondary">Settings</LinkBtnStyled>
 ```
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `href` | string | - | Link destination (required) |
-| `variant` | `'primary' \| 'secondary' \| 'tertiary'` | `'primary'` | Visual style |
+| `className` | string | - | CSS classes for button styling |
 | `children` | ReactNode | - | Link label |
 
 ---
@@ -177,15 +189,15 @@ import { Toggle } from '@ulam/ube'
 
 ---
 
-### RadioChip
+### ControlRadioChip
 
 Radio input styled as a selectable chip. Group under a shared `name`.
 
 ```jsx
-import { RadioChip } from '@ulam/ube'
+import { ControlRadioChip } from '@ulam/ube'
 
 {['A', 'AA', 'AAA'].map(level => (
-  <RadioChip
+  <ControlRadioChip
     key={level}
     name="wcag-level"
     value={level.toLowerCase()}
@@ -206,16 +218,26 @@ import { RadioChip } from '@ulam/ube'
 
 ---
 
-### Radio
+### ControlRadio
 
-Plain accessible radio input for use inside custom radio groups.
+Plain accessible radio input with label for use in control layouts.
 
 ```jsx
-import { Radio } from '@ulam/ube'
+import { ControlRadio } from '@ulam/ube'
 
-<Radio name="theme" value="dark" checked={theme === 'dark'} onChange={() => setTheme('dark')}>
-  Dark
-</Radio>
+<ControlRadio name="theme" value="dark" label="Dark" checked={theme === 'dark'} onChange={() => setTheme('dark')} />
+```
+
+---
+
+### ControlCheckbox
+
+Plain accessible checkbox input with label for use in control layouts.
+
+```jsx
+import { ControlCheckbox } from '@ulam/ube'
+
+<ControlCheckbox label="Accept terms" checked={accepted} onChange={setAccepted} />
 ```
 
 ---
@@ -538,20 +560,85 @@ Sets `data-theme` on `<html>` and handles fiesta mode color cycling. All ube com
 
 ---
 
+## CSS Usage
+
+### Foundational stylesheets
+
+Ube's CSS is split into foundational and component-specific layers for better tree-shaking:
+
+**Foundational imports** (required, load once):
+
+```css
+@import '@ulam/ube/base-tokens.css';     /* Primitives: colors, spacing, typography, motion, sizing */
+@import '@ulam/ube/base-typography.css'; /* Body text, headings, links, selection, monospace baseline */
+@import '@ulam/ube/base-reset.css';      /* Normalize + ube defaults (imported by ui.css) */
+@import '@ulam/ube/base-utils.css';      /* Focus rings, aria-disabled state, visually-hidden (imported by ui.css) */
+@import '@ulam/ube/ui.css';              /* Shorthand: loads base-reset, base-utils, base-user-prefs, base-print */
+```
+
+Or simply:
+
+```jsx
+import '@ulam/ube/base-tokens.css'
+import '@ulam/ube/base-typography.css'
+import '@ulam/ube/ui.css'
+```
+
+### Component CSS
+
+Each component imports its own CSS automatically. No additional imports needed:
+
+```jsx
+import { ButtonText } from '@ulam/ube'  // buttons.css imported automatically
+import { ControlRadio } from '@ulam/ube' // form-control-radio.css imported automatically
+```
+
+Unused components are completely removed from production bundles, including their CSS.
+
+### Theming
+
+Override any CSS custom property to retheme. All components respond to token changes immediately:
+
+```css
+:root {
+  --bg: #fafaf9;
+  --text-heading: #1c1917;
+  --accent: #7c3aed;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1917;
+    --text-heading: #fafaf9;
+    --accent: #a78bfa;
+  }
+}
+```
+
+Dark mode is built-in. Use `[data-theme="dark"]` to explicitly set theme without relying on system preference.
+
+### Print styles
+
+Modal, drawer, and sheet overlays are hidden on print. Content flows naturally. No additional configuration needed—included in `base-print.css` (via `ui.css`).
+
+### Reduced motion
+
+All animations and transitions respect `prefers-reduced-motion: reduce`. No opt-in needed.
+
+---
+
 ## Design tokens
 
 All components consume CSS custom properties. Override any token to retheme without touching component code.
 
-Import order:
+Tokens are organized into two layers:
 
-```css
-@import '@ulam/ube/tokens.css';     /* design primitives + component defaults */
-@import '@ulam/ube/typography.css'; /* structural baseline */
-@import '@ulam/ube/ui.css';         /* component styles + reset */
-/* Optional: override token defaults for your app after this */
-```
+- **Foundational tokens** (`base-tokens.css`): Global design primitives (colors, typography families, spacing scale, sizing, motion, focus)
+- **Component tokens**: Component-specific tokens defined at the top of each component's CSS file (e.g., badge colors, button icons, form control sizing)
 
-**Color tokens:**
+This organization enables better tree-shaking: component tokens are removed if the component is unused.
+
+### Foundational color tokens
 
 | Token | Description |
 | ----- | ----------- |
@@ -612,18 +699,34 @@ Import order:
 | `--focus-outline-width` | `2px` | Keyboard focus outline width |
 | `--focus-outline-offset` | `2px` | Keyboard focus outline offset |
 
+**Component-specific tokens** are defined at the top of their respective CSS files (e.g., `badge.css`, `buttons.css`, `form-control-toggle.css`) for scope and tree-shaking.
+
 ---
 
 ## Subpath exports
 
+### Components and utilities
+
 | Import | Contents |
 | ------ | -------- |
-| `@ulam/ube` | `Button`, `ButtonIcon`, `ButtonLink`, `ButtonBack`, `Toggle`, `RadioChip`, `RadioChipGroup`, `Radio`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `NoResults`, `DataError`, `SkipLink`, `PanelRowSetting`, `IconExternalLink`, `announce`, `Announcer`, `applyTheme`, `useThemeManager` |
-| `@ulam/ube/tokens.css` | Design token primitives and component defaults |
-| `@ulam/ube/typography.css` | Structural typography baseline |
-| `@ulam/ube/ui.css` | Component styles and reset |
+| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `Toggle`, `ControlRadioChip`, `ControlRadioChipGroup`, `ControlRadio`, `ControlCheckbox`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelRowControl`, `NoResults`, `DataError`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
 
-Announce and routing come from `@ulam/taho/react` and `@ulam/sili/react` respectively.
+Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/sili/react`.
+
+### Stylesheets
+
+| Import | Purpose |
+| ------ | ------- |
+| `@ulam/ube/base-tokens.css` | Global design token primitives (colors, spacing, typography families, sizing, motion) |
+| `@ulam/ube/base-typography.css` | Body text, headings, links, selection, monospace styling |
+| `@ulam/ube/base-reset.css` | Normalize + ube-specific reset rules |
+| `@ulam/ube/base-utils.css` | Focus rings, aria-disabled state, visually-hidden utilities |
+| `@ulam/ube/base-user-prefs.css` | User preference media queries (reduced motion, prefers-color-scheme) |
+| `@ulam/ube/base-print.css` | Print stylesheet (overlay hiding, content flow) |
+| `@ulam/ube/ui.css` | Shorthand: imports all `base-*.css` files |
+| `@ulam/ube/theme-fiesta.css` | Fiesta theme color cycling (optional, load after `ui.css`) |
+
+Component stylesheets (e.g., `buttons.css`, `form-control-toggle.css`) are imported automatically by their components—no manual import needed.
 
 ---
 

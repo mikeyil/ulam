@@ -1,0 +1,392 @@
+/* ─── Shared backdrop (Drawer, BottomSheet, Modal) ──────────── */
+
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.overlay-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─── Programmatic focus return ────────────────────────────── */
+/* Set on elements when an overlay closes and focus is restored.
+   Ensures focus ring always shows, regardless of input modality.
+   Cleared on next blur or pointerdown by returnFocus() utility. */
+
+[data-focus-return]:focus {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+  border-radius: var(--rounded-sm);
+}
+
+/* ─── Drawer (slide-in panel) ──────────────────────────────── */
+
+.drawer-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  width: 100%;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  overflow: hidden auto;
+  padding: var(--space-6) var(--space-5);
+  transform: translateX(-100%);
+  transition: transform var(--duration-base) var(--ease-in-out);
+  will-change: transform;
+}
+
+.drawer-panel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.drawer-panel.is-open {
+  transform: translateX(0);
+}
+
+/* Lock drawer scroll when sheet or modal is open */
+body:has(.sheet-panel.is-open) .drawer-panel,
+body:has(.modal-panel.is-open) .drawer-panel {
+  overflow-y: hidden;
+}
+
+/* ─── Drawer RTL ────────────────────────────────────────────── */
+
+[dir="rtl"] .drawer-panel {
+  transform: translateX(100%);
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+
+[dir="rtl"] .drawer-panel.is-open {
+  transform: translateX(0);
+}
+
+/* ─── BottomSheet (slides up from bottom) ──────────────────── */
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  z-index: 201;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.sheet-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  max-width: var(--modal-max-width);
+  max-height: var(--modal-max-height-mobile);
+  z-index: 202;
+  background: var(--bg);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-50%) translateY(100%);
+  transition: transform var(--duration-base) var(--ease-in-out);
+  will-change: transform;
+}
+
+.sheet-panel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.sheet-panel.is-open {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Collapsed state: --sheet-chrome-height set at runtime by BottomSheet.jsx */
+.sheet-panel.is-collapsed {
+  transform: translateX(-50%) translateY(calc(100% - var(--sheet-chrome-height, 60px)));
+  border-top: 1px solid var(--border);
+  border-inline: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.sheet-panel.is-collapsed:hover {
+  border-color: var(--text-heading);
+}
+
+/* ─── BottomSheet chrome (header) ──────────────────────────── */
+
+.sheet-chrome {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  background: var(--bg);
+}
+
+.sheet-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2rem;
+  height: 4px;
+  background: var(--accent-text);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.sheet-handle--btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: var(--accent-text);
+  transform: translate(-50%, -50%);
+}
+
+.sheet-close-btn,
+.sheet-back-btn {
+  flex-shrink: 0;
+  color: var(--accent-text);
+}
+
+.sheet-back-btn {
+  margin-right: auto;
+}
+
+/* ─── BottomSheet content ──────────────────────────────────── */
+
+.sheet-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: var(--space-4);
+}
+
+.sheet-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 0 var(--space-5) var(--space-6);
+}
+
+/* ─── BottomSheet close button ─────────────────────────────── */
+
+.sheet-close-bottom {
+  display: block;
+  padding-top: var(--space-4);
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.sheet-close-bottom-btn {
+  display: block;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-body);
+}
+
+.sheet-close-bottom-btn:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border);
+  color: var(--text-heading);
+}
+
+/* ─── BottomSheet RTL ──────────────────────────────────────── */
+
+[dir="rtl"] .sheet-close-bottom {
+  justify-content: flex-start;
+}
+
+/* ─── BottomSheet responsive ───────────────────────────────── */
+
+@media (width >= 768px) {
+  .sheet-close-bottom {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .sheet-close-bottom-btn {
+    width: auto;
+    padding: var(--space-2) var(--space-4);
+    background: revert;
+    border-color: revert;
+    color: revert;
+  }
+
+  .sheet-close-bottom-btn:hover {
+    background: var(--bg-subtle);
+    border-color: transparent;
+    color: var(--text-heading);
+  }
+}
+
+/* ─── Modal (centered dialog) ──────────────────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: var(--panel-width-mobile);
+  max-height: calc(100dvh - 2 * var(--space-6));
+  z-index: 301;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.modal-panel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.modal-panel.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ─── Modal content sections ───────────────────────────────── */
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: var(--space-8) var(--space-6) var(--space-4);
+}
+
+.modal-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  line-height: 1em;
+  color: var(--text-heading);
+  margin-bottom: var(--space-4);
+}
+
+.modal-heading-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--error);
+}
+
+.modal-content {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.modal-content p + p {
+  margin-top: 0.75em;
+}
+
+.modal-content p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-footer {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6) var(--space-6);
+}
+
+.modal-footer button {
+  display: block;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ─── Global scroll lock ────────────────────────────────────── */
+
+body:has(.drawer-panel.is-open) {
+  overflow: hidden;
+}
+
+/* Sheet collapsed state: reserve space at bottom */
+body:has(.sheet-panel.is-collapsed) .app-container {
+  padding-bottom: var(--sheet-chrome-height, 60px);
+}
+
+/* ─── Reduced motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-backdrop,
+  .sheet-backdrop,
+  .modal-backdrop,
+  .drawer-panel,
+  .sheet-panel,
+  .modal-panel {
+    transition: none;
+  }
+}
+
+/* ─── Print ─────────────────────────────────────────────────── */
+
+@media print {
+  .sheet-chrome,
+  .sheet-close-bottom,
+  .overlay-backdrop,
+  .sheet-backdrop {
+    display: none !important;
+  }
+
+  .sheet-panel,
+  .sheet-content {
+    position: static !important;
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 0 !important;
+    transform: none !important;
+  }
+}
