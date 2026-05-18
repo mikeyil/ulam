@@ -27,7 +27,7 @@
     "@ulam/calamansi": "*",
     "@ulam/halohalo": "*",
     "@ulam/taho": "*",
-    "@ulam/ube": "^0.1.1",
+    "@ulam/ube": "*",
     "react": ">=18"
   },
   "peerDependenciesMeta": {
