@@ -1,6 +1,6 @@
 {
   "name": "@ulam/taho",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "ARIA live region announcer. Vanilla core with React, Remix, Vue, and Angular adapters.",
   "type": "module",
   "license": "MIT",
