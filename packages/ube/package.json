@@ -15,7 +15,7 @@
     "./react": "./react.js",
     "./tokens.css": "./tokens.css",
     "./typography.css": "./typography.css",
-    "./user-preferences.css": "./user-preferences.css",
+    "./user-prefs.css": "./user-prefs.css",
     "./ui.css": "./ui.css"
   },
   "files": ["*.js", "*.jsx", "*.css", "README.md"],
