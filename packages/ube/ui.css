@@ -15,7 +15,7 @@
   padding: 0 var(--space-2);
   height: var(--btn-height-standard);
   white-space: nowrap;
-  transition: background-color var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
+  transition: var(--transition-btn);
 }
 
 .btn-icon {
@@ -155,7 +155,6 @@ select:focus-visible {
   font-weight: 500;
   padding: 0 var(--space-2);
   transition: var(--transition-btn);
-  border-radius: var(--radius);
 }
 
 /* ─── Icon accent (colored icon buttons) ─────────────────── */
@@ -184,7 +183,6 @@ select:focus-visible {
   font-weight: 500;
   padding: 0 var(--space-2);
   transition: var(--transition-btn);
-  border-radius: var(--radius);
 }
 
 /* ─── Tertiary button (text-link style — no border, underlined) ── */
@@ -198,7 +196,6 @@ select:focus-visible {
   font-weight: 500;
   padding: 0 var(--space-2);
   transition: var(--transition-btn);
-  border-radius: var(--radius);
 }
 
 .btn--tertiary.btn--full-width {
@@ -225,8 +222,10 @@ select:focus-visible {
 
 .btn--primary[aria-disabled="true"]:focus-visible,
 .btn--secondary[aria-disabled="true"]:focus-visible,
+.btn--tertiary[aria-disabled="true"]:focus-visible,
 .btn--primary.btn--disabled:focus-visible,
-.btn--secondary.btn--disabled:focus-visible {
+.btn--secondary.btn--disabled:focus-visible,
+.btn--tertiary.btn--disabled:focus-visible {
   outline: var(--focus-outline-width) solid var(--focus);
   outline-offset: var(--focus-outline-offset);
 }
@@ -277,7 +276,6 @@ select:focus-visible {
   font-weight: 500;
   padding: 0 var(--space-2);
   transition: var(--transition-btn);
-  border-radius: var(--radius);
 }
 
 .btn--warning[aria-disabled="true"],
@@ -987,7 +985,6 @@ select:disabled {
   margin-bottom: var(--space-5);
 }
 
-
 .panel-toggle-row--sm {
   margin-bottom: var(--space-4);
 }
@@ -1009,7 +1006,7 @@ select:disabled {
 
 .panel-toggle-row--disabled .panel-toggle-label,
 .panel-toggle-row--disabled .panel-toggle-desc {
-  color: var(--text-body);
+  color: var(--text-muted);
 }
 
 /* ─── Radio chip group ─────────────────────────────────────── */

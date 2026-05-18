@@ -1,11 +1,11 @@
 @keyframes announce-toast-fade-out {
   from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(10px); }
+  to { opacity: 0; transform: translateY(10px); }
 }
 
 .announce-toast {
   position: fixed;
-  top: 1rem;
+  top: var(--space-4);
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -14,19 +14,28 @@
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.4;
-  padding: 0.75em 1.5em;
-  border-radius: 999px;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
   max-width: 80vw;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.25em;
+  will-change: opacity, transform;
 }
 
-.announce-toast--hidden { display: none; }
-.announce-toast--assertive { background: rgb(180 0 0 / 0.88); }
-.announce-toast--fading { animation: announce-toast-fade-out 0.4s ease forwards; }
+.announce-toast--hidden {
+  display: none;
+}
+
+.announce-toast--assertive {
+  background: rgb(180 0 0 / 0.88);
+}
+
+.announce-toast--fading {
+  animation: announce-toast-fade-out var(--duration-base) ease forwards;
+}
 
 .announce-toast__badge {
   font-size: 0.65em;
@@ -37,5 +46,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .announce-toast--fading { animation: none; opacity: 0; }
+  .announce-toast--fading {
+    animation: none;
+    opacity: 0;
+  }
 }

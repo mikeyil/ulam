@@ -13,18 +13,13 @@
   width: 100%;
   border: 1px solid var(--border-control);
   border-radius: var(--radius);
-  background: var(--bg-input, var(--bg-subtle));
+  background: var(--bg-subtle);
   transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
-  box-shadow: 0 0 0 1px #333;
-}
-
-[data-theme="dark"] .search-input-wrap {
-  box-shadow: 0 0 0 1px #e0e0e0;
 }
 
 .search-input-wrap:focus-within {
   border-color: var(--focus);
-  box-shadow: 0 0 0 var(--focus-width) var(--focus);
+  box-shadow: 0 0 0 var(--focus-outline-width) var(--focus);
 }
 
 /* ── Input field ─────────────────────────────────────────── */
@@ -89,8 +84,8 @@
 }
 
 .search-input-clear:focus-visible {
-  outline: var(--focus-width) solid var(--focus);
-  outline-offset: -2px;
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
 }
 
 /* in live mode, clear is the last element — round the right side */
@@ -116,8 +111,8 @@
 }
 
 .search-input-submit:focus-visible {
-  outline: var(--focus-width) solid var(--focus);
-  outline-offset: -2px;
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .search-input-submit:disabled {
@@ -126,7 +121,7 @@
 }
 
 .search-input-submit:hover:not(:disabled) {
-  background: var(--accent-hover, var(--accent));
+  background: var(--accent);
   filter: brightness(1.1);
 }
 
