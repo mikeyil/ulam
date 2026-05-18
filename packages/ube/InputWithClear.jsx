@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import './input-with-clear.css'
 
 export default function InputWithClear({
   id,

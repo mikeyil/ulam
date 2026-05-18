@@ -1,0 +1,19 @@
+
+/* ─── Input clear button (absolute-positioned inside InputWithClear) ── */
+
+.input-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: 10px;
+  border-radius: 50%;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
