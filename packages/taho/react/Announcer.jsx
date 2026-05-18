@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { mountAnnouncer } from './mountAnnouncer.js'
-import './announcer.css'
+import './toast-announcer.css'
 
 export function Announcer({ devEnabled = true }) {
   const instanceRef = useRef(null)

@@ -557,17 +557,18 @@ Import order:
 | ----- | ----------- |
 | `--bg` | Page background |
 | `--bg-subtle` | Slightly off-background (cards, panels) |
-| `--bg-input` | Input background |
-| `--text-heading` | Primary text |
-| `--text-body` | Body text |
+| `--text-heading` | Primary text (headings, labels) |
+| `--text-body` | Body text (default paragraph text) |
 | `--text-muted` | Secondary / placeholder text |
-| `--text-disabled` | Disabled text |
+| `--text-disabled` | Disabled text (intentionally low contrast per WCAG 1.4.3) |
 | `--border` | Default border |
-| `--border-control` | Form control border |
+| `--border-control` | Form control border (≥4.6:1 contrast for enabled controls) |
 | `--accent` | Primary accent (purple) |
+| `--accent-bg` | Accent background |
 | `--accent-text` | Text on accent background |
-| `--focus` | Focus outline color |
+| `--focus` | Focus outline color (≥3:1 against all surfaces) |
 | `--success` | Success state |
+| `--error` | Error / warning state |
 | `--overlay-bg` | Modal/overlay backdrop |
 
 **Sizing tokens:**
@@ -583,30 +584,33 @@ Import order:
 
 **Typography:**
 
-| Token | Description |
-| ----- | ----------- |
-| `--font` | Body font stack |
-| `--font-mono` | Monospace font stack |
-| `--fs-sm` | Small text |
-| `--fs-body` | Body text |
-| `--fs-sub` | Sub-heading |
-| `--fs-md` | Medium heading |
-| `--fs-lg` | Large heading |
+| Token | Size | Description |
+| ----- | ---- | ----------- |
+| `--font` | — | Body font stack (Inter) |
+| `--font-display` | — | Display font stack (Outfit) |
+| `--mono` | — | Monospace font stack |
+| `--fs-small` | 0.875rem (14px) | Metadata, labels, fine print (minimum) |
+| `--fs-body` | 1rem (16px) | Body text, inputs, button text |
+| `--fs-sub` | 1.25rem (20px) | Card headings, slightly emphasized text |
+| `--fs-heading` | 1.5rem (24px) | Section headings (h3 inside panels) |
+| `--fs-h2` | clamp(1.5rem, 8vw, 2.25rem) | Panel titles (h2), scales up on desktop |
+| `--fs-h1` | clamp(1.75rem, 10.5vw, 2.667rem) | Page title, scales up on desktop |
 
 **Motion:**
 
 | Token | Value | Description |
 | ----- | ----- | ----------- |
-| `--duration-fast` | `150ms` | Micro-interactions |
-| `--duration-base` | `250ms` | Standard transitions |
-| `--duration-slow` | `350ms` | Overlays and panels |
+| `--duration-fast` | `150ms` | Micro-interactions (color, border) |
+| `--duration-base` | `250ms` | Standard transitions (panel, element) |
+| `--ease-out` | cubic-bezier(...) | Spring-y easing (slides entering) |
+| `--ease-in-out` | cubic-bezier(...) | Balanced easing (state toggles) |
 
 **Focus:**
 
 | Token | Value | Description |
 | ----- | ----- | ----------- |
-| `--focus-width` | `2px` | Outline width |
-| `--focus-offset` | `2px` | Outline offset |
+| `--focus-outline-width` | `2px` | Keyboard focus outline width |
+| `--focus-outline-offset` | `2px` | Keyboard focus outline offset |
 
 ---
 

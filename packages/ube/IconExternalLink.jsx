@@ -1,4 +1,4 @@
-import './IconExternalLink.css'
+import './icon-external-link.css'
 
 export default function IconExternalLink({ size = 11, className = '' }) {
   return (

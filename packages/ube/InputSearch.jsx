@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import './InputSearch.css'
+import './input-search.css'
 
 /**
  * Self-contained search field with form[role="search"] wrapper,
