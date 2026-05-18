@@ -639,6 +639,16 @@ Announce and routing come from `@ulam/taho/react` and `@ulam/sili/react` respect
 
 ---
 
+## Roadmap
+
+Planned improvements to the @ulam/ube library:
+
+- [ ] **useAriaDisabled hook documentation + examples** `[a11y]` — Document the `aria-disabled` accessibility pattern extracted during a11yfred development. Usage: preventing Space/Enter activation while keeping disabled controls keyboard-focusable and in tab order. Includes reference implementations (Select and Toggle components) and keyboard focus outline requirements for WCAG 2.4.11 compliance.
+
+- [ ] **Heading levels and styles abstraction** `[design]` — Create a utility component or helper hook that decouples semantic heading levels (h1–h6) from visual styles (display, body, sub, etc.). Example: `<HeadingText level={2} style="display">Title</HeadingText>` renders an `<h2>` with large display-style text. Reduces cognitive load in apps where heading hierarchy doesn't match visual prominence.
+
+---
+
 ## License
 
 MIT
