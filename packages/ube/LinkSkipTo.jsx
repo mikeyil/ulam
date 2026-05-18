@@ -1,4 +1,5 @@
 import './link-skip-to.css'
+import LinkStyled from './LinkStyled.jsx'
 
 const ArrowDown = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
@@ -17,9 +18,9 @@ export default function LinkSkipTo({ href, onClick, tabIndex, onFocus, onBlur, c
 
   if (href) {
     return (
-      <a href={href} onClick={onClick} className="skip-link" tabIndex={tabIndex} onFocus={onFocus} onBlur={onBlur}>
+      <LinkStyled href={href} onClick={onClick} className="skip-link" tabIndex={tabIndex} onFocus={onFocus} onBlur={onBlur}>
         {content}
-      </a>
+      </LinkStyled>
     )
   }
 
