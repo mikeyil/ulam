@@ -75,7 +75,7 @@ Six-pass analysis of the ulam codebase identified significant duplication opport
 
 ### Pass 3 Findings
 
-**NO ACTUAL CODE DUPLICATION DETECTED**
+#### NO ACTUAL CODE DUPLICATION DETECTED
 
 Analysis of exported functions showed apparent duplicates (e.g., 3x `usePageTitle`, 2x `useCompletion`) are actually **intentional framework-specific implementations:**
 
@@ -110,14 +110,15 @@ export function useAriaHide(panelRef, open) {
 
 **Adapter Wrapper Sizes (Expected Lean Wrappers):**
 
-| Component | React | Vue | Angular |
-|-----------|-------|-----|---------|
-| Badge | 53 lines | 41 lines | ~35 lines |
-| ButtonText | 76 lines | 54 lines | ~40 lines |
+|Component|React|Vue|Angular|
+|---|---|---|---|
+|Badge|53 lines|41 lines|~35 lines|
+|ButtonText|76 lines|54 lines|~40 lines|
 
 **Pattern Consistency:** ✅ Each framework properly wraps vanilla web components
 
 **Identified Inconsistency:**
+
 - React uses `is-button` attribute; Vue uses `isButton` prop
 - Documentation pattern repeated in adapters (minor issue)
 - Status: ⏳ IDENTIFIED (minor, not consolidated due to framework semantics)
@@ -179,6 +180,7 @@ Package level:  14 files total
 **Impact:** Single source of truth, easier to maintain
 
 **New:** `docs/ARCHITECTURE.md` includes:
+
 - Framework structure diagram
 - Package responsibilities
 - Dependency flow
@@ -187,6 +189,7 @@ Package level:  14 files total
 - Common patterns
 
 **Updated:** Each package README now references:
+
 ```markdown
 ## The ulam Framework
 
@@ -230,13 +233,13 @@ framework structure and dependency graph.
 
 ## Metrics
 
-| Category | Duplicates Found | Consolidated | Remaining |
-|----------|------------------|---------------|-----------|
-| Framework Diagrams | 6 | ✅ 6 | 0 |
-| License Sections | 6 | ✅ 6 | 0 |
-| Code Duplication | 0 | ✅ 0 | 0 |
-| Documentation Patterns | 4 | ✅ 1 | 3 |
-| **Total** | **16** | **✅ 13** | **3** |
+|Category|Duplicates Found|Consolidated|Remaining|
+|---|---|---|---|
+|Framework Diagrams|6|✅ 6|0|
+|License Sections|6|✅ 6|0|
+|Code Duplication|0|✅ 0|0|
+|Documentation Patterns|4|✅ 1|3|
+|**Total**|**16**|**✅ 13**|**3**|
 
 ---
 
@@ -254,14 +257,17 @@ framework structure and dependency graph.
 ## Recommendations
 
 ### Quick Wins (Next Pass)
+
 1. Add Purpose & Scope to taho, calamansi, halohalo, sawsawan
 2. Create MIGRATION.md for sili (Modal→Dialog breaking change)
 
 ### Documentation Improvements
+
 1. Add PROGRESS.md for sili to track future roadmap
 2. Consider linking Quick Start examples to package guides
 
 ### Maintenance
+
 1. Reference `docs/ARCHITECTURE.md` whenever adding packages
 2. Keep framework hierarchy in single location
 3. Add Purpose & Scope to every new package as standard

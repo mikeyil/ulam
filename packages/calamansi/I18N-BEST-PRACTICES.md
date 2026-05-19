@@ -16,7 +16,7 @@ This guide covers best practices for using **@ulam/calamansi** in production app
 
 Store your locale data in a structured, scalable format:
 
-```
+```text
 src/
 └── locales/
     ├── en.json          # English (base locale, always kept current)
@@ -36,7 +36,7 @@ src/
 
 Use **BCP 47 language tags** (standard for the web):
 
-```
+```text
 en             # English (base language)
 en-GB          # English (United Kingdom)
 es-MX          # Spanish (Mexico)
@@ -150,13 +150,13 @@ Use **sentence case** unless the language convention specifies otherwise.
 
 ### Summary Table
 
-| Language | Convention | Example |
-|----------|-----------|---------|
-| English (en*) | NYT Title Case | "Accessibility Guidelines" |
-| Romance (es, fr) | Sentence case | "Directrices de accesibilidad" |
-| Germanic (de) | Sentence case | "Richtlinien zur Barrierefreiheit" |
-| East Asian (ja, zh, ko) | N/A (no case) | "アクセシビリティガイドライン" |
-| Arabic/Uyghur (ar, ug) | N/A (no case) | "إرشادات الوصول" |
+|Language|Convention|Example|
+|---|---|---|
+|English (en*)|NYT Title Case|"Accessibility Guidelines"|
+|Romance (es, fr)|Sentence case|"Directrices de accesibilidad"|
+|Germanic (de)|Sentence case|"Richtlinien zur Barrierefreiheit"|
+|East Asian (ja, zh, ko)|N/A (no case)|"アクセシビリティガイドライン"|
+|Arabic/Uyghur (ar, ug)|N/A (no case)|"إرشادات الوصول"|
 
 ---
 
@@ -634,6 +634,7 @@ export async function getLocaleData(locale) {
 ### Minimize Search Index
 
 If serving 50+ languages, consider indexing only:
+
 - The active locale
 - English (fallback)
 - User's browser language (predicted)
@@ -687,4 +688,3 @@ function App() {
 - [WCAG Language](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html) — Accessibility requirements
 - [@ulam/calamansi](./README.md) — Core i18n package
 - [CONSUMER-APP-GUIDE](../docs/CONSUMER-APP-GUIDE.md) — Component naming & organization
-

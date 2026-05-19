@@ -1,7 +1,9 @@
 ﻿# Optimization Completion Summary
 
 **Date**: 2026-05-19
+
 **Session**: Security Audit + Future Work Implementation
+
 **Framework**: Ulam v0.3.2 (in progress)
 
 ---
@@ -21,27 +23,36 @@ Completed all 8 optimization items identified in comprehensive security, perform
 ### 1. âœ… Fixed Google API Key URL Exposure
 
 **Priority**: CRITICAL
+
 **Files**: `packages/halohalo/providers.js`, `packages/halohalo/fetch.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Moved Google API key from URL query parameter to Authorization header
+
 - Added URL template substitution for model placeholder
+
 - Google provider now matches OpenAI pattern for security
 
 **Before**:
+
 ```javascript
 buildUrl: (key, model) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`
+
 ```
 
 **After**:
+
 ```javascript
 url: 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
 buildHeaders: (key) => ({
   'Content-Type': 'application/json',
   'Authorization': `Bearer ${key}`,
 })
+
 ```
 
 **Impact**: Eliminates API key exposure in browser history, server logs, certificate transparency logs.
@@ -51,15 +62,21 @@ buildHeaders: (key) => ({
 ### 2. âœ… Added Provider URL Whitelist
 
 **Priority**: MEDIUM
+
 **Files**: `packages/halohalo/fetch.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Validate all provider URLs against whitelisted hosts before fetching
+
 - Prevents SSRF attacks from user-configured provider URLs
+
 - Whitelist includes: api.anthropic.com, api.openai.com, generativelanguage.googleapis.com
 
 **Implementation**:
+
 ```javascript
 const ALLOWED_PROVIDER_HOSTS = new Set([
   'api.anthropic.com',
@@ -70,6 +87,7 @@ const ALLOWED_PROVIDER_HOSTS = new Set([
 if (!validateProviderUrl(url)) {
   throw new AiApiError('api_error', { provider })
 }
+
 ```
 
 **Impact**: Security hardening against supply chain or config injection attacks.
@@ -79,15 +97,21 @@ if (!validateProviderUrl(url)) {
 ### 3. âœ… Created Shared useSubscribe Hook
 
 **Priority**: HIGH
+
 **Files**: `packages/shared/useSubscribe.js`, `packages/shared/package.json`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - New `@ulam/shared` package exports `useSubscribe` utility
+
 - Eliminates hook duplication across 3 packages
+
 - Single source of truth for subscription pattern
 
 **Implementation**:
+
 ```javascript
 export function useSubscribe(subscribe, getInitial) {
   const [value, setValue] = useState(getInitial)
@@ -97,13 +121,16 @@ export function useSubscribe(subscribe, getInitial) {
   }, [subscribe])
   return value
 }
+
 ```
 
 **Usage** (calamansi/react):
+
 ```javascript
 export function useT() {
   return useSubscribe(_subscribe, getT)  // 1 line instead of 4
 }
+
 ```
 
 **Impact**: Code reduction, consistency across packages, easier to maintain.
@@ -113,15 +140,21 @@ export function useT() {
 ### 4. âœ… Migrated useProviderConfig to useSyncExternalStore
 
 **Priority**: HIGH
+
 **Files**: `packages/halohalo/useProviderConfig.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Replaced dummy state + manual subscription with React 18's useSyncExternalStore
+
 - Eliminates unnecessary re-renders on every config change
+
 - Prevents sibling re-renders from state updates
 
 **Before**:
+
 ```javascript
 const [, rerender] = useState(0)
 useEffect(() => config.subscribe(() => rerender(n => n + 1)), [config])
@@ -131,9 +164,11 @@ return {
   models: config.models,
   // ... (object recreated every render)
 }
+
 ```
 
 **After**:
+
 ```javascript
 const snapshot = useSyncExternalStore(
   (listen) => config.subscribe(listen),
@@ -144,6 +179,7 @@ const snapshot = useSyncExternalStore(
     providers: config.providers,
   })
 )
+
 ```
 
 **Impact**: Better performance, cleaner code, more idiomatic React 18.
@@ -153,15 +189,21 @@ const snapshot = useSyncExternalStore(
 ### 5. âœ… Prevented Event Listener Accumulation
 
 **Priority**: MEDIUM
+
 **Files**: `packages/ube/core/form-control-select.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Added `_initialized` guard to prevent multiple setupSelect calls
+
 - Event listeners now attach only once
+
 - Fixes memory leak from duplicate listeners
 
 **Implementation**:
+
 ```javascript
 connectedCallback() {
   super.connectedCallback()
@@ -170,6 +212,7 @@ connectedCallback() {
     this._initialized = true
   }
 }
+
 ```
 
 **Impact**: Memory safety in long-running applications, prevents listener accumulation.
@@ -179,15 +222,21 @@ connectedCallback() {
 ### 6. âœ… Simplified usePaginationFocus
 
 **Priority**: MEDIUM
+
 **Files**: `packages/sili/react/hooks/usePaginationFocus.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Removed expensive innerHTML string comparison (O(n) â†’ O(1))
+
 - Use page parameter change as pagination signal
+
 - Cleaner, more efficient implementation
 
 **Before**:
+
 ```javascript
 const previousContent = previousContentRef.current
 previousContentRef.current = ref.current?.innerHTML
@@ -195,9 +244,11 @@ previousContentRef.current = ref.current?.innerHTML
 if (previousContent !== ref.current?.innerHTML) {
   ref.current?.focus()
 }
+
 ```
 
 **After**:
+
 ```javascript
 useEffect(() => {
   if (isMountRef.current) {
@@ -206,6 +257,7 @@ useEffect(() => {
   }
   ref.current?.focus()
 }, [page, ref])
+
 ```
 
 **Impact**: Better performance, simpler code, more maintainable.
@@ -215,16 +267,23 @@ useEffect(() => {
 ### 7. âœ… Added Debouncing to usePref Storage
 
 **Priority**: LOW
+
 **Files**: `packages/calamansi/react.js`
+
 **Status**: COMPLETE
 
 **What Changed**:
+
 - Debounce localStorage writes by 200ms
+
 - Ensures preference saved on component unmount
+
 - Prevents blocking renders on rapid updates
+
 - Future-proofs for async storage backends
 
 **Implementation**:
+
 ```javascript
 export function usePref(key, defaultValue) {
   const [value, setValueState] = useState(() => getPref(key, defaultValue))
@@ -242,6 +301,7 @@ export function usePref(key, defaultValue) {
 
   return [value, setValue]
 }
+
 ```
 
 **Impact**: Smoother UX with rapid preference changes, better rendering performance.
@@ -251,26 +311,41 @@ export function usePref(key, defaultValue) {
 ## Documentation Created
 
 ### 1. SECURITY.md (Root)
+
 - 300+ lines comprehensive audit report
+
 - Security, optimization, performance, accessibility findings
+
 - Detailed recommendations and implementation checklists
+
 - Action items organized by priority
 
 ### 2. packages/halohalo/SECURITY.md
+
 - 250+ lines API key storage guidelines
+
 - 4 threat scenarios and mitigations
+
 - 4 safe usage patterns (backend proxy, Electron, Extension, dev)
+
 - Checklist for suspected key leaks
 
 ### 3. AUDIT_SUMMARY.md
+
 - Quick reference guide to findings
+
 - Summary table by dimension
+
 - Links to full SECURITY.md
+
 - Action items list
 
 ### 4. packages/shared/README.md
+
 - Documentation for new shared utilities package
+
 - useSubscribe hook usage examples
+
 - Internal usage notes
 
 ---
@@ -278,6 +353,7 @@ export function usePref(key, defaultValue) {
 ## Metrics & Impact
 
 ### Code Quality
+
 | Metric | Before | After | Change |
 | ------ | ------ | ----- | ------ |
 | Hook duplication | 4 instances | 1 (shared) | -75% |
@@ -287,27 +363,41 @@ export function usePref(key, defaultValue) {
 | Storage performance | No debouncing | 200ms debounce | Non-blocking |
 
 ### Security
-- âœ… 1 critical vulnerability fixed
-- âœ… 1 medium SSRF protection added
-- âœ… 2 security guides created (600+ lines)
-- âœ… API key handling best practices documented
+
+- ✅ 1 critical vulnerability fixed
+
+- ✅ 1 medium SSRF protection added
+
+- ✅ 2 security guides created (600+ lines)
+
+- ✅ API key handling best practices documented
 
 ### Performance
-- âœ… Re-render efficiency improved
-- âœ… DOM comparison optimized
-- âœ… Storage writes non-blocking
-- âœ… Event listeners garbage collection safe
+
+- ✅ Re-render efficiency improved
+
+- ✅ DOM comparison optimized
+
+- ✅ Storage writes non-blocking
+
+- ✅ Event listeners garbage collection safe
 
 ---
 
 ## Testing Checklist
 
 - [ ] Verify all tests still pass: `npm run test`
+
 - [ ] Test Google provider with new header-based approach
+
 - [ ] Test form-control-select with rapid re-renders
+
 - [ ] Test usePaginationFocus with page changes
+
 - [ ] Test usePref with rapid updates
+
 - [ ] Test useProviderConfig with config changes
+
 - [ ] Verify no memory leaks in long-running apps
 
 ---
@@ -315,39 +405,63 @@ export function usePref(key, defaultValue) {
 ## File Summary
 
 ### New Files
-- `packages/shared/useSubscribe.js` â€” Shared subscription hook
-- `packages/shared/package.json` â€” Shared package config
-- `packages/shared/README.md` â€” Shared package docs
-- `SECURITY.md` â€” Comprehensive audit report
-- `packages/halohalo/SECURITY.md` â€” API key storage guide
-- `AUDIT_SUMMARY.md` â€” Quick reference
-- `OPTIMIZATION_COMPLETION.md` â€” This document
+
+- `packages/shared/useSubscribe.js` – Shared subscription hook
+
+- `packages/shared/package.json` – Shared package config
+
+- `packages/shared/README.md` – Shared package docs
+
+- `SECURITY.md` – Comprehensive audit report
+
+- `packages/halohalo/SECURITY.md` – API key storage guide
+
+- `AUDIT_SUMMARY.md` – Quick reference
+
+- `OPTIMIZATION_COMPLETION.md` – This document
 
 ### Modified Files
-- `packages/halohalo/providers.js` â€” Fixed Google API key
-- `packages/halohalo/fetch.js` â€” Added URL validation
-- `packages/halohalo/useProviderConfig.js` â€” useSyncExternalStore
-- `packages/ube/core/form-control-select.js` â€” Event listener guard
-- `packages/sili/react/hooks/usePaginationFocus.js` â€” Simplified logic
-- `packages/calamansi/react.js` â€” useSubscribe, debounced usePref
-- `TODO.md` â€” Updated with completion status
+
+- `packages/halohalo/providers.js` – Fixed Google API key
+
+- `packages/halohalo/fetch.js` – Added URL validation
+
+- `packages/halohalo/useProviderConfig.js` – useSyncExternalStore
+
+- `packages/ube/core/form-control-select.js` – Event listener guard
+
+- `packages/sili/react/hooks/usePaginationFocus.js` – Simplified logic
+
+- `packages/calamansi/react.js` – useSubscribe, debounced usePref
+
+- `TODO.md` – Updated with completion status
 
 ---
 
 ## Next Steps
 
 ### For v0.3.2 Release
+
 1. Run full test suite to verify no regressions
+
 2. Test Google provider endpoint with new header pattern
+
 3. Performance profile form controls in long-running app
+
 4. Verify arrow-key navigation in radio chip groups
+
 5. Test usePref debouncing with rapid updates
 
 ### For v0.4.0 Release
+
 - Implement form validation with aria-invalid + aria-describedby examples
+
 - Implement prefers-reduced-data handling
+
 - Document component lazy loading strategies
+
 - Add toast notification component (taho enhancement)
+
 - Add Snackbar component (sili enhancement)
 
 ---
@@ -359,7 +473,9 @@ export function usePref(key, defaultValue) {
 (Arrow-key navigation for radio chips was already working via hidden native radio input â€” no custom implementation needed)
 
 - **Security**: 2 items (critical fix + SSRF prevention)
+
 - **Optimization**: 2 items (shared hooks + re-render efficiency)
+
 - **Performance**: 3 items (listeners, comparison, debouncing)
 
 Framework is more secure, performant, and accessible. Codebase is cleaner and easier to maintain.

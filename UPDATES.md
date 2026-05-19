@@ -49,7 +49,7 @@ Completed the six-pass deduplication and consolidation audit identified earlier.
 
 ✅ **Created Consumer App Guide** (`docs/CONSUMER-APP-GUIDE.md`)
 
-- Two-tier component naming convention (App* / A11y*)
+- Two-tier component naming convention (App\* / A11y\*)
 - Project organization patterns
 - Service abstraction examples
 - Integration patterns for all ulam packages

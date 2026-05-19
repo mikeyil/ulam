@@ -174,4 +174,3 @@ Documentation-only releases (like 0.3.1) include patch bumps to maintain version
 |[0.2.0](./CHANGELOG.md#020---2026-05-18)|2026-05-18|Overlay refinements|
 |[0.1.2](./CHANGELOG.md#012---2026-05-14)|2026-05-14|Framework fixes|
 |[0.1.0](./CHANGELOG.md#010---2026-05-13)|2026-05-13|Initial release|
-

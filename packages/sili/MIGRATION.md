@@ -8,11 +8,13 @@ The `Modal` component has been renamed to `Dialog` for semantic accuracy and ali
 
 ### Changes
 
-**Component Rename**
+#### Component Rename
+
 - `Modal` → `Dialog`
 - `ModalShell` → `DialogShell` (if using shell primitives)
 
-**Affected Adapters**
+#### Affected Adapters
+
 - React (`@ulam/sili/react`)
 - Remix (`@ulam/sili/remix`)
 - Vue (`@ulam/sili/vue`)
