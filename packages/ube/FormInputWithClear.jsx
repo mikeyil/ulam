@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import './form-control-button.css'
-import './form-control-input.css'
-import './form-control-input-with-clear.css'
+import './form-input.css'
+import './form-input-with-clear.css'
 
-export default function FormControlInputWithClear({
+export default function FormInputWithClear({
   id,
   type = 'text',
   value,

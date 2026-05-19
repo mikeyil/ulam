@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import './form-control-button.css'
-import './form-control-input.css'
-import './form-control-input-search.css'
+import './form-input.css'
+import './form-input-search.css'
 
 /**
  * Self-contained search field with form[role="search"] wrapper,
@@ -12,7 +12,7 @@ import './form-control-input-search.css'
  *
  * Pair with a visible <label> or pass label to set aria-label on the form.
  */
-export default function FormControlInputSearch({
+export default function FormInputSearch({
   id,
   value,
   onChange,
