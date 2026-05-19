@@ -1,8 +1,7 @@
 // @ulam/ube/vue — Vue 3 adapter layer
 import '@ulam/ube/core'
 
-export { default as ButtonText } from './ButtonText.vue'
-export { default as ButtonIcon } from './ButtonIcon.vue'
+export { default as Button } from './Button.vue'
 export { default as ButtonBack } from './ButtonBack.vue'
 export { default as LinkBtnStyled } from './LinkBtnStyled.vue'
 export { default as LinkSkipTo } from './LinkSkipTo.vue'
@@ -10,6 +9,7 @@ export { default as FormControlRadio } from './FormControlRadio.vue'
 export { default as FormControlCheckbox } from './FormControlCheckbox.vue'
 export { default as FormControlSelect } from './FormControlSelect.vue'
 export { default as FormInputText } from './FormInputText.vue'
+export { default as FormControlRadioGroup } from './FormControlRadioGroup.vue'
 export { default as Badge } from './Badge.vue'
 export { default as InfoBox } from './InfoBox.vue'
 export { default as IconExternalLink } from './IconExternalLink.vue'
