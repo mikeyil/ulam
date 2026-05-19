@@ -18,7 +18,6 @@ Consolidated tracking for all packages. Updated: 2026-05-19 (v0.3.1 + optimizati
 - ✅ **Performance**: Fixed event listener accumulation in form-control-select
 - ✅ **Performance**: Simplified usePaginationFocus (O(n) → O(1) comparison)
 - ✅ **Performance**: Added debouncing to usePref storage writes
-- ✅ **Accessibility**: Added arrow-key navigation to radio chip groups
 
 ### Documentation Created
 

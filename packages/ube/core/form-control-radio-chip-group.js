@@ -98,36 +98,10 @@ class UbeFormControlRadioChipGroup extends UbeElement {
     if (!this._chipContainer) {
       this._chipContainer = document.createElement('div')
       this._chipContainer.className = 'radio-chip-group'
-      this._chipContainer.addEventListener('keydown', (e) => this._handleKeyDown(e))
       this._fieldset.appendChild(this._chipContainer)
     }
 
     this._render()
-  }
-
-  _handleKeyDown(e) {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-
-    const chips = Array.from(this._chipContainer.querySelectorAll('ube-form-control-radio-chip'))
-    if (chips.length === 0) return
-
-    const currentValue = this.getAttribute('value')
-    const currentIndex = chips.findIndex(chip => chip.getAttribute('value') === currentValue)
-    if (currentIndex === -1) return
-
-    e.preventDefault()
-
-    let nextIndex
-    if (e.key === 'ArrowRight') {
-      nextIndex = (currentIndex + 1) % chips.length
-    } else {
-      nextIndex = (currentIndex - 1 + chips.length) % chips.length
-    }
-
-    const nextValue = chips[nextIndex].getAttribute('value')
-    this.value = nextValue
-    chips[nextIndex].focus()
-    this._emitEvent('change', { value: nextValue })
   }
 
   _render() {
