@@ -1,18 +1,20 @@
 # @ulam/ube
 
-Accessible React UI components, theming, and design tokens. The sweet layer of the ulam framework.
+Framework-agnostic UI components built on vanilla web components. Adapters for React, Vue, Angular, and Remix. The sweet layer of the ulam framework.
 
-Purple-first. Accessible out of the box. Zero external dependencies beyond React.
+Accessible out of the box. Purple-first design. Zero external dependencies beyond your chosen framework.
 
 ## Purpose & Scope
 
 **What ube does:**
 
-- Accessible React UI components (ButtonText, Toggle, InputSearch, etc.)
+- Vanilla web components that work in any JavaScript environment
+- Framework adapters for React, Vue, Angular, and Remix (same component API)
 - Design tokens for colors, spacing, typography, animations
 - CSS theming system (light, dark, fiesta)
 - Component CSS automatically imported on use (tree-shakeable)
 - Focus styling and user preference support (reduced motion, high contrast)
+- Light DOM pattern (no shadow DOM encapsulation) so tokens cascade from your app
 
 **What ube doesn't do:**
 
@@ -24,10 +26,11 @@ Purple-first. Accessible out of the box. Zero external dependencies beyond React
 
 **Who should use ube:**
 
-- React apps needing accessible, themable UI components
+- React, Vue, Angular, or Remix apps needing accessible, themable UI components
 - Projects building custom component libraries on top of solid foundations
 - Teams prioritizing accessibility without sacrificing design control
 - SPAs wanting tree-shakeable, zero-dependency component libraries
+- Multi-framework monorepos that want to reuse the same component library
 
 ## The ulam framework
 
