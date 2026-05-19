@@ -39,7 +39,7 @@ ulam
 ├── @ulam/taho         warm   : ARIA live region announcer
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
 ├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sauce     bridge : wires the above together
+└── @ulam/sawsawan     bridge : wires the above together
 ```
 
 ## Install
