@@ -48,13 +48,13 @@
 
 ## Known Limitations
 
-### @ulam/sili
+### sili
 
 - **OverlayManager layer ordering is fixed**: Cannot customize screen=0, drawer=1, sheet=2, dialog=3 hierarchy. Workaround: create custom component wrapping OverlayManager logic.
 - **Single active overlay**: OverlayManager manages one active overlay at a time. Workaround: use multiple OverlayManager instances for independent overlay stacks.
 - **Hash router**: React and Remix adapters include a basic hash router. Migrate to React Router or Remix router for production SPAs.
 
-### @ulam/ube
+### ube
 
 - **CSS-in-JS not supported**: All styling is CSS files. Workaround: shadow DOM or CSS modules if you need scoped styles.
 - **No built-in animation framework**: Uses CSS animations only. Workaround: add libraries like Framer Motion if needed.
@@ -70,6 +70,7 @@
 ### None Currently Reported
 
 If you encounter bugs, please:
+
 1. Check the [GitHub issues](https://github.com/anthropics/ulam/issues)
 2. Provide:
    - Minimal reproduction case
@@ -155,4 +156,3 @@ See [UPDATES.md](UPDATES.md) for detailed migration instructions.
 - Issues: Open on GitHub
 - Questions: See package READMEs for detailed docs
 - Feedback: File an issue with `feedback:` prefix
-
