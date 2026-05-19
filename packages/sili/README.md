@@ -195,20 +195,29 @@ const overlays = [
 />
 ```
 
-**Layer order (automatic focus management):**
+**Layer order (0–3, lowest to highest):**
 
-- Screen: 0 (lowest)
-- Drawer/Panel: 1
-- Sheet: 2
-- Dialog: 3 (highest)
+| Layer | Type | Escape Key | Notes |
+| --- | --- | --- | --- |
+| 0 | Screen (page content) | ✗ Not closeable | Base layer; never overlaid |
+| 1 | Drawer/Panel | ✓ Closeable | Slides in from side; dismissible |
+| 2 | Sheet | ✓ Closeable | Bottom sheet or full-width slide-up; dismissible (unless `collapsed`) |
+| 3 | Dialog | ✓ Closeable | Modal dialog; intercepts Escape first (capture phase) |
 
-**Transition rules:**
+**Escape key behavior:**
 
-- **Higher → Lower**: Current overlay closes, focus moves to target
-- **Lower → Higher**: Lower layer stays open (inert), higher overlay opens with focus
-- **Same level**: Current closes, new opens, focus in new
+- **Dialog** (layer 3): Closes immediately on Escape (capture phase) before lower layers
+- **Drawer** (layer 1): Closes on Escape if no dialog is open
+- **Sheet** (layer 2): Closes on Escape if not `collapsed`; capture phase allows Dialog to intercept
+- **Screen** (layer 0): Cannot be closed; Escape is not handled
 
-This means dialog can stack on top of any layer, sheet stacks on drawer/panel, but closing always moves focus correctly based on the layer hierarchy.
+**Transition rules when closing:**
+
+- **Higher → Lower**: Current overlay closes, focus returns to previous overlay or trigger
+- **Lower → Higher**: Lower layer stays open (inert), higher overlay opens with focus trap
+- **Same level**: Current closes, new opens, focus moves to new overlay
+
+Example: If a Dialog opens over a Drawer, pressing Escape closes the Dialog. Pressing Escape again closes the Drawer. Layer 3 always wins on Escape because Dialog uses `useCapture: true, stopPropagation: true`.
 
 **Page title management:**
 
