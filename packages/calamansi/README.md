@@ -17,6 +17,12 @@ ulam
 └── @ulam/sauce     bridge : wires the above together
 ```
 
+## Install
+
+```bash
+npm install @ulam/calamansi
+```
+
 ## Usage
 
 ### Vanilla

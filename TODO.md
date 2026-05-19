@@ -12,6 +12,18 @@
 - ✅ Quick-start guides for all frameworks
 - ✅ Purpose & Scope documentation
 
+## Current Session: Documentation Polish
+
+### Completed
+
+- ✅ All packages support vanilla-only usage with framework adapters as optional add-ons
+- ✅ Framework adapter instructions clarified (vanilla, /react, /vue, /angular, /remix)
+- ✅ Install instructions added where missing (@ulam/calamansi)
+- ✅ Codebase audited—no dead/unused code found (Panel.jsx and Screen.jsx are internal primitives)
+- ✅ Documentation redundancy eliminated
+- ✅ @ulam/sawsawan renamed to @ulam/sauce (integration bridge)
+- ✅ Sili documentation enhanced with layer ordering and Escape key behavior
+
 ## Near Term (Next Release)
 
 ### @ulam/sili
@@ -139,7 +151,7 @@ See [UPDATES.md](UPDATES.md) for detailed migration instructions.
 
 ## Documentation
 
-### Completed
+### Done
 
 - ✅ API Reference (sili README)
 - ✅ Common Patterns (sili README)

@@ -1,6 +1,48 @@
 # Recent Updates (v0.3.0+)
 
-## Current Session: @ulam/ube Framework-Agnostic Migration (In Progress)
+## Current Session: Codebase Polish and Framework Clarity (In Progress)
+
+### Documentation and Clarity Improvements
+
+- ✅ Added Install section to @ulam/calamansi README (was missing)
+- ✅ Verified all packages support vanilla-only usage
+- ✅ Confirmed framework adapter docs are clear and accurate
+- ✅ Audited codebase for dead/unused code (none found; Panel.jsx and Screen.jsx are legitimate internal primitives)
+- ✅ Eliminated documentation redundancy across READMEs
+- ✅ Renamed @ulam/sawsawan → @ulam/sauce (integration bridge, better fits culinary analogy)
+
+**Framework Adapter Clarity**:
+
+Each package supports vanilla core + framework adapters:
+
+- Vanilla: `import from '@ulam/package'` (root export)
+- React: `import from '@ulam/package/react'`
+- Vue: `import from '@ulam/package/vue'`
+- Angular: `import from '@ulam/package/angular'`
+- Remix: `import from '@ulam/package/remix'` (re-exports React adapters)
+
+**Sili Documentation Enhanced**:
+
+- ✅ Accurately documented layer ordering (0–3)
+- ✅ Clearly described Escape key behavior per layer
+- ✅ Dialog (layer 3) intercepts Escape via capture phase
+- ✅ Drawer and Sheet use bubble phase for Escape
+
+**Architecture Metaphor Unified**:
+
+```text
+ulam
+├── @ulam/sili         hot    : focus management, overlays, routing
+├── @ulam/taho         warm   : ARIA live region announcer
+├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
+├── @ulam/halohalo     spicy  : AI provider adapters
+├── @ulam/ube          sweet  : UI components, theming
+└── @ulam/sauce        bridge : wires them all together
+```
+
+The sauce brings all flavors together into one cohesive dish.
+
+## Previous: @ulam/ube Framework-Agnostic Migration
 
 ### Major Achievement: @ulam/ube Now Framework-Agnostic
 
