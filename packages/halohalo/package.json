@@ -35,7 +35,7 @@
     "vue": ">=3",
     "@angular/core": ">=17",
     "fuse.js": ">=7",
-    "@ulam/sawsawan": "*"
+    "@ulam/sauce": "*"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -50,7 +50,7 @@
     "fuse.js": {
       "optional": true
     },
-    "@ulam/sawsawan": {
+    "@ulam/sauce": {
       "optional": true
     }
   },

@@ -15,7 +15,7 @@ Named for the Filipino word for dish: the thing everything else is built around.
 | [`@ulam/calamansi`](packages/calamansi) | Data-agnostic i18n, locale hooks, logic utilities |
 | [`@ulam/halohalo`](packages/halohalo) | AI provider adapters, model config, agentic mode |
 | [`@ulam/ube`](packages/ube) | Framework-agnostic UI components (vanilla, React, Vue, Angular, Remix), theming, design tokens |
-| [`@ulam/sawsawan`](packages/sawsawan) | Integration bridge wiring the above together |
+| [`@ulam/sauce`](packages/sauce) | Integration bridge wiring the above together |
 
 ## Architecture
 
@@ -23,12 +23,12 @@ Each package is independently installable. Dependency flow is strictly one direc
 
 ```text
 calamansi ──┐
-taho ────────┤──► sawsawan
+taho ────────┤──► sauce
 sili ────────┤
 ube ─────────┘
 ```
 
-None of the four core packages import from each other or from sawsawan. Sawsawan is the only package that imports from the others.
+None of the four core packages import from each other or from sauce. Sawsawan is the only package that imports from the others.
 
 ## Install
 
@@ -164,7 +164,7 @@ export class AppModule {}
 - [@ulam/taho](packages/taho) — Live region announcements
 - [@ulam/calamansi](packages/calamansi) — i18n and utilities
 - [@ulam/ube](packages/ube) — UI components and theming
-- [@ulam/sawsawan](packages/sawsawan) — Integration bridge
+- [@ulam/sauce](packages/sauce) — Integration bridge
 
 ## License
 

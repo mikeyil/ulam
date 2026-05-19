@@ -1,13 +1,13 @@
 {
-  "name": "@ulam/sawsawan",
+  "name": "@ulam/sauce",
   "version": "0.3.0",
-  "description": "Integration bridge wiring taho, sili, calamansi, halohalo, and ube together.",
+  "description": "Integration bridge (the sauce) wiring taho, sili, calamansi, halohalo, and ube together.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/mikeyil/ulam.git",
-    "directory": "packages/sawsawan"
+    "directory": "packages/sauce"
   },
   "keywords": [
     "ulam",

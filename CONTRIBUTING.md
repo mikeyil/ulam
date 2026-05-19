@@ -33,7 +33,7 @@ ulam/
 │   │   ├── *.css               # Component CSS (imported by components)
 │   │   └── README.md
 │   │
-│   └── sawsawan/               # Integration bridge
+│   └── sauce/               # Integration bridge
 │       └── README.md
 │
 ├── README.md                    # Framework overview
@@ -47,7 +47,7 @@ ulam/
 ## Key Principles
 
 1. **Vanilla-first**: Every package has a vanilla core with zero dependencies. Framework adapters are optional.
-2. **Independent**: Packages don't import from each other (except sawsawan bridges them).
+2. **Independent**: Packages don't import from each other (except sauce bridges them).
 3. **Accessible by default**: All components handle focus, keyboard, ARIA automatically.
 4. **Tree-shakeable**: Only imported code bundles. Component CSS is auto-imported.
 
@@ -235,7 +235,7 @@ Useful when ref not available but selector is specific enough.
 **Does**: ARIA live regions, route announcements, accessible alerts
 **Doesn't**: Other ARIA features, overlay management, focus
 
-### @ulam/sawsawan
+### @ulam/sauce
 
 **Scope**: Integration bridge
 **Does**: Wires the above packages together for common patterns

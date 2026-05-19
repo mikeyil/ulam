@@ -14,7 +14,7 @@ ulam
 ├── @ulam/taho         warm   : ARIA live region announcer
 ├── @ulam/sili         hot    : focus management, overlays, routing
 ├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+└── @ulam/sauce     bridge : wires the above together
 ```
 
 ## Usage

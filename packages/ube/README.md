@@ -40,7 +40,7 @@ ulam
 ├── @ulam/sili         hot    : focus management, overlays, routing
 ├── @ulam/taho         warm   : ARIA live region announcer
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     bridge : wires the above together
+└── @ulam/sauce     bridge : wires the above together
 ```
 
 Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from taho, sili, calamansi, or sawsawan.
@@ -62,7 +62,7 @@ Install with aliases:
 ```bash
 npm install ube@npm:@ulam/ube
 npm install calamansi@npm:@ulam/calamansi
-npm install sawsawan@npm:@ulam/sawsawan
+npm install sawsawan@npm:@ulam/sauce
 ```
 
 Your `package.json` will show:
@@ -72,7 +72,7 @@ Your `package.json` will show:
   "dependencies": {
     "ube": "npm:@ulam/ube",
     "calamansi": "npm:@ulam/calamansi",
-    "sawsawan": "npm:@ulam/sawsawan"
+    "sawsawan": "npm:@ulam/sauce"
   }
 }
 ```

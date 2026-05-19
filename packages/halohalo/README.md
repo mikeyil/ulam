@@ -13,7 +13,7 @@ ulam
 ├── @ulam/sili         hot    : focus management, overlays, routing
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
 ├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+└── @ulam/sauce     bridge : wires the above together
 ```
 
 ## Install
