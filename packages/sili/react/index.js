@@ -24,6 +24,7 @@ export { useKeydown } from './hooks/useKeydown.js'
 export { useListNavigation } from './hooks/useListNavigation.js'
 export { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion.js'
 export { useFlipList } from './hooks/useFlipList.js'
+export { useSwipeGesture } from './hooks/useSwipeGesture.js'
 
 // React components (fully wired with sili hooks)
 export { default as Dialog } from './components/DialogReact.jsx'

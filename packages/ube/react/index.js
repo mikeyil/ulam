@@ -3,6 +3,13 @@
 
 import './ui.css'
 
+// Export utilities (vanilla core)
+export { exportAsCSV, exportAsMarkdown, exportAsText, downloadFile, downloadExcel } from '../core/exportData.js'
+
+// React hooks
+export { useExport } from './hooks/useExport.js'
+
+// Components
 export { default as ButtonText } from './ButtonText.jsx'
 export { default as ButtonIcon } from './ButtonIcon.jsx'
 export { default as ButtonBack } from './ButtonBack.jsx'

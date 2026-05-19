@@ -9,3 +9,4 @@ export { lockScroll } from './scrollLock.js'
 
 export { onKeydown, dispatchKeyCommand, prefersReducedMotion, onPrefersReducedMotionChange } from './keyboard.js'
 export { snapshotFlipPositions, animateFlipList } from './flipAnimation.js'
+export { onSwipeGesture, getSwipeDirection, isHorizontalSwipe, clampSwipeDelta } from './swipeGesture.js'
