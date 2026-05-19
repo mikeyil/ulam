@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Touch Target Utility Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 40px 0 20px;
+      color: #333;
+      border-bottom: 2px solid #0066ff;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      margin: 30px 0 15px;
+      color: #555;
+      font-size: 1.1em;
+    }
+
+    .scenario {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .scenario-desc {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      background: #0066ff;
+      color: white;
+      cursor: pointer;
+      font-size: 0.95em;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #0052cc;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* Undersized buttons for testing */
+    .tiny-btn {
+      padding: 4px 6px;
+      font-size: 0.75em;
+      height: 24px;
+    }
+
+    .small-btn {
+      padding: 6px 8px;
+      font-size: 0.85em;
+      height: 32px;
+    }
+
+    a {
+      color: #0066ff;
+      text-decoration: none;
+      padding: 4px 6px;
+      display: inline-block;
+      border-radius: 2px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      background: rgba(0, 102, 255, 0.1);
+    }
+
+    .tiny-link {
+      padding: 2px 4px;
+      font-size: 0.75em;
+    }
+
+    .small-link {
+      padding: 4px 6px;
+      font-size: 0.85em;
+    }
+
+    /* Inline controls */
+    input[type="checkbox"],
+    input[type="radio"] {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+    }
+
+    select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    /* Close controls for collision testing */
+    .close-controls {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .close-controls button {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .toolbar label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .toolbar input[type="checkbox"] {
+      width: auto;
+      height: auto;
+    }
+
+    .info {
+      background: #e3f2fd;
+      border-left: 4px solid #0066ff;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .report {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85em;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .exempt-example {
+      background: #fff9c4;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      *::after {
+        transition: background 0.3s ease;
+      }
+    }
+
+    /* Visual feedback for touch */
+    @media (hover: none) and (pointer: coarse) {
+      button:active::after,
+      a:active::after {
+        background: rgba(0, 100, 255, 0.25) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Touch Target Utility Demo</h1>
+
+    <div class="toolbar">
+      <label>
+        <input type="checkbox" id="debugToggle" />
+        <span>Enable Debug Visualization</span>
+      </label>
+      <button id="reportBtn">Show Report</button>
+      <button id="reinitBtn">Re-initialize</button>
+      <span style="color: #999; font-size: 0.9em;">Minimum target: 48×48px</span>
+    </div>
+
+    <div class="info">
+      <strong>How to test:</strong> Open this page on a touch device or use DevTools device emulation. The utility will detect undersized controls and inject invisible 48×48 tap targets. Enable "Debug Visualization" to see the overlays.
+    </div>
+
+    <!-- BUTTONS -->
+    <h2>Buttons</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Tiny button (20×20px) - needs full 48×48 overlay</div>
+      <button class="tiny-btn" onclick="alert('Tiny button clicked!')">Tiny</button>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Small button (32×32px) - can expand to ~44×44</div>
+      <button class="small-btn" onclick="alert('Small button clicked!')">Small</button>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Normal button (48×48px+) - no overlay needed</div>
+      <button onclick="alert('Normal button clicked!')">Normal</button>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Button with exemption - won't get overlay</div>
+      <button class="tiny-btn" data-no-touch-target-fix onclick="alert('Exempt button clicked!')">Exempt</button>
+      <div class="exempt-example">Added data-no-touch-target-fix attribute</div>
+    </div>
+
+    <!-- LINKS -->
+    <h2>Links</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Tiny link (20×20px)</div>
+      <a href="#" class="tiny-link" onclick="event.preventDefault(); alert('Tiny link clicked!')">Tiny link</a>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Small link (32×32px)</div>
+      <a href="#" class="small-link" onclick="event.preventDefault(); alert('Small link clicked!')">Small link</a>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Normal link (48×48px+)</div>
+      <a href="#" onclick="event.preventDefault(); alert('Normal link clicked!')">Normal link</a>
+    </div>
+
+    <!-- CLOSE/COLLISION SCENARIOS -->
+    <h2>Collision Scenarios</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Closely spaced tiny buttons - overlays will shrink to avoid collision</div>
+      <div class="close-controls">
+        <button class="tiny-btn" onclick="alert('Button 1')">1</button>
+        <button class="tiny-btn" onclick="alert('Button 2')">2</button>
+        <button class="tiny-btn" onclick="alert('Button 3')">3</button>
+        <button class="tiny-btn" onclick="alert('Button 4')">4</button>
+        <button class="tiny-btn" onclick="alert('Button 5')">5</button>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Tiny buttons with adequate spacing - can have larger overlays</div>
+      <div class="close-controls" style="gap: 20px;">
+        <button class="tiny-btn" onclick="alert('Button A')">A</button>
+        <button class="tiny-btn" onclick="alert('Button B')">B</button>
+        <button class="tiny-btn" onclick="alert('Button C')">C</button>
+      </div>
+    </div>
+
+    <!-- FORM CONTROLS -->
+    <h2>Form Controls</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Checkboxes (20×20px native) - need overlay</div>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="check1" />
+          <label for="check1">Option 1</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check2" />
+          <label for="check2">Option 2</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check3" />
+          <label for="check3">Option 3</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Radio buttons (20×20px native) - need overlay</div>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="radio" id="radio1" name="group" />
+          <label for="radio1">Option 1</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="radio" id="radio2" name="group" />
+          <label for="radio2">Option 2</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="radio" id="radio3" name="group" />
+          <label for="radio3">Option 3</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Select dropdown</div>
+      <select onchange="alert('Selected: ' + this.value)">
+        <option>Choose an option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">File input</div>
+      <input type="file" />
+    </div>
+
+    <!-- CUSTOM ELEMENTS -->
+    <h2>Custom Elements (ARIA roles)</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Custom button with role="button"</div>
+      <div role="button" tabindex="0" style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background: #0066ff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+      "
+        onclick="alert('Custom button clicked!')"
+        onkeydown="if(event.key===' '||event.key==='Enter') this.onclick();">
+        ✓
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Custom switch with role="switch"</div>
+      <div role="switch" aria-checked="false" tabindex="0" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      "
+        onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); alert('Switch toggled!')">
+        <div style="width: 32px; height: 20px; background: #ccc; border-radius: 10px; position: relative; transition: background 0.2s;">
+          <div style="width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s;"></div>
+        </div>
+        <span>Toggle Feature</span>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Menu items with role="menuitem"</div>
+      <div style="border: 1px solid #ccc; border-radius: 4px; overflow: hidden;">
+        <div role="menuitem" tabindex="0" style="
+          padding: 8px 12px;
+          cursor: pointer;
+          font-size: 0.9em;
+          background: white;
+          border-bottom: 1px solid #eee;
+        "
+          onclick="alert('Menu item 1')"
+          onkeydown="if(event.key===' '||event.key==='Enter') this.onclick();">
+          Menu Item 1
+        </div>
+        <div role="menuitem" tabindex="0" style="
+          padding: 8px 12px;
+          cursor: pointer;
+          font-size: 0.9em;
+          background: white;
+          border-bottom: 1px solid #eee;
+        "
+          onclick="alert('Menu item 2')"
+          onkeydown="if(event.key===' '||event.key==='Enter') this.onclick();">
+          Menu Item 2
+        </div>
+      </div>
+    </div>
+
+    <!-- EDGE CASES -->
+    <h2>Edge Cases</h2>
+
+    <div class="scenario">
+      <div class="scenario-desc">Hidden/disabled element (should be skipped)</div>
+      <button style="display: none;" onclick="alert('Hidden button')">Hidden Button</button>
+      <button disabled onclick="alert('Disabled button')">Disabled Button</button>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Nested interactive elements</div>
+      <button style="padding: 12px;">
+        Button with <a href="#" onclick="event.stopPropagation(); alert('Nested link clicked!')">nested link</a> inside
+      </button>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Very small SVG button</div>
+      <button onclick="alert('SVG button clicked!')" style="width: 24px; height: 24px; padding: 0; display: flex; align-items: center; justify-content: center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="19" cy="12" r="1"></circle>
+          <circle cx="5" cy="12" r="1"></circle>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initTouchTargets, setDebugMode, getReport } from './touch-target.js'
+
+    // Initialize on load
+    initTouchTargets({ debug: false })
+
+    // Debug toggle
+    document.getElementById('debugToggle').addEventListener('change', (e) => {
+      setDebugMode(e.target.checked)
+      // Re-init to apply debug mode
+      location.reload()
+    })
+
+    // Report button
+    document.getElementById('reportBtn').addEventListener('click', () => {
+      const report = getReport()
+      alert(`Touch Target Report:\n\nTotal undersized controls: ${report.total}\n\n${JSON.stringify(report.elements, null, 2)}`)
+    })
+
+    // Reinitialize button
+    document.getElementById('reinitBtn').addEventListener('click', () => {
+      location.reload()
+    })
+
+    // Log device info
+    const isTouchDevice = matchMedia('(hover: none) and (pointer: coarse)').matches
+    console.log('[touch-target demo]', {
+      isTouchDevice,
+      userAgent: navigator.userAgent,
+    })
+  </script>
+</body>
+</html>
