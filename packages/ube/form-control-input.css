@@ -1,0 +1,8 @@
+/* ─── Input disabled state ─────────────────────────────────── */
+
+input[type="text"][aria-disabled="true"],
+input[type="search"][aria-disabled="true"] {
+  background-color: var(--bg-subtle);
+  border-color: var(--border);
+  box-shadow: none;
+}

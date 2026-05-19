@@ -1,12 +1,20 @@
+/* ─── Animation tokens ────────────────────────────────────────── */
 
-/* ─── Fade transition (reusable cross-fade wrapper) ─────────── */
+:root {
+  --duration-fade: 200ms;
+  --duration-slide: 240ms;
+  --translate-fade-offset: 6px;
+  --translate-slide-distance: 48px;
+  --scale-transition-subtle: 0.97;
+}
+
+/* ─── Fade/slide animations ────────────────────────────────── */
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(var(--translate-fade-offset));
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -18,20 +26,17 @@
     opacity: 1;
     transform: translateY(0);
   }
-
   to {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(calc(var(--translate-fade-offset) * -1));
   }
 }
 
-/* Directional slide variants for carousel-style transitions */
 @keyframes slide-in-from-right {
   from {
     opacity: 0;
-    transform: translateX(48px) scale(0.97);
+    transform: translateX(var(--translate-slide-distance)) scale(var(--scale-transition-subtle));
   }
-
   to {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -43,19 +48,17 @@
     opacity: 1;
     transform: translateX(0) scale(1);
   }
-
   to {
     opacity: 0;
-    transform: translateX(-48px) scale(0.97);
+    transform: translateX(calc(var(--translate-slide-distance) * -1)) scale(var(--scale-transition-subtle));
   }
 }
 
 @keyframes slide-in-from-left {
   from {
     opacity: 0;
-    transform: translateX(-48px) scale(0.97);
+    transform: translateX(calc(var(--translate-slide-distance) * -1)) scale(var(--scale-transition-subtle));
   }
-
   to {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -67,55 +70,32 @@
     opacity: 1;
     transform: translateX(0) scale(1);
   }
-
   to {
     opacity: 0;
-    transform: translateX(48px) scale(0.97);
+    transform: translateX(var(--translate-slide-distance)) scale(var(--scale-transition-subtle));
   }
 }
+
+/* ─── Fade transition wrapper ──────────────────────────────── */
 
 .fade-transition {
   display: contents;
 }
 
 .fade-transition--in {
-  animation: fade-in 200ms var(--ease-out) both;
+  animation: fade-in var(--duration-fade) var(--ease-out) both;
 }
 
 .fade-transition--out {
-  animation: fade-out 200ms var(--ease-out) both;
+  animation: fade-out var(--duration-fade) var(--ease-out) both;
   pointer-events: none;
 }
 
-/* ltr: advancing forward (next slide comes from right) */
-.fade-transition--in.fade-transition--ltr {
-  display: block;
-  animation: slide-in-from-right 240ms var(--ease-out) both;
-}
-
-.fade-transition--out.fade-transition--ltr {
-  display: block;
-  animation: slide-out-to-left 240ms var(--ease-out) both;
-}
-
-/* rtl: going back (prev slide comes from left) */
-.fade-transition--in.fade-transition--rtl {
-  display: block;
-  animation: slide-in-from-left 240ms var(--ease-out) both;
-}
-
-.fade-transition--out.fade-transition--rtl {
-  display: block;
-  animation: slide-out-to-right 240ms var(--ease-out) both;
-}
+/* ─── Reduced motion ────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .fade-transition--in,
-  .fade-transition--out,
-  .fade-transition--in.fade-transition--ltr,
-  .fade-transition--out.fade-transition--ltr,
-  .fade-transition--in.fade-transition--rtl,
-  .fade-transition--out.fade-transition--rtl {
+  .fade-transition--out {
     animation: none;
   }
 }

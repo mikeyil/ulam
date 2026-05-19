@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 /**
- * Modal shell: structure only, no focus management or escape handling.
- * Use Modal (from @ulam/sili/react) for the fully-wired React + sili version.
+ * Dialog shell: structure only, no focus management or escape handling.
+ * Use Dialog (from @ulam/sili/react) for the fully-wired React + sili version.
  *
  * Props:
  *   open          boolean
@@ -14,7 +14,7 @@ import { createPortal } from 'react-dom'
  *   panelRef      React.RefObject
  *   children      node
  */
-export default function ModalShell({ open, onClose, heading = 'Information', headingIcon, actions, children, panelRef: externalPanelRef }) {
+export default function DialogShell({ open, onClose, heading = 'Information', headingIcon, actions, children, panelRef: externalPanelRef }) {
   const internalPanelRef = useRef(null)
   const panelRef = externalPanelRef ?? internalPanelRef
 

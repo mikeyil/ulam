@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import ButtonBack from './ButtonBack.jsx'
+import './panel.css'
 
 const Panel = forwardRef(function Panel({
   panelClassName,

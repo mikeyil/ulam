@@ -1,0 +1,32 @@
+/* ─── Base print styles ────────────────────────────────────── */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  /* Suppress external URL expansion — not useful in most app contexts */
+  a[href]::after {
+    content: none !important;
+  }
+
+  /* Avoid breaking headings across pages */
+  h1, h2, h3, h4, h5, h6,
+  .panel-title,
+  .panel-section-heading {
+    break-after: avoid;
+  }
+
+  /* Keep label+value pairs together */
+  .field {
+    break-inside: avoid;
+  }
+
+  .field__actions {
+    display: none !important;
+  }
+}

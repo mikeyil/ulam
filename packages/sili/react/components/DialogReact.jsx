@@ -3,9 +3,9 @@ import { useFocusTrap } from '../hooks/useFocusTrap.js'
 import { useAriaHide } from '../hooks/useAriaHide.js'
 import { returnFocus } from '../../core/returnFocus.js'
 import { onEscapeKey } from '../../core/escapeKey.js'
-import ModalPrimitive from './Modal.jsx'
+import DialogPrimitive from './Dialog.jsx'
 
-export default function Modal({ open, onClose, returnFocusRef, children, ...rest }) {
+export default function Dialog({ open, onClose, returnFocusRef, children, ...rest }) {
   const autoTriggerRef = useRef(null)
   const panelRef = useRef(null)
 
@@ -32,7 +32,7 @@ export default function Modal({ open, onClose, returnFocusRef, children, ...rest
   }, [open, onClose])
 
   return (
-    <ModalPrimitive open={open} onClose={onClose} panelRef={panelRef} {...rest}>
+    <DialogPrimitive open={open} onClose={onClose} panelRef={panelRef} {...rest}>
       {children}
     </ModalPrimitive>
   )

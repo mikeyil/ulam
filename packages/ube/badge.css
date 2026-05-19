@@ -1,0 +1,100 @@
+/* ─── Badge color tokens ──────────────────────────────────── */
+
+:root {
+  /* Severity colors (light mode) */
+  --badge-bg:                 #fce7e6;
+  --badge-text:               #a50e0e;
+  --severity-critical-text:   #ad1f1f;
+  --severity-critical-bg:     #fce7e6;
+  --severity-high-text:       #b23d3d;
+  --severity-high-bg:         #fef0e6;
+  --severity-medium-text:     #185fa5;
+  --severity-medium-bg:       #e6f1fb;
+  --severity-low-text:        #3b6d11;
+  --severity-low-bg:          #eaf3de;
+
+  /* Badge type colors (light mode) */
+  --source-text:              #3730a3;
+  --source-bg:                #eef2ff;
+  --wcag-text:                #155e75;
+  --wcag-bg:                  #ecfeff;
+  --wcag-level-bg:            #dbeafe;
+  --wcag-level-text:          #1e40af;
+  --platform-text:            #3c4558;
+  --platform-bg:              #e8eef5;
+
+  /* Badge fonts */
+  --mono:                     'SF Mono', 'Fira Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+[data-theme="dark"] {
+  /* Severity colors (dark mode) */
+  --badge-bg:                 #3b1515;
+  --badge-text:               #f28b82;
+  --severity-critical-text:   #f28b82;
+  --severity-critical-bg:     #3b1515;
+  --severity-high-text:       #f0a050;
+  --severity-high-bg:         #3d2010;
+  --severity-medium-text:     #7eb4e8;
+  --severity-medium-bg:       #0e2440;
+  --severity-low-text:        #5dca8a;
+  --severity-low-bg:          #0d2d18;
+
+  /* Badge type colors (dark mode) */
+  --source-text:              #a5b4fc;
+  --source-bg:                #1e1b4b;
+  --wcag-text:                #67e8f9;
+  --wcag-bg:                  #0a2733;
+  --wcag-level-bg:            #082f4b;
+  --wcag-level-text:          #38bdf8;
+  --platform-text:            #cbd5e1;
+  --platform-bg:              #1e293b;
+}
+
+/* ─── Badge base styles ────────────────────────────────────── */
+
+.badge--severity,
+.badge--source,
+.badge--wcag,
+.badge--wcag-level,
+.badge--platform {
+  font-size: var(--fs-small);
+  font-family: var(--mono);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Badge variants ───────────────────────────────────────── */
+
+.badge--severity {
+  background: var(--badge-bg);
+  color: var(--badge-text);
+}
+
+.badge--source {
+  background: var(--source-bg);
+  color: var(--source-text);
+}
+
+.badge--wcag {
+  background: var(--wcag-bg);
+  color: var(--wcag-text);
+}
+
+.badge--wcag-level {
+  background: var(--wcag-level-bg);
+  color: var(--wcag-level-text);
+}
+
+.badge--platform {
+  background: var(--platform-bg);
+  color: var(--platform-text);
+}
+
+/* ─── Badge prefix (hidden) ────────────────────────────────── */
+
+.badge-prefix {
+  display: none;
+}

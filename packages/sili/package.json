@@ -16,12 +16,13 @@
     "./remix": "./remix/index.js",
     "./vue": "./vue/index.js",
     "./angular": "./angular/index.js",
-    "./core/sili.css": {
-      "default": "./core/sili.css"
+    "./base.css": {
+      "default": "./base.css"
     }
   },
-  "files": ["core", "react", "remix", "vue", "angular", "README.md"],
+  "files": ["core", "react", "remix", "vue", "angular", "base.css", "README.md"],
   "peerDependencies": {
+    "@ulam/ube": ">=0.2.0",
     "react": ">=18",
     "react-dom": ">=18",
     "vue": ">=3",

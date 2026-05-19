@@ -1,0 +1,29 @@
+/* ─── Icon button base styling ─────────────────────────────── */
+
+.form-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--input-height);
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--duration-fast);
+}
+
+/* ─── Hover state ──────────────────────────────────────────── */
+
+.form-control-button:hover {
+  color: var(--text-heading);
+}
+
+/* ─── Focus state ──────────────────────────────────────────── */
+
+.form-control-button:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}

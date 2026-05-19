@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import './button-text.css'
+import './buttons.css'
 
 const Button = forwardRef(function Button({
   children,

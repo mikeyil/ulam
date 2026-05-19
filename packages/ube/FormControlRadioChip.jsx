@@ -1,4 +1,6 @@
-export default function RadioChip({ name, value, label, current, onChange }) {
+import './form-control-radio-chip.css'
+
+export default function FormControlRadioChip({ name, value, label, current, onChange }) {
   const isActive = current === value
   return (
     <label className={`radio-chip${isActive ? ' radio-chip--active' : ''}`}>

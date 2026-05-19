@@ -1,7 +1,10 @@
 import { useRef } from 'react'
-import './input-with-clear.css'
+import './form-control-field.css'
+import './form-control-button.css'
+import './form-control-input.css'
+import './form-control-input-with-clear.css'
 
-export default function InputWithClear({
+export default function FormControlInputWithClear({
   id,
   type = 'text',
   value,
@@ -28,14 +31,14 @@ export default function InputWithClear({
   }
 
   return (
-    <div className={wrapClassName}>
+    <div className={`input-with-clear${wrapClassName ? ` ${wrapClassName}` : ''}`}>
       <input
         ref={ref}
         id={id}
         type={type}
         value={value}
         onChange={e => onChange(e.target.value)}
-        className={inputClassName}
+        className={`input-with-clear__input${inputClassName ? ` ${inputClassName}` : ''}`}
         {...rest}
       />
       {value && (
@@ -43,7 +46,7 @@ export default function InputWithClear({
           type="button"
           onClick={handleClear}
           aria-label={clearAriaLabel}
-          className={clearButtonClassName}
+          className={`input-with-clear__button${clearButtonClassName ? ` ${clearButtonClassName}` : ''}`}
         >
           {clearIcon}
         </button>

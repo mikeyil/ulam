@@ -16,6 +16,31 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Component-specific transition resets */
+  .btn,
+  .btn--icon,
+  .btn--primary,
+  .btn--secondary,
+  .btn--tertiary,
+  .btn--warning,
+  .control,
+  .toggle,
+  .toggle::before,
+  .toggle__track,
+  .toggle__thumb,
+  [dir="rtl"] .toggle__thumb,
+  .radio-chip,
+  .radio-chip__indicator,
+  input[type="checkbox"].control,
+  input[type="radio"].control,
+  .input-search,
+  .input-search__clear,
+  .input-search__submit,
+  .select,
+  .form-control-input-with-clear {
+    transition: none;
+  }
 }
 
 /* ── prefers-reduced-transparency ────────────────────────────
@@ -23,6 +48,11 @@
 @media (prefers-reduced-transparency: reduce) {
   :root {
     --overlay-bg: #000;
+  }
+
+  [aria-disabled="true"] {
+    opacity: 1;
+    background: var(--bg-subtle);
   }
 
   .btn--primary:disabled,
@@ -38,6 +68,24 @@
   }
 
   input:disabled {
+    opacity: 1;
+    color: var(--text-disabled);
+  }
+
+  .btn--tertiary[aria-disabled="true"],
+  .btn--tertiary.btn--disabled,
+  .btn--warning[aria-disabled="true"],
+  .btn--warning.btn--disabled,
+  .btn--warning:not([aria-disabled="true"]):active,
+  .btn--primary[aria-disabled="true"],
+  .btn--primary.btn--disabled,
+  .btn--secondary[aria-disabled="true"],
+  .btn--secondary.btn--disabled,
+  .btn--icon[aria-disabled="true"],
+  .btn--icon.btn--disabled,
+  .toggle:has(.toggle__input[aria-disabled="true"]),
+  .app-checkbox[aria-disabled="true"],
+  .control[aria-disabled="true"] {
     opacity: 1;
     color: var(--text-disabled);
   }

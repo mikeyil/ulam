@@ -1,0 +1,94 @@
+/* ─── Search wrapper (base) ────────────────────────────────── */
+
+.input-search {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-control);
+  border-radius: var(--rounded);
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.input-search:focus-within {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 var(--focus-outline-width) var(--focus);
+}
+
+/* ─── Search input field ────────────────────────────────────── */
+
+.input-search__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: none;
+  border-radius: var(--rounded) 0 0 var(--rounded);
+  color: inherit;
+  font-size: var(--fs-sub);
+  line-height: 1.5;
+}
+
+.input-search__input:focus {
+  outline: none;
+}
+
+.input-search__input--disabled {
+  color: var(--text-body);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Live mode: full radius on input (no submit button) */
+.input-search--live .input-search__input {
+  border-radius: var(--rounded);
+}
+
+/* Remove browser default search input clear button */
+.input-search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* ─── Clear button ─────────────────────────────────────────── */
+
+.input-search__clear {
+  border-radius: 0;
+}
+
+.input-search--live .input-search__clear {
+  border-radius: 0 var(--rounded) var(--rounded) 0;
+}
+
+/* ─── Submit button ────────────────────────────────────────── */
+
+.input-search__submit {
+  background: var(--accent);
+  border-radius: 0 var(--rounded) var(--rounded) 0;
+  color: var(--accent-text, #fff);
+  transition: background var(--duration-fast);
+}
+
+.input-search__submit:hover:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(1.1);
+}
+
+.input-search__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Reduced transparency ─────────────────────────────────── */
+
+@media (prefers-reduced-transparency: reduce) {
+  .input-search__input--disabled {
+    opacity: 1;
+    color: var(--text-disabled);
+  }
+
+  .input-search__submit:disabled {
+    opacity: 1;
+    color: var(--text-disabled);
+    background: var(--bg-subtle);
+  }
+}

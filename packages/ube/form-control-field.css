@@ -1,0 +1,28 @@
+/* ─── Input field base styling ─────────────────────────────── */
+
+input[type="text"],
+input[type="search"] {
+  box-sizing: border-box;
+  height: var(--input-height);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-control);
+  border-radius: var(--rounded);
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  transition: border-color var(--duration-fast);
+}
+
+input[type="text"]:focus-visible,
+input[type="search"]:focus-visible {
+  border-color: var(--focus);
+  border-radius: var(--rounded-sm);
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: 0;
+}
+
+/* ─── Placeholder styling ──────────────────────────────────── */
+
+::placeholder {
+  font-style: italic;
+}

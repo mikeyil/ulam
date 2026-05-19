@@ -1,3 +1,5 @@
+import './info-box.css'
+
 export default function InfoBox({ label, children, className = '' }) {
   return (
     <div className={`info-box${className ? ` ${className}` : ''}`} role="note">

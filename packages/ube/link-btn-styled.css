@@ -1,0 +1,26 @@
+/* ─── Link button base styling ────────────────────────────── */
+
+.link-btn-styled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--accent);
+  border-radius: var(--rounded);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition-btn);
+}
+
+/* ─── Link button focus state ──────────────────────────────── */
+
+.link-btn-styled:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}

@@ -1,6 +1,7 @@
 import { useAriaDisabledKeydown } from './useAriaDisabled.js'
+import './form-control-toggle.css'
 
-export default function Toggle({ id, checked, onChange, disabled }) {
+export default function FormControlToggle({ id, checked, onChange, disabled }) {
   const handleKeyDown = useAriaDisabledKeydown(disabled)
   return (
     <span className="toggle">

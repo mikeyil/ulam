@@ -1,0 +1,175 @@
+/* ─── Toggle color and sizing tokens ──────────────────────────── */
+
+:root {
+  /* Toggle control sizing */
+  --toggle-height:             var(--control-size);
+  --toggle-radius:             calc(var(--touch-target) / 4);
+  --toggle-thumb-size:         calc(var(--toggle-height) - 2px);  /* 22px: height minus 1px border on each side */
+  --toggle-thumb-offset:       1px;  /* 1px from edge */
+  --toggle-thumb-transition-offset: calc(var(--touch-target) - var(--toggle-thumb-size) - 1px);  /* width minus thumb size minus 1px edge */
+  --toggle-border-width:       calc(var(--toggle-thumb-size) / 12);  /* proportional border width for off indicator */
+  --toggle-on-width:           calc(var(--toggle-thumb-size) / 12);
+  --toggle-on-height:          calc(var(--toggle-thumb-size) / 2);
+  --toggle-off-size:           calc(var(--toggle-thumb-size) / 2);
+  --toggle-hover-expand:       -10px;
+}
+
+/* ─── Toggle (base) ────────────────────────────────────────── */
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  width: var(--touch-target);
+  height: var(--toggle-height);
+  flex-shrink: 0;
+}
+
+.panel-toggle-row .toggle {
+  margin-top: 2px;
+}
+
+/* ─── Toggle hover background ──────────────────────────────── */
+
+.toggle::before {
+  content: '';
+  position: absolute;
+  inset: var(--toggle-hover-expand) calc(var(--space-2) * -1);
+  background: transparent;
+  border-radius: var(--rounded);
+  transition: background var(--duration-fast);
+  pointer-events: none;
+}
+
+.toggle:not([aria-disabled="true"]):hover::before {
+  background: var(--bg-subtle);
+}
+
+/* ─── Toggle input (hidden, interactive layer) ────────────── */
+
+.toggle__input {
+  position: absolute;
+  inset: var(--toggle-hover-expand) calc(var(--space-2) * -1);
+  opacity: 0;
+  cursor: pointer;
+  z-index: var(--z-index-focus-local);
+}
+
+.toggle[aria-disabled="true"] .toggle__input {
+  cursor: not-allowed;
+}
+
+/* ─── Toggle track ────────────────────────────────────────── */
+
+.toggle__track {
+  width: var(--touch-target);
+  height: var(--toggle-height);
+  background: var(--border);
+  border: var(--border-width-control) solid var(--border-control);
+  border-radius: var(--toggle-radius);
+  position: relative;
+  pointer-events: none;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.toggle:has(.toggle__input:checked) .toggle__track {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .toggle:not(:has(.toggle__input:checked)) .toggle__track {
+  background: var(--bg-subtle);
+}
+
+.toggle:not([aria-disabled="true"]):hover:has(.toggle__input:checked) .toggle__track {
+  background: var(--accent-text);
+  border-color: var(--accent-text);
+}
+
+[data-theme="dark"] .toggle:not([aria-disabled="true"]):hover:not(:has(.toggle__input:checked)) .toggle__track {
+  background: var(--bg);
+}
+
+/* ─── Toggle thumb (knob) ──────────────────────────────────── */
+
+.toggle__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: var(--toggle-thumb-offset);
+  width: var(--toggle-thumb-size);
+  height: var(--toggle-thumb-size);
+  background: var(--bg);
+  border-radius: 50%;
+  outline: var(--border-width-control) solid var(--border-control);
+  outline-offset: 0;
+  transform: translateY(-50%);
+  transition: left var(--duration-fast), outline-color var(--duration-fast), background var(--duration-fast);
+}
+
+[data-theme="dark"] .toggle__thumb {
+  background: #4a4a4a;
+  outline-color: #2a2a2a;
+}
+
+[dir="rtl"] .toggle__thumb {
+  left: auto;
+  right: var(--toggle-thumb-offset);
+  transition: right var(--duration-fast), outline-color var(--duration-fast);
+}
+
+.toggle:has(.toggle__input:checked) .toggle__thumb {
+  left: var(--toggle-thumb-transition-offset);
+  background: var(--accent);
+  outline-color: var(--accent);
+}
+
+[dir="rtl"] .toggle:has(.toggle__input:checked) .toggle__thumb {
+  right: var(--toggle-thumb-transition-offset);
+}
+
+[data-theme="dark"] .toggle:has(.toggle__input:checked) .toggle__thumb {
+  background: var(--accent);
+  outline-color: var(--accent);
+}
+
+/* ─── Toggle indicators (on/off symbols) ────────────────────── */
+
+.toggle__on {
+  display: block;
+  width: var(--toggle-on-width);
+  height: var(--toggle-on-height);
+  background: #fff;
+  border-radius: calc(var(--toggle-on-width) / 2);
+}
+
+[data-theme="dark"] .toggle__on {
+  background: var(--text-heading);
+}
+
+.toggle__off {
+  display: block;
+  width: var(--toggle-off-size);
+  height: var(--toggle-off-size);
+  background: transparent;
+  border: var(--toggle-border-width) solid var(--border-control);
+  border-radius: 50%;
+}
+
+[data-theme="dark"] .toggle__off {
+  border-color: var(--text-heading);
+}
+
+/* ─── Toggle focus state ──────────────────────────────────── */
+/* Focus ring is redirected to the sibling <span> via :focus-visible + span */
+
+input[role="switch"]:focus {
+  outline: none;
+}
+
+input[role="switch"]:focus-visible + span {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+  border-radius: var(--toggle-radius);
+}

@@ -1,0 +1,30 @@
+/* ─── Radio control (base) ─────────────────────────────────── */
+
+input[type="radio"].control {
+  width: var(--control-size);
+  height: var(--control-size);
+  background-color: var(--border);
+  border-color: var(--border-control);
+  border-radius: 50%;
+}
+
+/* ─── Radio checked state (with checkmark) ─────────────────── */
+
+input[type="radio"].control:checked {
+  border-width: 2px;
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='5.5' fill='%233c3489'/%3E%3C/svg%3E");
+  background-size: 80% 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] input[type="radio"].control:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='5.5' fill='%23afa9ec'/%3E%3C/svg%3E");
+}
+
+/* ─── Radio hover state ────────────────────────────────────── */
+
+input[type="radio"].control:not(:checked):hover {
+  background-color: var(--bg-subtle);
+}

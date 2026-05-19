@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import './buttons.css'
 
 const ButtonIcon = forwardRef(function ButtonIcon({
   icon,

@@ -1,0 +1,253 @@
+/* ─── Panel header / title ─────────────────────────────────── */
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-6);
+}
+
+.panel-header .btn--icon {
+  color: var(--accent-text);
+  margin-inline-start: calc(var(--space-2) * -1);
+}
+
+@media (width >= 768px) {
+  .panel-header {
+    gap: var(--space-3);
+  }
+
+  .panel-header .btn--icon {
+    margin-inline-start: 0;
+  }
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1em;
+  color: var(--text-heading);
+}
+
+.panel-title:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Panel mobile back button ─────────────────────────────── */
+
+.panel-mobile-back {
+  display: block;
+  margin-top: var(--space-2);
+}
+
+.panel-mobile-back .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (width >= 768px) {
+  .panel-mobile-back {
+    display: none;
+  }
+}
+
+/* ─── Panel intro text ─────────────────────────────────────── */
+
+.panel-intro {
+  margin-bottom: var(--space-4);
+  color: var(--text-body);
+  font-size: var(--fs-body);
+}
+
+/* ─── Panel pending note ────────────────────────────────────── */
+
+.panel-pending-note {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+  color: var(--accent-text);
+  font-size: var(--fs-small);
+}
+
+.panel-toggle-row .panel-pending-note {
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+}
+
+/* ─── Panel group (labeled section with heading + desc) ────── */
+
+.panel-group {
+  margin-bottom: var(--space-5);
+}
+
+.panel-group__label {
+  margin-bottom: 0;
+  color: var(--text-heading);
+  font-size: var(--fs-sub);
+  font-weight: 500;
+}
+
+.panel-group__desc {
+  margin-top: 2px;
+  margin-bottom: var(--space-3);
+  color: var(--text-body);
+  font-size: var(--fs-body);
+}
+
+/* ─── Panel toggle row (label+desc+toggle layout) ──────────── */
+
+.panel-toggle-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: var(--space-4);
+  min-height: var(--touch-target);
+  margin-bottom: var(--space-5);
+}
+
+.panel-toggle-row--sm {
+  margin-bottom: var(--space-4);
+}
+
+.panel-toggle-label {
+  display: block;
+  margin-bottom: 0;
+  color: var(--text-heading);
+  font-size: var(--fs-sub);
+  font-weight: 500;
+}
+
+.panel-toggle-desc {
+  margin-top: 2px;
+  margin-bottom: 0;
+  color: var(--text-body);
+  font-size: var(--fs-body);
+}
+
+.panel-toggle-row--disabled .panel-toggle-label,
+.panel-toggle-row--disabled .panel-toggle-desc {
+  color: var(--text-body);
+}
+
+/* ─── Panel radio group ────────────────────────────────────── */
+
+.panel-radio-legend {
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.panel-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ─── Panel form field (label/error/required) ──────────────── */
+
+.panel-field-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.panel-field-required {
+  color: var(--text-muted);
+}
+
+.panel-field-error {
+  margin-top: 0.5em;
+  margin-bottom: var(--space-2);
+  color: var(--error);
+  font-size: var(--fs-small);
+}
+
+/* ─── Panel body text ──────────────────────────────────────── */
+
+.panel-body {
+  margin-bottom: 0;
+  color: var(--text-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+
+.panel-subheading {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+/* ─── Panel inline link (text button) ───────────────────────── */
+
+.panel-inline-link {
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--rounded-xs);
+  color: var(--accent-text);
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: var(--text-underline-offset);
+  cursor: pointer;
+}
+
+.panel-inline-link:hover {
+  color: var(--text-heading);
+}
+
+.panel-inline-link:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+  text-decoration: none;
+}
+
+/* ─── Full-page panel view ────────────────────────────────── */
+
+.page-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (width >= 768px) {
+  .page-panel {
+    padding-top: calc(var(--space-8) + var(--space-6));
+    animation: fade-in var(--duration-base) var(--ease-out) both;
+  }
+}
+
+/* ─── Panel sections ────────────────────────────────────────── */
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-6);
+}
+
+.panel-section + .panel-section {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-6);
+}
+
+.panel-section-heading {
+  margin-bottom: var(--space-3);
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-upper);
+}
+
+.panel-section:has(> .panel-pending-note) .panel-section-heading {
+  margin-bottom: 0;
+}
+
+.panel-section > .panel-pending-note {
+  margin-bottom: 0;
+}

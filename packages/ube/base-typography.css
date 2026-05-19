@@ -1,4 +1,10 @@
-/* ─── UI Typography Baseline ──────────────────────────────────
+/* ─── Typography tokens ───────────────────────────────────────── */
+
+:root {
+  --letter-spacing-upper: 0.05em;  /* Letter spacing for uppercased labels */
+}
+
+/* ─── UI Typography Baseline ──────────────────────────────────────
    Generic structural typography defaults. No app-specific font
    family choices. Components that need typography utilities
    import this file.

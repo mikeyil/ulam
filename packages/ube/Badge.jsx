@@ -1,3 +1,5 @@
+import './badge.css'
+
 export default function Badge({ variant, bg, color, prefix, onClick, className, children, ...rest }) {
   const cls = `badge--${variant}${className ? ` ${className}` : ''}`
   const style = (bg || color)

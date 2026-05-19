@@ -1,0 +1,60 @@
+/* ─── Select tokens ───────────────────────────────────────────── */
+
+:root {
+  --inset-input-icon: 8px;
+}
+
+/* ─── Select wrapper ──────────────────────────────────────── */
+
+.select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--touch-target);
+}
+
+/* ─── Select control (base) ────────────────────────────────── */
+
+.select {
+  width: 100%;
+  height: var(--touch-target);
+  margin-bottom: 0;
+  padding: 0 30px 0 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-control);
+  border-radius: var(--rounded);
+  color: var(--text-heading);
+  font-size: var(--fs-body);
+  cursor: pointer;
+  appearance: none;
+  transition: background-color var(--duration-fast);
+}
+
+.select:not([aria-disabled="true"]):hover {
+  background: var(--bg);
+}
+
+.select:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: 0;
+  border-radius: var(--rounded-sm);
+}
+
+/* ─── Chevron indicator ────────────────────────────────────── */
+
+.select__chevron {
+  position: absolute;
+  right: var(--inset-input-icon);
+  top: 50%;
+  pointer-events: none;
+  color: var(--accent-text);
+  transform: var(--transform-center-y);
+}
+
+/* ─── Reduced motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .select {
+    transition: none;
+  }
+}

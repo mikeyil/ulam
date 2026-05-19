@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Modal, Sheet, Drawer } from '@ulam/sili/react'
+import { Dialog, Sheet, Drawer } from '@ulam/sili/react'
 
 export default function OverlayManager({
   overlays = [],
@@ -32,9 +32,10 @@ export default function OverlayManager({
   const isOpen = activeId === activeOverlay.id
 
   switch (type) {
+    case 'dialog':
     case 'modal':
       return (
-        <Modal
+        <Dialog
           open={isOpen}
           onClose={onClose}
           heading={heading}
@@ -42,7 +43,7 @@ export default function OverlayManager({
           returnFocusRef={returnFocusRef}
         >
           {content || children}
-        </Modal>
+        </Dialog>
       )
 
     case 'sheet':

@@ -1,6 +1,7 @@
 import { useAriaDisabledKeydown } from './useAriaDisabled.js'
+import './form-control-select.css'
 
-export default function Select({ id, value, onChange, disabled, wrapClass, children, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, ...rest }) {
+export default function FormControlSelect({ id, value, onChange, disabled, wrapClass, children, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, ...rest }) {
   const handleKeyDown = useAriaDisabledKeydown(disabled)
   return (
     <div className={`select-wrap${wrapClass ? ` ${wrapClass}` : ''}`}>

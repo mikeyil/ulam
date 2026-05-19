@@ -22,13 +22,15 @@ export { useMediaQuery } from './hooks/useMediaQuery.js'
 export { usePageTitle } from './hooks/usePageTitle.js'
 
 // React components (fully wired with sili hooks)
-export { default as Modal } from './components/ModalReact.jsx'
+export { default as Dialog } from './components/DialogReact.jsx'
+export { default as Modal } from './components/DialogReact.jsx'
 export { default as Drawer } from './components/DrawerReact.jsx'
 export { default as Sheet } from './components/SheetReact.jsx'
 export { default as OverlayManager } from './components/OverlayManager.jsx'
 
 // Primitive shells (structure only, no sili hooks): for framework-agnostic use
-export { default as ModalPrimitive } from './components/Modal.jsx'
+export { default as DialogPrimitive } from './components/Dialog.jsx'
+export { default as ModalPrimitive } from './components/Dialog.jsx'
 export { default as DrawerPrimitive } from './components/Drawer.jsx'
 export { default as SheetPrimitive } from './components/Sheet.jsx'
 

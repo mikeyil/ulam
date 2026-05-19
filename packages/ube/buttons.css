@@ -1,0 +1,278 @@
+/* ─── Button icon sizing tokens ───────────────────────────────── */
+
+:root {
+  --icon-size-sm: 1rem;
+  --icon-size-md: 1.5em;
+  --icon-size-lg: 2em;
+}
+
+/* ─── Button base ──────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  height: var(--touch-target);
+  padding: 0 var(--space-2);
+  background: none;
+  border: none;
+  border-radius: var(--rounded);
+  color: inherit;
+  font-size: var(--fs-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transition-btn);
+}
+
+/* ─── Button icon wrapper ──────────────────────────────────── */
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  flex-shrink: 0;
+}
+
+.btn .btn-icon {
+  width: auto;
+  height: auto;
+}
+
+.btn svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* ─── Button icon (icon-only variant) ──────────────────────── */
+
+.btn--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  background: none;
+  border: none;
+  border-radius: var(--rounded);
+  color: var(--text-body);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+
+.btn--icon:hover {
+  background: var(--bg-subtle);
+  color: var(--text-heading);
+}
+
+.btn--icon:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.btn--icon:active {
+  background: var(--border);
+}
+
+/* ─── Button icon accent variant ────────────────────────────── */
+
+.btn--icon-accent {
+  color: var(--accent-text);
+}
+
+/* ─── Button icon tertiary variant ────────────────────────────── */
+
+.btn--icon-tertiary {
+  color: var(--accent-text);
+}
+
+/* ─── Button icon accent/tertiary with success state ────────── */
+
+.btn--icon-accent.btn__field--success,
+.btn--icon-tertiary.btn__field--success,
+.btn--tertiary.btn__field--success {
+  color: var(--success);
+}
+
+.btn--icon-accent.btn__field--success:hover,
+.btn--icon-tertiary.btn__field--success:hover,
+.btn--tertiary.btn__field--success:hover {
+  color: var(--success);
+  background: transparent;
+}
+
+/* ─── Button primary variant ────────────────────────────────── */
+
+.btn--primary {
+  border: 1px solid var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-weight: 500;
+  padding: 0 var(--space-2);
+  transition: var(--transition-btn);
+}
+
+.btn--primary:not([aria-disabled="true"]):hover {
+  background: var(--accent-text);
+  border-color: var(--accent-text);
+  color: var(--accent-bg);
+}
+
+.btn--primary:not([aria-disabled="true"]):focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.btn--primary:not([aria-disabled="true"]):active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.btn--primary[aria-disabled="true"]:focus-visible,
+.btn--primary.btn--disabled:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ─── Button secondary variant ─────────────────────────────── */
+
+.btn--secondary {
+  border: 1px solid var(--accent);
+  background: var(--bg-subtle);
+  color: var(--accent-text);
+  font-weight: 500;
+  padding: 0 var(--space-2);
+  border-radius: var(--rounded);
+  transition: var(--transition-btn);
+}
+
+.btn--secondary:not([aria-disabled="true"]):hover {
+  background: var(--accent-text);
+  border-color: var(--accent-text);
+  color: var(--accent-bg);
+}
+
+.btn--secondary:not([aria-disabled="true"]):focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.btn--secondary:not([aria-disabled="true"]):active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.btn--secondary[aria-disabled="true"]:focus-visible,
+.btn--secondary.btn--disabled:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ─── Button tertiary variant (text link style) ───────────── */
+
+.btn--tertiary {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--accent-text);
+  font-weight: 500;
+  padding: 0 var(--space-2);
+  border-radius: var(--rounded);
+  text-decoration: underline;
+  text-underline-offset: var(--text-underline-offset);
+  transition: var(--transition-btn);
+}
+
+.btn--tertiary.btn--full-width {
+  padding: 0;
+}
+
+.btn--tertiary:not([aria-disabled="true"]):hover {
+  background: var(--bg-subtle);
+  color: var(--text-heading);
+  text-decoration: none;
+}
+
+.btn--tertiary:not([aria-disabled="true"]):focus-visible {
+  outline: 1px solid var(--focus);
+  outline-offset: 0;
+  text-decoration: none;
+}
+
+.btn--tertiary:not([aria-disabled="true"]):active {
+  background: var(--border);
+  color: var(--text-heading);
+}
+
+/* ─── Button warning variant ────────────────────────────────── */
+
+.btn--warning {
+  border: 1px solid var(--error);
+  background: transparent;
+  color: var(--error);
+  font-weight: 500;
+  padding: 0 var(--space-2);
+  border-radius: var(--rounded);
+  transition: var(--transition-btn);
+}
+
+.btn--warning:not([aria-disabled="true"]):hover {
+  background: var(--error);
+  color: var(--bg);
+}
+
+.btn--warning:not([aria-disabled="true"]):focus-visible {
+  outline: var(--focus-outline-width) solid var(--error);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.btn--warning:not([aria-disabled="true"]):active {
+  background: var(--error);
+  color: var(--bg);
+  opacity: 0.85;
+}
+
+.btn--warning[aria-disabled="true"]:focus-visible {
+  outline: var(--focus-outline-width) solid var(--error);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ─── Button disabled state ────────────────────────────────── */
+
+.btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Button error state ────────────────────────────────────– */
+
+.btn--error {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+/* ─── Error retry inline (link-style) ──────────────────────── */
+
+.error-retry-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+.error-retry-inline:not([aria-disabled="true"]):hover,
+.error-retry-inline:not([aria-disabled="true"]):focus-visible {
+  background: transparent;
+  color: var(--text-heading);
+}

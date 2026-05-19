@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
+import './form-controls.css'
+import './form-control-checkbox.css'
 
-const Radio = forwardRef(function Radio({
-  name,
-  value,
+const FormControlCheckbox = forwardRef(function FormControlCheckbox({
   checked,
   onChange,
   label,
@@ -14,9 +14,7 @@ const Radio = forwardRef(function Radio({
     <label className={`control__label${className ? ` ${className}` : ''}`}>
       <input
         ref={ref}
-        type="radio"
-        name={name}
-        value={value}
+        type="checkbox"
         checked={checked}
         onChange={onChange}
         disabled={disabled}
@@ -28,4 +26,4 @@ const Radio = forwardRef(function Radio({
   )
 })
 
-export default Radio
+export default FormControlCheckbox
