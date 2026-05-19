@@ -15,7 +15,6 @@ export { useMediaQuery }      from '../react/hooks/useMediaQuery.js'
 
 // Overlay components are router-agnostic; re-exported unchanged
 export { default as Dialog }      from '../react/components/DialogReact.jsx'
-export { default as Modal }       from '../react/components/DialogReact.jsx'
 export { default as Drawer }      from '../react/components/DrawerReact.jsx'
 export { default as Sheet }       from '../react/components/SheetReact.jsx'
 
