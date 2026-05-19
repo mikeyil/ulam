@@ -40,6 +40,7 @@ import '@ulam/ube/core'  // Registers all ube web components
 Text button with icon support, state transitions, and semantic variants.
 
 **Attributes:**
+
 - `variant` — `'primary'` | `'secondary'` | `'tertiary'` | `'danger'` (default: `'primary'`)
 - `disabled` — Boolean flag
 - `active` — Boolean flag (toggled state)
@@ -49,10 +50,12 @@ Text button with icon support, state transitions, and semantic variants.
 - `title` — Tooltip text
 
 **Properties:**
+
 - `icon` — DOM Element (rendered left of label)
 - `activeIcon` — DOM Element (rendered when active)
 
 **Events:**
+
 - `click` — Standard click event
 
 **Example:**
@@ -90,6 +93,7 @@ Text button with icon support, state transitions, and semantic variants.
 ### Light DOM (no shadow encapsulation)
 
 All components render to light DOM. This allows:
+
 - CSS tokens from the host app to cascade (`--text-body`, `--accent`, etc.)
 - Easy styling overrides via CSS classes
 - Direct DOM access via `.querySelector()`
@@ -124,6 +128,7 @@ Run the test harness:
 ```
 
 Open `test-button-text.html` to manually test ButtonText:
+
 - Basic variants (primary, secondary, tertiary, danger)
 - States (enabled, disabled, active)
 - Icon property
@@ -149,11 +154,13 @@ Vue, Angular, and Remix adapters coming soon.
 If you're currently using React components from `@ulam/ube`:
 
 **Old (React components directly from ube):**
+
 ```javascript
 import { ButtonText } from '@ulam/ube'
 ```
 
 **New (React adapter):**
+
 ```javascript
 import { ButtonText } from '@ulam/ube/react'
 ```
@@ -161,6 +168,7 @@ import { ButtonText } from '@ulam/ube/react'
 The API is identical—no code changes needed. The React adapter wraps the vanilla web component.
 
 **Or go vanilla:**
+
 ```html
 <ube-button-text variant="primary">Save</ube-button-text>
 ```
@@ -240,4 +248,3 @@ connectedCallback() {
 - [ ] Remix adapter
 - [ ] ElementInternals API support when browser support improves
 - [ ] Storybook for component documentation
-

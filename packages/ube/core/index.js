@@ -18,5 +18,5 @@ export { default as UbeIconExternalLink } from './icon-external-link.js'
 export { default as UbeFormControlToggle } from './form-control-toggle.js'
 export { default as UbePanelFormControls } from './panel-form-controls.js'
 export { default as UbeFadeTransition } from './fade-transition.js'
-
-// Additional component exports will be added as they're ported
+export { default as UbeFormControlRadioChip } from './form-control-radio-chip.js'
+export { default as UbeFormControlRadioChipGroup } from './form-control-radio-chip-group.js'

@@ -7,11 +7,13 @@
 #### Week 1: ButtonText (Proof of Concept)
 
 ✅ `core/base-element.js` (60 lines)
+
 - Base class for all ube web components
 - Lifecycle hooks: `connectedCallback`, `attributeChangedCallback`
 - Helpers: `_emitEvent`, `_setClassIf`, `_setAriaLabel`
 
 ✅ `core/button-text.js` (120 lines)
+
 - Full implementation: attributes, properties, rendering, event handling
 - Attributes: `variant`, `disabled`, `active`, `full-width`, `label`, `active-label`, `title`
 - Properties: `icon`, `activeIcon` (for JSX/DOM elements)
@@ -19,26 +21,31 @@
 - Tested: attributes sync to DOM classes, icon rendering works, disabled state prevents clicks
 
 ✅ `core/index.js`
+
 - Exports `UbeElement` and `UbeButtonText`
 - Registers web component via `customElements.define`
 
 ✅ `react/ButtonText.jsx` (65 lines)
+
 - React adapter (thin wrapper)
 - Handles React props → web component attributes/properties
 - Uses `useEffect` to sync icon/activeIcon properties
 - API identical to original React component
 
 ✅ `react/index.js`
+
 - Exports React adapters
 - Re-exports utilities from theme.js, taho
 
 ✅ `CORE.md`
+
 - Documentation for vanilla web component usage
 - Design decisions documented (light DOM, property vs attribute, event naming)
 - Migration guide for React users
 - Browser support table
 
 ✅ `core/test-button-text.html`
+
 - Manual test harness with 5 test groups
 - Tests: variants, states, attributes, icon property, interactivity
 - Can be opened in browser for quick validation
@@ -53,21 +60,25 @@
 ### Next: Port remaining 19 components
 
 **Category A: Simple Form Elements** (3 components, ~4.5 hrs)
+
 - [ ] FormControlRadio
 - [ ] FormControlCheckbox
 - [ ] FormControlSelect
 
 **Category B: More Buttons & Links** (4 components, ~6 hrs)
+
 - [ ] ButtonIcon
 - [ ] ButtonBack
 - [ ] LinkBtnStyled
 - [ ] LinkSkipTo
 
 **Category C: Input Wrappers** (2 components, ~3 hrs)
+
 - [ ] FormInputSearch
 - [ ] FormInputWithClear
 
 **Category D: Complex Components** (5 components, ~12.5 hrs)
+
 - [ ] Toggle
 - [ ] FormControlRadioChip
 - [ ] FormControlRadioChipGroup
@@ -77,6 +88,7 @@
 - [ ] InfoBox
 
 **Category E: Utilities** (4 components, ~4 hrs)
+
 - [ ] FadeTransition
 - [ ] IconExternalLink
 - [ ] PanelFormControls
@@ -87,22 +99,26 @@
 
 ### ButtonText Implementation Details
 
-**Light DOM approach works great**
+#### Light DOM approach works great
+
 - CSS classes (`.btn`, `.btn--primary`, `.btn__field--success`, etc.) apply correctly
 - Design tokens (`--text-body`, `--accent`, etc.) cascade from host app
 - No shadow DOM means styles stay flexible and themeable
 
-**Icon rendering pattern**
+#### Icon rendering pattern
+
 - Icons are properties (not attributes) because they're DOM elements
 - React adapter uses `useEffect` to sync the property when prop changes
 - Web component clones the icon on render to avoid moving DOM around
 
-**State management is simple**
+#### State management is simple
+
 - Attributes drive state: `disabled`, `active`, `full-width`, etc.
 - Getters/setters on the class make it ergonomic: `btn.active = true` → `setAttribute('active', '')`
 - `attributeChangedCallback` triggers re-render, updates DOM classes
 
-**Event handling**
+#### Event handling
+
 - Standard `click` event fires naturally from button element
 - Disabled check prevents propagation if needed
 - No custom event names—just native browser events
@@ -110,6 +126,7 @@
 ### React Adapter Pattern
 
 The React adapter is **very thin**:
+
 ```jsx
 <ube-button-text
   ref={ref}
@@ -155,4 +172,3 @@ Pattern: vanilla component is ~2-3x the size of the React adapter, but the base 
 - **Phase 5 (Docs): 5-8 hrs**
 
 **Total: 63-82 hrs remaining** (current session: ~2 hrs invested)
-
