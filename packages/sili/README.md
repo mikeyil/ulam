@@ -386,13 +386,51 @@ Sili just orchestrates the generic parts; a11yfred provides the app logic.
 
 ## Focus rules (WCAG 2.4.3)
 
-1. New page: focus the main heading (`tabIndex={-1}`)
-2. Modal open: focus first focusable element (usually close button)
-3. Modal close: restore focus to trigger (`useReturnFocus`)
-4. Overlay open: set background inert (`useAriaHide`)
-5. Escape: each overlay layer handles its own
-6. Paginated content: use `usePaginationFocus` on page change
-7. Accordion: leave focus on the trigger, do not use `useFocusOnMount` on the panel
+**Sili's default focus strategy (best practice):**
+
+When an overlay opens, focus moves in this order:
+
+1. Any element with `tabIndex={-1}` (typically a heading: `<h2 tabIndex={-1}>Modal Title</h2>`)
+2. First focusable element (button, input, link, etc.)
+3. The overlay container itself (fallback if nothing focusable found)
+
+This matches WCAG 2.4.3 guidance: "Give focus to the first heading or first item in dialog content."
+
+**Focus overrides (advanced):**
+
+If the default doesn't work for your overlay, you can override with:
+
+```jsx
+{
+  id: 'myOverlay',
+  type: 'dialog',
+  heading: 'Title',
+  focusElementRef: customRef,        // focus a specific element
+  initialFocusContainer: true,       // focus the overlay container instead
+}
+```
+
+⚠️ **Warning**: Skipping content to place focus lower on the page breaks keyboard navigation and screen reader orientation. Only override if you have a strong UX reason and have tested with actual users.
+
+**Overlay close and return focus:**
+
+Sili automatically tracks which element was focused before the overlay opened. When the overlay closes, focus returns to that element by default. Override with `returnFocusRef` to restore focus elsewhere:
+
+```jsx
+{
+  id: 'filter',
+  type: 'sheet',
+  returnFocusRef: resultsAreaRef,  // focus results after closing filter
+}
+```
+
+**Other focus rules:**
+
+- **New page/route**: Focus the main heading (`<h1 tabIndex={-1}>{title}</h1>`) using `mountRouteFocus()` or manual `focusPageHeading()`
+- **Background**: ARIA hide + inert when any overlay is open
+- **Escape**: Each overlay layer handles its own Escape key
+- **Paginated content**: Use `usePaginationFocus` on page change
+- **Accordion**: Leave focus on the trigger; do not use `useFocusOnMount` on the panel
 
 ## License
 

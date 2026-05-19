@@ -15,32 +15,53 @@ import { Dialog, Sheet, Drawer } from '@ulam/sili/react'
  *   Lower → Higher: Keep lower inert, show higher
  *   Same → Same: Close current, open new, focus new
  *
+ * Focus on open (WCAG 2.4.3):
+ *   Default (best practice):
+ *     1. Look for tabindex=-1 element (e.g., <h2 tabIndex={-1}>Heading</h2>)
+ *     2. Fall back to first focusable element (button, input, link, etc.)
+ *     3. Last resort: focus the container
+ *   Overrides (use with caution):
+ *     - focusElementRef: focus a specific element (skip content at your peril)
+ *     - initialFocusContainer: focus the overlay container instead
+ *
+ * Focus on close:
+ *   - Automatically saves the trigger element (element focused before overlay opened)
+ *   - Default return focus: overlay-specific returnFocusRef > saved trigger element
+ *   - When all overlays close: focus returns to saved trigger
+ *
+ * Page titles:
+ *   - Non-dialog overlays can set pageTitle prop
+ *   - Dialog overlays cannot change page title (transient, not navigation)
+ *
  * Props:
- *   overlays: Array of overlay configs { id, type, heading, content, actions, returnFocusRef, etc. }
+ *   overlays: Array of overlay configs
+ *     - id, type ('dialog'|'sheet'|'drawer'|'panel'), heading, content, actions
+ *     - returnFocusRef (optional): override where focus goes when overlay closes
+ *     - focusElementRef (optional): focus a specific element on open (advanced; be careful)
+ *     - initialFocusContainer (optional): focus container instead of content on open
+ *     - pageTitle (optional, non-dialog only): set document.title
  *   activeId: ID of currently active overlay (null = no overlay open)
  *   onClose: Callback when user closes overlay
- *   baseReturnFocusRef: Default focus target when all overlays close
  */
 export default function OverlayManager({
   overlays = [],
   activeId = null,
   onClose = () => {},
-  baseReturnFocusRef = null,
 }) {
-  const baseTriggerRef = useRef(null)
+  const triggerRef = useRef(null)
   const baseTitleRef = useRef(null)
 
-  // Track base trigger (element focused before any overlay opened)
+  // Save trigger element (element focused before first overlay opened)
   useEffect(() => {
-    if (activeId && !baseTriggerRef.current) {
-      baseTriggerRef.current = document.activeElement
+    if (activeId && !triggerRef.current) {
+      triggerRef.current = document.activeElement
     }
   }, [activeId])
 
-  // Clear base trigger when all overlays closed
+  // Clear trigger when all overlays closed
   useEffect(() => {
-    if (!activeId && baseTriggerRef.current) {
-      baseTriggerRef.current = null
+    if (!activeId && triggerRef.current) {
+      triggerRef.current = null
     }
   }, [activeId])
 
@@ -102,12 +123,14 @@ export default function OverlayManager({
     focusOnClose,
     closeLabel,
     returnFocusRef: overlayReturnFocusRef,
+    focusElementRef,
+    initialFocusContainer,
   } = activeOverlay
 
   const isOpen = activeId === activeOverlay.id
 
-  // Determine effective returnFocusRef: overlay-specific > baseReturnFocusRef > baseTrigger
-  const effectiveReturnFocusRef = overlayReturnFocusRef || baseReturnFocusRef || baseTriggerRef.current
+  // Determine effective returnFocusRef: overlay-specific > saved trigger element
+  const effectiveReturnFocusRef = overlayReturnFocusRef || triggerRef.current
 
   switch (type) {
     case 'dialog':
@@ -118,6 +141,8 @@ export default function OverlayManager({
           heading={heading}
           actions={actions}
           returnFocusRef={effectiveReturnFocusRef}
+          focusElementRef={focusElementRef}
+          initialFocusContainer={initialFocusContainer}
         >
           {content || children}
         </Dialog>
@@ -135,6 +160,8 @@ export default function OverlayManager({
           closeLabel={closeLabel}
           returnFocusRef={effectiveReturnFocusRef}
           hideCloseBottom={hideCloseBottom}
+          focusElementRef={focusElementRef}
+          initialFocusContainer={initialFocusContainer}
         >
           {content || children}
         </Sheet>
@@ -148,6 +175,8 @@ export default function OverlayManager({
           onClose={onClose}
           label={label || heading}
           focusOnClose={focusOnClose || effectiveReturnFocusRef}
+          focusElementRef={focusElementRef}
+          initialFocusContainer={initialFocusContainer}
         >
           {content || children}
         </Drawer>
