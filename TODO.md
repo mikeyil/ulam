@@ -1,20 +1,21 @@
 # Known Issues and Future Work
 
-## Current Session: Documentation Polish, Ube Plan Verification, & File Naming Audit (2026-05-19)
+## Session Complete: v0.3.1 Released (2026-05-19)
 
-### Completed Today
+### v0.3.1 Deliverables
 
-- ✅ Reverted incorrect sawsawan→sauce package rename (kept package name as @ulam/sawsawan)
-- ✅ Updated all package documentation to use "sauce" metaphor instead of "bridge" for sawsawan
-- ✅ Added missing Install section to calamansi README
-- ✅ Verified Ube framework-agnostic migration completion (all 5 phases complete)
-- ✅ Reviewed plan against actual implementation (no missed items)
-- ✅ File naming audit: standardized to language/framework conventions
-  - ✅ Angular services/directives: renamed to kebab-case.service.ts/directive.ts (8 files)
-  - ✅ React components: verified PascalCase
-  - ✅ Vue components: verified PascalCase
-  - ✅ Utility files: verified camelCase
-- ✅ Updated UPDATES.md and TODO.md with session progress
+- ✅ Six-pass consolidation audit completed (13 of 16 items addressed)
+- ✅ Created Consumer App Guide (docs/CONSUMER-APP-GUIDE.md) — App*/A11y* naming convention
+- ✅ Created i18n Best Practices (packages/calamansi/I18N-BEST-PRACTICES.md) — 50+ language patterns
+- ✅ Created Root CHANGELOG.md with complete v0.1.0→v0.3.1 history
+- ✅ Comprehensive audits:
+  - Stale reference audit: Fixed Modal/Dialog terminology inconsistencies
+  - Tokenization audit: Verified CSS custom properties system (0 duplication)
+  - Code quality: 0 dead code, 0 duplicate utilities, all exports used
+  - Deduplication: Minimal conceptual duplication confirmed
+- ✅ Version bumped: All packages v0.3.0 → v0.3.1
+- ✅ Tags created: 6 packages + root tag (taho@0.3.1, sili@0.3.1, etc.)
+- ✅ GitHub Actions: Ready to publish to npm
 
 ### Documentation Files Updated
 
