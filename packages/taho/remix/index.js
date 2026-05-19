@@ -1,8 +1,6 @@
-// vanilla core re-exported for convenience
+// @ulam/taho/remix: Remix 3+ adapter for @ulam/taho announcements
+// Framework-agnostic vanilla utilities (no React dependency)
+
 export { announce, clearAnnouncements } from '../core/index.js'
 
-// React adapter (requires react-router)
-export { useRouteAnnouncer } from './useRouteAnnouncer.js'
-
-// Vanilla adapter (no framework dependency)
 export { mountRouteAnnouncer, notifyRouteChange } from './routeAnnouncer.js'

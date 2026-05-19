@@ -36,7 +36,7 @@ Accessible out of the box. Purple-first design. Zero external dependencies beyon
 
 ```text
 ulam
-├── @ulam/ube          sweet  : React UI components, theming, design tokens  ← you are here
+├── @ulam/ube          sweet  : Framework-agnostic UI components, theming, design tokens  ← you are here
 ├── @ulam/sili         hot    : focus management, overlays, routing
 ├── @ulam/taho         warm   : ARIA live region announcer
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
@@ -51,7 +51,7 @@ Use ube independently, or with the full ulam stack. No cross-package dependencie
 npm install @ulam/ube
 ```
 
-Peer dependencies: `react >= 18`, `react-dom >= 18`.
+No peer dependencies for vanilla web components. Optional framework peers (React 18+, Vue 3, Angular 17+) only when using framework adapters.
 
 ### Optional: import aliases
 
@@ -80,7 +80,7 @@ Your `package.json` will show:
 Then import using whichever name you installed under:
 
 ```jsx
-import { Button, Toggle } from 'ube'
+import { ButtonText, FormControlToggle } from 'ube'
 import { useT, usePref } from 'calamansi'
 ```
 
@@ -105,6 +105,22 @@ import '@ulam/ube/ui.css'               // Reset, utility styles, print, user pr
 
 These foundational imports must come first. Component-specific CSS is automatically imported by each component.
 
+For framework-specific adapters, use the subpath exports:
+
+```jsx
+// React
+import { ButtonText } from '@ulam/ube/react'
+
+// Vue
+import { ButtonText } from '@ulam/ube/vue'
+
+// Angular
+import { UbeModule } from '@ulam/ube/angular'
+
+// Remix (same as React)
+import { ButtonText } from '@ulam/ube/remix'
+```
+
 ### Set up your app
 
 ```jsx
@@ -126,7 +142,6 @@ All components are tree-shakeable: only imported components bundle their CSS.
 
 ## Where ube stops (sili starts)
 
-
 Ube provides **reusable UI components and tokens**. Sili provides **focus management and overlay orchestration**. Here's the boundary:
 
 | Aspect | Ube (UI layer) | Sili (Focus/Overlay layer) |
@@ -142,7 +157,6 @@ Ube provides **reusable UI components and tokens**. Sili provides **focus manage
 **Panel vs Dialog/Sheet/Drawer**: Panel is a structural container for organizing content (settings, details, etc.). Dialog/Sheet/Drawer are full overlay components with built-in focus management. If you need a side container without sili's focus handling, use Panel. If you need an overlay with automatic focus management, use sili's overlays.
 
 ## Components
-
 
 ### ButtonText
 
@@ -171,7 +185,6 @@ import { ButtonText } from '@ulam/ube'
 
 ### ButtonIcon
 
-
 Icon-only button. Always requires `label` for screen readers.
 
 ```jsx
@@ -191,7 +204,6 @@ import { ButtonIcon } from '@ulam/ube'
 
 ### LinkBtnStyled
 
-
 Anchor element styled with button classes, for external links or hash navigation.
 
 ```jsx
@@ -207,16 +219,15 @@ import { LinkBtnStyled } from '@ulam/ube'
 | `className` | string | - | CSS classes for button styling |
 | `children` | ReactNode | - | Link label |
 
-### Toggle
-
+### FormControlToggle
 
 Binary on/off switch. Always pair with a visible label.
 
 ```jsx
-import { Toggle } from '@ulam/ube'
+import { FormControlToggle } from '@ulam/ube'
 
 <label htmlFor="live-search">
-  <Toggle id="live-search" checked={liveSearch} onChange={setLiveSearch} />
+  <FormControlToggle id="live-search" checked={liveSearch} onChange={setLiveSearch} />
   Live search
 </label>
 ```
@@ -228,16 +239,15 @@ import { Toggle } from '@ulam/ube'
 | `onChange` | function | - | `(checked: boolean) => void` |
 | `disabled` | boolean | `false` | Disabled state |
 
-### ControlRadioChip
-
+### FormControlRadioChip
 
 Radio input styled as a selectable chip. Group under a shared `name`.
 
 ```jsx
-import { ControlRadioChip } from '@ulam/ube'
+import { FormControlRadioChip } from '@ulam/ube'
 
 {['A', 'AA', 'AAA'].map(level => (
-  <ControlRadioChip
+  <FormControlRadioChip
     key={level}
     name="wcag-level"
     value={level.toLowerCase()}
@@ -256,40 +266,37 @@ import { ControlRadioChip } from '@ulam/ube'
 | `current` | string | Currently selected value |
 | `onChange` | function | `(value: string) => void` |
 
-### ControlRadio
-
+### FormControlRadio
 
 Plain accessible radio input with label for use in control layouts.
 
 ```jsx
-import { ControlRadio } from '@ulam/ube'
+import { FormControlRadio } from '@ulam/ube'
 
-<ControlRadio name="theme" value="dark" label="Dark" checked={theme === 'dark'} onChange={() => setTheme('dark')} />
+<FormControlRadio name="theme" value="dark" label="Dark" checked={theme === 'dark'} onChange={() => setTheme('dark')} />
 ```
 
-### ControlCheckbox
-
+### FormControlCheckbox
 
 Plain accessible checkbox input with label for use in control layouts.
 
 ```jsx
-import { ControlCheckbox } from '@ulam/ube'
+import { FormControlCheckbox } from '@ulam/ube'
 
-<ControlCheckbox label="Accept terms" checked={accepted} onChange={setAccepted} />
+<FormControlCheckbox label="Accept terms" checked={accepted} onChange={setAccepted} />
 ```
 
-### Select
-
+### FormControlSelect
 
 Native-enhanced dropdown with keyboard support and token-driven sizing.
 
 ```jsx
-import { Select } from '@ulam/ube'
+import { FormControlSelect } from '@ulam/ube'
 
-<Select id="framework" value={value} onChange={e => setValue(e.target.value)}>
+<FormControlSelect id="framework" value={value} onChange={e => setValue(e.target.value)}>
   <option value="react">React</option>
   <option value="vue">Vue</option>
-</Select>
+</FormControlSelect>
 ```
 
 | Prop | Type | Description |
@@ -299,16 +306,15 @@ import { Select } from '@ulam/ube'
 | `onChange` | function | Change handler |
 | `disabled` | boolean | Disabled state |
 
-### InputSearch
-
+### FormInputSearch
 
 Self-contained search field with `form[role="search"]` wrapper, live or submit mode, clear button, and submit icon button.
 
 ```jsx
-import { InputSearch } from '@ulam/ube'
+import { FormInputSearch } from '@ulam/ube'
 
 // Live search: fires onChange on every keystroke, no submit button
-<InputSearch
+<FormInputSearch
   id="site-search"
   value={query}
   onChange={setQuery}
@@ -318,7 +324,7 @@ import { InputSearch } from '@ulam/ube'
 />
 
 // Submit mode: shows search icon submit button, fires onSubmit on Enter or click
-<InputSearch
+<FormInputSearch
   id="site-search"
   value={query}
   onChange={setQuery}
@@ -352,15 +358,14 @@ const [liveSearch, setLiveSearch] = usePref('liveSearch', true)
 | `clearAriaLabel` | string | `'Clear'` | `aria-label` for the clear button |
 | `inputRef` | ref | - | Forward ref to the input element |
 
-### InputWithClear
+### FormInputWithClear
 
-
-Generic text input with a clear button. Use `SearchInput` for dedicated search fields. Use this for any other clearable input (filter fields, tag inputs, etc.).
+Generic text input with a clear button. Use `FormInputSearch` for dedicated search fields. Use this for any other clearable input (filter fields, tag inputs, etc.).
 
 ```jsx
-import { InputWithClear } from '@ulam/ube'
+import { FormInputWithClear } from '@ulam/ube'
 
-<InputWithClear
+<FormInputWithClear
   id="filter"
   value={filter}
   onChange={setFilter}
@@ -387,7 +392,6 @@ import { InputWithClear } from '@ulam/ube'
 
 ### Badge
 
-
 Semantic badge for severity levels, status, and counts. Supports click for interactive use.
 
 ```jsx
@@ -408,7 +412,6 @@ import { Badge } from '@ulam/ube'
 
 ### InfoBox
 
-
 Informational callout for tips, warnings, or supplemental content.
 
 ```jsx
@@ -418,7 +421,6 @@ import { InfoBox } from '@ulam/ube'
 ```
 
 ### Panel
-
 
 Detail panel with `useFocusOnMount` and `usePageTitle` built in. Use for routed detail panels.
 
@@ -439,7 +441,6 @@ import { Panel } from '@ulam/ube'
 
 ### ButtonBack
 
-
 RTL-aware back chevron button. Flips direction when `html[dir="rtl"]`.
 
 ```jsx
@@ -454,7 +455,6 @@ import { ButtonBack } from '@ulam/ube'
 | `label` | string | `aria-label` |
 
 ### Screen
-
 
 Generic screen state component for displaying page-level information, errors, or empty states.
 
@@ -495,7 +495,6 @@ import { Screen } from '@ulam/ube'
 
 ## Plugins
 
-
 Ube works with two companion packages for live region announcements and routing. Both are part of the ulam framework and listed as optional peer dependencies.
 
 ### Announce
@@ -530,35 +529,31 @@ announce('Copy: Copied to clipboard')
 
 ### Router
 
-
 Hash-based routing with built-in focus management, RTL support, Escape handling, and page title updates. Comes from `@ulam/sili/react`.
 
 ```jsx
-import { Router, useRouter, Drawer, Sheet, Modal } from '@ulam/sili/react'
+import { Dialog, Drawer, Sheet } from '@ulam/sili/react'
 import {
   useFocusOnMount, useReturnFocus, useFocusTrap,
   usePaginationFocus, useAriaHide, useDir,
   useMediaQuery, usePageTitle, useEscapeKey,
 } from '@ulam/sili/react'
 
-// Wrap app
-<Router>
-  <AppShell />
-</Router>
-
 // In components
-const { route, navigate } = useRouter()
 const dir = useDir()           // 'ltr' | 'rtl', reactive to html[dir]
 const headingRef = useFocusOnMount()  // focus this element on mount
 usePageTitle('Page Name')      // sets document.title = "AppName | Page Name"
+
+<Dialog open={isOpen} onClose={onClose} heading="Title">
+  Content here
+</Dialog>
 ```
 
-**Components:**
+**Overlay components:**
 
-- **`Router`**: context provider, wraps the app
-- **`Modal`**: centered dialog, focus trap, Escape-to-dismiss, stacks at z-index 301
+- **`Dialog`**: centered modal dialog, focus trap, Escape-to-dismiss, stacks at z-index 301
 - **`Drawer`**: slide-in panel from left, focus management built in
-- **`BottomSheet`**: slide-up sheet from bottom, focus management, desktop collapse
+- **`Sheet`**: slide-up sheet from bottom, focus management, desktop collapse
 
 **Focus management hooks:**
 
@@ -604,7 +599,6 @@ Sets `data-theme` on `<html>` and handles fiesta mode color cycling. All ube com
 
 ## CSS Usage
 
-
 ### Foundational stylesheets
 
 Ube's CSS is split into foundational and component-specific layers for better tree-shaking:
@@ -633,7 +627,7 @@ Each component imports its own CSS automatically. No additional imports needed:
 
 ```jsx
 import { ButtonText } from '@ulam/ube'  // buttons.css imported automatically
-import { ControlRadio } from '@ulam/ube' // form-control-radio.css imported automatically
+import { FormControlRadio } from '@ulam/ube' // form-control-radio.css imported automatically
 ```
 
 Unused components are completely removed from production bundles, including their CSS.
@@ -669,7 +663,6 @@ Modal, drawer, and sheet overlays are hidden on print. Content flows naturally. 
 All animations and transitions respect `prefers-reduced-motion: reduce`. No opt-in needed.
 
 ## Design tokens
-
 
 All components consume CSS custom properties. Override any token to retheme without touching component code.
 
@@ -745,12 +738,11 @@ This organization enables better tree-shaking: component tokens are removed if t
 
 ## Subpath exports
 
-
 ### Components and utilities
 
 | Import | Contents |
 | ------ | -------- |
-| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `Toggle`, `ControlRadioChip`, `ControlRadioChipGroup`, `ControlRadio`, `ControlCheckbox`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelRowControl`, `Screen`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
+| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `FormControlToggle`, `FormControlRadioChip`, `FormControlRadioChipGroup`, `FormControlRadio`, `FormControlCheckbox`, `FormControlSelect`, `FormInputSearch`, `FormInputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelFormControls`, `Screen`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
 
 Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/sili/react`.
 
@@ -771,7 +763,6 @@ Component stylesheets (e.g., `buttons.css`, `form-control-toggle.css`) are impor
 
 ## Design principles
 
-
 **Accessible by default.** Every component meets WCAG 2.2 AA. Keyboard navigation, focus management, and screen reader semantics are built in, not bolted on.
 
 **Token-driven.** No hardcoded colors, sizes, or spacing in component code. Change a token, retheme everything.
@@ -785,7 +776,6 @@ Component stylesheets (e.g., `buttons.css`, `form-control-toggle.css`) are impor
 **Zero opinion on data.** Components accept props and call handlers. No built-in state management, no assumptions about routing libraries (beyond the included router plugin), no opinions about where your data lives.
 
 ## Roadmap
-
 
 Planned improvements to the @ulam/ube library:
 

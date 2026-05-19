@@ -1,7 +1,7 @@
 {
   "name": "@ulam/ube",
   "version": "0.3.0",
-  "description": "Accessible React UI components, theming, and design tokens.",
+  "description": "Framework-agnostic UI components (vanilla, React, Vue, Angular, Remix), theming, and design tokens.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/ube"
   },
-  "keywords": ["accessibility", "a11y", "react", "ui", "components", "design-tokens", "ulam"],
+  "keywords": ["accessibility", "a11y", "web-components", "vanilla", "react", "vue", "angular", "remix", "ui", "components", "design-tokens", "ulam"],
   "scripts": {
     "test": "vitest",
     "test:coverage": "vitest --coverage"
@@ -21,13 +21,20 @@
     "./vue": "./vue/index.js",
     "./angular": "./angular/index.ts",
     "./remix": "./remix/index.js",
-    "./tokens.css": "./tokens.css",
+    "./base-tokens.css": "./base-tokens.css",
+    "./base-typography.css": "./base-typography.css",
+    "./base-reset.css": "./base-reset.css",
+    "./base-utils.css": "./base-utils.css",
+    "./base-user-prefs.css": "./base-user-prefs.css",
+    "./base-print.css": "./base-print.css",
     "./ui.css": "./ui.css"
   },
-  "files": ["*.js", "*.jsx", "*.css", "README.md"],
+  "files": ["core", "react", "vue", "angular", "remix", "*.css", "README.md"],
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
+    "vue": ">=3",
+    "@angular/core": ">=17",
     "@ulam/sili": "*",
     "@ulam/taho": "*",
     "@ulam/calamansi": "*"
@@ -35,6 +42,8 @@
   "peerDependenciesMeta": {
     "react": { "optional": true },
     "react-dom": { "optional": true },
+    "vue": { "optional": true },
+    "@angular/core": { "optional": true },
     "@ulam/sili": { "optional": true },
     "@ulam/taho": { "optional": true },
     "@ulam/calamansi": { "optional": true }

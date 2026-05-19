@@ -9,7 +9,7 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/taho"
   },
-  "keywords": ["accessibility", "a11y", "aria-live", "announcer", "screen-reader", "react", "vue", "angular", "ulam"],
+  "keywords": ["accessibility", "a11y", "aria-live", "announcer", "screen-reader", "vanilla", "react", "remix", "vue", "angular", "ulam"],
   "exports": {
     ".": "./core/index.js",
     "./react": "./react/index.js",

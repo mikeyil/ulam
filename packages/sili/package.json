@@ -9,7 +9,7 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/sili"
   },
-  "keywords": ["accessibility", "a11y", "focus", "aria", "react", "vue", "angular", "hooks", "router", "ulam"],
+  "keywords": ["accessibility", "a11y", "focus", "aria", "vanilla", "react", "remix", "vue", "angular", "hooks", "router", "ulam"],
   "exports": {
     ".": "./core/index.js",
     "./react": "./react/index.js",
@@ -22,7 +22,7 @@
   },
   "files": ["core", "react", "remix", "vue", "angular", "base.css", "README.md"],
   "peerDependencies": {
-    "@ulam/ube": ">=0.2.0",
+    "@ulam/ube": ">=0.3.0",
     "react": ">=18",
     "react-dom": ">=18",
     "vue": ">=3",

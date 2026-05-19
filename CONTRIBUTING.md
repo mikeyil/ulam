@@ -242,7 +242,7 @@ Releases follow semantic versioning. Current version: 0.3.0
 To prepare a release:
 
 1. Update version in all `package.json` files
-2. Update `CHANGELOG.md` with version and date
+2. Update `UPDATES.md` with version and date
 3. Create git tag: `git tag v0.3.0`
 4. Push tag: `git push origin v0.3.0`
 5. CI publishes to npm automatically (or manual `npm publish` for each workspace)
@@ -250,7 +250,7 @@ To prepare a release:
 ## Questions?
 
 - **How do I...?**: Check the package README
-- **What's already implemented?**: See CHANGELOG.md
+- **What's already implemented?**: See UPDATES.md
 - **What's planned?**: See TODO.md
 - **Found a bug?**: Open a GitHub issue
 - **Want to propose a change?**: Open an issue for discussion first

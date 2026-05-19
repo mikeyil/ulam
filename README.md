@@ -14,7 +14,7 @@ Named for the Filipino word for dish: the thing everything else is built around.
 | [`@ulam/sili`](packages/sili) | Focus management, overlays, routing hooks |
 | [`@ulam/calamansi`](packages/calamansi) | Data-agnostic i18n, locale hooks, logic utilities |
 | [`@ulam/halohalo`](packages/halohalo) | AI provider adapters, model config, agentic mode |
-| [`@ulam/ube`](packages/ube) | Accessible React UI components, theming, design tokens |
+| [`@ulam/ube`](packages/ube) | Framework-agnostic UI components (vanilla, React, Vue, Angular, Remix), theming, design tokens |
 | [`@ulam/sawsawan`](packages/sawsawan) | Integration bridge wiring the above together |
 
 ## Architecture
@@ -39,7 +39,7 @@ npm install @ulam/taho           # vanilla announcer; React, Remix, Vue, Angular
 npm install @ulam/sili           # vanilla focus management; React, Remix, Vue, Angular adapters optional
 npm install @ulam/calamansi      # vanilla i18n; React, Vue, Angular adapters optional
 npm install @ulam/halohalo       # vanilla AI adapters; React, Vue, Angular adapters optional
-npm install @ulam/ube            # React only: UI components, theming, design tokens
+npm install @ulam/ube            # vanilla web components; React, Remix, Vue, Angular adapters optional
 ```
 
 Or with npm aliases if you prefer shorter import names:
@@ -74,11 +74,16 @@ Packages with framework-specific behavior ship subpath exports:
 | `@ulam/halohalo/react` | React | `useCompletion`, `useProviderConfig` |
 | `@ulam/halohalo/vue` | Vue 3 | `useCompletion`, `useProviderConfig` composables |
 | `@ulam/halohalo/angular` | Angular 17+ | `CompletionService`, `ProviderConfigService` |
+| `@ulam/ube` | any | Vanilla web components |
+| `@ulam/ube/core` | any | Web component registrations |
+| `@ulam/ube/react` | React | React component adapters |
+| `@ulam/ube/remix` | Remix | React re-exports (Remix is React-based) |
+| `@ulam/ube/vue` | Vue 3 | Vue component adapters |
+| `@ulam/ube/angular` | Angular 17+ | Angular component decorators, UbeModule |
 
 ## Quick Start by Framework
 
 ### React
-
 
 ```javascript
 import '@ulam/ube/base-tokens.css'
@@ -89,7 +94,7 @@ import '@ulam/sili/base.css'
 import { Router } from '@ulam/sili/react'
 import { Announcer } from '@ulam/taho/react'
 import { I18nProvider } from '@ulam/calamansi/react'
-import { ButtonText, Dialog } from '@ulam/ube'
+import { ButtonText, Dialog } from '@ulam/ube/react'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -110,17 +115,16 @@ function App() {
 
 ### Remix
 
-
-Replace `@ulam/sili/react` with `@ulam/sili/remix`:
+Replace `@ulam/sili/react` with `@ulam/sili/remix`, `@ulam/ube/react` with `@ulam/ube/remix`:
 
 ```javascript
 import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
+import { ButtonText } from '@ulam/ube/remix'
 ```
 
 All other packages work identically to React.
 
 ### Vue
-
 
 Use `/vue` subpaths:
 
@@ -128,10 +132,10 @@ Use `/vue` subpaths:
 import { useFocusTrap, useDir } from '@ulam/sili/vue'
 import { useT } from '@ulam/calamansi/vue'
 import { useAnnounce } from '@ulam/taho/vue'
+import { ButtonText } from '@ulam/ube/vue'
 ```
 
 ### Angular
-
 
 Use `/angular` subpaths:
 
@@ -139,6 +143,12 @@ Use `/angular` subpaths:
 import { FocusTrapDirective } from '@ulam/sili/angular'
 import { I18nService } from '@ulam/calamansi/angular'
 import { AnnounceService } from '@ulam/taho/angular'
+import { UbeModule } from '@ulam/ube/angular'
+
+@NgModule({
+  imports: [UbeModule],
+})
+export class AppModule {}
 ```
 
 ## Core Concepts
