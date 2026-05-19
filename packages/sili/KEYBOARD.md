@@ -373,15 +373,32 @@ export class ResultsComponent {
 
 ---
 
-## Remix
+## Remix 3+
 
-Remix uses React, so import React hooks from `@ulam/sili/remix`:
+Remix 3+ is framework-agnostic and can use React, Vue, or other frameworks side-by-side.
+
+### Vanilla/Isomorphic Use
+
+Vanilla core utilities (framework-agnostic, zero dependencies):
+
+```javascript
+import { onKeydown, dispatchKeyCommand, prefersReducedMotion, snapshotFlipPositions, animateFlipList } from '@ulam/sili/remix'
+
+// Use directly in loaders, actions, or anywhere in your Remix app
+const cleanup = onKeydown(document, (e) => {
+  if (e.key === 'j') focusNext()
+})
+```
+
+### React Routes in Remix
+
+If your Remix route uses React, import React hooks via `/react` subexport:
 
 ```typescript
-import { useKeydown, useListNavigation, usePrefersReducedMotion, useFlipList } from '@ulam/sili/remix'
+import { useKeydown, useListNavigation, usePrefersReducedMotion, useFlipList } from '@ulam/sili/remix/react'
 import { useRef, useCallback } from 'react'
 
-export default function Results() {
+export default function ResultsRoute() {
   const listRef = useRef(null)
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'j') focusNext()
@@ -393,10 +410,24 @@ export default function Results() {
 }
 ```
 
-Vanilla core utilities also available:
+### Vue Routes in Remix
+
+If your Remix route uses Vue, import Vue composables via `/vue` subexport:
 
 ```typescript
-import { onKeydown, dispatchKeyCommand, prefersReducedMotion, snapshotFlipPositions, animateFlipList } from '@ulam/sili/remix'
+import { useKeydown, useListNavigation, usePrefersReducedMotion, useFlipList } from '@ulam/sili/remix/vue'
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const listRef = ref(null)
+    const handleKeyDown = (e) => {
+      if (e.key === 'j') focusNext()
+    }
+    useKeydown(handleKeyDown, { target: listRef })
+    return { listRef }
+  }
+}
 ```
 
 ---
@@ -409,9 +440,11 @@ All frameworks follow the same vanilla core → framework-specific lifecycle pat
 |-----------|-------------|-------------------|-----------|
 | **Vanilla** | `@ulam/sili` | Direct function calls | Manual cleanup |
 | **React** | `@ulam/sili/react` | Hooks (useEffect) | Automatic cleanup on unmount |
-| **Remix** | `@ulam/sili/remix` | React hooks + vanilla | Same as React |
 | **Vue** | `@ulam/sili/vue` | Composables (onMounted/onUnmounted) | Automatic cleanup on unmount |
 | **Angular** | `@ulam/sili/angular` | Services + Directives | Injectable or standalone |
+| **Remix 3+ (vanilla)** | `@ulam/sili/remix` | Direct function calls | Manual cleanup |
+| **Remix 3+ (React routes)** | `@ulam/sili/remix/react` | Hooks (useEffect) | Automatic cleanup on unmount |
+| **Remix 3+ (Vue routes)** | `@ulam/sili/remix/vue` | Composables (onMounted/onUnmounted) | Automatic cleanup on unmount |
 
 For vanilla JS, import directly from `@ulam/sili`:
 

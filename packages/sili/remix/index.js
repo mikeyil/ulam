@@ -1,5 +1,15 @@
 // @ulam/sili/remix: Remix 3+ adapter for @ulam/sili focus management and keyboard navigation
-// Framework-agnostic vanilla utilities with Remix-specific routing + React hooks for keyboard
+//
+// Remix 3+ supports multiple frameworks (React, Vue, etc.) and is framework-agnostic.
+// This export provides:
+// 1. Vanilla core utilities (framework-agnostic, zero dependencies)
+// 2. Remix-specific routing utilities
+// 3. Framework-specific adapters via subexports:
+//    - @ulam/sili/remix/react — React hooks
+//    - @ulam/sili/remix/vue — Vue composables
+//
+// For vanilla/isomorphic use, import from @ulam/sili (same as @ulam/sili/remix):
+//   import { onKeydown, dispatchKeyCommand, prefersReducedMotion } from '@ulam/sili/remix'
 
 export {
   trapFocus,
@@ -15,12 +25,6 @@ export {
   snapshotFlipPositions,
   animateFlipList,
 } from '../core/index.js'
-
-// Re-export React hooks (Remix uses React)
-export { useKeydown } from '../react/hooks/useKeydown.js'
-export { useListNavigation } from '../react/hooks/useListNavigation.js'
-export { usePrefersReducedMotion } from '../react/hooks/usePrefersReducedMotion.js'
-export { useFlipList } from '../react/hooks/useFlipList.js'
 
 export { useRouter, useRouteMatch } from './router/useRouter.js'
 
