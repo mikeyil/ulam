@@ -1,0 +1,24 @@
+{
+  "name": "@ulam/shared",
+  "version": "0.3.1",
+  "description": "Shared utilities for ulam packages",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    "./useSubscribe": "./useSubscribe.js"
+  },
+  "files": [
+    "useSubscribe.js"
+  ],
+  "keywords": [
+    "react",
+    "hooks",
+    "subscribe",
+    "utility"
+  ],
+  "author": "Mikey Ilagan",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  }
+}

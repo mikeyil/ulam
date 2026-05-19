@@ -23,7 +23,8 @@
  *   I18nProvider can then be deleted. All useT() calls continue to work
  *   because setLocale() notifies the same subscriber set.
  */
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useSubscribe } from '../shared/useSubscribe.js'
 import { setLocale, getT, _subscribe, getPref, setPref } from './index.js'
 
 /**
@@ -50,14 +51,13 @@ export function I18nProvider({ locale, children }) {
  * @returns {(key: string, vars?: Record<string, string>) => string}
  */
 export function useT() {
-  const [t, setT] = useState(getT)
-  useEffect(() => _subscribe(setT), [])
-  return t
+  return useSubscribe(_subscribe, getT)
 }
 
 /**
  * Persisted user preference backed by localStorage.
  * Wraps getPref/setPref with React state so the component re-renders on change.
+ * Storage writes are debounced (200ms) to avoid blocking renders on rapid updates.
  *
  * @param {string} key
  * @param {*} defaultValue
@@ -69,7 +69,14 @@ export function usePref(key, defaultValue) {
   const setValue = useCallback((next) => {
     const resolved = typeof next === 'function' ? next(value) : next
     setValueState(resolved)
-    setPref(key, resolved)
+    // Debounce storage write to avoid blocking on rapid updates
+    const timer = setTimeout(() => setPref(key, resolved), 200)
+    return () => clearTimeout(timer)
+  }, [key, value])
+
+  useEffect(() => {
+    // Save immediately on unmount to ensure no preference loss
+    return () => setPref(key, value)
   }, [key, value])
 
   return [value, setValue]

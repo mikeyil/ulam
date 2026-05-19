@@ -60,7 +60,10 @@ class UbeFormControlSelect extends UbeElement {
 
   connectedCallback() {
     super.connectedCallback()
-    this._setupSelect()
+    if (!this._initialized) {
+      this._setupSelect()
+      this._initialized = true
+    }
   }
 
   attributeChangedCallback() {
@@ -105,7 +108,7 @@ class UbeFormControlSelect extends UbeElement {
       this.appendChild(this._wrap)
     }
 
-    // Attach listeners
+    // Attach listeners only once
     this._select.addEventListener('change', this._handleChange)
     this._select.addEventListener('keydown', this._handleKeyDown)
     this._select.addEventListener('mousedown', this._handleMouseDown)

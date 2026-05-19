@@ -1,16 +1,21 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useSyncExternalStore } from 'react'
 import { createProviderConfig } from './createProviderConfig.js'
 
 export function useProviderConfig(storageKeys, providers) {
   const [config] = useState(() => createProviderConfig(storageKeys, providers))
-  const [, rerender] = useState(0)
-  useEffect(() => config.subscribe(() => rerender(n => n + 1)), [config])
+
+  const snapshot = useSyncExternalStore(
+    (listen) => config.subscribe(listen),
+    () => ({
+      provider: config.provider,
+      models: config.models,
+      mode: config.mode,
+      providers: config.providers,
+    })
+  )
 
   return {
-    provider: config.provider,
-    models: config.models,
-    mode: config.mode,
-    providers: config.providers,
+    ...snapshot,
     setProvider: useCallback((id) => config.setProvider(id), [config]),
     setModel: useCallback((pid, mid) => config.setModel(pid, mid), [config]),
     setMode: useCallback((v) => config.setMode(v), [config]),
