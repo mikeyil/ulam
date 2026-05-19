@@ -75,6 +75,82 @@ Packages with framework-specific behavior ship subpath exports:
 | `@ulam/halohalo/vue` | Vue 3 | `useCompletion`, `useProviderConfig` composables |
 | `@ulam/halohalo/angular` | Angular 17+ | `CompletionService`, `ProviderConfigService` |
 
+## Quick Start by Framework
+
+### React
+
+```jsx
+import '@ulam/ube/base-tokens.css'
+import '@ulam/ube/base-typography.css'
+import '@ulam/ube/ui.css'
+import '@ulam/sili/base.css'
+
+import { Router } from '@ulam/sili/react'
+import { Announcer } from '@ulam/taho/react'
+import { I18nProvider } from '@ulam/calamansi/react'
+import { ButtonText, Dialog } from '@ulam/ube'
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <I18nProvider>
+      <Router>
+        <Announcer />
+        <ButtonText onClick={() => setIsOpen(true)}>Open</ButtonText>
+        <Dialog open={isOpen} onClose={() => setIsOpen(false)} heading="Title">
+          Content
+        </Dialog>
+      </Router>
+    </I18nProvider>
+  )
+}
+```
+
+### Remix
+
+Replace `@ulam/sili/react` with `@ulam/sili/remix`:
+
+```jsx
+import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
+```
+
+All other packages work identically to React.
+
+### Vue
+
+Use `/vue` subpaths:
+
+```js
+import { useFocusTrap, useDir } from '@ulam/sili/vue'
+import { useT } from '@ulam/calamansi/vue'
+import { useAnnounce } from '@ulam/taho/vue'
+```
+
+### Angular
+
+Use `/angular` subpaths:
+
+```ts
+import { FocusTrapDirective } from '@ulam/sili/angular'
+import { I18nService } from '@ulam/calamansi/angular'
+import { AnnounceService } from '@ulam/taho/angular'
+```
+
+## Core Concepts
+
+- **Vanilla-first**: Every package has a vanilla core with zero dependencies. Framework adapters are optional add-ons.
+- **Independent**: Install only what you need. Packages don't import each other.
+- **Accessible by default**: All components handle focus, keyboard, ARIA, and screen reader support automatically.
+- **Tree-shakeable**: Component CSS imports only what's used. Unused code doesn't bundle.
+
+## Resources
+
+- [@ulam/sili](packages/sili) — Focus management, overlays, routing
+- [@ulam/taho](packages/taho) — Live region announcements
+- [@ulam/calamansi](packages/calamansi) — i18n and utilities
+- [@ulam/ube](packages/ube) — UI components and theming
+- [@ulam/sawsawan](packages/sawsawan) — Integration bridge
 
 ## License
 

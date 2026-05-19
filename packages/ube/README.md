@@ -4,6 +4,31 @@ Accessible React UI components, theming, and design tokens. The sweet layer of t
 
 Purple-first. Accessible out of the box. Zero external dependencies beyond React.
 
+## Purpose & Scope
+
+**What ube does:**
+
+- Accessible React UI components (ButtonText, Toggle, InputSearch, etc.)
+- Design tokens for colors, spacing, typography, animations
+- CSS theming system (light, dark, fiesta)
+- Component CSS automatically imported on use (tree-shakeable)
+- Focus styling and user preference support (reduced motion, high contrast)
+
+**What ube doesn't do:**
+
+- Focus management or overlays (use @ulam/sili for Dialog/Sheet/Drawer)
+- State management (you manage component state)
+- i18n or translations (use @ulam/calamansi)
+- Routing or navigation (use @ulam/sili for routing)
+- Announcements or live regions (use @ulam/taho)
+
+**Who should use ube:**
+
+- React apps needing accessible, themable UI components
+- Projects building custom component libraries on top of solid foundations
+- Teams prioritizing accessibility without sacrificing design control
+- SPAs wanting tree-shakeable, zero-dependency component libraries
+
 ## The ulam framework
 
 ```text
@@ -440,27 +465,44 @@ import { ButtonBack } from '@ulam/ube'
 
 ---
 
-### NoResults
+### Screen
 
-Empty state with illustration and message.
-
-```jsx
-import { NoResults } from '@ulam/ube'
-
-<NoResults message="No results for this query." />
-```
-
----
-
-### DataError
-
-Error state with retry action.
+Generic screen state component for displaying page-level information, errors, or empty states.
 
 ```jsx
-import { DataError } from '@ulam/ube'
+import { Screen } from '@ulam/ube'
 
-<DataError message="Failed to load data." onRetry={retryData} />
+// No results
+<Screen
+  variant="no-results"
+  heading="No results found"
+  body="Try adjusting your search terms."
+  activeFilters={filters}
+  onOpenSettings={handleSettings}
+/>
+
+// Error state
+<Screen
+  variant="error"
+  heading="Unable to load data"
+  body="An error occurred while loading."
+  action={retryData}
+  actionLabel="Try again"
+/>
 ```
+
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `variant` | `'no-results' \| 'error'` | `'no-results'` | Screen type |
+| `heading` | string | Varies by variant | Main heading |
+| `body` | string | Varies by variant | Description text |
+| `icon` | ReactNode | Varies by variant | Custom icon |
+| `action` | function | - | Action button click handler |
+| `actionLabel` | string | Varies by variant | Action button label |
+| `actionIcon` | ReactNode | - | Custom action button icon |
+| `activeFilters` | string[] | `[]` | Applied filter tags to display |
+| `onOpenSettings` | function | - | Settings link click handler |
+| `onMount` | function | - | Called when component mounts |
 
 ---
 
@@ -725,7 +767,7 @@ This organization enables better tree-shaking: component tokens are removed if t
 
 | Import | Contents |
 | ------ | -------- |
-| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `Toggle`, `ControlRadioChip`, `ControlRadioChipGroup`, `ControlRadio`, `ControlCheckbox`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelRowControl`, `NoResults`, `DataError`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
+| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `Toggle`, `ControlRadioChip`, `ControlRadioChipGroup`, `ControlRadio`, `ControlCheckbox`, `Select`, `InputSearch`, `InputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelRowControl`, `Screen`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
 
 Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/sili/react`.
 

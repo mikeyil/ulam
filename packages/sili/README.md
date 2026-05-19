@@ -4,6 +4,33 @@ Focus management, ARIA hide, escape key, scroll lock, and routing hooks. Vanilla
 
 Named for sili, the Filipino chili pepper: small, sharp, does exactly what it needs to.
 
+## Purpose & Scope
+
+**What sili does:**
+
+- Focus management for keyboard and screen reader users (WCAG 2.4.3)
+- Overlay orchestration (Dialog, Sheet, Drawer, Panel transitions)
+- Automatic focus restoration on close
+- Escape key handling for overlays
+- Scroll locking during overlays
+- Route-based focus management (move focus to page heading on navigation)
+- Page title management for navigation-level overlays
+- ARIA hiding of background content
+
+**What sili doesn't do:**
+
+- UI component rendering (use @ulam/ube or your own components)
+- State management (you manage overlay state, pass to sili)
+- Content of overlays (you define what goes in each overlay)
+- Styling beyond structural focus/ARIA states (use your own CSS)
+
+**Who should use sili:**
+
+- React, Remix, Vue, or Angular apps with overlays or focus management needs
+- SPAs requiring route-based focus management
+- Custom overlay systems needing automatic focus orchestration
+- Accessibility-first projects requiring WCAG 2.4.3 compliance
+
 ## The ulam framework
 
 ```text
@@ -165,7 +192,6 @@ const overlays = [
   overlays={overlays}
   activeId={activeOverlayId}
   onClose={handleCloseOverlay}
-  baseReturnFocusRef={defaultFocusRef}
 />
 ```
 
@@ -431,6 +457,259 @@ Sili automatically tracks which element was focused before the overlay opened. W
 - **Escape**: Each overlay layer handles its own Escape key
 - **Paginated content**: Use `usePaginationFocus` on page change
 - **Accordion**: Leave focus on the trigger; do not use `useFocusOnMount` on the panel
+
+## API Reference
+
+### Vanilla Core
+
+#### `trapFocus(container)`
+
+Installs a focus trap on `container`. Tab/Shift+Tab wrap focus to first/last focusable element.
+
+- **Params**: `container: HTMLElement`
+- **Returns**: `cleanup: () => void`
+
+#### `getFocusable(container)`
+
+Returns all focusable elements within `container` (buttons, inputs, links, custom tabindex).
+
+- **Params**: `container: HTMLElement`
+- **Returns**: `HTMLElement[]`
+
+#### `hideBackground(element)`
+
+Sets `aria-hidden="true"` and `inert` on all elements outside `element` while it's open.
+
+- **Params**: `element: HTMLElement`
+- **Returns**: `restore: () => void`
+
+#### `returnFocus(element)`
+
+Moves focus to `element` (or previously-focused element if not provided).
+
+- **Params**: `element?: HTMLElement`
+- **Returns**: `void`
+
+#### `onEscapeKey(callback, options?)`
+
+Calls `callback` when user presses Escape. Options: `{ useCapture?: boolean, stopPropagation?: boolean }`
+
+- **Params**: `callback: () => void, options?: object`
+- **Returns**: `off: () => void`
+
+#### `lockScroll()`
+
+Prevents body scroll by setting `overflow: hidden`. Re-entrant (multiple calls stack safely).
+
+- **Returns**: `unlock: () => void`
+
+### React Hooks
+
+#### `useFocusTrap(ref, enabled)`
+
+Activates focus trap on element when `enabled` is true.
+
+#### `useAriaHide(ref, enabled)`
+
+Hides background (aria-hidden + inert) when `enabled` is true.
+
+#### `useEscapeKey(enabled, callback)`
+
+Listens for Escape key when `enabled` is true.
+
+#### `useReturnFocus(element?)`
+
+Saves current focus and restores on component unmount.
+
+#### `useFocusOnMount()`
+
+Returns a ref to attach to an element (e.g., heading) that should receive focus on mount.
+
+#### `usePageTitle(title)`
+
+Sets `document.title` on mount, restores on unmount.
+
+#### `useDir()`
+
+Returns `'ltr'` or `'rtl'` based on `html[dir]` attribute. Reactive.
+
+#### `useMediaQuery(query)`
+
+Returns boolean based on media query match. Reactive.
+
+### React Components
+
+#### `<Dialog open={bool} onClose={fn} heading={str} actions={[]} />`
+
+Centered modal dialog. Auto-manages focus trap, ARIA hide, Escape key, return focus.
+
+**Focus props:**
+
+- `focusElementRef?: ref` — Focus this element on open (advanced override)
+- `initialFocusContainer?: bool` — Focus the container instead of content
+
+#### `<Sheet open={bool} onClose={fn} collapsed={bool} />`
+
+Bottom sheet overlay. Collapses on desktop.
+
+**Sheet-specific props:**
+
+- `collapsed?: bool` — Is the sheet collapsed?
+- `onCollapse?: (bool) => void` — Collapse state changed
+- `hideCloseBottom?: bool` — Don't show close button at bottom
+- Same focus props as Dialog
+
+#### `<Drawer open={bool} onClose={fn} label={str} />`
+
+Side drawer from left edge. Same focus props as Dialog.
+
+#### `<OverlayManager overlays={[]} activeId={str} onClose={fn} />`
+
+Multi-overlay orchestration. Manages focus across transitions, layer ordering, page titles.
+
+**Overlay config shape:**
+
+```js
+{
+  id: string,
+  type: 'dialog' | 'sheet' | 'drawer' | 'panel',
+  heading?: string,        // used by all
+  label?: string,          // used by drawer/sheet/panel
+  content?: ReactNode,     // overlay content
+  children?: ReactNode,    // same as content
+  actions?: [{ label, onClick, className }],  // dialog/overlay footer buttons
+  
+  // Focus management
+  focusElementRef?: ref,        // focus this element on open
+  initialFocusContainer?: bool, // focus container instead
+  
+  // Return focus on close
+  returnFocusRef?: ref,   // restore focus here (instead of trigger)
+  
+  // Page title (non-dialog overlays only)
+  pageTitle?: string,     // set document.title
+  
+  // Sheet-specific
+  collapsed?: bool,
+  onCollapse?: (bool) => void,
+  hideCloseBottom?: bool,
+}
+```
+
+### Remix Adapter
+
+Drop-in replacement for React. Exports same hooks and components. Router hooks:
+
+#### `useRouter()`
+
+Returns current route, push(path), back(), forward().
+
+#### `useRouteMatch(pattern)`
+
+Returns true if current route matches pattern (glob-style).
+
+#### `mountRouteFocus()`
+
+Auto-focuses page heading on each route change. Call once at app root.
+
+### Vue Composables
+
+Same API as React hooks. Accept Vue `ref` instead of React `ref`, use Vue lifecycle methods instead of useEffect.
+
+```js
+import { useFocusTrap, useDir, usePageTitle } from '@ulam/sili/vue'
+
+const containerRef = ref(null)
+const dir = ref('ltr')
+
+useFocusTrap(containerRef, isOpen)
+dir.value = useDir() // reactive
+usePageTitle('Page Title')
+```
+
+## Common Patterns
+
+### Single Overlay (Dialog/Sheet/Drawer)
+
+For a single overlay, use the component directly with state management:
+
+```jsx
+const [isOpen, setIsOpen] = useState(false)
+
+return (
+  <>
+    <button onClick={() => setIsOpen(true)}>Open</button>
+    <Dialog open={isOpen} onClose={() => setIsOpen(false)} heading="Title">
+      Content here
+    </Dialog>
+  </>
+)
+```
+
+### Multiple Overlays with OverlayManager
+
+For apps with multiple overlays that transition between each other:
+
+```jsx
+const [activeId, setActiveId] = useState(null)
+
+const overlays = [
+  { id: 'confirm', type: 'dialog', heading: 'Confirm?', ... },
+  { id: 'details', type: 'sheet', heading: 'Details', ... },
+]
+
+return <OverlayManager overlays={overlays} activeId={activeId} onClose={() => setActiveId(null)} />
+```
+
+### Custom Initial Focus
+
+Focus an element other than the default (heading or first focusable):
+
+```jsx
+const customRef = useRef(null)
+
+<Dialog
+  open={isOpen}
+  onClose={onClose}
+  heading="Title"
+  focusElementRef={customRef}
+>
+  <input ref={customRef} placeholder="Focus on this input" />
+</Dialog>
+```
+
+Or focus the container (for content-heavy panels):
+
+```jsx
+<Sheet
+  open={isOpen}
+  onClose={onClose}
+  initialFocusContainer={true}
+>
+  Large scrollable content...
+</Sheet>
+```
+
+### Route Focus Management
+
+Auto-focus page heading on route change:
+
+```jsx
+import { mountRouteFocus } from '@ulam/sili/react'
+
+useEffect(() => {
+  const unmount = mountRouteFocus()
+  return unmount
+}, [])
+```
+
+Or manually:
+
+```jsx
+import { focusPageHeading } from '@ulam/sili/react'
+
+router.on('navigate', () => focusPageHeading())
+```
 
 ## License
 

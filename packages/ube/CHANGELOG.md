@@ -49,7 +49,20 @@ All notable changes to @ulam/ube will be documented in this file.
 
 - **Focus Return**: Moved `[data-focus-return]` styling to `@ulam/sili/base.css` (router plugin's responsibility, not a general ube utility).
 
+### Removed
+
+- **DataError and NoResults**: Deleted deprecated components. Use `Screen` component with `variant="error"` or `variant="no-results"` instead.
+  - `<DataError />` → `<Screen variant="error" />`
+  - `<NoResults />` → `<Screen variant="no-results" />`
+  - Screen component provides unified interface for screen state display with customizable icons, actions, filters.
+
 ### Added
+
+- **Screen**: Generic screen state component for displaying page-level information or errors.
+  - Variants: `'no-results'` (search results empty) and `'error'` (data loading failed)
+  - Customizable heading, body, icon, action button, and filters
+  - Focuses heading on mount for WCAG 2.4.3 compliance
+  - Supports active filters display and clear/settings actions
 
 - **ControlCheckbox**: New component for accessible checkbox inputs with labels. Uses the same `.control` CSS pattern as `ControlRadio` for consistent styling.
 

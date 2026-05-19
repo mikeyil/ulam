@@ -24,6 +24,19 @@ All notable changes to @ulam/sili will be documented in this file.
   - Sili handles: focus trap, escape, return focus, layer order, transition rules
   - App handles: state management, overlay content, app-specific focus targets
 
+- **Improved Initial Focus Management (WCAG 2.4.3)**: Automatic focus strategy for overlays on open.
+  - Default: Focus heading with `tabIndex={-1}` → first focusable element → container (fallback)
+  - Override props: `focusElementRef` (explicit element) and `initialFocusContainer` (use container)
+  - New utility: `getInitialFocusTarget()` for finding best focus target in container
+  - Documented warnings against skipping content to place focus lower on page
+  - Integrated into Dialog, Sheet, Drawer, and OverlayManager
+
+- **Comprehensive API Reference**: Full documentation of all vanilla, React, Vue, and Angular APIs
+  - Method signatures with params and return types
+  - React hook patterns and composable signatures
+  - Component prop tables with descriptions
+  - Vue composition API examples
+
 ### Changed
 
 - **Overlay Component Naming**: Renamed `Modal` → `Dialog` for semantic accuracy (aligns with HTML `<dialog>` and ARIA `role="dialog"`).
@@ -46,7 +59,7 @@ All notable changes to @ulam/sili will be documented in this file.
 
 - **Focus Return Styling**: Added `[data-focus-return]` focus ring styling. Set on elements when overlays close and focus is restored, ensuring focus ring shows regardless of input modality. Managed by router plugin's `returnFocus()` utility.
 
-- **Remix Adapter**: Updated to export `Dialog` (primary) and maintain `Modal` alias for backward compatibility during transition.
+- **Remix Adapter**: Updated to export `Dialog` (no backward-compat aliases).
 
 ### Fixed
 
