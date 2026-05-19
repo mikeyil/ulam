@@ -1,5 +1,26 @@
 # Known Issues and Future Work
 
+## Current Session: Documentation Polish & ube Plan Verification (2026-05-19)
+
+### Completed Today
+
+- ✅ Reverted incorrect sawsawan→sauce package rename (kept package name as @ulam/sawsawan)
+- ✅ Updated all package documentation to use "sauce" metaphor instead of "bridge" for sawsawan
+- ✅ Added missing Install section to calamansi README
+- ✅ Verified ube framework-agnostic migration completion (all 5 phases complete)
+- ✅ Reviewed plan against actual implementation (no missed items)
+- ✅ Updated UPDATES.md with session progress
+
+### Documentation Files Updated
+
+- Root README.md (sawsawan description)
+- packages/calamansi/README.md (Install section + sauce metaphor)
+- packages/sili/README.md (sauce metaphor)
+- packages/taho/README.md (sauce metaphor)
+- packages/ube/README.md (sauce metaphor)
+- packages/halohalo/README.md (sauce metaphor)
+- packages/sawsawan/README.md (sauce metaphor description)
+
 ## Current Focus (0.3.0 Released)
 
 ### Completed in 0.3.0

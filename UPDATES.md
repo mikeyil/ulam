@@ -43,7 +43,7 @@ Completed a comprehensive refactor of @ulam/ube from React-only to a framework-a
 
 **Breaking Changes**: None (React API is 100% backward compatible)
 
-### Documentation Polish: Sawsawan Metaphor Update & UBE Plan Review
+### Documentation Polish: Sawsawan Metaphor Update & ube Plan Review
 
 Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" instead of "bridge" in descriptions, maintaining the culinary metaphor throughout:
 
@@ -51,7 +51,7 @@ Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" in
 - ✅ All package READMEs: Consistent "sauce" terminology in framework hierarchy diagrams
 - ✅ Added missing Install section to calamansi README
 
-**UBE Framework-Agnostic Migration Review**: Verified all phases of the refactor are complete:
+**ube Framework-Agnostic Migration Review**: Verified all phases of the refactor are complete:
 
 - ✅ Phase 1: 20 vanilla web components fully ported (18 exportable + 2 internal primitives)
 - ✅ Phase 2-3: 120 framework adapters (React 20, Vue 20, Angular 20, Remix 20)
@@ -61,7 +61,7 @@ Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" in
 - ✅ Package exports configured correctly for all frameworks
 - ✅ Backward compatibility maintained
 
-**Status**: UBE migration 90% complete (minor documentation expansions remaining per TODO.md)
+**Status**: ube migration 90% complete (minor documentation expansions remaining per TODO.md)
 
 ### Markdown Linting: Complete Project Cleanup
 
