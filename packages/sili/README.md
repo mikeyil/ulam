@@ -110,11 +110,11 @@ usePageTitle('Settings')
 ### Overlay components (React)
 
 ```jsx
-import { Modal, Drawer, Sheet } from '@ulam/sili/react'
+import { Dialog, Drawer, Sheet } from '@ulam/sili/react'
 
-<Modal open={isOpen} onClose={close} label="Confirm deletion">
+<Dialog open={isOpen} onClose={close} heading="Confirm deletion" actions={[...]}>
   ...
-</Modal>
+</Dialog>
 
 <Drawer open={isOpen} onClose={close} label="Filters">
   ...
@@ -126,6 +126,61 @@ import { Modal, Drawer, Sheet } from '@ulam/sili/react'
 ```
 
 All three overlays handle focus trap, ARIA hide, Escape to dismiss, and return focus automatically.
+
+### OverlayManager: Multi-overlay orchestration
+
+For apps with multiple overlays that need to transition between each other (dialog → sheet, drawer → panel, etc.), use `OverlayManager` to handle focus management across all transitions:
+
+```jsx
+import { OverlayManager } from '@ulam/sili/react'
+
+const overlays = [
+  {
+    id: 'confirmDelete',
+    type: 'dialog',
+    heading: 'Delete item?',
+    content: <p>This action cannot be undone.</p>,
+    actions: [
+      { label: 'Delete', onClick: () => handleDelete(), className: 'btn--danger' },
+      { label: 'Cancel', onClick: () => closeOverlay(), className: 'btn--secondary' },
+    ],
+  },
+  {
+    id: 'filters',
+    type: 'drawer',
+    label: 'Filter options',
+    content: <FilterPanel />,
+  },
+  {
+    id: 'details',
+    type: 'sheet',
+    label: 'Item details',
+    heading: 'Details',
+    content: <DetailsPanel />,
+    returnFocusRef={detailsTriggerRef}, // restore focus here on close
+  },
+]
+
+<OverlayManager
+  overlays={overlays}
+  activeId={activeOverlayId}
+  onClose={handleCloseOverlay}
+  baseReturnFocusRef={defaultFocusRef}
+/>
+```
+
+**Layer order (automatic focus management):**
+- Screen: 0 (lowest)
+- Drawer/Panel: 1
+- Sheet: 2
+- Dialog: 3 (highest)
+
+**Transition rules:**
+- **Higher → Lower**: Current overlay closes, focus moves to target
+- **Lower → Higher**: Lower layer stays open (inert), higher overlay opens with focus
+- **Same level**: Current closes, new opens, focus in new
+
+This means dialog can stack on top of any layer, sheet stacks on drawer/panel, but closing always moves focus correctly based on the layer hierarchy.
 
 ### Remix
 
@@ -271,11 +326,37 @@ Each service method returns a cleanup function that reverses exactly what it set
 
 | Component | Description |
 | --------- | ----------- |
-| `Modal` | Centered dialog, stacks at z-index 301 |
+| `Dialog` | Centered modal dialog, stacks at z-index 301 |
 | `Drawer` | Slide-in panel from the left |
 | `Sheet` | Slide-up bottom sheet, collapses on desktop |
 
-Primitive versions (`ModalPrimitive`, `DrawerPrimitive`, `SheetPrimitive`) are also exported. Structure only, no built-in focus management, for cases where you need full control.
+Primitive versions (`DialogPrimitive`, `DrawerPrimitive`, `SheetPrimitive`) are also exported. Structure only, no built-in focus management, for cases where you need full control.
+
+## Where sili stops (app responsibility)
+
+Sili provides **generic focus management foundations**. Your app provides **app-specific behavior**:
+
+| Aspect | Sili (generic) | Your app (specific) |
+| ------ | -------------- | ------------------- |
+| Focus trap, escape, return focus | ✓ Handles automatically | — |
+| Layer order (screen=0, dialog=3) | ✓ Defines the hierarchy | — |
+| Transition rules (higher→lower, etc.) | ✓ Implements automatically | — |
+| Which overlay is active | — | ✓ Manage `activeId` |
+| Overlay state (open/close booleans) | — | ✓ Track state in your component |
+| Focus target on close (where focus lands) | — | ✓ Pass `returnFocusRef` per overlay |
+| Content of each overlay | — | ✓ Define config with headings, content, actions |
+| App-level focus patterns | — | ✓ Handle (e.g., "closing sheet focuses results area") |
+
+**Example: A11yFred's approach**
+
+A11yFred uses a centralized overlay manager (A11yOverlayManager) that:
+- Tracks all app overlay state (viewAllConfirm, pendingEntry, privacy sheet, etc.)
+- Determines `activeId` based on state priority
+- Passes `returnFocusRef` for each overlay to sili's OverlayManager
+- Provides overlay configs with app-specific content, headings, actions
+- Handles app-specific focus behavior (where focus goes when closing)
+
+Sili just orchestrates the generic parts; a11yfred provides the app logic.
 
 ## Focus rules (WCAG 2.4.3)
 

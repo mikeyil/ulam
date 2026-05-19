@@ -96,6 +96,22 @@ export default function App() {
 
 All components are tree-shakeable: only imported components bundle their CSS.
 
+## Where ube stops (sili starts)
+
+Ube provides **reusable UI components and tokens**. Sili provides **focus management and overlay orchestration**. Here's the boundary:
+
+| Aspect | Ube (UI layer) | Sili (Focus/Overlay layer) |
+| ------ | -------------- | -------------------------- |
+| Button, Input, Toggle, etc. | ✓ Components | — |
+| Panel (side navigation container) | ✓ Structure + styling | — |
+| Dialog, Sheet, Drawer (overlays) | — | ✓ Full implementations |
+| Focus trap, ARIA hide, escape | — | ✓ Handled automatically |
+| Overlay transitions & stacking | — | ✓ OverlayManager orchestrates |
+| Page heading focus management | — | ✓ Router focus plugins |
+| Component content/behavior | ✓ Your app's responsibility | — |
+
+**Panel vs Dialog/Sheet/Drawer**: Panel is a structural container for organizing content (settings, details, etc.). Dialog/Sheet/Drawer are full overlay components with built-in focus management. If you need a side container without sili's focus handling, use Panel. If you need an overlay with automatic focus management, use sili's overlays.
+
 ---
 
 ## Components

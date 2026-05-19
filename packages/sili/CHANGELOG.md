@@ -4,7 +4,32 @@ All notable changes to @ulam/sili will be documented in this file.
 
 ## [0.3.0] - Unreleased
 
+### Added
+
+- **OverlayManager Component**: Generic multi-overlay orchestration supporting transitions across all overlay types.
+  - Implements layer order: screen (0) < drawer/panel (1) < sheet (2) < dialog (3)
+  - Automatic focus management: higher→lower closes with focus restore, lower→higher stacks with inert background
+  - Supports 23 transition scenarios (screen↔panel, dialog↔sheet, etc.)
+  - Base trigger/target tracking for focus restoration without explicit refs
+  - Per-overlay `returnFocusRef` override for app-specific focus behavior
+  - Works with any overlay orchestration pattern (data-driven, imperative, etc.)
+
+- **Vue Adapter Expansion**: Added Dialog, Sheet, Drawer components with full sili hooks integration.
+  - `Dialog`, `DialogShell`: Centered dialog with focus trap, ARIA hide, escape handling
+  - `Sheet`, `SheetShell`: Bottom sheet with collapse support and scroll lock
+  - `Drawer`, `DrawerShell`: Side drawer with focus trap and restoration
+  - All fully wired with Vue composables; Shell variants provide structure-only primitives
+
+- **Focus Management Documentation**: Added clear guide to sili's responsibilities vs app responsibilities.
+  - Sili handles: focus trap, escape, return focus, layer order, transition rules
+  - App handles: state management, overlay content, app-specific focus targets
+
 ### Changed
+
+- **Overlay Component Naming**: Renamed `Modal` → `Dialog` for semantic accuracy (aligns with HTML `<dialog>` and ARIA `role="dialog"`).
+  - Updated all adapters: React, Remix, Vue
+  - `Modal` removed; `Dialog` is the standard
+  - Maintained consistency across all overlay types
 
 - **File Organization**: Moved `core/sili.css` → `base.css` at package root for better discoverability. Improved alignment with `@ulam/ube` organizational patterns.
 
@@ -12,7 +37,7 @@ All notable changes to @ulam/sili will be documented in this file.
   - Shared backdrop styles (all overlay backdrops)
   - Drawer: base styles → focus state → open state → scroll lock interactions → RTL variants
   - BottomSheet: backdrop, panel, chrome/handle, content sections, close button → RTL variants → responsive media queries
-  - Modal: backdrop, panel, content sections
+  - Dialog: backdrop, panel, content sections
   - Global utilities (scroll lock, sheet collapsed state padding)
   - Accessibility: reduced motion media query
   - Print media query
@@ -20,6 +45,8 @@ All notable changes to @ulam/sili will be documented in this file.
 - **CSS Dependencies**: Added `@ulam/ube` as a peer dependency (>=0.2.0) since `base.css` consumes ube's CSS custom properties (`--overlay-bg`, `--bg`, `--border`, etc.).
 
 - **Focus Return Styling**: Added `[data-focus-return]` focus ring styling. Set on elements when overlays close and focus is restored, ensuring focus ring shows regardless of input modality. Managed by router plugin's `returnFocus()` utility.
+
+- **Remix Adapter**: Updated to export `Dialog` (primary) and maintain `Modal` alias for backward compatibility during transition.
 
 ### Fixed
 
