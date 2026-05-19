@@ -1,4 +1,4 @@
-import ButtonIcon from './ButtonIcon.jsx'
+import Button from './Button.jsx'
 
 export default function ButtonBack({ onClick, ariaLabel, dir = 'ltr' }) {
   const icon = dir === 'rtl' ? (
@@ -11,5 +11,5 @@ export default function ButtonBack({ onClick, ariaLabel, dir = 'ltr' }) {
     </svg>
   )
 
-  return <ButtonIcon icon={icon} label={ariaLabel} onClick={onClick} />
+  return <Button icon={icon} label={ariaLabel} onClick={onClick} />
 }

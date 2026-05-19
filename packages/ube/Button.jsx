@@ -2,6 +2,25 @@ import { forwardRef } from 'react'
 import { useAriaDisabled } from './useAriaDisabled.js'
 import './buttons.css'
 
+/**
+ * Universal button component supporting text, icon, or icon+text layouts.
+ *
+ * @param {ReactNode} children - Button text content (if empty, renders icon-only)
+ * @param {string} label - aria-label text for accessibility
+ * @param {ReactNode} icon - Icon element to display
+ * @param {string} variant - Style variant: primary, secondary, tertiary (default: primary)
+ * @param {boolean} disabled - Disable button and set aria-disabled
+ * @param {boolean} busy - Loading state, sets aria-busy and prevents pointer events
+ * @param {boolean} active - Success/active state (visual feedback)
+ * @param {boolean} fullWidth - Stretch to container width
+ * @param {string} align - Text alignment: left, center, right (default: center)
+ * @param {string} size - Size variant: compact, default, large (default: default)
+ * @param {string} iconPosition - Icon placement: start, end (default: start)
+ * @param {boolean} error - Error state styling
+ * @param {string} title - Tooltip text
+ * @param {Function} onClick - Click handler
+ * @param {string} className - Additional CSS classes
+ */
 const Button = forwardRef(function Button({
   children,
   label,

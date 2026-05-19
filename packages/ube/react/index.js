@@ -4,8 +4,7 @@
 import './ui.css'
 
 // Components
-export { default as ButtonText } from './ButtonText.jsx'
-export { default as ButtonIcon } from './ButtonIcon.jsx'
+export { default as Button } from './Button.jsx'
 export { default as ButtonBack } from './ButtonBack.jsx'
 export { default as LinkBtnStyled } from './LinkBtnStyled.jsx'
 export { default as LinkSkipTo } from './LinkSkipTo.jsx'
