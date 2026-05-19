@@ -1,5 +1,39 @@
 # Recent Updates (v0.3.0)
 
+## Current Session (Post-Release)
+
+### CSS Consolidation
+
+**Changes**:
+
+- Merged `form-control-field.css` into `form-input.css` (both styled text/search inputs)
+- Removed redundant CSS file, simplified imports
+
+**Impact**: Cleaner CSS organization, reduced file count from 31 to 30 CSS files.
+
+### Component Naming Refinement
+
+**Changes**:
+
+- Renamed `FormControlInputSearch` → `FormInputSearch`
+- Renamed `FormControlInputWithClear` → `FormInputWithClear`
+- Renamed CSS files: `form-control-input*` → `form-input*`
+
+**Rationale**: "form control" is a broad accessibility term for all form elements. "form input" is more precise for components that specifically style text `<input>` elements (not select, checkbox, radio, etc.).
+
+**Impact**: Clearer naming convention, better semantic accuracy in component architecture.
+
+### Unused Code Cleanup
+
+**Changes**:
+
+- Removed unused `returnFocusRef` prop pass in SheetReact (was passed but not accepted by Sheet primitive)
+- Removed redundant `A11yLinkTitle` wrapper component from a11yfred
+
+**Impact**: Cleaner codebase, fewer prop inconsistencies.
+
+---
+
 ## Overview
 
 This is a significant release focused on improving focus management per WCAG standards, consolidating screen state handling, and providing comprehensive documentation for all adapters.

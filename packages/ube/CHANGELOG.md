@@ -2,6 +2,21 @@
 
 All notable changes to @ulam/ube will be documented in this file.
 
+## [0.3.1] - Unreleased
+
+### Changed
+
+- **Form Input Naming Refinement**: Renamed form input components and CSS for semantic accuracy:
+  - `FormControlInputSearch` → `FormInputSearch` (more precise: styles text `<input>`, not all form controls)
+  - `FormControlInputWithClear` → `FormInputWithClear`
+  - CSS: `form-control-input*` → `form-input*`
+
+- **CSS Consolidation**: Merged `form-control-field.css` into `form-input.css` (eliminated redundant file with duplicate selectors)
+
+### Fixed
+
+- **Unused Code**: Removed dead code (A11yLinkTitle wrapper component was a pass-through, now inlined)
+
 ## [0.3.0] - 2026-05-18
 
 ### Changed
