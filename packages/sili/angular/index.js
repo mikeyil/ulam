@@ -12,6 +12,12 @@ export {
   returnFocus,
   onEscapeKey,
   lockScroll,
+  onKeydown,
+  dispatchKeyCommand,
+  prefersReducedMotion,
+  onPrefersReducedMotionChange,
+  snapshotFlipPositions,
+  animateFlipList,
 } from '../core/index.js'
 
 export { FocusTrapService } from './focus-trap.service.ts'
@@ -20,3 +26,6 @@ export { AriaHideService } from './aria-hide.service.ts'
 export { EscapeKeyService } from './escape-key.service.ts'
 export { ScrollLockService } from './scroll-lock.service.ts'
 export { FocusOnMountDirective } from './focus-on-mount.directive.ts'
+export { KeyboardService } from './keyboard.service.ts'
+export { AnimationService } from './animation.service.ts'
+export { ListNavigationDirective, type ListNavigationConfig } from './list-navigation.directive.ts'

@@ -12,6 +12,12 @@ export {
   returnFocus,
   onEscapeKey,
   lockScroll,
+  onKeydown,
+  dispatchKeyCommand,
+  prefersReducedMotion,
+  onPrefersReducedMotionChange,
+  snapshotFlipPositions,
+  animateFlipList,
 } from '../core/index.js'
 
 export { useFocusTrap } from './useFocusTrap.js'
@@ -24,6 +30,10 @@ export { usePaginationFocus } from './usePaginationFocus.js'
 export { useDir } from './useDir.js'
 export { useMediaQuery } from './useMediaQuery.js'
 export { usePageTitle } from './usePageTitle.js'
+export { useKeydown } from './useKeydown.js'
+export { useListNavigation } from './useListNavigation.js'
+export { usePrefersReducedMotion } from './usePrefersReducedMotion.js'
+export { useFlipList } from './useFlipList.js'
 
 // Vue components (fully wired with sili hooks)
 export { default as Dialog } from './Dialog.vue'
