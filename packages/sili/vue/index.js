@@ -24,3 +24,15 @@ export { usePaginationFocus } from './usePaginationFocus.js'
 export { useDir } from './useDir.js'
 export { useMediaQuery } from './useMediaQuery.js'
 export { usePageTitle } from './usePageTitle.js'
+
+// Vue components (fully wired with sili hooks)
+export { default as Dialog } from './Dialog.vue'
+export { default as Modal } from './Dialog.vue'
+export { default as Sheet } from './Sheet.vue'
+export { default as Drawer } from './Drawer.vue'
+
+// Primitive shells (structure only, no sili hooks)
+export { default as DialogShell } from './DialogShell.vue'
+export { default as ModalShell } from './DialogShell.vue'
+export { default as SheetShell } from './SheetShell.vue'
+export { default as DrawerShell } from './DrawerShell.vue'
