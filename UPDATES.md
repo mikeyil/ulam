@@ -43,6 +43,35 @@ Completed a comprehensive refactor of @ulam/Ube from React-only to a framework-a
 
 **Breaking Changes**: None (React API is 100% backward compatible)
 
+### File Naming Audit & Angular Convention Standardization
+
+Audited all file naming patterns across the framework to ensure consistency with language/framework standards:
+
+**Standardized Naming Conventions:**
+
+- **React Components (.jsx)**: PascalCase (e.g., `ButtonText.jsx`)
+- **Vue Components (.vue)**: PascalCase (e.g., `ButtonText.vue`)
+- **Angular Components (.component.ts)**: kebab-case.component.ts (e.g., `button-text.component.ts`)
+- **Angular Services (.service.ts)**: kebab-case.service.ts (e.g., `announce.service.ts`) ✅ Fixed
+- **Angular Directives (.directive.ts)**: kebab-case.directive.ts (e.g., `focus-trap.directive.ts`) ✅ Fixed
+- **Utility/Service/Hook files (.js)**: camelCase (e.g., `createCompletion.js`, `useAnnounce.js`)
+- **Module entry points**: lowercase (e.g., `index.js`, `react.js`, `angular.js`)
+
+**Files Renamed to Match Angular Standards:**
+
+- `/sili/angular`: 6 services and directives renamed to kebab-case
+  - `AriaHideService.js` → `aria-hide.service.ts`
+  - `EscapeKeyService.js` → `escape-key.service.ts`
+  - `FocusOnMountDirective.js` → `focus-on-mount.directive.ts`
+  - `FocusTrapDirective.js` → `focus-trap.directive.ts`
+  - `FocusTrapService.js` → `focus-trap.service.ts`
+  - `ScrollLockService.js` → `scroll-lock.service.ts`
+- `/taho/angular`: 2 files renamed to kebab-case
+  - `AnnounceService.js` → `announce.service.ts`
+  - `provideAnnounce.js` → `provide-announce.ts`
+
+**Status**: All files now follow standard conventions for their language/framework
+
 ### Documentation Polish: Sawsawan Metaphor Update & Ube Plan Review
 
 Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" instead of "bridge" in descriptions, maintaining the culinary metaphor throughout:

@@ -1,6 +1,6 @@
 # Known Issues and Future Work
 
-## Current Session: Documentation Polish & Ube Plan Verification (2026-05-19)
+## Current Session: Documentation Polish, Ube Plan Verification, & File Naming Audit (2026-05-19)
 
 ### Completed Today
 
@@ -9,7 +9,12 @@
 - ✅ Added missing Install section to calamansi README
 - ✅ Verified Ube framework-agnostic migration completion (all 5 phases complete)
 - ✅ Reviewed plan against actual implementation (no missed items)
-- ✅ Updated UPDATES.md with session progress
+- ✅ File naming audit: standardized to language/framework conventions
+  - ✅ Angular services/directives: renamed to kebab-case.service.ts/directive.ts (8 files)
+  - ✅ React components: verified PascalCase
+  - ✅ Vue components: verified PascalCase
+  - ✅ Utility files: verified camelCase
+- ✅ Updated UPDATES.md and TODO.md with session progress
 
 ### Documentation Files Updated
 
