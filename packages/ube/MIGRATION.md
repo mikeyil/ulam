@@ -194,6 +194,7 @@ All existing React code works without modification.
 ### Light DOM
 
 Components render in light DOM (not shadow DOM) so:
+
 - CSS tokens from your app cascade to components
 - Slot-based content works correctly
 - External styles can target components
@@ -201,6 +202,7 @@ Components render in light DOM (not shadow DOM) so:
 ### Property vs Attribute
 
 The architecture distinguishes between:
+
 - **Primitives** (string, boolean): Use HTML attributes
   - `<ube-button label="Text" disabled>`
 - **Complex objects** (icons, options): Use JavaScript properties
@@ -304,6 +306,7 @@ npm run test:coverage # Coverage report
 ```
 
 Test files:
+
 - `__tests__/core.test.js`: Vanilla component tests
 - `__tests__/react.test.jsx`: React adapter tests
 - `__tests__/integration.test.js`: Cross-framework integration tests
