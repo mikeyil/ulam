@@ -19,32 +19,8 @@
   box-shadow: 0 0 0 var(--focus-outline-width) var(--focus);
 }
 
-.form-input--search[aria-disabled="true"] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .form-input--search[aria-disabled="true"] {
-    opacity: 1;
-    background: var(--bg-subtle);
-    border-color: var(--text-disabled);
-  }
-}
-
 .form-input--with-clear {
   position: relative;
-}
-
-.form-input--with-clear[aria-disabled="true"] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .form-input--with-clear[aria-disabled="true"] {
-    opacity: 1;
-  }
 }
 
 /* ─── Input field ──────────────────────────────────────────── */
@@ -79,6 +55,18 @@ input[type="search"]:focus-visible {
   border-radius: var(--rounded);
 }
 
+/* Wrapper disabled state (via aria-disabled from useAriaDisabled hook) */
+.form-input[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .form-input[aria-disabled="true"] {
+    opacity: 1;
+  }
+}
+
+/* Input field disabled state (native disabled attribute) */
 .form-input__field:disabled {
   color: var(--text-disabled);
   cursor: not-allowed;
@@ -106,37 +94,15 @@ input[type="search"]:focus-visible {
   font-style: italic;
 }
 
-/* ─── Input disabled state ─────────────────────────────────── */
-
-input[type="text"][aria-disabled="true"],
-input[type="search"][aria-disabled="true"] {
-  color: var(--text-disabled);
-  opacity: 0.5;
-  background-color: var(--bg-subtle);
-  border-color: var(--border);
-  box-shadow: none;
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  input[type="text"][aria-disabled="true"],
-  input[type="search"][aria-disabled="true"] {
-    opacity: 1;
-    background-color: var(--border);
-    border-color: var(--text-disabled);
-  }
-}
-
-input[type="text"][aria-disabled="true"]:focus-visible,
-input[type="search"][aria-disabled="true"]:focus-visible {
-  border-color: var(--focus-disabled);
-  outline: var(--focus-outline-width) dashed var(--focus-disabled);
-  outline-offset: 0;
-}
-
 /* ─── Clear button ─────────────────────────────────────────── */
 
 .form-input__clear {
   border-radius: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
 }
 
 .form-input--live .form-input__clear {
@@ -150,10 +116,7 @@ input[type="search"][aria-disabled="true"]:focus-visible {
   min-width: var(--touch-target);
   min-height: var(--touch-target);
   padding: 10px;
-  background: none;
-  border: none;
   border-radius: var(--radius-circle);
-  color: inherit;
   font-size: var(--fs-small);
   font-weight: 700;
   line-height: 1;
@@ -164,18 +127,23 @@ input[type="search"][aria-disabled="true"]:focus-visible {
 
 .form-input__submit {
   background: var(--accent);
+  border: none;
   border-radius: 0 var(--rounded) var(--rounded) 0;
   color: var(--accent-text, #fff);
+  cursor: pointer;
+  padding: 0 var(--space-3);
+  font-size: var(--fs-body);
+  font-weight: 500;
   transition: background var(--duration-fast);
 }
 
-.form-input__submit:hover:not(:disabled) {
+.form-input__submit:not(:disabled):hover {
   background: var(--accent);
   filter: brightness(1.1);
 }
 
 .form-input__submit:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
