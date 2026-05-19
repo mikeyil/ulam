@@ -1,6 +1,6 @@
 {
   "name": "@ulam/sili",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Focus management, ARIA hide, escape key, and routing hooks. Vanilla core with React, Remix, Vue, and Angular adapters.",
   "type": "module",
   "license": "MIT",
