@@ -4,6 +4,32 @@ ARIA live region announcer. Vanilla core with React, Remix, Vue, and Angular ada
 
 Named for taho, the Filipino street drink: warm, light, and always there when you need it.
 
+## Purpose & Scope
+
+**What taho does:**
+
+- ARIA live regions for screen reader announcements
+- Automatic duplicate message re-announcement (clear-then-set cycle)
+- Route change announcements (when navigation occurs)
+- Accessibility-first design for dynamic content
+- Framework-agnostic vanilla core with framework adapters
+
+**What taho doesn't do:**
+
+- UI rendering (announcer is invisible)
+- Message queuing or filtering (you control what gets announced)
+- Timed dismissal beyond announcer's default (use with other patterns)
+- Focus management (use @ulam/sili for that)
+- State management (announcements are side effects only)
+
+**Who should use taho:**
+
+- React, Remix, Vue, or Angular apps with dynamic content
+- Projects announcing form validation errors, async results, or status changes
+- Accessibility-first applications requiring screen reader support
+- SPAs that announce navigation changes
+- Any app where users need to know about content changes they can't see
+
 ## The ulam Framework
 
 Taho is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
@@ -146,6 +172,8 @@ For Angular 14+ standalone apps, you can also call `provideAnnounce()` explicitl
 | `@ulam/taho/remix` | `useRouteAnnouncer`, `mountRouteAnnouncer`, `notifyRouteChange`, React re-exports |
 | `@ulam/taho/vue` | `useAnnounce`, vanilla re-exports |
 | `@ulam/taho/angular` | `AnnounceService`, `provideAnnounce` |
+
+See the [root README](../../README.md) for a complete framework support overview across all ulam packages.
 
 ## Message format
 

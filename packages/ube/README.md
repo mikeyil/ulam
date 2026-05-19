@@ -738,6 +738,8 @@ This organization enables better tree-shaking: component tokens are removed if t
 
 Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/sili/react`.
 
+See the [root README](../../README.md) for a complete framework support overview across all ulam packages.
+
 ### Stylesheets
 
 | Import | Purpose |

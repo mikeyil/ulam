@@ -1,10 +1,37 @@
 # @ulam/halohalo
 
-AI service adapters, model configuration, and provider abstraction. Vanilla core with a React hooks adapter.
+AI service adapters, model configuration, and provider abstraction. Vanilla core with React, Vue, and Angular adapters.
 
 Named for halo-halo, the Filipino shaved ice dessert: a mix of many things that somehow works together.
 
-## The ulam framework
+## Purpose & Scope
+
+**What halohalo does:**
+
+- Provider abstraction for Anthropic, OpenAI, and Google
+- API key management (localStorage-backed, never sent to server)
+- Model selection and configuration per provider
+- Completion calls with consistent interface across providers
+- Tool calling and agentic mode for complex operations
+- Framework-agnostic vanilla core with framework adapters
+- Zero build-time provider detection or configuration
+
+**What halohalo doesn't do:**
+
+- Message history or conversation management (bring your own state)
+- Streaming response handling (returns complete results)
+- Rate limiting or retry logic (use middleware patterns for these)
+- Token counting or pricing calculation (external concerns)
+- API key validation or rotation (user responsibility)
+- Multi-user authentication or access control
+
+**Who should use halohalo:**
+
+- Apps that need multiple AI provider support with runtime switching
+- Projects storing API keys client-side (browser-only, no backend)
+- Vanilla JavaScript, React, Vue, or Angular apps using AI features
+- Applications wanting provider-agnostic completion calls
+- Teams integrating AI features without external API servers
 
 ## The ulam Framework
 
@@ -181,3 +208,5 @@ export class SettingsComponent {
 | `@ulam/halohalo/react` | `useCompletion`, `useProviderConfig` |
 | `@ulam/halohalo/vue` | `useCompletion`, `useProviderConfig` |
 | `@ulam/halohalo/angular` | `CompletionService`, `ProviderConfigService`, `provideHalohalo` |
+
+See the [root README](../../README.md) for a complete framework support overview across all ulam packages.

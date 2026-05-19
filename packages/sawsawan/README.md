@@ -4,6 +4,34 @@ The sauce: integration layer wiring ube and calamansi together. The dipping sauc
 
 Named for sawsawan, the Filipino dipping sauce: no purpose alone, exists only to bring other things together.
 
+## Purpose & Scope
+
+**What sawsawan does:**
+
+- Integration of ube and calamansi without circular dependencies
+- Setting `html[lang]` attribute on locale changes
+- Setting `html[dir]` attribute for RTL locale support
+- Wiring i18n announcements (locale switch notifications)
+- Composing functions from independent packages
+- Framework-agnostic integration patterns
+
+**What sawsawan doesn't do:**
+
+- State management (uses what you provide)
+- UI rendering (purely orchestration)
+- Locale data (calamansi provides that)
+- Component rendering (ube provides that)
+- Message routing or filtering (direct pass-through)
+- Provider-specific integrations (halohalo manages those)
+
+**Who should use sawsawan:**
+
+- Apps combining ube and calamansi needing coordinated behavior
+- Projects requiring `html[lang]` and `html[dir]` synchronization
+- Applications wanting locale changes to trigger announcements
+- Teams using multiple ulam packages and needing integration glue
+- Vanilla JavaScript, React, Vue, or Angular apps with i18n and UI components
+
 ## The ulam Framework
 
 Sawsawan is one of six packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.

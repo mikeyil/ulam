@@ -379,6 +379,8 @@ Each service method returns a cleanup function that reverses exactly what it set
 | `@ulam/sili/vue` | Vue composables: all hooks, vanilla re-exports |
 | `@ulam/sili/angular` | Angular services and directives, vanilla re-exports |
 
+See the [root README](../../README.md) for a complete framework support overview across all ulam packages.
+
 ## Overlay components
 
 | Component | Description |

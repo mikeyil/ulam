@@ -4,6 +4,34 @@ Data-agnostic i18n, hooks, and logic utilities. The sour layer of the ulam frame
 
 Named for the iconic Filipino sour citrus. Small, essential, full of character.
 
+## Purpose & Scope
+
+**What calamansi does:**
+
+- Data-agnostic i18n with runtime locale switching (no rebuild needed)
+- String interpolation with variable substitution
+- Per-locale fallback chain (e.g., `en-US` → `en` → default)
+- localStorage-backed preference persistence
+- Framework-agnostic vanilla core with framework adapters
+- Zero dependencies (not even polyfills)
+
+**What calamansi doesn't do:**
+
+- Number formatting (use `Intl.NumberFormat`)
+- Date formatting (use `Intl.DateTimeFormat`)
+- Pluralization rules (bring your own logic or use `Intl.PluralRules`)
+- Translation file management or CI/CD pipeline
+- Build-time string extraction (all content lives in your app)
+- Server-side rendering pre-translation (you control the locale on server)
+
+**Who should use calamansi:**
+
+- Apps that need runtime locale switching without reload
+- Projects with i18n data from APIs or CMS (not baked into bundle)
+- Vanilla JavaScript, React, Vue, or Angular projects needing i18n
+- Apps already using `Intl` APIs and wanting lightweight i18n on top
+- Teams wanting to avoid heavy i18n libraries for simple needs
+
 ## The ulam Framework
 
 Calamansi is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
@@ -157,3 +185,5 @@ Neither ube nor sawsawan import from calamansi directly.
 | `@ulam/calamansi/react` | `I18nProvider`, `useT`, `usePref` |
 | `@ulam/calamansi/vue` | `useT`, `usePref`, vanilla re-exports |
 | `@ulam/calamansi/angular` | `I18nService`, `PrefService`, vanilla re-exports |
+
+See the [root README](../../README.md) for a complete framework support overview across all ulam packages.
