@@ -4,6 +4,7 @@
   display: flex;
   align-items: stretch;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .form-input--search {
@@ -18,8 +19,32 @@
   box-shadow: 0 0 0 var(--focus-outline-width) var(--focus);
 }
 
+.form-input--search[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .form-input--search[aria-disabled="true"] {
+    opacity: 1;
+    background: var(--bg-subtle);
+    border-color: var(--text-disabled);
+  }
+}
+
 .form-input--with-clear {
   position: relative;
+}
+
+.form-input--with-clear[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .form-input--with-clear[aria-disabled="true"] {
+    opacity: 1;
+  }
 }
 
 /* ─── Input field ──────────────────────────────────────────── */
