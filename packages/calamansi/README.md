@@ -166,7 +166,3 @@ Neither ube nor sawsawan import from calamansi directly.
 | `@ulam/calamansi/react` | `I18nProvider`, `useT`, `usePref` |
 | `@ulam/calamansi/vue` | `useT`, `usePref`, vanilla re-exports |
 | `@ulam/calamansi/angular` | `I18nService`, `PrefService`, vanilla re-exports |
-
-## License
-
-MIT

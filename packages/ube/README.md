@@ -783,7 +783,3 @@ Planned improvements to the @ulam/ube library:
 - [ ] **Heading levels and styles abstraction** `[design]` — Create a utility component or helper hook that decouples semantic heading levels (h1–h6) from visual styles (display, body, sub, etc.). Example: `<HeadingText level={2} style="display">Title</HeadingText>` renders an `<h2>` with large display-style text. Reduces cognitive load in apps where heading hierarchy doesn't match visual prominence.
 
 ---
-
-## License
-
-MIT

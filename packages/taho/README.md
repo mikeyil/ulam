@@ -170,7 +170,3 @@ Do not announce focus-managed transitions like modals opening or page navigation
 ## Implementation
 
 Two always-in-DOM live regions with auto-clearing after ~1 second. Duplicate messages re-announce reliably via a clear-then-set cycle. Adapted from `@react-aria/live-announcer` (Adobe, Apache-2.0).
-
-## License
-
-MIT

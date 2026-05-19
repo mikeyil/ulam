@@ -723,7 +723,3 @@ import { focusPageHeading } from '@ulam/sili/react'
 
 router.on('navigate', () => focusPageHeading())
 ```
-
-## License
-
-MIT

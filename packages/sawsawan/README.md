@@ -49,7 +49,3 @@ function App() {
 ## Why ube and calamansi do not depend on each other
 
 `announce()` accepts any string: no knowledge of where it came from. `t()` returns any string: no knowledge of where it goes. The app or sawsawan wires them: `announce(t('locale.switched'))`. Neither package knows the other exists. Integration is function composition at the call site, owned by sawsawan.
-
-## License
-
-MIT

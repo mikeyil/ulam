@@ -187,7 +187,3 @@ export class SettingsComponent {
 | `@ulam/halohalo/react` | `useCompletion`, `useProviderConfig` |
 | `@ulam/halohalo/vue` | `useCompletion`, `useProviderConfig` |
 | `@ulam/halohalo/angular` | `CompletionService`, `ProviderConfigService`, `provideHalohalo` |
-
-## License
-
-MIT
