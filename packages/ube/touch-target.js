@@ -6,12 +6,13 @@
  */
 
 const MIN_TOUCH_TARGET = 48
-const DEBUG_OVERLAY_COLOR = 'rgba(0, 100, 255, 0.15)'
+const DEBUG_OVERLAY_COLOR = 'rgba(255, 0, 0, 0.4)' // Bright red, high opacity
 const COLLISION_CHECK_MARGIN = 2 // pixels
 
 let styleSheet = null
 let debugMode = false
 let exceptions = new Set()
+let minTouchTarget = MIN_TOUCH_TARGET
 
 /**
  * Check if device supports touch and doesn't have hover
@@ -110,7 +111,7 @@ function rectsOverlap(rect1, rect2) {
  * Calculate maximum safe overlay size considering collisions
  */
 function getMaxOverlaySize(targetRect, allElements) {
-  let maxSize = MIN_TOUCH_TARGET
+  let maxSize = minTouchTarget
 
   // Check for collisions with nearby elements
   const expandedTarget = expandRect(targetRect, MIN_TOUCH_TARGET / 2)
@@ -139,7 +140,7 @@ function getMaxOverlaySize(targetRect, allElements) {
  * Needs overlay: size undersized
  */
 function needsOverlay(size) {
-  return size.width < MIN_TOUCH_TARGET || size.height < MIN_TOUCH_TARGET
+  return size.width < minTouchTarget || size.height < minTouchTarget
 }
 
 /**
@@ -162,18 +163,19 @@ function addOverlayRule(className, size) {
 
   const rule = `
 .${className}::after {
-  content: '';
-  position: absolute;
-  width: ${size}px;
-  height: ${size}px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  cursor: pointer;
-  pointer-events: auto;
-  ${debugMode ? `background: ${DEBUG_OVERLAY_COLOR};` : ''}
-  z-index: 1;
+  content: '' !important;
+  position: absolute !important;
+  width: ${size}px !important;
+  height: ${size}px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: ${debugMode ? DEBUG_OVERLAY_COLOR : 'transparent'} !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  border: ${debugMode ? '2px dashed rgba(255, 0, 0, 0.8)' : 'none'} !important;
+  box-shadow: ${debugMode ? '0 0 0 1px rgba(255, 0, 0, 0.5), inset 0 0 8px rgba(255, 0, 0, 0.3)' : 'none'} !important;
+  z-index: 9999 !important;
 }
   `
 
@@ -218,37 +220,63 @@ function processElement(el, allRects) {
   // Store metadata for debugging
   el.setAttribute('data-touch-target-size', `${Math.round(size.width)}×${Math.round(size.height)}`)
   el.setAttribute('data-touch-target-overlay', maxSize)
+
+  // Visual debug: add a border to the element itself to show it was processed
+  if (debugMode) {
+    el.style.outline = '2px solid red'
+  }
 }
 
 /**
  * Initialize touch target detection and remediation
  * @param {Object} options
  * @param {boolean} options.debug - Show overlay visualization
+ * @param {number} options.minSize - Minimum target size in pixels (24, 44, or 48; default: 48)
  * @param {boolean} options.autoInit - Auto-run on DOM ready (default: true)
  */
 export function initTouchTargets(options = {}) {
-  if (!isTouchDevice()) return
+  if (!isTouchDevice()) {
+    console.log('[ube touch-target] Not a touch device, skipping')
+    return
+  }
 
   debugMode = options.debug || false
+  minTouchTarget = options.minSize || MIN_TOUCH_TARGET
+  console.log('[ube touch-target] Initializing with debug:', debugMode, 'minSize:', minTouchTarget)
 
   // Get all interactive elements
   const elements = Array.from(getInteractiveElements())
+  console.log('[ube touch-target] Found', elements.length, 'interactive elements')
 
   // Get bounding rects for all (for collision detection)
   const allRects = elements.map(el => getElementSize(el))
 
   // Process each element
+  let processedCount = 0
   elements.forEach((el, idx) => {
+    const before = el.className
     processElement(el, allRects)
+    if (el.className !== before) processedCount++
   })
 
+  console.log('[ube touch-target] Processed', processedCount, 'elements with overlays')
+
   if (debugMode) {
-    console.log(`[ube touch-target] Processed ${elements.length} interactive elements`, {
-      undersized: elements.filter(el => {
-        const size = getElementSize(el)
-        return needsOverlay(size)
-      }).length,
+    const undersized = elements.filter(el => {
+      const size = getElementSize(el)
+      return needsOverlay(size)
     })
+    console.log(`[ube touch-target] Processed ${elements.length} interactive elements`, {
+      undersized: undersized.length,
+      withOverlay: elements.filter(el => el.className && el.className.includes('ube-touch-target-')).length,
+    })
+    console.log('[ube touch-target] Undersized elements:', undersized.map(el => ({
+      tag: el.tagName,
+      text: el.textContent?.substring(0, 20),
+      size: getElementSize(el),
+      hasClass: Array.from(el.classList).find(c => c.startsWith('ube-touch-target-')),
+    })))
+    console.log('[ube touch-target] StyleSheet rules:', styleSheet?.cssRules.length || 0)
   }
 }
 
@@ -271,6 +299,9 @@ export function includeElement(el) {
  */
 export function setDebugMode(enabled) {
   debugMode = enabled
+  if (typeof window !== 'undefined') {
+    sessionStorage.setItem('__ube_touch_target_debug', enabled ? 'true' : 'false')
+  }
 
   // Update existing overlays
   const overlays = document.querySelectorAll('[data-touch-target-overlay]')
@@ -305,15 +336,18 @@ export function getReport() {
 
 // Auto-init on frameworks that set a config flag
 if (typeof window !== 'undefined' && window.__UBE_TOUCH_TARGET_AUTO_INIT) {
+  const debugFromStorage = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('__ube_touch_target_debug') === 'true'
+  const shouldDebug = window.__UBE_TOUCH_TARGET_DEBUG || debugFromStorage
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initTouchTargets({
-        debug: window.__UBE_TOUCH_TARGET_DEBUG || false,
+        debug: shouldDebug,
       })
     })
   } else {
     initTouchTargets({
-      debug: window.__UBE_TOUCH_TARGET_DEBUG || false,
+      debug: shouldDebug,
     })
   }
 }

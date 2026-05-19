@@ -185,6 +185,26 @@
       height: auto;
     }
 
+    .debug-indicator {
+      display: none;
+      padding: 8px 12px;
+      background: #ff4444;
+      color: white;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.9em;
+      animation: pulse 1s infinite;
+    }
+
+    .debug-indicator.active {
+      display: block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(0.7); }
+    }
+
     .info {
       background: #e3f2fd;
       border-left: 4px solid #0066ff;
@@ -239,13 +259,24 @@
         <input type="checkbox" id="debugToggle" />
         <span>Enable Debug Visualization</span>
       </label>
+      <div class="debug-indicator" id="debugIndicator">🔴 DEBUG MODE ACTIVE - RED OVERLAYS VISIBLE</div>
+      <label style="display: flex; align-items: center; gap: 8px;">
+        <span>Minimum size:</span>
+        <select id="minSizeSelect">
+          <option value="24">24×24px</option>
+          <option value="44">44×44px</option>
+          <option value="48" selected>48×48px (default)</option>
+        </select>
+      </label>
       <button id="reportBtn">Show Report</button>
       <button id="reinitBtn">Re-initialize</button>
-      <span style="color: #999; font-size: 0.9em;">Minimum target: 48×48px</span>
     </div>
 
     <div class="info">
       <strong>How to test:</strong> Open this page on a touch device or use DevTools device emulation. The utility will detect undersized controls and inject invisible 48×48 tap targets. Enable "Debug Visualization" to see the overlays.
+      <div id="touchStatus" style="margin-top: 10px; font-family: monospace; font-size: 0.85em; padding: 10px; background: #f0f0f0; border-radius: 4px;">
+        Detecting touch device...
+      </div>
     </div>
 
     <!-- BUTTONS -->
@@ -276,8 +307,28 @@
     <h2>Links</h2>
 
     <div class="scenario">
+      <div class="scenario-desc">Extremely tiny links (12×12px) - closely spaced, collision detection at work</div>
+      <div style="display: flex; gap: 2px; font-size: 10px;">
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0;" onclick="event.preventDefault(); alert('Link 1')">A</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0;" onclick="event.preventDefault(); alert('Link 2')">B</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0;" onclick="event.preventDefault(); alert('Link 3')">C</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0;" onclick="event.preventDefault(); alert('Link 4')">D</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0;" onclick="event.preventDefault(); alert('Link 5')">E</a>
+      </div>
+    </div>
+
+    <div class="scenario">
       <div class="scenario-desc">Tiny link (20×20px)</div>
       <a href="#" class="tiny-link" onclick="event.preventDefault(); alert('Tiny link clicked!')">Tiny link</a>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-desc">Super tiny links (12×12px) - well spaced, can get larger overlays</div>
+      <div style="display: flex; gap: 60px; font-size: 10px;">
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0; background: #0066ff; color: white; border-radius: 2px;" onclick="event.preventDefault(); alert('Spaced link 1')">①</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0; background: #0066ff; color: white; border-radius: 2px;" onclick="event.preventDefault(); alert('Spaced link 2')">②</a>
+        <a href="#" style="width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; padding: 0; background: #0066ff; color: white; border-radius: 2px;" onclick="event.preventDefault(); alert('Spaced link 3')">③</a>
+      </div>
     </div>
 
     <div class="scenario">
@@ -465,14 +516,38 @@
   <script type="module">
     import { initTouchTargets, setDebugMode, getReport } from './touch-target.js'
 
-    // Initialize on load
-    initTouchTargets({ debug: false })
+    // Initialize on load with debug mode and min size from sessionStorage
+    const debugMode = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('__ube_touch_target_debug') === 'true'
+    const minSize = parseInt(typeof sessionStorage !== 'undefined' && sessionStorage.getItem('__ube_touch_target_minsize') || '48')
+    console.log('[touch-target demo] Calling initTouchTargets with debug:', debugMode, 'minSize:', minSize)
+    initTouchTargets({ debug: debugMode, minSize: minSize })
 
     // Debug toggle
-    document.getElementById('debugToggle').addEventListener('change', (e) => {
-      setDebugMode(e.target.checked)
+    const debugToggle = document.getElementById('debugToggle')
+    const debugIndicator = document.getElementById('debugIndicator')
+    const minSizeSelect = document.getElementById('minSizeSelect')
+
+    // Restore debug state from sessionStorage
+    const savedDebugMode = sessionStorage.getItem('__ube_touch_target_debug') === 'true'
+    const savedMinSize = sessionStorage.getItem('__ube_touch_target_minsize') || '48'
+    debugToggle.checked = savedDebugMode
+    minSizeSelect.value = savedMinSize
+    debugIndicator.classList.toggle('active', savedDebugMode)
+
+    debugToggle.addEventListener('change', (e) => {
+      const isChecked = e.target.checked
+      sessionStorage.setItem('__ube_touch_target_debug', isChecked ? 'true' : 'false')
+      setDebugMode(isChecked)
+      debugIndicator.classList.toggle('active', isChecked)
       // Re-init to apply debug mode
-      location.reload()
+      setTimeout(() => location.reload(), 100)
+    })
+
+    minSizeSelect.addEventListener('change', (e) => {
+      const size = parseInt(e.target.value)
+      sessionStorage.setItem('__ube_touch_target_minsize', size)
+      // Re-init to apply new min size
+      setTimeout(() => location.reload(), 100)
     })
 
     // Report button
@@ -486,8 +561,20 @@
       location.reload()
     })
 
-    // Log device info
+    // Log device info and show status
     const isTouchDevice = matchMedia('(hover: none) and (pointer: coarse)').matches
+    const touchStatus = document.getElementById('touchStatus')
+
+    touchStatus.innerHTML = `
+      <strong>Touch Device Detection:</strong><br>
+      matchMedia('(hover: none) and (pointer: coarse)'): <span style="color: ${isTouchDevice ? 'green' : 'red'}; font-weight: bold;">${isTouchDevice ? '✓ TRUE' : '✗ FALSE'}</span><br>
+      <br>
+      <strong>Device Info:</strong><br>
+      User Agent: ${navigator.userAgent.substring(0, 80)}...<br>
+      <br>
+      ${!isTouchDevice ? '<span style="color: red;"><strong>⚠️ Touch device NOT detected!</strong> Make sure device emulation is enabled AND pointer:coarse is emulated in Chrome DevTools.</span>' : '<span style="color: green;"><strong>✓ Touch device detected!</strong> Overlays should appear when debug mode is enabled.</span>'}
+    `
+
     console.log('[touch-target demo]', {
       isTouchDevice,
       userAgent: navigator.userAgent,
