@@ -1,32 +1,63 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect, useRef } from 'react'
 import { Dialog, Sheet, Drawer } from '@ulam/sili/react'
 
 /**
  * OverlayManager: Generic overlay orchestration component.
  *
- * Supports single active overlay at a time with smooth transitions.
- * When transitioning between overlays, the current overlay closes before
- * the next one opens, allowing for sequential (drawer→sheet), same-type
- * (dialog→dialog, sheet→sheet), or navigation transitions.
+ * Manages focus across overlay transitions using a layering model:
+ *   screen = 0 (lowest)
+ *   drawer/panel = 1
+ *   sheet = 2
+ *   dialog = 3 (highest)
+ *
+ * Transition rules:
+ *   Higher → Lower: Close higher, focus lower
+ *   Lower → Higher: Keep lower inert, show higher
+ *   Same → Same: Close current, open new, focus new
  *
  * Props:
- *   overlays: Array of overlay configs { id, type, heading, content, actions, etc. }
+ *   overlays: Array of overlay configs { id, type, heading, content, actions, returnFocusRef, etc. }
  *   activeId: ID of currently active overlay (null = no overlay open)
  *   onClose: Callback when user closes overlay
- *   returnFocusRef: Optional ref to restore focus on close
+ *   baseReturnFocusRef: Default focus target when all overlays close
  */
 export default function OverlayManager({
   overlays = [],
   activeId = null,
   onClose = () => {},
-  returnFocusRef = null,
+  baseReturnFocusRef = null,
 }) {
+  const baseTriggerRef = useRef(null)
+
+  // Track base trigger (element focused before any overlay opened)
+  useEffect(() => {
+    if (activeId && !baseTriggerRef.current) {
+      baseTriggerRef.current = document.activeElement
+    }
+  }, [activeId])
+
+  // Clear base trigger when all overlays closed
+  useEffect(() => {
+    if (!activeId && baseTriggerRef.current) {
+      baseTriggerRef.current = null
+    }
+  }, [activeId])
+
   const activeOverlay = useMemo(
     () => overlays.find(o => o.id === activeId),
     [overlays, activeId]
   )
 
   if (!activeOverlay) return null
+
+  // Layer order: screen=0, drawer/panel=1, sheet=2, dialog=3
+  const layerMap = {
+    screen: 0,
+    drawer: 1,
+    panel: 1,
+    sheet: 2,
+    dialog: 3,
+  }
 
   const {
     type = 'dialog',
@@ -45,6 +76,9 @@ export default function OverlayManager({
 
   const isOpen = activeId === activeOverlay.id
 
+  // Determine effective returnFocusRef: overlay-specific > baseReturnFocusRef > baseTrigger
+  const effectiveReturnFocusRef = overlayReturnFocusRef || baseReturnFocusRef || baseTriggerRef.current
+
   switch (type) {
     case 'dialog':
       return (
@@ -53,7 +87,7 @@ export default function OverlayManager({
           onClose={onClose}
           heading={heading}
           actions={actions}
-          returnFocusRef={overlayReturnFocusRef || returnFocusRef}
+          returnFocusRef={effectiveReturnFocusRef}
         >
           {content || children}
         </Dialog>
@@ -69,7 +103,7 @@ export default function OverlayManager({
           label={label || heading}
           heading={heading}
           closeLabel={closeLabel}
-          returnFocusRef={overlayReturnFocusRef || returnFocusRef}
+          returnFocusRef={effectiveReturnFocusRef}
           hideCloseBottom={hideCloseBottom}
         >
           {content || children}
@@ -77,12 +111,13 @@ export default function OverlayManager({
       )
 
     case 'drawer':
+    case 'panel':
       return (
         <Drawer
           open={isOpen}
           onClose={onClose}
           label={label || heading}
-          focusOnClose={focusOnClose || overlayReturnFocusRef}
+          focusOnClose={focusOnClose || effectiveReturnFocusRef}
         >
           {content || children}
         </Drawer>
