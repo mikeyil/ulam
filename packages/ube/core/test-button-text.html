@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ButtonText Web Component Test</title>
+  <link rel="stylesheet" href="../base-tokens.css">
+  <link rel="stylesheet" href="../base-typography.css">
+  <link rel="stylesheet" href="../ui.css">
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .test-group {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .test-group h3 {
+      margin-top: 0;
+      font-size: var(--fs-sub);
+    }
+    .test-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>ButtonText Web Component Tests</h1>
+
+  <div class="test-group">
+    <h3>Basic variants</h3>
+    <div class="test-buttons">
+      <ube-button-text variant="primary">Primary</ube-button-text>
+      <ube-button-text variant="secondary">Secondary</ube-button-text>
+      <ube-button-text variant="tertiary">Tertiary</ube-button-text>
+      <ube-button-text variant="danger">Danger</ube-button-text>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <h3>States</h3>
+    <div class="test-buttons">
+      <ube-button-text>Enabled</ube-button-text>
+      <ube-button-text disabled>Disabled</ube-button-text>
+      <ube-button-text active label="Not saved" active-label="Saved">Save</ube-button-text>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <h3>With attributes</h3>
+    <div class="test-buttons">
+      <ube-button-text full-width variant="primary">Full width</ube-button-text>
+      <ube-button-text title="Tooltip text">Has title</ube-button-text>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <h3>With icon (set via property)</h3>
+    <div class="test-buttons">
+      <ube-button-text id="with-icon">With icon</ube-button-text>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <h3>Interactivity</h3>
+    <div class="test-buttons">
+      <ube-button-text id="click-test" variant="primary">Click me</ube-button-text>
+      <ube-button-text id="toggle-test" active>Toggle active</ube-button-text>
+    </div>
+    <output id="click-output" style="display: block; margin-top: 1rem; padding: 0.5rem; background: var(--bg-subtle); border-radius: 4px;">
+      Click output will appear here
+    </output>
+  </div>
+
+  <script type="module">
+    import '@ulam/ube/core/button-text.js'
+
+    // Set icon property
+    const withIconBtn = document.getElementById('with-icon')
+    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    iconSvg.setAttribute('width', '16')
+    iconSvg.setAttribute('height', '16')
+    iconSvg.setAttribute('viewBox', '0 0 16 16')
+    iconSvg.innerHTML = '<circle cx="8" cy="8" r="7" fill="currentColor"/>'
+    withIconBtn.icon = iconSvg
+
+    // Test click handler
+    const clickTestBtn = document.getElementById('click-test')
+    const clickOutput = document.getElementById('click-output')
+    let clickCount = 0
+    clickTestBtn.addEventListener('click', (e) => {
+      clickCount++
+      clickOutput.textContent = `Button clicked ${clickCount} time(s) at ${new Date().toLocaleTimeString()}`
+    })
+
+    // Test toggle
+    const toggleBtn = document.getElementById('toggle-test')
+    toggleBtn.addEventListener('click', (e) => {
+      toggleBtn.active = !toggleBtn.active
+      clickOutput.textContent = `Toggle active is now: ${toggleBtn.active}`
+    })
+
+    console.log('ButtonText web component loaded and test harness running')
+  </script>
+</body>
+</html>
