@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { useAriaDisabled } from './useAriaDisabled.js'
-import './buttons.css'
+import '../buttons.css'
 
 /**
  * Universal button component supporting text, icon, or icon+text layouts.

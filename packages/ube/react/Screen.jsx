@@ -1,4 +1,4 @@
-import './screen.css'
+import '../screen.css'
 import { useEffect } from 'react'
 import { useFocusOnMount } from '@ulam/sili/react'
 

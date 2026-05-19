@@ -1,4 +1,4 @@
-import './form-control-radio.css'
+import '../form-control-radio.css'
 
 /**
  * FormControlRadioGroup: fieldset + legend + native radio buttons.
