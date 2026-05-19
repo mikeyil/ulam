@@ -28,7 +28,6 @@ Tests for vanilla web components verify:
 - **State management**: Internal state (checked, active, current) syncs with attributes
 - **Accessibility**: ARIA attributes are set appropriately
 
-
 ### Example: FormControlRadio
 
 ```javascript
@@ -58,6 +57,7 @@ it('respects aria-disabled state', () => {
 ### Coverage Areas
 
 Core web components:
+
 - ButtonBack
 - LinkBtnStyled / LinkSkipTo
 - FormControlRadio / FormControlCheckbox / FormControlSelect / FormControlToggle

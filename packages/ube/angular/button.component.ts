@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, forwardRef } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, forwardRef, NgIf, NgComponentOutlet } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 /**
@@ -29,6 +29,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
   `,
   styleUrls: ['../../buttons.css'],
   standalone: true,
+  imports: [NgIf, NgComponentOutlet],
 })
 export class ButtonComponent {
   @ViewChild('btn') btn!: ElementRef<HTMLButtonElement>

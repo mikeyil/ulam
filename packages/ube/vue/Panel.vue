@@ -1,7 +1,7 @@
 <template>
   <div :class="panelClassName" v-bind="$attrs">
     <div :class="headerClassName">
-      <ButtonBack :aria-label="closeAriaLabel" :dir="dir" @click="$emit('close')" />
+      <ButtonBack :label="closeAriaLabel" :dir="dir" @click="$emit('close')" />
       <h2 ref="headingRef" tabindex="-1" :class="titleClassName">{{ heading }}</h2>
     </div>
     <slot></slot>

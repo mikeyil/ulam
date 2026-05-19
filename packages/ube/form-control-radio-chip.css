@@ -97,7 +97,28 @@
   color: var(--text-heading);
 }
 
-/* ─── Radio chip disabled state ────────────────────────────────── */
+/* ─── Radio chip disabled state (aria-disabled) ────────────────────────────────── */
+
+.radio-chip[aria-disabled="true"] {
+  color: var(--text-disabled);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .radio-chip[aria-disabled="true"] {
+    opacity: 1;
+    background: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+.radio-chip[aria-disabled="true"]:has(:focus-visible) {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ─── Radio chip disabled state (fallback class) ────────────────────────────────── */
 
 .radio-chip--disabled {
   color: var(--text-disabled);

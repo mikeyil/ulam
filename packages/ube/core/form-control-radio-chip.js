@@ -129,11 +129,16 @@ class UbeFormControlRadioChip extends UbeElement {
     this._input.value = value
     this._input.checked = isActive
     this._input.setAttribute('aria-label', label.replace(/\n/g, ' '))
-    this._input.toggleAttribute('aria-disabled', disabled)
+    if (disabled) {
+      this._input.setAttribute('aria-disabled', 'true')
+    } else {
+      this._input.removeAttribute('aria-disabled')
+    }
 
     // Update active and disabled classes
     this._label.classList.toggle('radio-chip--active', isActive)
     this._label.classList.toggle('radio-chip--disabled', disabled)
+    this._label.setAttribute('aria-disabled', disabled ? 'true' : 'false')
 
     // Render label text with line breaks
     const textSpan = this._label.querySelector('span:not([aria-hidden="true"])') || this._label.querySelector('span[aria-hidden="true"]:last-child')

@@ -80,7 +80,7 @@ export default function Screen({
 
   return (
     <section className="screen" aria-label={finalAriaLabel}>
-      {finalIcon && <finalIcon />}
+      {finalIcon && <finalIcon.type />}
 
       <p className="screen__heading" ref={headingRef} tabIndex={-1}>
         {finalHeading}
@@ -92,7 +92,7 @@ export default function Screen({
           <>
             {' '}
             <button type="button" className="screen__action-inline" onClick={action}>
-              {finalActionIcon && <finalActionIcon />}
+              {finalActionIcon && <finalActionIcon.type />}
               {finalActionLabel}
             </button>
             .

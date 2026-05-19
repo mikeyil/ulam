@@ -54,7 +54,7 @@ const FadeTransition = forwardRef(function FadeTransition(
     }, DURATION_MS)
 
     return () => clearTimeout(timerRef.current)
-  }, [watchKey, children, direction, prefersReducedMotion])
+  }, [watchKey, direction, prefersReducedMotion])
 
   const dirMod = activeDirection ? ` fade-transition--${activeDirection}` : ''
 

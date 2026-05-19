@@ -53,10 +53,6 @@ const PanelFormControls = forwardRef(function PanelFormControls(
         className={rowClass}
         {...rest}
       >
-        <div>
-          <h3 className={labelClass}>{label}</h3>
-          {description && <p className={descClass}>{description}</p>}
-        </div>
         {children && <div>{children}</div>}
       </ube-panel-form-controls>
     )
@@ -78,11 +74,7 @@ const PanelFormControls = forwardRef(function PanelFormControls(
       className={rowClass}
       {...rest}
     >
-      <div>
-        <h3 className={labelClass}>{label}</h3>
-        {description && <p className={descClass}>{description}</p>}
-        {notes}
-      </div>
+      {notes}
       {control}
     </ube-panel-form-controls>
   )

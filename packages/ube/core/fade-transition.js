@@ -29,7 +29,7 @@ import '../fade-transition.css'
 class UbeFadeTransition extends UbeElement {
   constructor() {
     super()
-    this._outgoing = null
+    this._outgoing = false
     this._phase = 'idle' // 'idle' | 'out' | 'in'
     this._activeDirection = null
     this._prevKey = null
@@ -88,10 +88,9 @@ class UbeFadeTransition extends UbeElement {
     clearTimeout(this._timerOut)
     clearTimeout(this._timerIn)
 
-    // Save current slot content as outgoing
-    const slot = this.querySelector('slot')
-    this._outgoing = slot ? slot.innerHTML : this.innerHTML
+    // Mark that we're transitioning (don't modify innerHTML in light DOM)
     this._activeDirection = this.getAttribute('direction') || null
+    this._outgoing = true
 
     // Start fade out
     this._phase = 'out'
@@ -101,7 +100,7 @@ class UbeFadeTransition extends UbeElement {
     // Transition timing: 200ms out, then 200ms in
     const DURATION_MS = 200
     this._timerOut = setTimeout(() => {
-      this._outgoing = null
+      this._outgoing = false
       this._phase = 'in'
       this._render()
 
@@ -115,18 +114,15 @@ class UbeFadeTransition extends UbeElement {
 
   _render() {
     const dirMod = this._activeDirection ? ` fade-transition--${this._activeDirection}` : ''
+    const classes = ['fade-transition']
 
     if (this._phase === 'out' && this._outgoing) {
-      this.className = `fade-transition fade-transition--out${dirMod}`
-      this.innerHTML = this._outgoing
-    } else {
-      const classes = ['fade-transition']
-      if (this._phase === 'in') {
-        classes.push(`fade-transition--in${dirMod}`)
-      }
-      this.className = classes.filter(Boolean).join(' ')
-      // Keep slot/children visible
+      classes.push(`fade-transition--out${dirMod}`)
+    } else if (this._phase === 'in') {
+      classes.push(`fade-transition--in${dirMod}`)
     }
+
+    this.className = classes.join(' ')
   }
 }
 

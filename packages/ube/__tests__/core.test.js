@@ -117,5 +117,45 @@ describe('Core Web Components', () => {
       checkbox?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
       // State should toggle (depends on component implementation)
     })
+
+    it('sets aria-disabled="true" when disabled', () => {
+      el.disabled = true
+      expect(el.getAttribute('aria-disabled')).toBe('true')
+    })
+
+    it('blocks Space/Enter keydown when disabled', () => {
+      el.disabled = true
+      const checkbox = el.querySelector('[role="switch"]')
+      const event = new KeyboardEvent('keydown', { key: ' ', cancelable: true })
+      expect(() => {
+        checkbox?.dispatchEvent(event)
+      }).not.toThrow()
+      expect(event.defaultPrevented).toBe(true)
+    })
+
+    it('stays in tab order when disabled', () => {
+      el.disabled = true
+      expect(el.getAttribute('tabindex')).not.toBe('-1')
+    })
+  })
+
+  describe('aria-disabled pattern', () => {
+    let el
+    beforeEach(() => {
+      el = document.createElement('ube-form-control-radio')
+      el.setAttribute('name', 'test')
+      el.setAttribute('value', 'a')
+      el.setAttribute('label', 'Option A')
+      document.body.appendChild(el)
+    })
+
+    it('radio aria-disabled blocks change event', () => {
+      el.disabled = true
+      const input = el.querySelector('input[type="radio"]')
+      const changeSpy = { called: false }
+      el.addEventListener('change', () => { changeSpy.called = true })
+      input?.dispatchEvent(new Event('change', { bubbles: true }))
+      expect(changeSpy.called).toBe(false)
+    })
   })
 })

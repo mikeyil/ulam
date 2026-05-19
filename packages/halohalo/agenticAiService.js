@@ -1,6 +1,5 @@
 import { callAnthropicWithTools } from './fetch.js'
 import { makeSearchTool } from './search.js'
-import { getAdapter } from '@ulam/sawsawan'
 import { AI_AGENTIC_MAX_TOKENS, AGENTIC_MAX_TOOL_TURNS, LS_APIKEY_PREFIX } from './constants.js'
 import { getAiModel } from './prefs.js'
 import { parseAiResponse } from './aiService.js'
@@ -24,6 +23,7 @@ const CORPUS_SEARCH_FIELDS = [
 const CORPUS_PICK = ['id', 'title', 'primarySC', 'severity', 'desc', 'fix']
 
 export async function getAgenticRefinement({ finding, descText, fixText, note, corpus }) {
+  const { getAdapter } = await import('@ulam/sawsawan')
   const key = await getAdapter().getKey(`${LS_APIKEY_PREFIX}anthropic`)
 
   if (!key) throw new Error('Anthropic API key required for agentic mode. Add one in Settings → AI Assist.')

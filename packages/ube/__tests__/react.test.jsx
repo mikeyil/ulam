@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Button from '../react/Button.jsx'
+import Panel from '../react/Panel.jsx'
 import FormControlRadio from '../react/FormControlRadio.jsx'
 import FormControlRadioChipGroup from '../react/FormControlRadioChipGroup.jsx'
 import FadeTransition from '../react/FadeTransition.jsx'
@@ -97,6 +98,37 @@ describe('React Adapters', () => {
       const group = document.querySelector('ube-form-control-radio-chip-group')
       expect(group?.getAttribute('name')).toBe('platform')
       expect(group?.getAttribute('value')).toBe('web')
+    })
+  })
+
+  describe('Panel', () => {
+    it('renders ButtonBack with label prop (not ariaLabel)', () => {
+      render(
+        <Panel
+          heading="Test Panel"
+          closeAriaLabel="Close panel"
+          onClose={() => {}}
+        >
+          Content
+        </Panel>
+      )
+      const btn = document.querySelector('ube-button-back')
+      expect(btn?.getAttribute('label')).toBe('Close panel')
+      expect(btn?.getAttribute('aria-label')).toBeNull()
+    })
+
+    it('passes heading to component', () => {
+      render(
+        <Panel
+          heading="My Panel"
+          closeAriaLabel="Close"
+          onClose={() => {}}
+        >
+          Content
+        </Panel>
+      )
+      const heading = document.querySelector('h2')
+      expect(heading?.textContent).toBe('My Panel')
     })
   })
 

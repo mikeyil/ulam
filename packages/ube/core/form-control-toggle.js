@@ -73,7 +73,7 @@ class UbeFormControlToggle extends UbeElement {
     if (!this._input) {
       this._input = document.createElement('input')
       this._input.type = 'checkbox'
-      this._input.role = 'switch'
+      this._input.setAttribute('role', 'switch')
       this._input.className = 'toggle__input'
       this.appendChild(this._input)
     }
@@ -141,7 +141,11 @@ class UbeFormControlToggle extends UbeElement {
     // Sync input attributes
     if (id) this._input.id = id
     this._input.checked = checked
-    this._input.toggleAttribute('aria-disabled', disabled)
+    if (disabled) {
+      this._input.setAttribute('aria-disabled', 'true')
+    } else {
+      this._input.removeAttribute('aria-disabled')
+    }
 
     // Update thumb visual
     this._updateThumb()

@@ -1,5 +1,13 @@
-import { getAdapter } from '@ulam/sawsawan'
 import { LS_AI_MODEL_PREFIX, LS_APIKEY_PREFIX, DEFAULT_AI_MODELS } from './constants.js'
+
+let _adapter = null
+async function getAdapterInstance() {
+  if (!_adapter) {
+    const mod = await import('@ulam/sawsawan')
+    _adapter = mod.getAdapter()
+  }
+  return _adapter
+}
 
 export const PROVIDERS = [
   { id: 'anthropic', label: 'Anthropic (Claude)', placeholderKey: 'settings.api_placeholder_anthropic' },
@@ -26,13 +34,15 @@ export const PROVIDER_MODELS = {
 }
 
 export function initModels() {
+  const adapter = getAdapterInstance()
   return Object.fromEntries(
-    PROVIDERS.map(p => [p.id, getAdapter().readPref(`${LS_AI_MODEL_PREFIX}${p.id}`) || DEFAULT_AI_MODELS[p.id] || ''])
+    PROVIDERS.map(p => [p.id, adapter.readPref(`${LS_AI_MODEL_PREFIX}${p.id}`) || DEFAULT_AI_MODELS[p.id] || ''])
   )
 }
 
 export function initApiKeys() {
+  const adapter = getAdapterInstance()
   return Object.fromEntries(
-    PROVIDERS.map(p => [p.id, window.electronAPI ? '' : getAdapter().readPref(`${LS_APIKEY_PREFIX}${p.id}`) || ''])
+    PROVIDERS.map(p => [p.id, window.electronAPI ? '' : adapter.readPref(`${LS_APIKEY_PREFIX}${p.id}`) || ''])
   )
 }

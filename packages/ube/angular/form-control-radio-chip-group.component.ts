@@ -8,7 +8,7 @@ import '@ulam/ube/core'
     [attr.legend]="legend"
     [attr.name]="name"
     [attr.value]="value"
-    [attr.options]="JSON.stringify(options)"
+    [attr.options]="optionsJson"
     (change)="change.emit($event.detail.value)"
   ></ube-form-control-radio-chip-group>`,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,4 +20,8 @@ export class FormControlRadioChipGroupComponent {
   @Input() value?: string
   @Input() options: any[] = []
   @Output() change = new EventEmitter<string>()
+
+  get optionsJson(): string {
+    return JSON.stringify(this.options)
+  }
 }

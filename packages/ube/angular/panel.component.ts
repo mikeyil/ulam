@@ -12,7 +12,7 @@ import '@ulam/ube/core'
     <div class="panel-header">
       <ube-button-back
         (click)="close.emit()"
-        [attr.aria-label]="closeAriaLabel"
+        [attr.label]="closeAriaLabel"
         [attr.dir]="dir"
       ></ube-button-back>
       <h2 class="panel-title" [attr.dir]="dir">{{ heading }}</h2>

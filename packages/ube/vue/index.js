@@ -16,7 +16,6 @@ export { default as IconExternalLink } from './IconExternalLink.vue'
 export { default as FormControlToggle } from './FormControlToggle.vue'
 export { default as Panel } from './Panel.vue'
 export { default as PanelFormControls } from './PanelFormControls.vue'
-// Note: Screen component not yet ported to Vue - use vanilla component if needed
 export { default as FadeTransition } from './FadeTransition.vue'
 export { default as FormControlRadioChip } from './FormControlRadioChip.vue'
 export { default as FormControlRadioChipGroup } from './FormControlRadioChipGroup.vue'

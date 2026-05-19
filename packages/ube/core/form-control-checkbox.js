@@ -94,7 +94,11 @@ class UbeFormControlCheckbox extends UbeElement {
 
     // Sync input attributes
     this._input.checked = checked
-    this._input.toggleAttribute('aria-disabled', disabled)
+    if (disabled) {
+      this._input.setAttribute('aria-disabled', 'true')
+    } else {
+      this._input.removeAttribute('aria-disabled')
+    }
 
     // Sync label text
     const labelEl = this._input.parentElement

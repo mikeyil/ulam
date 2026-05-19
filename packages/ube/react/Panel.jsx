@@ -17,7 +17,7 @@ const Panel = forwardRef(function Panel({
   return (
     <div ref={ref} className={panelClassName} {...rest}>
       <div className={headerClassName}>
-        <ButtonBack onClick={onClose} ariaLabel={closeAriaLabel} dir={dir} />
+        <ButtonBack onClick={onClose} label={closeAriaLabel} dir={dir} />
         <h2 ref={headingRef} tabIndex={-1} className={titleClassName}>
           {heading}
         </h2>

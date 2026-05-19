@@ -9,6 +9,7 @@ import '@ulam/ube/core'
     [attr.value]="value"
     [attr.label]="label"
     [attr.current]="current"
+    [attr.disabled]="disabled ? 'true' : 'false'"
     (change)="change.emit($event.detail.value)"
   ></ube-form-control-radio-chip>`,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -19,5 +20,6 @@ export class FormControlRadioChipComponent {
   @Input() value?: string
   @Input() label?: string
   @Input() current?: string
+  @Input() disabled = false
   @Output() change = new EventEmitter<string>()
 }

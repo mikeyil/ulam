@@ -1,5 +1,4 @@
 import { callProvider } from './fetch.js'
-import { getAdapter } from '@ulam/sawsawan'
 import { AI_MAX_TOKENS, AI_DESC_REGEX, AI_FIX_REGEX, LS_APIKEY_PREFIX } from './constants.js'
 import { getAiProvider, getAiModel } from './prefs.js'
 import { getBuildPrompt } from './init.js'
@@ -20,6 +19,7 @@ export async function getAiRefinement({ finding, descText, fixText, note }) {
   if (!buildPrompt) throw new Error('halohalo: call initHalohalo({ buildPrompt }) before getAiRefinement')
 
   const provider = getAiProvider()
+  const { getAdapter } = await import('@ulam/sawsawan')
   const key = await getAdapter().getKey(`${LS_APIKEY_PREFIX}${provider}`)
 
   if (!key) throw new Error(`No API key found for ${provider}. Add one in Settings.`)

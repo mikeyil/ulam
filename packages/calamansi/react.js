@@ -24,7 +24,7 @@
  *   because setLocale() notifies the same subscriber set.
  */
 import { useCallback, useEffect, useState } from 'react'
-import { useSubscribe } from '../shared/useSubscribe.js'
+import { useSubscribe } from '@ulam/shared'
 import { setLocale, getT, _subscribe, getPref, setPref } from './index.js'
 
 /**

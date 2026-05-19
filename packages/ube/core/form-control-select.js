@@ -129,7 +129,11 @@ class UbeFormControlSelect extends UbeElement {
     // Sync select attributes
     if (value) this._select.value = value
     if (id) this._select.id = id
-    this._select.toggleAttribute('aria-disabled', disabled)
+    if (disabled) {
+      this._select.setAttribute('aria-disabled', 'true')
+    } else {
+      this._select.removeAttribute('aria-disabled')
+    }
 
     // Sync wrapper classes
     if (this._wrap) {
