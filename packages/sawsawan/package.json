@@ -1,6 +1,6 @@
 {
   "name": "@ulam/sawsawan",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Integration bridge wiring taho, sili, calamansi, halohalo, and ube together.",
   "type": "module",
   "license": "MIT",
