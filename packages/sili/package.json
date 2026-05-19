@@ -14,6 +14,8 @@
     ".": "./core/index.js",
     "./react": "./react/index.js",
     "./remix": "./remix/index.js",
+    "./remix/react": "./remix/react.js",
+    "./remix/vue": "./remix/vue.js",
     "./vue": "./vue/index.js",
     "./angular": "./angular/index.js",
     "./base.css": {
