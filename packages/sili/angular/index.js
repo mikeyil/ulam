@@ -14,9 +14,9 @@ export {
   lockScroll,
 } from '../core/index.js'
 
-export { FocusTrapService } from './FocusTrapService.js'
-export { FocusTrapDirective } from './FocusTrapDirective.js'
-export { AriaHideService } from './AriaHideService.js'
-export { EscapeKeyService } from './EscapeKeyService.js'
-export { ScrollLockService } from './ScrollLockService.js'
-export { FocusOnMountDirective } from './FocusOnMountDirective.js'
+export { FocusTrapService } from './focus-trap.service.ts'
+export { FocusTrapDirective } from './focus-trap.directive.ts'
+export { AriaHideService } from './aria-hide.service.ts'
+export { EscapeKeyService } from './escape-key.service.ts'
+export { ScrollLockService } from './scroll-lock.service.ts'
+export { FocusOnMountDirective } from './focus-on-mount.directive.ts'

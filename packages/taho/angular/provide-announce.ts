@@ -1,4 +1,4 @@
-import { AnnounceService } from './AnnounceService.js'
+import { AnnounceService } from './announce.service.ts'
 
 /**
  * Standalone provider function for Angular 14+ standalone APIs.
