@@ -15,7 +15,7 @@ export default function OverlayManager({
   if (!activeOverlay) return null
 
   const {
-    type = 'modal',
+    type = 'dialog',
     heading,
     label,
     content,
@@ -25,15 +25,14 @@ export default function OverlayManager({
     onCollapse,
     hideCloseBottom,
     focusOnClose,
-    heading: sheetHeading,
     closeLabel,
+    returnFocusRef,
   } = activeOverlay
 
   const isOpen = activeId === activeOverlay.id
 
   switch (type) {
     case 'dialog':
-    case 'modal':
       return (
         <Dialog
           open={isOpen}
@@ -54,7 +53,7 @@ export default function OverlayManager({
           collapsed={collapsed}
           onCollapse={onCollapse}
           label={label || heading}
-          heading={sheetHeading || heading}
+          heading={heading}
           closeLabel={closeLabel}
           returnFocusRef={returnFocusRef}
           hideCloseBottom={hideCloseBottom}
