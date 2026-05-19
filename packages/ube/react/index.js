@@ -17,6 +17,8 @@ export { default as Badge } from './Badge.jsx'
 export { default as InfoBox } from './InfoBox.jsx'
 export { default as IconExternalLink } from './IconExternalLink.jsx'
 export { default as FormControlToggle } from './FormControlToggle.jsx'
+export { default as PanelFormControls } from './PanelFormControls.jsx'
+export { default as FadeTransition } from './FadeTransition.jsx'
 
 // Additional component adapters will be added as they're ported
 export { announce } from '@ulam/taho'
