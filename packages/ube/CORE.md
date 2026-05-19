@@ -21,13 +21,14 @@ import '@ulam/ube/core'  // Registers all ube web components
   <link rel="stylesheet" href="node_modules/@ulam/ube/ui.css">
 </head>
 <body>
-  <ube-button variant="primary">Click me</ube-button>
+  <ube-button-back aria-label="Go back"></ube-button-back>
+  <ube-badge variant="info">New</ube-badge>
 
   <script type="module">
     import '@ulam/ube/core'
 
-    const btn = document.querySelector('ube-button')
-    btn.addEventListener('click', () => console.log('clicked'))
+    const badge = document.querySelector('ube-badge')
+    badge.addEventListener('click', () => console.log('clicked'))
   </script>
 </body>
 </html>
@@ -35,28 +36,16 @@ import '@ulam/ube/core'  // Registers all ube web components
 
 ## Components
 
-### Button
+Core exports these web components:
 
-Unified button component supporting text, text-with-icon, and icon-only layouts. Icon-only mode is automatically detected when no text content is provided.
+### ButtonBack
+
+Specialized button for "go back" navigation with RTL support.
 
 **Attributes:**
 
-- `variant` — `'primary'` | `'secondary'` | `'tertiary'` | `'accent'` (default: `'primary'`)
-- `size` — `'compact'` | `'default'` | `'large'` (default: `'default'`)
-- `disabled` — Boolean flag (uses aria-disabled, stays in tab order)
-- `busy` — Boolean flag (loading/processing state)
-- `active` — Boolean flag (toggled state)
-- `full-width` — Boolean flag
-- `error` — Boolean flag (error/danger state)
-- `label` — aria-label text (required for icon-only mode)
-- `active-label` — aria-label when active
-- `icon-position` — `'start'` | `'end'` (default: `'start'`)
-- `title` — Tooltip text
-
-**Properties:**
-
-- `icon` — DOM Element (rendered left or right of label based on iconPosition)
-- `activeIcon` — DOM Element (rendered when active)
+- `aria-label` — Label for screen readers (required)
+- `dir` — `'ltr'` | `'rtl'` (default: `'ltr'`)
 
 **Events:**
 
@@ -65,41 +54,27 @@ Unified button component supporting text, text-with-icon, and icon-only layouts.
 **Example:**
 
 ```html
-<!-- Text button -->
-<ube-button variant="primary">Save</ube-button>
+<ube-button-back aria-label="Go back"></ube-button-back>
+```
 
-<!-- Text with icon -->
-<ube-button variant="primary" icon-position="end">
-  Next
-  <svg class="icon">...</svg>
-</ube-button>
+### Badge
 
-<!-- Icon-only button -->
-<ube-button label="Close" variant="accent">
-  <svg class="icon" aria-hidden="true">...</svg>
-</ube-button>
+Informational badge with multiple style variants.
 
-<script type="module">
-  import '@ulam/ube/core'
+**Attributes:**
 
-  const btn = document.querySelector('ube-button')
+- `variant` — `'info'` | `'success'` | `'warning'` | `'critical'` (default: `'info'`)
+- `is-button` — Boolean (renders as button instead of div)
 
-  // Set icon (must be a DOM element)
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.setAttribute('width', '16')
-  svg.setAttribute('height', '16')
-  svg.innerHTML = '<circle cx="8" cy="8" r="7" fill="currentColor"/>'
-  btn.icon = svg
+**Events:**
 
-  // Listen for clicks
-  btn.addEventListener('click', () => {
-    console.log('clicked')
-  })
+- `click` — Standard click event (if is-button is true)
 
-  // Toggle state
-  btn.active = true
-  console.log(btn.active)  // true
-</script>
+**Example:**
+
+```html
+<ube-badge variant="critical">Error</ube-badge>
+<ube-badge is-button aria-label="Dismiss">Done</ube-badge>
 ```
 
 ## Design Decisions
@@ -168,27 +143,47 @@ import { Button } from '@ulam/ube/remix'
 
 ## v0.3.2: Component Consolidation
 
-The core web components have been consolidated:
+Framework adapters have been consolidated:
 
-- `ube-button-text` + `ube-button-icon` → `ube-button` (auto-detects icon-only mode)
-- `ube-form-input-search` + `ube-form-input-with-clear` → `ube-form-input-text` (modes: search, clearable, plain)
-- Added `ube-form-control-radio-group` for semantic radio grouping
+- React: `Button` component unified (replaces ButtonText + ButtonIcon)
+- Vue: `Button` component unified (replaces ButtonText + ButtonIcon)
+- Angular: `ButtonComponent` unified
+- React: `FormInputText` component (replaces FormInputSearch + FormInputWithClear)
+- All frameworks: Added `FormControlRadioGroup` for semantic radio grouping
 - All form controls now use aria-disabled pattern (keyboard accessible disabled state)
+
+Web components (core) remain focused on core functionality. Use framework adapters for Button and FormInputText.
 
 See [MIGRATION.md](./MIGRATION.md) for detailed migration guide from v0.3.1.
 
-**New (React adapter):**
+**React example:**
 
 ```javascript
-import { ButtonText } from '@ulam/ube/react'
+import { Button, FormInputText } from '@ulam/ube/react'
+
+export function MyForm() {
+  return (
+    <>
+      <Button onClick={handleSave}>Save</Button>
+      <Button icon={<X />} label="Close" />
+      <FormInputText 
+        value={search} 
+        onChange={setSearch}
+        search
+        liveSearch
+      />
+    </>
+  )
+}
 ```
 
-The API is identical—no code changes needed. The React adapter wraps the vanilla web component.
-
-**Or go vanilla:**
+**Web component example:**
 
 ```html
-<ube-button-text variant="primary">Save</ube-button-text>
+<ube-form-control-radio name="theme" value="light">
+  <input type="radio" name="theme" value="light">
+  <label>Light</label>
+</ube-form-control-radio>
 ```
 
 ## Implementation Notes
@@ -211,35 +206,73 @@ attributeChangedCallback(name, oldValue, newValue) {
 
 This is imperative (no JSX), but efficient: each attribute change triggers a localized re-render.
 
-### Icon handling
+### Icon Handling in Adapters
 
-Icons must be DOM elements, not strings. This allows React to pass JSX, vanilla JS to pass SVG elements, etc.
+Framework adapters handle icons appropriately for each framework:
+
+**React:**
 
 ```javascript
-// Setting icon
-const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-btn.icon = icon
+import { Button } from '@ulam/ube/react'
+import { X } from 'lucide-react'
 
-// Rendering icon (inside _render)
-if (displayIcon) {
-  const iconSpan = document.createElement('span')
-  iconSpan.className = 'btn-icon'
-  iconSpan.appendChild(displayIcon.cloneNode(true))  // Clone to avoid moving DOM
-}
+<Button icon={<X size={20} />}>Delete</Button>
 ```
 
-### Disabled state
+**Vue:**
 
-Disabled buttons prevent click propagation:
+```vue
+<template>
+  <Button :icon="closeIcon">Close</Button>
+</template>
+
+<script>
+import { Button } from '@ulam/ube/vue'
+import { X } from 'some-icon-lib'
+
+export default {
+  components: { Button },
+  setup() {
+    return { closeIcon: X }
+  }
+}
+</script>
+```
+
+**Vanilla JS:**
 
 ```javascript
-connectedCallback() {
-  this.addEventListener('click', (e) => {
-    if (this.disabled) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
-  })
+const btn = document.createElement('ube-button-back')
+const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+// Configure SVG...
+btn.setAttribute('aria-label', 'Close')
+```
+
+### aria-disabled Pattern
+
+Form controls use `aria-disabled` instead of HTML `disabled` to stay in tab order while blocking interactions:
+
+```javascript
+// Setting disabled state
+control.setAttribute('aria-disabled', 'true')
+
+// Control remains in tab order but:
+// - Blocks Space/Enter keydown
+// - Blocks click/touch interactions
+// - Shows visual disabled state via CSS
+// - Screen readers announce as "unavailable" or "dimmed"
+```
+
+CSS for disabled styling:
+
+```css
+[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[aria-disabled="true"]:focus-visible {
+  outline: 2px dashed var(--focus-disabled);
 }
 ```
 
@@ -254,11 +287,18 @@ connectedCallback() {
 
 ---
 
+## Available Adapters
+
+- ✅ Core vanilla web components
+- ✅ React adapter (`@ulam/ube/react`)
+- ✅ Vue 3 adapter (`@ulam/ube/vue`)
+- ✅ Angular adapter (`@ulam/ube/angular`)
+- ✅ Remix adapter (`@ulam/ube/remix`)
+
 ## Roadmap
 
-- [ ] All 20 components ported to vanilla
-- [ ] Vue adapter
-- [ ] Angular adapter
-- [ ] Remix adapter
-- [ ] ElementInternals API support when browser support improves
-- [ ] Storybook for component documentation
+- [ ] ElementInternals API support for form validation
+- [ ] Storybook for interactive component documentation
+- [ ] Additional form control types (date picker, time picker, combobox)
+- [ ] Tooltip component
+- [ ] Modal/dialog component
