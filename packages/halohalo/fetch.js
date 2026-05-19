@@ -1,5 +1,22 @@
 import { AiApiError, httpStatusToErrorType, PROVIDER_CONFIGS } from './providers.js'
 
+// ─── Provider URL Whitelist ───────────────────────────────────────────────────
+// Prevents SSRF attacks from user-configured provider URLs.
+const ALLOWED_PROVIDER_HOSTS = new Set([
+  'api.anthropic.com',
+  'api.openai.com',
+  'generativelanguage.googleapis.com',
+])
+
+function validateProviderUrl(url) {
+  try {
+    const hostname = new URL(url).hostname
+    return ALLOWED_PROVIDER_HOSTS.has(hostname)
+  } catch {
+    return false
+  }
+}
+
 // ─── callProvider ─────────────────────────────────────────────────────────────
 // Single-turn completion against any configured provider.
 // Returns the response text string.
@@ -13,7 +30,11 @@ export async function callProvider({ provider, model, key, prompt, maxTokens = 1
     url = config.buildUrl(key, model)
     if (!url) throw new AiApiError('api_error', { provider })
   } else {
-    url = config.url
+    url = config.url.replace('{model}', model)
+  }
+
+  if (!validateProviderUrl(url)) {
+    throw new AiApiError('api_error', { provider })
   }
 
   let res

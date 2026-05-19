@@ -60,9 +60,11 @@ export const PROVIDER_CONFIGS = {
   },
 
   google: {
-    buildUrl: (key, model) =>
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
-    buildHeaders: () => ({ 'Content-Type': 'application/json' }),
+    url: 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
+    buildHeaders: (key) => ({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${key}`,
+    }),
     buildBody: (prompt, _model, maxTokens) => JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: { maxOutputTokens: maxTokens },
