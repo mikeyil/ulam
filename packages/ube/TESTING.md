@@ -28,38 +28,44 @@ Tests for vanilla web components verify:
 - **State management**: Internal state (checked, active, current) syncs with attributes
 - **Accessibility**: ARIA attributes are set appropriately
 
-### Example: Button
+
+### Example: FormControlRadio
 
 ```javascript
-it('respects disabled state (aria-disabled)', () => {
-  el.disabled = true
+it('renders with name and value attributes', () => {
+  el = document.createElement('ube-form-control-radio')
+  el.setAttribute('name', 'group')
+  el.setAttribute('value', 'a')
+  el.setAttribute('label', 'Option A')
+  document.body.appendChild(el)
+  
+  const input = el.querySelector('input[type="radio"]')
+  expect(input?.getAttribute('name')).toBe('group')
+  expect(input?.getAttribute('value')).toBe('a')
+})
+
+it('syncs checked state to attribute', () => {
+  el.checked = true
+  expect(el.querySelector('input')?.checked).toBe(true)
+})
+
+it('respects aria-disabled state', () => {
+  el.setAttribute('aria-disabled', 'true')
   expect(el.getAttribute('aria-disabled')).toBe('true')
-})
-
-it('emits click event on button click', (done) => {
-  el.addEventListener('click', () => {
-    done()
-  })
-  el.querySelector('button')?.click()
-})
-
-it('detects icon-only mode when no children', () => {
-  el.icon = svgElement  // icon property
-  // No children = icon-only mode
-  expect(el.classList.contains('btn--icon')).toBe(true)
 })
 ```
 
 ### Coverage Areas
 
-- Button / ButtonBack
+Core web components:
+- ButtonBack
 - LinkBtnStyled / LinkSkipTo
 - FormControlRadio / FormControlCheckbox / FormControlSelect / FormControlToggle
-- FormInputText (plain, search, clearable modes)
 - Badge / InfoBox / IconExternalLink
 - PanelFormControls / FadeTransition
 - FormControlRadioChip / FormControlRadioChipGroup
-- FormControlRadioGroup (new)
+
+Note: Button and FormInputText are framework adapters (React, Vue, Angular), not web components.
 
 ## React Adapter Tests (`react.test.jsx`)
 
@@ -114,12 +120,12 @@ it('applies CSS tokens from host app to components', () => {
   container.style.setProperty('--text-body', '#333333')
   container.style.setProperty('--accent', '#0066ff')
 
-  const btn = document.createElement('ube-button-text')
-  btn.label = 'Themed'
-  container.appendChild(btn)
+  const badge = document.createElement('ube-badge')
+  badge.textContent = 'Themed'
+  container.appendChild(badge)
 
-  const computed = window.getComputedStyle(btn)
-  expect(computed).toBeDefined()
+  const computed = window.getComputedStyle(badge)
+  expect(computed.color).toBeDefined()
 })
 ```
 
