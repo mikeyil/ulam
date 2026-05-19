@@ -2,6 +2,26 @@
 
 ## Current Session (Post-Release)
 
+### Consumer App Compliance Verification
+
+**Completed**: Comprehensive audit of a11yfred consumer app against v0.3.0 breaking changes.
+
+**All breaking changes properly migrated:**
+
+- FormControlInputSearch → FormInputSearch (3 files updated)
+- FormControlInputWithClear → FormInputWithClear (4 files updated)
+- CSS imports: `form-control-input*` → `form-input*`
+- Modal → Dialog integration verified
+- DataError/NoResults → Screen variants verified
+
+**Documentation verified and updated:**
+
+- README.md component references updated
+- Focus management hooks properly annotated with @ulam/sili/react source
+- All import examples reflect current API
+
+**ESLint validation**: All 10 breaking change compliance errors resolved. Consumer app now passes full linting.
+
 ### CSS Consolidation
 
 **Changes**:
@@ -45,6 +65,7 @@ This is a significant release focused on improving focus management per WCAG sta
 **Problem**: Overlays were focusing the container by default, not meeting WCAG 2.4.3 best practices which recommend focusing the first heading or first focusable element.
 
 **Solution**: Implemented automatic focus strategy:
+
 1. Look for an element with `tabIndex={-1}` (usually a heading)
 2. Fall back to the first focusable element (button, input, link, etc.)
 3. Fall back to the container as last resort
@@ -58,12 +79,14 @@ This is a significant release focused on improving focus management per WCAG sta
 **Problem**: @ulam/ube had two similar components (DataError and NoResults) for displaying page-level states, creating duplication and confusion.
 
 **Solution**: Created a single `Screen` component with variants:
+
 - `variant="no-results"` for search/filter empty states
 - `variant="error"` for data loading failures
 
 **Impact**: Cleaner, more maintainable codebase. Single component for all screen-level states with customizable icons, actions, and filters.
 
 **Migration**:
+
 - `<DataError />` → `<Screen variant="error" />`
 - `<NoResults />` → `<Screen variant="no-results" />`
 
@@ -76,6 +99,7 @@ This is a significant release focused on improving focus management per WCAG sta
 **Impact**: Semantic accuracy, consistency with web standards, clearer intent in code.
 
 **Migration**: Update imports:
+
 - `import { Modal } from '@ulam/sili/react'` → `import { Dialog } from '@ulam/sili/react'`
 - Update all `<Modal>` usages to `<Dialog>`
 
@@ -84,6 +108,7 @@ This is a significant release focused on improving focus management per WCAG sta
 **Problem**: Managing focus and state across multiple overlays was complex, especially with transitions between different overlay types (dialog → sheet, drawer → panel, etc.).
 
 **Solution**: Enhanced OverlayManager with:
+
 - Automatic trigger element tracking (saves element focused before overlay opened)
 - Layer-based focus management (screen=0, drawer/panel=1, sheet=2, dialog=3)
 - Page title management (non-dialog overlays can set `pageTitle` prop)
@@ -92,6 +117,7 @@ This is a significant release focused on improving focus management per WCAG sta
 **Impact**: Apps can now have complex overlay systems without manual focus management. OverlayManager handles transitions automatically.
 
 **Example**:
+
 ```jsx
 const overlays = [
   { id: 'confirm', type: 'dialog', heading: 'Confirm?', ... },
@@ -208,7 +234,7 @@ const overlays = [
 ## Questions?
 
 See individual package READMEs for detailed documentation:
+
 - [@ulam/sili](packages/sili) for focus management and overlays
 - [@ulam/ube](packages/ube) for UI components
 - Root [README](README.md) for framework-specific quick starts
-
