@@ -30,6 +30,8 @@
 - [ ] Create theme customization guide
 - [ ] Add dark mode documentation examples
 - [ ] Document token system and how to extend it
+- [ ] Refine useAriaDisabled utility (accessibility for disabled states)
+- [ ] Add touch target utility (minimum 48px touch targets per WCAG 2.5.5)
 
 ### @ulam/calamansi
 
