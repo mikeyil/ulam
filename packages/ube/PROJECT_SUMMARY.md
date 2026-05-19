@@ -203,7 +203,7 @@ bb06a1d feat(ube): complete Phase 5 documentation (project 90% complete)
 - `core/*.js` — 20 vanilla web component implementations
 - `react/*.jsx` — 20 React adapters
 - `vue/*.vue` — 20 Vue adapters
-- `ng/*.ts` — 20 Angular components + UbeModule
+- `angular/*.ts` — 20 Angular components + UbeModule
 - `remix/index.js` — Remix adapter (re-exports from React)
 - `__tests__/*.js` — Test suite
 

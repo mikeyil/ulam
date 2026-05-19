@@ -113,7 +113,7 @@ Import the UbeModule in your Angular app.
 ### Import the module
 
 ```typescript
-import { UbeModule } from '@ulam/ube/ng'
+import { UbeModule } from '@ulam/ube/angular'
 
 @NgModule({
   declarations: [],
@@ -321,7 +321,7 @@ import '@ulam/ube/core'
 // Framework-specific adapters
 import { ButtonText } from '@ulam/ube/react'   // React
 import { ButtonText } from '@ulam/ube/vue'     // Vue 3
-import { ButtonTextComponent } from '@ulam/ube/ng'  // Angular
+import { ButtonTextComponent } from '@ulam/ube/angular'  // Angular
 import { ButtonText } from '@ulam/ube/remix'   // Remix
 
 // Design tokens and theme utilities

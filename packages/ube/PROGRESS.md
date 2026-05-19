@@ -108,7 +108,7 @@ The @ulam/ube component library has been successfully ported from React-only to 
 - Property setters for complex objects
 - UbeModule exports all components
 
-**Files**: `ng/*.component.ts` (20 components), `ng/index.ts` (UbeModule)
+**Files**: `angular/*.component.ts` (20 components), `angular/index.ts` (UbeModule)
 
 ### Remix Adapters (20)
 

@@ -19,7 +19,7 @@
     "./core": "./core/index.js",
     "./react": "./react/index.js",
     "./vue": "./vue/index.js",
-    "./ng": "./ng/index.ts",
+    "./angular": "./angular/index.ts",
     "./remix": "./remix/index.js",
     "./tokens.css": "./tokens.css",
     "./ui.css": "./ui.css"
