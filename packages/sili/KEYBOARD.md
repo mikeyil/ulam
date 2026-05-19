@@ -197,14 +197,221 @@ export default function ResultsList() {
 
 ---
 
-## Framework Adapters
+## Vue Composables
 
-Currently implemented:
+Use Vue composables for keyboard navigation in Vue 3 apps.
 
-- **React** (`@ulam/sili/react`) — full implementation via hooks
-- **Remix** (`@ulam/sili/remix`) — uses React hooks
-- **Vue** (planned)
-- **Angular** (planned)
+### `useKeydown(handler, opts)`
+
+Attach a keydown listener with Vue lifecycle management.
+
+```javascript
+import { useKeydown } from '@ulam/sili/vue'
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const listRef = ref(null)
+    const handleKeyDown = (e) => {
+      if (e.key === 'j') focusNext()
+    }
+    useKeydown(handleKeyDown, { target: listRef })
+    return { listRef }
+  }
+}
+```
+
+### `useListNavigation(config)`
+
+High-level composable for vim-style list navigation.
+
+```javascript
+import { useListNavigation } from '@ulam/sili/vue'
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const listRef = ref(null)
+    const itemRefs = ref({})
+    const results = ref([...])
+
+    useListNavigation({
+      target: listRef,
+      items: results,
+      itemRefs: itemRefs.value,
+      commands: {
+        'j': (item, idx) => { focusNext() },
+        'k': (item, idx) => { focusPrev() },
+        's': (item, idx) => { toggleStar(item.id) }
+      }
+    })
+
+    return { listRef, itemRefs, results }
+  }
+}
+```
+
+### `usePrefersReducedMotion()`
+
+Reactive composable for prefers-reduced-motion.
+
+```javascript
+import { usePrefersReducedMotion } from '@ulam/sili/vue'
+
+export default {
+  setup() {
+    const prefersReducedMotion = usePrefersReducedMotion()
+    return { prefersReducedMotion }
+  }
+}
+
+<div :style="{ transition: prefersReducedMotion ? 'none' : 'opacity 300ms' }">
+  Content
+</div>
+```
+
+### `useFlipList()`
+
+FLIP animation composable for list reordering.
+
+```javascript
+import { useFlipList } from '@ulam/sili/vue'
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const { listRef, snapshotPositions } = useFlipList()
+    const results = ref([])
+
+    const handleSort = (newSort) => {
+      snapshotPositions()
+      results.value = newSort
+    }
+
+    return { listRef, results, handleSort }
+  }
+}
+```
+
+---
+
+## Angular Services & Directives
+
+Use Angular services for dependency injection or the standalone directive for simple cases.
+
+### `KeyboardService`
+
+Injectable service for keyboard event management.
+
+```typescript
+import { KeyboardService } from '@ulam/sili/angular'
+
+@Component({...})
+export class ResultsComponent {
+  constructor(private keyboard: KeyboardService) {}
+
+  ngAfterViewInit() {
+    const cleanup = this.keyboard.onKeydown(
+      this.listEl.nativeElement,
+      (e) => {
+        if (e.key === 'j') this.focusNext()
+      }
+    )
+    // Cleanup will occur on component destroy
+  }
+}
+```
+
+### `AnimationService`
+
+Injectable service for FLIP animations.
+
+```typescript
+import { AnimationService } from '@ulam/sili/angular'
+
+@Component({...})
+export class ResultsComponent {
+  constructor(private animation: AnimationService) {}
+
+  handleSort() {
+    this.animation.snapshotFlipPositions(this.listEl.nativeElement)
+    this.results = newSort  // Change detection occurs
+    this.animation.animateFlipList(this.listEl.nativeElement)
+  }
+}
+```
+
+### `ListNavigationDirective`
+
+Standalone directive for keyboard navigation on list elements.
+
+```typescript
+import { ListNavigationDirective } from '@ulam/sili/angular'
+
+@Component({
+  selector: 'app-results',
+  imports: [ListNavigationDirective],
+  template: `
+    <ul [appListNavigation]="navigationConfig">
+      <li *ngFor="let item of items" [attr.data-list-id]="item.id" tabindex="0">
+        {{ item.title }}
+      </li>
+    </ul>
+  `
+})
+export class ResultsComponent {
+  items = [...]
+  navigationConfig = {
+    commands: {
+      'j': () => this.focusNext(),
+      'k': () => this.focusPrev(),
+      's': () => this.toggleStar()
+    }
+  }
+}
+```
+
+---
+
+## Remix
+
+Remix uses React, so import React hooks from `@ulam/sili/remix`:
+
+```typescript
+import { useKeydown, useListNavigation, usePrefersReducedMotion, useFlipList } from '@ulam/sili/remix'
+import { useRef, useCallback } from 'react'
+
+export default function Results() {
+  const listRef = useRef(null)
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'j') focusNext()
+  }, [])
+
+  useKeydown(handleKeyDown, { target: listRef })
+
+  return <ul ref={listRef}>{/* results */}</ul>
+}
+```
+
+Vanilla core utilities also available:
+
+```typescript
+import { onKeydown, dispatchKeyCommand, prefersReducedMotion, snapshotFlipPositions, animateFlipList } from '@ulam/sili/remix'
+```
+
+---
+
+## Framework Adapters Summary
+
+All frameworks follow the same vanilla core → framework-specific lifecycle pattern:
+
+| Framework | Import Path | Hook/Service Type | Lifecycle |
+|-----------|-------------|-------------------|-----------|
+| **Vanilla** | `@ulam/sili` | Direct function calls | Manual cleanup |
+| **React** | `@ulam/sili/react` | Hooks (useEffect) | Automatic cleanup on unmount |
+| **Remix** | `@ulam/sili/remix` | React hooks + vanilla | Same as React |
+| **Vue** | `@ulam/sili/vue` | Composables (onMounted/onUnmounted) | Automatic cleanup on unmount |
+| **Angular** | `@ulam/sili/angular` | Services + Directives | Injectable or standalone |
 
 For vanilla JS, import directly from `@ulam/sili`:
 
