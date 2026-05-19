@@ -1,6 +1,30 @@
 # Ulam Roadmap & Known Issues
 
-Consolidated tracking for all packages. Updated: 2026-05-19 (v0.3.1 released).
+Consolidated tracking for all packages. Updated: 2026-05-19 (v0.3.1 + optimizations released).
+
+---
+
+## v0.3.2 Optimizations (In Progress) 🚀
+
+**Released**: 2026-05-19  
+**Scope**: Performance improvements, security hardening, accessibility enhancements
+
+### Completed Optimizations
+
+- ✅ **Security**: Fixed Google API key URL exposure (moved to Authorization header)
+- ✅ **Security**: Added provider URL whitelist (SSRF prevention)
+- ✅ **Optimization**: Extracted shared `useSubscribe` hook (@ulam/shared package)
+- ✅ **Optimization**: Migrated useProviderConfig to useSyncExternalStore (better re-render efficiency)
+- ✅ **Performance**: Fixed event listener accumulation in form-control-select
+- ✅ **Performance**: Simplified usePaginationFocus (O(n) → O(1) comparison)
+- ✅ **Performance**: Added debouncing to usePref storage writes
+- ✅ **Accessibility**: Added arrow-key navigation to radio chip groups
+
+### Documentation Created
+
+- ✅ Root SECURITY.md (300+ lines comprehensive audit)
+- ✅ packages/halohalo/SECURITY.md (API key storage guidelines)
+- ✅ AUDIT_SUMMARY.md (quick reference guide)
 
 ---
 
