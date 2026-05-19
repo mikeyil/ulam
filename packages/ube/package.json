@@ -1,6 +1,6 @@
 {
   "name": "@ulam/ube",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Framework-agnostic UI components (vanilla, React, Vue, Angular, Remix), theming, and design tokens.",
   "type": "module",
   "license": "MIT",
@@ -9,7 +9,20 @@
     "url": "https://github.com/mikeyil/ulam.git",
     "directory": "packages/ube"
   },
-  "keywords": ["accessibility", "a11y", "web-components", "vanilla", "react", "vue", "angular", "remix", "ui", "components", "design-tokens", "ulam"],
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "web-components",
+    "vanilla",
+    "react",
+    "vue",
+    "angular",
+    "remix",
+    "ui",
+    "components",
+    "design-tokens",
+    "ulam"
+  ],
   "scripts": {
     "test": "vitest",
     "test:coverage": "vitest --coverage"
@@ -29,7 +42,15 @@
     "./base-print.css": "./base-print.css",
     "./ui.css": "./ui.css"
   },
-  "files": ["core", "react", "vue", "angular", "remix", "*.css", "README.md"],
+  "files": [
+    "core",
+    "react",
+    "vue",
+    "angular",
+    "remix",
+    "*.css",
+    "README.md"
+  ],
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
@@ -40,13 +61,27 @@
     "@ulam/calamansi": "*"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true },
-    "react-dom": { "optional": true },
-    "vue": { "optional": true },
-    "@angular/core": { "optional": true },
-    "@ulam/sili": { "optional": true },
-    "@ulam/taho": { "optional": true },
-    "@ulam/calamansi": { "optional": true }
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    },
+    "@ulam/sili": {
+      "optional": true
+    },
+    "@ulam/taho": {
+      "optional": true
+    },
+    "@ulam/calamansi": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"
