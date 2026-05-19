@@ -25,6 +25,7 @@ export { usePageTitle } from './hooks/usePageTitle.js'
 export { default as Modal } from './components/ModalReact.jsx'
 export { default as Drawer } from './components/DrawerReact.jsx'
 export { default as Sheet } from './components/SheetReact.jsx'
+export { default as OverlayManager } from './components/OverlayManager.jsx'
 
 // Primitive shells (structure only, no sili hooks): for framework-agnostic use
 export { default as ModalPrimitive } from './components/Modal.jsx'
