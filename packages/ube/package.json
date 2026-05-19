@@ -10,6 +10,10 @@
     "directory": "packages/ube"
   },
   "keywords": ["accessibility", "a11y", "react", "ui", "components", "design-tokens", "ulam"],
+  "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
   "exports": {
     ".": "./index.js",
     "./core": "./core/index.js",
