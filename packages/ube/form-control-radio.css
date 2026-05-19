@@ -25,6 +25,26 @@ input[type="radio"].control:checked {
 
 /* ─── Radio hover state ────────────────────────────────────── */
 
-input[type="radio"].control:not(:checked):hover {
+input[type="radio"].control:not(:checked):not([aria-disabled="true"]):hover {
   background-color: var(--bg-subtle);
+}
+
+/* ─── Radio disabled state ────────────────────────────────────── */
+
+input[type="radio"].control[aria-disabled="true"] {
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  input[type="radio"].control[aria-disabled="true"] {
+    opacity: 1;
+    background-color: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+input[type="radio"].control[aria-disabled="true"]:focus-visible {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
 }

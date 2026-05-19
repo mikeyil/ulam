@@ -46,9 +46,7 @@ class UbeFormControlCheckbox extends UbeElement {
   }
   set disabled(val) {
     this.toggleAttribute('disabled', val)
-    if (this._input) {
-      this._input.disabled = val
-    }
+    this._applyAriaDisabled(val)
   }
 
   connectedCallback() {
@@ -82,6 +80,7 @@ class UbeFormControlCheckbox extends UbeElement {
   }
 
   _handleChange = (e) => {
+    if (this.hasAttribute('aria-disabled')) return
     this.checked = e.target.checked
     this._emitEvent('change', { checked: e.target.checked })
   }
@@ -95,7 +94,7 @@ class UbeFormControlCheckbox extends UbeElement {
 
     // Sync input attributes
     this._input.checked = checked
-    this._input.disabled = disabled
+    this._input.toggleAttribute('aria-disabled', disabled)
 
     // Sync label text
     const labelEl = this._input.parentElement

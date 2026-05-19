@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import './buttons.css'
 
 const ButtonIcon = forwardRef(function ButtonIcon({
@@ -6,20 +7,24 @@ const ButtonIcon = forwardRef(function ButtonIcon({
   label,
   onClick,
   disabled,
+  busy,
   className = '',
   variant = 'accent',
   ...rest
 }, ref) {
+  useAriaDisabled(ref, disabled)
+
   const variantClass = variant === 'accent' ? 'btn--icon-accent' : variant === 'tertiary' ? 'btn--icon-tertiary' : ''
+  const busyClass = busy ? ' btn--busy' : ''
 
   return (
     <button
       ref={ref}
       type="button"
       onClick={disabled ? undefined : onClick}
-      aria-disabled={disabled || undefined}
       aria-label={label}
-      className={`btn--icon${variantClass ? ` ${variantClass}` : ''}${className ? ` ${className}` : ''}`}
+      aria-busy={busy ? true : undefined}
+      className={`btn--icon${variantClass ? ` ${variantClass}` : ''}${busyClass}${className ? ` ${className}` : ''}`}
       {...rest}
     >
       {icon}

@@ -24,4 +24,5 @@ export { default as FormControlCheckbox } from './FormControlCheckbox.jsx'
 export { announce } from '@ulam/taho'
 export { Announcer } from '@ulam/taho/react'
 export { applyTheme, useThemeManager } from './theme.js'
-
+export { applyAriaDisabled, isAriaDisabledKeydown } from './core/ariaDisabled.js'
+export { useAriaDisabled, useAriaDisabledKeydown } from './useAriaDisabled.js'

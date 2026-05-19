@@ -22,3 +22,4 @@ export { default as FormControlRadioChipGroup } from './FormControlRadioChipGrou
 
 export { announce } from '@ulam/taho'
 export { applyTheme, useThemeManager } from '../theme.js'
+export { useAriaDisabled } from '../useAriaDisabled.vue.js'

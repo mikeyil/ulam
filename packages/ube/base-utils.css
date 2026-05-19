@@ -24,8 +24,6 @@ a:focus-visible {
 /* ─── aria-disabled state ──────────────────────────────────── */
 
 [aria-disabled="true"] {
-  color: var(--text-disabled);
-  opacity: 0.5;
   cursor: not-allowed;
 }
 

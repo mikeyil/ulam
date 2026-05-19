@@ -1,6 +1,9 @@
 // @ulam/ube/core — Vanilla web components and utilities (framework-agnostic)
 // Import this to register all ube components
 
+// Utilities
+export { applyAriaDisabled, isAriaDisabledKeydown, setAriaDisabled } from './ariaDisabled.js'
+
 // Web components
 export { UbeElement } from './base-element.js'
 export { default as UbeButtonText } from './button-text.js'

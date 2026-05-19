@@ -51,6 +51,27 @@
   transform: var(--transform-center-y);
 }
 
+/* ─── Select disabled state ────────────────────────────────────── */
+
+.select-wrap[aria-disabled="true"] .select {
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .select-wrap[aria-disabled="true"] .select {
+    opacity: 1;
+    background-color: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+.select-wrap[aria-disabled="true"] .select:focus-visible {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: 0;
+  border-radius: var(--rounded-sm);
+}
+
 /* ─── Reduced motion ────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {

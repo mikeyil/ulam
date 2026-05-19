@@ -1,10 +1,13 @@
 // Base class for all @ulam/ube web components
 // Provides: lifecycle management, attribute/property sync, common helpers
 
+import { applyAriaDisabled } from './ariaDisabled.js'
+
 export class UbeElement extends HTMLElement {
   constructor() {
     super()
     this._initialized = false
+    this._ariaDisabledCleanup = null
   }
 
   /**
@@ -70,6 +73,23 @@ export class UbeElement extends HTMLElement {
       this.setAttribute('aria-label', label)
     } else {
       this.removeAttribute('aria-label')
+    }
+  }
+
+  /**
+   * Helper: apply aria-disabled pattern (stays in tab order, blocks interactions)
+   * Call in disabled setter: this._applyAriaDisabled(val)
+   * Manages aria-disabled attribute and listener setup/cleanup
+   */
+  _applyAriaDisabled(disabled) {
+    if (disabled) {
+      this.setAttribute('aria-disabled', 'true')
+      this._ariaDisabledCleanup?.()
+      this._ariaDisabledCleanup = applyAriaDisabled(this)
+    } else {
+      this.removeAttribute('aria-disabled')
+      this._ariaDisabledCleanup?.()
+      this._ariaDisabledCleanup = null
     }
   }
 }

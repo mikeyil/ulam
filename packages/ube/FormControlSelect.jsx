@@ -1,17 +1,17 @@
-import { useAriaDisabledKeydown } from './useAriaDisabled.js'
+import { useRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import './form-control-select.css'
 
 export default function FormControlSelect({ id, value, onChange, disabled, wrapClass, children, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, ...rest }) {
-  const handleKeyDown = useAriaDisabledKeydown(disabled)
+  const ref = useRef(null)
+  useAriaDisabled(ref, disabled)
+
   return (
-    <div className={`select-wrap${wrapClass ? ` ${wrapClass}` : ''}`}>
+    <div ref={ref} className={`select-wrap${wrapClass ? ` ${wrapClass}` : ''}`}>
       <select
         id={id}
-        disabled={disabled}
         value={value}
         onChange={e => !disabled && onChange(e)}
-        onKeyDown={handleKeyDown}
-        onMouseDown={e => disabled && e.preventDefault()}
         className="select"
         aria-invalid={ariaInvalid}
         aria-describedby={ariaDescribedby}

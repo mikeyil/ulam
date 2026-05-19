@@ -1,8 +1,23 @@
-// Hook for managing aria-disabled keyboard interaction
-// Prevents Space and Enter keys from activating disabled form controls
+import { useEffect } from 'react'
+import { applyAriaDisabled, isAriaDisabledKeydown } from './core/ariaDisabled.js'
+
+// React hook wrapping the vanilla aria-disabled utility
+// Manages aria-disabled attribute, blocks keyboard/click/touch interactions
+export function useAriaDisabled(ref, disabled) {
+  useEffect(() => {
+    if (!ref.current) return
+    if (disabled) {
+      return applyAriaDisabled(ref.current)
+    } else {
+      ref.current.removeAttribute('aria-disabled')
+    }
+  }, [ref, disabled])
+}
+
+// Backward compatibility: old hook for raw keydown event handlers
 export function useAriaDisabledKeydown(isDisabled) {
   return (e) => {
-    if (isDisabled && (e.key === ' ' || e.key === 'Enter')) {
+    if (isDisabled && isAriaDisabledKeydown(e)) {
       e.preventDefault()
     }
   }

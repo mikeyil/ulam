@@ -49,9 +49,7 @@ class UbeFormControlToggle extends UbeElement {
   }
   set disabled(val) {
     this.toggleAttribute('disabled', val)
-    if (this._input) {
-      this._input.disabled = val
-    }
+    this._applyAriaDisabled(val)
   }
 
   connectedCallback() {
@@ -102,19 +100,13 @@ class UbeFormControlToggle extends UbeElement {
   }
 
   _handleChange = (e) => {
-    if (!this.disabled) {
-      this.checked = e.target.checked
-      this._emitEvent('change', { checked: e.target.checked })
-    }
+    if (this.hasAttribute('aria-disabled')) return
+    this.checked = e.target.checked
+    this._emitEvent('change', { checked: e.target.checked })
   }
 
   _handleKeyDown = (e) => {
-    if (this.disabled) {
-      // Prevent Space activation on disabled
-      if (e.key === ' ') {
-        e.preventDefault()
-      }
-    } else if (e.key === 'Enter') {
+    if (!this.hasAttribute('aria-disabled') && e.key === 'Enter') {
       // Toggle on Enter
       this.checked = !this.checked
       this._emitEvent('change', { checked: this.checked })
@@ -149,7 +141,7 @@ class UbeFormControlToggle extends UbeElement {
     // Sync input attributes
     if (id) this._input.id = id
     this._input.checked = checked
-    this._input.disabled = disabled
+    this._input.toggleAttribute('aria-disabled', disabled)
 
     // Update thumb visual
     this._updateThumb()

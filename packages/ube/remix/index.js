@@ -20,4 +20,7 @@ export {
   UbeFormControlRadioChip,
   UbeFormControlRadioChipGroup,
   UbeElement,
+  applyAriaDisabled,
+  isAriaDisabledKeydown,
+  setAriaDisabled,
 } from '../core/index.js'

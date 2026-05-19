@@ -36,6 +36,7 @@
   /* Color — focus ring
      ≥ 3:1 against both --bg and --bg-subtle surfaces. */
   --focus:           #5548c8;  /* 6.4:1 against #fff */
+  --focus-disabled:  var(--text-disabled);  /* outline color for aria-disabled focus-visible */
 
   /* Typography — families */
   --font: 'Inter', system-ui, -apple-system, sans-serif;

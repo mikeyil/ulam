@@ -91,10 +91,31 @@
 
 /* ─── Radio chip hover state ────────────────────────────────── */
 
-.radio-chip:not(.radio-chip--active):hover {
+.radio-chip:not(.radio-chip--active):not(.radio-chip--disabled):hover {
   background: var(--bg);
   border-color: var(--text-muted);
   color: var(--text-heading);
+}
+
+/* ─── Radio chip disabled state ────────────────────────────────── */
+
+.radio-chip--disabled {
+  color: var(--text-disabled);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .radio-chip--disabled {
+    opacity: 1;
+    background: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+.radio-chip--disabled:has(:focus-visible) {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
 }
 
 /* ─── RTL adjustments ──────────────────────────────────────── */

@@ -20,6 +20,7 @@ import { PanelFormControlsComponent } from './panel-form-controls.component'
 import { FadeTransitionComponent } from './fade-transition.component'
 import { FormControlRadioChipComponent } from './form-control-radio-chip.component'
 import { FormControlRadioChipGroupComponent } from './form-control-radio-chip-group.component'
+import { UbeAriaDisabledDirective } from './aria-disabled.directive'
 
 const components = [
   ButtonTextComponent,
@@ -44,7 +45,7 @@ const components = [
 
 @NgModule({
   declarations: components,
-  exports: components,
+  exports: [...components, UbeAriaDisabledDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UbeModule {}
@@ -67,3 +68,4 @@ export { PanelFormControlsComponent }
 export { FadeTransitionComponent }
 export { FormControlRadioChipComponent }
 export { FormControlRadioChipGroupComponent }
+export { UbeAriaDisabledDirective }

@@ -11,6 +11,7 @@ import '../form-control-radio-chip-group.css'
  *   name        - radio group name (passed to child chips)
  *   value       - currently selected value
  *   options     - JSON string of [{value: string, label: string}, ...]
+ *   disabled    - boolean flag — disables all child chips
  *
  * Events:
  *   change      - fires when a chip is selected, detail.value = selected value
@@ -31,7 +32,7 @@ class UbeFormControlRadioChipGroup extends UbeElement {
   }
 
   static get observedAttributes() {
-    return ['legend', 'name', 'value', 'options']
+    return ['legend', 'name', 'value', 'options', 'disabled']
   }
 
   get legend() {
@@ -66,6 +67,18 @@ class UbeFormControlRadioChipGroup extends UbeElement {
   }
   set options(val) {
     this.setAttribute('options', JSON.stringify(val))
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+  set disabled(val) {
+    this._applyAriaDisabled(val)
+    this.toggleAttribute('disabled', val)
+    // Propagate to child chips
+    this.querySelectorAll('ube-form-control-radio-chip').forEach(chip => {
+      chip.disabled = val
+    })
   }
 
   connectedCallback() {

@@ -53,9 +53,7 @@ class UbeFormControlSelect extends UbeElement {
   }
   set disabled(val) {
     this.toggleAttribute('disabled', val)
-    if (this._select) {
-      this._select.disabled = val
-    }
+    this._applyAriaDisabled(val)
   }
 
   connectedCallback() {
@@ -110,30 +108,15 @@ class UbeFormControlSelect extends UbeElement {
 
     // Attach listeners only once
     this._select.addEventListener('change', this._handleChange)
-    this._select.addEventListener('keydown', this._handleKeyDown)
-    this._select.addEventListener('mousedown', this._handleMouseDown)
 
     this._render()
   }
 
   _handleChange = (e) => {
-    if (!this.disabled) {
-      this._emitEvent('change', { value: e.target.value })
-    }
+    if (this.hasAttribute('aria-disabled')) return
+    this._emitEvent('change', { value: e.target.value })
   }
 
-  _handleKeyDown = (e) => {
-    // Prevent Space/Enter on disabled select
-    if (this.disabled && (e.key === ' ' || e.key === 'Enter')) {
-      e.preventDefault()
-    }
-  }
-
-  _handleMouseDown = (e) => {
-    if (this.disabled) {
-      e.preventDefault()
-    }
-  }
 
   _render() {
     if (!this._select) return
@@ -145,8 +128,8 @@ class UbeFormControlSelect extends UbeElement {
 
     // Sync select attributes
     if (value) this._select.value = value
-    this._select.disabled = disabled
     if (id) this._select.id = id
+    this._select.toggleAttribute('aria-disabled', disabled)
 
     // Sync wrapper classes
     if (this._wrap) {

@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import FormControlRadioChip from './FormControlRadioChip.jsx'
 
 /**
@@ -9,6 +11,7 @@ import FormControlRadioChip from './FormControlRadioChip.jsx'
  *   name="platform"
  *   value={platform}
  *   onChange={setPlatform}
+ *   disabled={false}
  *   options={[
  *     { value: 'all',    label: 'All' },
  *     { value: 'web',    label: 'Web' },
@@ -16,9 +19,12 @@ import FormControlRadioChip from './FormControlRadioChip.jsx'
  *   ]}
  * />
  */
-export default function FormControlRadioChipGroup({ legend, name, value, onChange, options }) {
+export default function FormControlRadioChipGroup({ legend, name, value, onChange, disabled, options }) {
+  const ref = useRef(null)
+  useAriaDisabled(ref, disabled)
+
   return (
-    <fieldset>
+    <fieldset ref={ref}>
       <legend className="sr-only">{legend}</legend>
       <div className="radio-chip-group">
         {options.map(opt => (
@@ -28,6 +34,7 @@ export default function FormControlRadioChipGroup({ legend, name, value, onChang
             value={opt.value}
             label={opt.label}
             current={value}
+            disabled={disabled}
             onChange={onChange}
           />
         ))}

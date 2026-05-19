@@ -173,3 +173,27 @@ input[role="switch"]:focus-visible + span {
   outline-offset: var(--focus-outline-offset);
   border-radius: var(--toggle-radius);
 }
+
+/* ─── Toggle disabled appearance ───────────────────────────────── */
+
+.toggle[aria-disabled="true"] {
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .toggle[aria-disabled="true"] {
+    opacity: 1;
+  }
+
+  .toggle[aria-disabled="true"] .toggle__track {
+    background: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+input[role="switch"][aria-disabled="true"]:focus-visible + span {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
+  border-radius: var(--toggle-radius);
+}

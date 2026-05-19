@@ -1,19 +1,20 @@
-import { useAriaDisabledKeydown } from './useAriaDisabled.js'
+import { useRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import './form-control-toggle.css'
 
 export default function FormControlToggle({ id, checked, onChange, disabled }) {
-  const handleKeyDown = useAriaDisabledKeydown(disabled)
+  const ref = useRef(null)
+  useAriaDisabled(ref, disabled)
+
   return (
-    <span className="toggle">
+    <span ref={ref} className="toggle">
       <input
         type="checkbox"
         role="switch"
         id={id}
-        disabled={disabled}
         checked={checked}
         onChange={e => !disabled && onChange(e.target.checked)}
         onKeyDown={e => {
-          handleKeyDown(e)
           if (e.key === 'Enter' && !disabled) onChange(!checked)
         }}
         className="toggle__input"

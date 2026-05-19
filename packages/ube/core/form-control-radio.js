@@ -62,9 +62,7 @@ class UbeFormControlRadio extends UbeElement {
   }
   set disabled(val) {
     this.toggleAttribute('disabled', val)
-    if (this._input) {
-      this._input.disabled = val
-    }
+    this._applyAriaDisabled(val)
   }
 
   connectedCallback() {
@@ -98,6 +96,7 @@ class UbeFormControlRadio extends UbeElement {
   }
 
   _handleChange = (e) => {
+    if (this.hasAttribute('aria-disabled')) return
     if (e.target.checked) {
       this.checked = true
       this._emitEvent('change', { value: this.value, checked: true })
@@ -117,7 +116,7 @@ class UbeFormControlRadio extends UbeElement {
     if (name) this._input.name = name
     if (value) this._input.value = value
     this._input.checked = checked
-    this._input.disabled = disabled
+    this._input.toggleAttribute('aria-disabled', disabled)
 
     // Sync label text
     const labelEl = this._input.parentElement

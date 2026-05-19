@@ -1,15 +1,23 @@
+import { useRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import './form-control-radio-chip.css'
 
-export default function FormControlRadioChip({ name, value, label, current, onChange }) {
+export default function FormControlRadioChip({ name, value, label, current, disabled, onChange }) {
+  const ref = useRef(null)
+  useAriaDisabled(ref, disabled)
+
   const isActive = current === value
   return (
-    <label className={`radio-chip${isActive ? ' radio-chip--active' : ''}`}>
+    <label
+      ref={ref}
+      className={`radio-chip${isActive ? ' radio-chip--active' : ''}${disabled ? ' radio-chip--disabled' : ''}`}
+    >
       <input
         type="radio"
         name={name}
         value={value}
         checked={isActive}
-        onChange={() => onChange(value)}
+        onChange={() => !disabled && onChange(value)}
         className="radio-chip__input"
         aria-label={label.replace(/\n/g, ' ')}
       />

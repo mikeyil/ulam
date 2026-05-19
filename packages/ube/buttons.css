@@ -25,6 +25,34 @@
   transition: var(--transition-btn);
 }
 
+/* ─── Button alignment ───────────────────────────────────── */
+
+.btn--align-left {
+  justify-content: flex-start;
+}
+
+.btn--align-right {
+  justify-content: flex-end;
+}
+
+/* ─── Button sizing variants ──────────────────────────────── */
+
+.btn--size-compact {
+  height: 2rem;
+  padding: 0 var(--space-1);
+  font-size: var(--fs-small);
+}
+
+.btn--size-large {
+  height: var(--touch-target-lg, 3.5rem);
+  padding: 0 var(--space-3);
+  font-size: var(--fs-sub);
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
 /* ─── Button icon wrapper ──────────────────────────────────── */
 
 .btn-icon {
@@ -133,7 +161,7 @@
 
 .btn--primary[aria-disabled="true"]:focus-visible,
 .btn--primary.btn--disabled:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus);
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
   outline-offset: var(--focus-outline-offset);
 }
 
@@ -168,7 +196,7 @@
 
 .btn--secondary[aria-disabled="true"]:focus-visible,
 .btn--secondary.btn--disabled:focus-visible {
-  outline: var(--focus-outline-width) solid var(--focus);
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
   outline-offset: var(--focus-outline-offset);
 }
 
@@ -236,15 +264,45 @@
 }
 
 .btn--warning[aria-disabled="true"]:focus-visible {
-  outline: var(--focus-outline-width) solid var(--error);
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
   outline-offset: var(--focus-outline-offset);
 }
 
 /* ─── Button disabled state ────────────────────────────────── */
+/* Use aria-disabled="true" on button element. .btn--disabled is deprecated legacy. */
 
-.btn--disabled {
+.btn[aria-disabled="true"],
+.btn.btn--disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .btn[aria-disabled="true"],
+  .btn.btn--disabled {
+    opacity: 1;
+  }
+}
+
+/* ─── Button busy state ────────────────────────────────────── */
+/* Use busy prop on ButtonText/ButtonIcon. aria-busy="true" is set automatically. */
+/* Optional styling: can add loading spinner animation, color change, etc. */
+/* By default, no visual change - icon content (e.g. Loader2) provides feedback. */
+
+.btn--busy {
+  /* Optional: reduce hover effects while processing */
+  pointer-events: none;
+}
+
+.btn--busy:hover {
+  background: inherit;
+  color: inherit;
+  border-color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Optional: add subtle animation if desired */
+  /* .btn--busy svg { animation: spin 1s linear infinite; } */
 }
 
 /* ─── Button error state ────────────────────────────────────– */

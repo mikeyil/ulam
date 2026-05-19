@@ -12,3 +12,23 @@ input[type="checkbox"].control:checked {
 [data-theme="dark"] input[type="checkbox"].control:checked {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpolyline points='2,8 5,11 12,3' fill='none' stroke='%23afa9ec' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
+
+/* ─── Checkbox disabled state ────────────────────────────────────── */
+
+input[type="checkbox"].control[aria-disabled="true"] {
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  input[type="checkbox"].control[aria-disabled="true"] {
+    opacity: 1;
+    background-color: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+input[type="checkbox"].control[aria-disabled="true"]:focus-visible {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
+}

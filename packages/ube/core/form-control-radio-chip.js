@@ -11,12 +11,14 @@ import '../form-control-radio-chip.css'
  *   value        - this chip's value (required)
  *   label        - visible label (supports \n for line breaks)
  *   current      - the currently selected value (for active state)
+ *   disabled     - boolean flag (set via hasAttribute)
  *
  * Events:
  *   change       - fires when selected
  *
  * Usage:
  *   <ube-form-control-radio-chip name="level" value="A" label="Level A" current="A"></ube-form-control-radio-chip>
+ *   <ube-form-control-radio-chip name="level" value="B" label="Level B" current="A" disabled></ube-form-control-radio-chip>
  */
 class UbeFormControlRadioChip extends UbeElement {
   constructor() {
@@ -26,7 +28,7 @@ class UbeFormControlRadioChip extends UbeElement {
   }
 
   static get observedAttributes() {
-    return ['name', 'value', 'label', 'current']
+    return ['name', 'value', 'label', 'current', 'disabled']
   }
 
   get name() {
@@ -52,6 +54,14 @@ class UbeFormControlRadioChip extends UbeElement {
 
   get isActive() {
     return this.current === this.value
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+  set disabled(val) {
+    this._applyAriaDisabled(val)
+    this.toggleAttribute('disabled', val)
   }
 
   connectedCallback() {
@@ -99,6 +109,7 @@ class UbeFormControlRadioChip extends UbeElement {
   }
 
   _handleChange = () => {
+    if (this.hasAttribute('aria-disabled')) return
     this.current = this.value
     this._emitEvent('change', { value: this.value })
   }
@@ -111,15 +122,18 @@ class UbeFormControlRadioChip extends UbeElement {
     const label = this.getAttribute('label') || ''
     const current = this.getAttribute('current')
     const isActive = current === value
+    const disabled = this.hasAttribute('disabled')
 
     // Sync input
     this._input.name = name
     this._input.value = value
     this._input.checked = isActive
     this._input.setAttribute('aria-label', label.replace(/\n/g, ' '))
+    this._input.toggleAttribute('aria-disabled', disabled)
 
-    // Update active class
+    // Update active and disabled classes
     this._label.classList.toggle('radio-chip--active', isActive)
+    this._label.classList.toggle('radio-chip--disabled', disabled)
 
     // Render label text with line breaks
     const textSpan = this._label.querySelector('span:not([aria-hidden="true"])') || this._label.querySelector('span[aria-hidden="true"]:last-child')

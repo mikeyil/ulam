@@ -44,51 +44,23 @@
 }
 
 /* ── prefers-reduced-transparency ────────────────────────────
-   Replace translucent surfaces with fully opaque equivalents. */
+   Replace translucent surfaces with fully opaque equivalents.
+   For all disabled/aria-disabled elements, remove opacity and use
+   color/border contrast instead. Component-specific overrides are
+   in their respective CSS files. */
 @media (prefers-reduced-transparency: reduce) {
   :root {
     --overlay-bg: #000;
   }
 
-  [aria-disabled="true"] {
+  /* Global disabled fallback: remove opacity, use color contrast */
+  [aria-disabled="true"],
+  [disabled] {
     opacity: 1;
-    background: var(--bg-subtle);
   }
 
-  .btn--primary:disabled,
-  .btn--secondary:disabled,
-  .btn--tertiary:disabled,
-  .btn--warning:disabled,
-  .toggle:has(.toggle__input:disabled),
-  .select:disabled,
-  .input:disabled {
-    opacity: 1;
-    color: var(--text-disabled);
-    border-color: var(--border);
-  }
-
-  input:disabled {
-    opacity: 1;
-    color: var(--text-disabled);
-  }
-
-  .btn--tertiary[aria-disabled="true"],
-  .btn--tertiary.btn--disabled,
-  .btn--warning[aria-disabled="true"],
-  .btn--warning.btn--disabled,
-  .btn--warning:not([aria-disabled="true"]):active,
-  .btn--primary[aria-disabled="true"],
-  .btn--primary.btn--disabled,
-  .btn--secondary[aria-disabled="true"],
-  .btn--secondary.btn--disabled,
-  .btn--icon[aria-disabled="true"],
-  .btn--icon.btn--disabled,
-  .toggle:has(.toggle__input[aria-disabled="true"]),
-  .app-checkbox[aria-disabled="true"],
-  .control[aria-disabled="true"] {
-    opacity: 1;
-    color: var(--text-disabled);
-  }
+  /* Specific component disables: handled in component CSS files
+     (form-control-radio.css, form-control-checkbox.css, etc.) */
 }
 
 /* ── prefers-contrast ─────────────────────────────────────────

@@ -1,0 +1,44 @@
+/* ─── Unified Disabled State Styling ──────────────────────────
+   Consistent disabled/aria-disabled styling across all controls.
+   Components should import this and optionally override for specific needs.
+   ─────────────────────────────────────────────────────────────── */
+
+/* ─── Default disabled appearance ────────────────────────────── */
+
+[aria-disabled="true"],
+[disabled] {
+  color: var(--text-disabled);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Reduce transparency fallback ───────────────────────────── */
+/* For users who prefer reduced transparency, use color/border changes
+   instead of opacity to indicate disabled state. */
+
+@media (prefers-reduced-transparency: reduce) {
+  [aria-disabled="true"],
+  [disabled] {
+    opacity: 1;
+  }
+}
+
+/* ─── Disabled focus-visible: dashed outline ─────────────────── */
+/* Communicates "focusable but inactive" via dashed outline rather
+   than solid to differentiate from enabled focus state. */
+
+[aria-disabled="true"]:focus-visible,
+[disabled]:focus-visible {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ─── Suppress hover/active states on disabled elements ──────── */
+
+[aria-disabled="true"]:hover,
+[disabled]:hover,
+[aria-disabled="true"]:active,
+[disabled]:active {
+  background: inherit;
+  color: inherit;
+}

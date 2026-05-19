@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { useAriaDisabled } from './useAriaDisabled.js'
 import './form-controls.css'
 import './form-control-checkbox.css'
 
@@ -10,6 +11,8 @@ const FormControlCheckbox = forwardRef(function FormControlCheckbox({
   className = '',
   ...rest
 }, ref) {
+  useAriaDisabled(ref, disabled)
+
   return (
     <label className={`control__label${className ? ` ${className}` : ''}`}>
       <input
@@ -17,7 +20,6 @@ const FormControlCheckbox = forwardRef(function FormControlCheckbox({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        disabled={disabled}
         className="control"
         {...rest}
       />

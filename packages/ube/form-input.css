@@ -31,7 +31,25 @@ input[type="search"]:focus-visible {
 
 input[type="text"][aria-disabled="true"],
 input[type="search"][aria-disabled="true"] {
+  color: var(--text-disabled);
+  opacity: 0.5;
   background-color: var(--bg-subtle);
   border-color: var(--border);
   box-shadow: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  input[type="text"][aria-disabled="true"],
+  input[type="search"][aria-disabled="true"] {
+    opacity: 1;
+    background-color: var(--border);
+    border-color: var(--text-disabled);
+  }
+}
+
+input[type="text"][aria-disabled="true"]:focus-visible,
+input[type="search"][aria-disabled="true"]:focus-visible {
+  border-color: var(--focus-disabled);
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: 0;
 }
