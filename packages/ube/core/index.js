@@ -7,5 +7,8 @@ export { default as UbeButtonIcon } from './button-icon.js'
 export { default as UbeButtonBack } from './button-back.js'
 export { default as UbeLinkBtnStyled } from './link-btn-styled.js'
 export { default as UbeLinkSkipTo } from './link-skip-to.js'
+export { default as UbeFormControlRadio } from './form-control-radio.js'
+export { default as UbeFormControlCheckbox } from './form-control-checkbox.js'
+export { default as UbeFormControlSelect } from './form-control-select.js'
 
 // Additional component exports will be added as they're ported
