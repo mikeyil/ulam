@@ -12,7 +12,11 @@ Completed all 8 optimization items identified in comprehensive security, perform
 
 ---
 
-## Completed Items (8/8)
+## Completed Items (7/8 + 1 Clarification)
+
+**Note**: Item #8 (arrow-key navigation) was already working via the hidden native radio input. Removed redundant custom implementation.
+
+---
 
 ### 1. ✅ Fixed Google API Key URL Exposure
 
@@ -244,41 +248,6 @@ export function usePref(key, defaultValue) {
 
 ---
 
-### 8. ✅ Added Arrow-Key Navigation to Radio Chip Groups
-
-**Priority**: LOW  
-**Files**: `packages/ube/core/form-control-radio-chip-group.js`  
-**Status**: COMPLETE
-
-**What Changed**:
-- Left/Right arrow keys cycle through radio chip options
-- Wrapping behavior (rightmost → leftmost)
-- Follows ARIA authoring practices for option groups
-- Improves accessibility for keyboard-only users
-
-**Implementation**:
-```javascript
-_handleKeyDown(e) {
-  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-
-  const chips = Array.from(this._chipContainer.querySelectorAll('ube-form-control-radio-chip'))
-  const currentIndex = chips.findIndex(chip => chip.getAttribute('value') === currentValue)
-
-  let nextIndex = e.key === 'ArrowRight'
-    ? (currentIndex + 1) % chips.length
-    : (currentIndex - 1 + chips.length) % chips.length
-
-  const nextValue = chips[nextIndex].getAttribute('value')
-  this.value = nextValue
-  chips[nextIndex].focus()
-  this._emitEvent('change', { value: nextValue })
-}
-```
-
-**Impact**: Better keyboard navigation, improved accessibility, standard UX pattern.
-
----
-
 ## Documentation Created
 
 ### 1. SECURITY.md (Root)
@@ -323,11 +292,6 @@ _handleKeyDown(e) {
 - ✅ 2 security guides created (600+ lines)
 - ✅ API key handling best practices documented
 
-### Accessibility
-- ✅ Arrow-key navigation added
-- ✅ Follows ARIA authoring practices
-- ✅ Standard UX pattern for option groups
-
 ### Performance
 - ✅ Re-render efficiency improved
 - ✅ DOM comparison optimized
@@ -342,7 +306,6 @@ _handleKeyDown(e) {
 - [ ] Test Google provider with new header-based approach
 - [ ] Test form-control-select with rapid re-renders
 - [ ] Test usePaginationFocus with page changes
-- [ ] Test radio chip groups with arrow keys
 - [ ] Test usePref with rapid updates
 - [ ] Test useProviderConfig with config changes
 - [ ] Verify no memory leaks in long-running apps
@@ -367,7 +330,6 @@ _handleKeyDown(e) {
 - `packages/ube/core/form-control-select.js` — Event listener guard
 - `packages/sili/react/hooks/usePaginationFocus.js` — Simplified logic
 - `packages/calamansi/react.js` — useSubscribe, debounced usePref
-- `packages/ube/core/form-control-radio-chip-group.js` — Arrow-key nav
 - `TODO.md` — Updated with completion status
 
 ---
@@ -392,11 +354,12 @@ _handleKeyDown(e) {
 
 ## Summary
 
-**All 8 optimization items from SECURITY.md now implemented.**
+**7 optimization items from SECURITY.md implemented.**
+
+(Arrow-key navigation for radio chips was already working via hidden native radio input — no custom implementation needed)
 
 - **Security**: 2 items (critical fix + SSRF prevention)
 - **Optimization**: 2 items (shared hooks + re-render efficiency)
 - **Performance**: 3 items (listeners, comparison, debouncing)
-- **Accessibility**: 1 item (keyboard navigation)
 
 Framework is more secure, performant, and accessible. Codebase is cleaner and easier to maintain.
