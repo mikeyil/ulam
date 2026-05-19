@@ -15,5 +15,6 @@ export { default as UbeFormInputSearch } from './form-input-search.js'
 export { default as UbeBadge } from './badge.js'
 export { default as UbeInfoBox } from './info-box.js'
 export { default as UbeIconExternalLink } from './icon-external-link.js'
+export { default as UbeFormControlToggle } from './form-control-toggle.js'
 
 // Additional component exports will be added as they're ported
