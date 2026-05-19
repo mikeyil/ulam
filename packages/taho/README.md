@@ -6,7 +6,7 @@ Named for taho, the Filipino street drink: warm, light, and always there when yo
 
 ## The ulam framework
 
-```text
+```
 ulam
 ├── @ulam/taho         warm   : ARIA live region announcer  ← you are here
 ├── @ulam/sili         hot    : focus management, overlays, routing
@@ -27,7 +27,7 @@ npm install @ulam/taho
 
 No setup required. The live region DOM nodes are created lazily on first call.
 
-```js
+```javascript
 import { announce } from '@ulam/taho'
 
 announce('Settings saved')
@@ -36,7 +36,7 @@ announce('Invalid key', { priority: 'assertive' })
 
 ### React
 
-```jsx
+```javascript
 import { Announcer, announce, useAnnounce } from '@ulam/taho/react'
 
 // Mount once at app root
@@ -52,7 +52,7 @@ announce('Search: 12 results')
 
 ### Remix
 
-```jsx
+```javascript
 import { Announcer, useRouteAnnouncer } from '@ulam/taho/remix'
 
 // In root.jsx
@@ -71,7 +71,7 @@ export default function Root() {
 
 For any router that fires browser navigation events:
 
-```js
+```javascript
 import { mountRouteAnnouncer } from '@ulam/taho/remix'
 
 const unmount = mountRouteAnnouncer()
@@ -86,7 +86,7 @@ unmount() // clean up on teardown
 
 For routers that do not fire browser navigation events:
 
-```js
+```javascript
 import { notifyRouteChange } from '@ulam/taho/remix'
 
 router.on('navigate', ({ pathname }) => notifyRouteChange(pathname))
@@ -108,7 +108,7 @@ Pair with `@ulam/sili/remix` for complete coverage. Taho handles the screen read
 
 The vanilla `announce()` function works in Vue without any adapter. Call it directly from `<script setup>` or composables. The Vue adapter provides a composable for consistency with Vue's Composition API style.
 
-```js
+```javascript
 import { useAnnounce } from '@ulam/taho/vue'
 
 // Inside setup()
@@ -126,7 +126,7 @@ announce('Settings: Saved')
 
 The Angular adapter provides an injectable `AnnounceService` wrapping the vanilla core.
 
-```ts
+```typescript
 import { AnnounceService } from '@ulam/taho/angular'
 
 @Component({ ... })

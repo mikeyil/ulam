@@ -4,7 +4,7 @@ This document covers testing approaches for the vanilla web components and frame
 
 ## Test Structure
 
-```
+```text
 __tests__/
   ├── core.test.js           # Vanilla web component tests
   ├── react.test.jsx         # React adapter tests

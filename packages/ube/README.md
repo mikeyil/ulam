@@ -126,6 +126,7 @@ All components are tree-shakeable: only imported components bundle their CSS.
 
 ## Where ube stops (sili starts)
 
+
 Ube provides **reusable UI components and tokens**. Sili provides **focus management and overlay orchestration**. Here's the boundary:
 
 | Aspect | Ube (UI layer) | Sili (Focus/Overlay layer) |
@@ -140,9 +141,8 @@ Ube provides **reusable UI components and tokens**. Sili provides **focus manage
 
 **Panel vs Dialog/Sheet/Drawer**: Panel is a structural container for organizing content (settings, details, etc.). Dialog/Sheet/Drawer are full overlay components with built-in focus management. If you need a side container without sili's focus handling, use Panel. If you need an overlay with automatic focus management, use sili's overlays.
 
----
-
 ## Components
+
 
 ### ButtonText
 
@@ -169,9 +169,8 @@ import { ButtonText } from '@ulam/ube'
 | `activeLabel` | string | - | `aria-label` when active |
 | `className` | string | - | Additional CSS classes |
 
----
-
 ### ButtonIcon
+
 
 Icon-only button. Always requires `label` for screen readers.
 
@@ -190,9 +189,8 @@ import { ButtonIcon } from '@ulam/ube'
 | `onClick` | function | - | Click handler |
 | `disabled` | boolean | `false` | Disabled state |
 
----
-
 ### LinkBtnStyled
+
 
 Anchor element styled with button classes, for external links or hash navigation.
 
@@ -209,9 +207,8 @@ import { LinkBtnStyled } from '@ulam/ube'
 | `className` | string | - | CSS classes for button styling |
 | `children` | ReactNode | - | Link label |
 
----
-
 ### Toggle
+
 
 Binary on/off switch. Always pair with a visible label.
 
@@ -231,9 +228,8 @@ import { Toggle } from '@ulam/ube'
 | `onChange` | function | - | `(checked: boolean) => void` |
 | `disabled` | boolean | `false` | Disabled state |
 
----
-
 ### ControlRadioChip
+
 
 Radio input styled as a selectable chip. Group under a shared `name`.
 
@@ -260,9 +256,8 @@ import { ControlRadioChip } from '@ulam/ube'
 | `current` | string | Currently selected value |
 | `onChange` | function | `(value: string) => void` |
 
----
-
 ### ControlRadio
+
 
 Plain accessible radio input with label for use in control layouts.
 
@@ -272,9 +267,8 @@ import { ControlRadio } from '@ulam/ube'
 <ControlRadio name="theme" value="dark" label="Dark" checked={theme === 'dark'} onChange={() => setTheme('dark')} />
 ```
 
----
-
 ### ControlCheckbox
+
 
 Plain accessible checkbox input with label for use in control layouts.
 
@@ -284,9 +278,8 @@ import { ControlCheckbox } from '@ulam/ube'
 <ControlCheckbox label="Accept terms" checked={accepted} onChange={setAccepted} />
 ```
 
----
-
 ### Select
+
 
 Native-enhanced dropdown with keyboard support and token-driven sizing.
 
@@ -306,9 +299,8 @@ import { Select } from '@ulam/ube'
 | `onChange` | function | Change handler |
 | `disabled` | boolean | Disabled state |
 
----
-
 ### InputSearch
+
 
 Self-contained search field with `form[role="search"]` wrapper, live or submit mode, clear button, and submit icon button.
 
@@ -360,9 +352,8 @@ const [liveSearch, setLiveSearch] = usePref('liveSearch', true)
 | `clearAriaLabel` | string | `'Clear'` | `aria-label` for the clear button |
 | `inputRef` | ref | - | Forward ref to the input element |
 
----
-
 ### InputWithClear
+
 
 Generic text input with a clear button. Use `SearchInput` for dedicated search fields. Use this for any other clearable input (filter fields, tag inputs, etc.).
 
@@ -394,9 +385,8 @@ import { InputWithClear } from '@ulam/ube'
 | `clearButtonClassName` | string | `''` | Class on the clear button |
 | `inputRef` | ref | - | Forward ref to the input element |
 
----
-
 ### Badge
+
 
 Semantic badge for severity levels, status, and counts. Supports click for interactive use.
 
@@ -416,9 +406,8 @@ import { Badge } from '@ulam/ube'
 | `bg` | string | Custom background color |
 | `color` | string | Custom text color |
 
----
-
 ### InfoBox
+
 
 Informational callout for tips, warnings, or supplemental content.
 
@@ -428,9 +417,8 @@ import { InfoBox } from '@ulam/ube'
 <InfoBox>This setting affects all platforms.</InfoBox>
 ```
 
----
-
 ### Panel
+
 
 Detail panel with `useFocusOnMount` and `usePageTitle` built in. Use for routed detail panels.
 
@@ -449,9 +437,8 @@ import { Panel } from '@ulam/ube'
 | `closeAriaLabel` | string | `aria-label` for close button |
 | `children` | ReactNode | Panel body content |
 
----
-
 ### ButtonBack
+
 
 RTL-aware back chevron button. Flips direction when `html[dir="rtl"]`.
 
@@ -466,9 +453,8 @@ import { ButtonBack } from '@ulam/ube'
 | `onClick` | function | Click handler |
 | `label` | string | `aria-label` |
 
----
-
 ### Screen
+
 
 Generic screen state component for displaying page-level information, errors, or empty states.
 
@@ -507,9 +493,8 @@ import { Screen } from '@ulam/ube'
 | `onOpenSettings` | function | - | Settings link click handler |
 | `onMount` | function | - | Called when component mounts |
 
----
-
 ## Plugins
+
 
 Ube works with two companion packages for live region announcements and routing. Both are part of the ulam framework and listed as optional peer dependencies.
 
@@ -543,9 +528,8 @@ announce('Copy: Copied to clipboard')
 
 **Implementation:** two always-in-DOM live regions with auto-clearing after ~1 second. Duplicate messages re-announce reliably via clear-then-set cycle.
 
----
-
 ### Router
+
 
 Hash-based routing with built-in focus management, RTL support, Escape handling, and page title updates. Comes from `@ulam/sili/react`.
 
@@ -605,9 +589,8 @@ usePageTitle('Page Name')      // sets document.title = "AppName | Page Name"
 6. Paginated content: use `usePaginationFocus` on page change
 7. Accordion: leave focus on trigger, do not use `useFocusOnMount` on content
 
----
-
 ### Theme
+
 
 Dark, light, auto, and fiesta modes as first-class features.
 
@@ -619,9 +602,8 @@ useThemeManager(theme, onFiestaActivated)
 
 Sets `data-theme` on `<html>` and handles fiesta mode color cycling. All ube components respond to `[data-theme="dark"]` automatically via CSS tokens.
 
----
-
 ## CSS Usage
+
 
 ### Foundational stylesheets
 
@@ -686,9 +668,8 @@ Modal, drawer, and sheet overlays are hidden on print. Content flows naturally. 
 
 All animations and transitions respect `prefers-reduced-motion: reduce`. No opt-in needed.
 
----
-
 ## Design tokens
+
 
 All components consume CSS custom properties. Override any token to retheme without touching component code.
 
@@ -762,9 +743,8 @@ This organization enables better tree-shaking: component tokens are removed if t
 
 **Component-specific tokens** are defined at the top of their respective CSS files (e.g., `badge.css`, `buttons.css`, `form-control-toggle.css`) for scope and tree-shaking.
 
----
-
 ## Subpath exports
+
 
 ### Components and utilities
 
@@ -789,9 +769,8 @@ Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/si
 
 Component stylesheets (e.g., `buttons.css`, `form-control-toggle.css`) are imported automatically by their components—no manual import needed.
 
----
-
 ## Design principles
+
 
 **Accessible by default.** Every component meets WCAG 2.2 AA. Keyboard navigation, focus management, and screen reader semantics are built in, not bolted on.
 
@@ -805,9 +784,8 @@ Component stylesheets (e.g., `buttons.css`, `form-control-toggle.css`) are impor
 
 **Zero opinion on data.** Components accept props and call handlers. No built-in state management, no assumptions about routing libraries (beyond the included router plugin), no opinions about where your data lives.
 
----
-
 ## Roadmap
+
 
 Planned improvements to the @ulam/ube library:
 

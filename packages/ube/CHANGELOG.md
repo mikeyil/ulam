@@ -19,7 +19,7 @@ All notable changes to @ulam/ube will be documented in this file.
 
 ## [0.3.0] - 2026-05-18
 
-### Changed
+### Changed (0.3.0)
 
 - **Component Naming**: Renamed components for semantic clarity:
   - `Button` → `ButtonText` (text-based button, not icon-only)
@@ -39,6 +39,7 @@ All notable changes to @ulam/ube will be documented in this file.
 - **CSS Organization**: Components now import their own CSS files. `ui.css` is a foundational stylesheet containing tokens, reset, typography, user-prefs, and print styles. Component-specific CSS is imported by each component, enabling better tree-shaking.
 
 - **Foundational CSS Prefix**: Renamed foundational stylesheets with `base-` prefix for discoverability:
+
   - `tokens.css` → `base-tokens.css`
   - `focus.css` → `base-utils.css` (merged focus and utility styles)
   - `reset.css` → `base-reset.css`
@@ -64,16 +65,17 @@ All notable changes to @ulam/ube will be documented in this file.
 
 - **Focus Return**: Moved `[data-focus-return]` styling to `@ulam/sili/base.css` (router plugin's responsibility, not a general ube utility).
 
-### Removed
+### Removed (0.3.0)
 
 - **DataError and NoResults**: Deleted deprecated components. Use `Screen` component with `variant="error"` or `variant="no-results"` instead.
   - `<DataError />` → `<Screen variant="error" />`
   - `<NoResults />` → `<Screen variant="no-results" />`
   - Screen component provides unified interface for screen state display with customizable icons, actions, filters.
 
-### Added
+### Added (0.3.0)
 
 - **Screen**: Generic screen state component for displaying page-level information or errors.
+
   - Variants: `'no-results'` (search results empty) and `'error'` (data loading failed)
   - Customizable heading, body, icon, action button, and filters
   - Focuses heading on mount for WCAG 2.4.3 compliance
@@ -87,7 +89,7 @@ All notable changes to @ulam/ube will be documented in this file.
 
 - **LinkBtnStyled**: New component separating anchor styling from other button variants.
 
-### Removed
+### Removed (CSS Files, 0.3.0)
 
 - **Unused CSS Files**:
   - `alert-banner.css` (no component used it)
@@ -102,7 +104,7 @@ All notable changes to @ulam/ube will be documented in this file.
     - Input search `--has-value` state class (unused in framework and consumers)
     - `--opacity-*` token variants (unused)
 
-### Fixed
+### Fixed (0.3.0)
 
 - **LinkBtnStyled**: Removed hardcoded `btn-link` class; consumers now pass `className` directly
 - **CSS Consolidation**: Removed redundant `./base-tokens.css` imports from 13+ component files (ui.css imports it first)
@@ -111,7 +113,7 @@ All notable changes to @ulam/ube will be documented in this file.
 
 ## [0.2.2] - 2026-05-18
 
-### Added
+### Added (0.2.2)
 
 - **FadeTransition**: New component for managing opacity and transform animations. Used by overlay components for smooth enter/exit transitions.
 
@@ -129,13 +131,9 @@ All notable changes to @ulam/ube will be documented in this file.
 
 - **SkipLink**: Renamed to `LinkSkipTo` for clarity (distinguishes from navigation skip behaviors).
 
----
-
 ## [0.2.1] - 2026-05-18
 
 Minor release with patch updates.
-
----
 
 ## [0.2.0] - 2026-05-18
 
@@ -161,8 +159,6 @@ Minor release with patch updates.
 
 - **Modal Export**: Fixed missing Modal export in ube index.
 
----
-
 ## [0.1.3] - 2026-05-13
 
 ### Added (0.1.3)
@@ -170,19 +166,16 @@ Minor release with patch updates.
 - **Vue and Angular Adapters**: Framework support expanded (adapters completed in later releases).
 
 - **Component Renames**: First major semantic rename to clarify component purpose:
+
   - `BackButton` → `ButtonBack` (indicates directional action, not component position)
   - `IconButton` → `ButtonIcon` (icon-only button, distinct from ButtonText)
   - `SearchInput` → `InputSearch` (search-specific input, not generic text input)
-
----
 
 ## [0.1.2] - 2026-05-13
 
 ### Changed (0.1.2)
 
 - **README**: Clarified vanilla-first vs React-only distinction in install section.
-
----
 
 ## [0.1.0] - 2026-05-13
 
@@ -204,13 +197,11 @@ Initial public release of @ulam/ube.
 
 - **Zero Dependencies**: No external dependencies beyond React and React DOM.
 
----
-
 ## Migration Guide
 
 If upgrading from 0.1.x:
 
-```jsx
+```javascript
 // Before
 import { Button, Radio, RadioChip, ButtonLink, PanelRowSetting } from '@ulam/ube'
 

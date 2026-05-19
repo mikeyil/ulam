@@ -8,7 +8,7 @@ Named for the iconic Filipino sour citrus. Small, essential, full of character.
 
 Calamansi is one of four ulam packages:
 
-```text
+```
 ulam
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic  ← you are here
 ├── @ulam/taho         warm   : ARIA live region announcer
@@ -23,7 +23,7 @@ ulam
 
 The vanilla API works anywhere. No framework required.
 
-```js
+```javascript
 import { initI18n, setLocale, getT } from '@ulam/calamansi'
 
 initI18n({
@@ -38,7 +38,7 @@ t('hello', { name: 'Mikey' }) // 'Kamusta, Mikey'
 
 ### React
 
-```jsx
+```javascript
 import { I18nProvider, useT } from '@ulam/calamansi/react'
 
 // Mount once at app root
@@ -57,7 +57,7 @@ function MyComponent() {
 
 ### Vue
 
-```js
+```javascript
 import { useT, usePref } from '@ulam/calamansi/vue'
 
 // Inside setup()
@@ -74,7 +74,7 @@ const { value: lang, set: setLang } = usePref('lang', 'en')
 
 ### Angular
 
-```ts
+```typescript
 import { I18nService, PrefService } from '@ulam/calamansi/angular'
 ```
 
@@ -89,7 +89,7 @@ Use calamansi when you need:
 
 Both can coexist. Use `@angular/localize` for static UI strings, and calamansi for dynamic or API-driven content.
 
-```ts
+```typescript
 @Component({ ... })
 export class NavComponent {
   constructor(private i18n: I18nService) {}
@@ -108,7 +108,7 @@ export class NavComponent {
 
 `PrefService` exposes localStorage-backed preferences as Angular signals:
 
-```ts
+```typescript
 @Component({ ... })
 export class SettingsComponent {
   constructor(private pref: PrefService) {}

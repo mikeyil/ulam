@@ -21,7 +21,7 @@ Named for the Filipino word for dish: the thing everything else is built around.
 
 Each package is independently installable. Dependency flow is strictly one direction:
 
-```text
+```
 calamansi ──┐
 taho ────────┤──► sawsawan
 sili ────────┤
@@ -79,7 +79,8 @@ Packages with framework-specific behavior ship subpath exports:
 
 ### React
 
-```jsx
+
+```javascript
 import '@ulam/ube/base-tokens.css'
 import '@ulam/ube/base-typography.css'
 import '@ulam/ube/ui.css'
@@ -109,9 +110,10 @@ function App() {
 
 ### Remix
 
+
 Replace `@ulam/sili/react` with `@ulam/sili/remix`:
 
-```jsx
+```javascript
 import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
 ```
 
@@ -119,9 +121,10 @@ All other packages work identically to React.
 
 ### Vue
 
+
 Use `/vue` subpaths:
 
-```js
+```javascript
 import { useFocusTrap, useDir } from '@ulam/sili/vue'
 import { useT } from '@ulam/calamansi/vue'
 import { useAnnounce } from '@ulam/taho/vue'
@@ -129,9 +132,10 @@ import { useAnnounce } from '@ulam/taho/vue'
 
 ### Angular
 
+
 Use `/angular` subpaths:
 
-```ts
+```typescript
 import { FocusTrapDirective } from '@ulam/sili/angular'
 import { I18nService } from '@ulam/calamansi/angular'
 import { AnnounceService } from '@ulam/taho/angular'
@@ -139,12 +143,14 @@ import { AnnounceService } from '@ulam/taho/angular'
 
 ## Core Concepts
 
+
 - **Vanilla-first**: Every package has a vanilla core with zero dependencies. Framework adapters are optional add-ons.
 - **Independent**: Install only what you need. Packages don't import each other.
 - **Accessible by default**: All components handle focus, keyboard, ARIA, and screen reader support automatically.
 - **Tree-shakeable**: Component CSS imports only what's used. Unused code doesn't bundle.
 
 ## Resources
+
 
 - [@ulam/sili](packages/sili) — Focus management, overlays, routing
 - [@ulam/taho](packages/taho) — Live region announcements

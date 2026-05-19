@@ -52,9 +52,8 @@
 
 **Impact**: Cleaner codebase, fewer prop inconsistencies.
 
----
-
 ## Overview
+
 
 This is a significant release focused on improving focus management per WCAG standards, consolidating screen state handling, and providing comprehensive documentation for all adapters.
 

@@ -42,7 +42,6 @@ ulam/
 ├── CONTRIBUTING.md             # This file
 ├── package.json                # Monorepo root
 └── node_modules/
-
 ```
 
 ## Key Principles
@@ -118,6 +117,7 @@ All components must:
 - Respect `prefers-reduced-motion`
 
 Test with:
+
 ```bash
 npm test:a11y
 ```
@@ -139,6 +139,7 @@ Update documentation when adding features:
 4. **TSDoc/JSDoc**: Comment public APIs with param and return types
 
 Example JSDoc:
+
 ```js
 /**
  * Focus on element when component mounts.

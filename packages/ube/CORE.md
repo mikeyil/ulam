@@ -86,8 +86,6 @@ Text button with icon support, state transitions, and semantic variants.
 </script>
 ```
 
----
-
 ## Design Decisions
 
 ### Light DOM (no shadow encapsulation)
@@ -117,8 +115,6 @@ Web components can't serialize complex objects to HTML attributes, so JSX elemen
 
 Components fire standard events: `click`, `change`, `input`, `submit`. No custom event names (no `buttonClick` or `toggleChanged`). This matches native HTML element behavior.
 
----
-
 ## Testing
 
 Run the test harness:
@@ -135,8 +131,6 @@ Open `test-button-text.html` to manually test ButtonText:
 - Click handling
 - Toggle active state
 
----
-
 ## Framework Adapters
 
 Need React? Use `@ulam/ube/react`:
@@ -146,8 +140,6 @@ import { ButtonText } from '@ulam/ube/react'
 ```
 
 Vue, Angular, and Remix adapters coming soon.
-
----
 
 ## Migrating from @ulam/ube/react
 
@@ -173,8 +165,6 @@ The API is identical—no code changes needed. The React adapter wraps the vanil
 <ube-button-text variant="primary">Save</ube-button-text>
 ```
 
----
-
 ## Implementation Notes
 
 ### Rendering pattern
@@ -197,6 +187,7 @@ This is imperative (no JSX), but efficient: each attribute change triggers a loc
 
 ### Icon handling
 
+
 Icons must be DOM elements, not strings. This allows React to pass JSX, vanilla JS to pass SVG elements, etc.
 
 ```javascript
@@ -214,6 +205,7 @@ if (displayIcon) {
 
 ### Disabled state
 
+
 Disabled buttons prevent click propagation:
 
 ```javascript
@@ -227,9 +219,8 @@ connectedCallback() {
 }
 ```
 
----
-
 ## Browser Support
+
 
 - Chrome/Edge 89+ (web components standard)
 - Safari 14+

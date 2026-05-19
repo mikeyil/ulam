@@ -33,7 +33,7 @@ Named for sili, the Filipino chili pepper: small, sharp, does exactly what it ne
 
 ## The ulam framework
 
-```text
+```
 ulam
 ├── @ulam/sili         hot    : focus management, overlays, routing  ← you are here
 ├── @ulam/taho         warm   : ARIA live region announcer
@@ -52,7 +52,7 @@ npm install @ulam/sili
 
 ### Vanilla
 
-```js
+```javascript
 import { trapFocus, getFocusable, hideBackground, returnFocus, onEscapeKey, lockScroll } from '@ulam/sili'
 
 // Focus trap
@@ -82,7 +82,7 @@ unlock()
 
 Move focus to the page heading after each client-side navigation:
 
-```js
+```javascript
 import { mountRouteFocus } from '@ulam/sili/react'
 
 const unmount = mountRouteFocus()
@@ -91,7 +91,7 @@ unmount() // clean up on teardown
 
 Or call manually from a router callback:
 
-```js
+```javascript
 import { focusPageHeading } from '@ulam/sili/react'
 
 router.on('navigate', () => focusPageHeading())
@@ -99,7 +99,7 @@ router.on('navigate', () => focusPageHeading())
 
 ### React hooks
 
-```jsx
+```javascript
 import {
   useFocusTrap,
   useAriaHide,
@@ -136,7 +136,7 @@ usePageTitle('Settings')
 
 ### Overlay components (React)
 
-```jsx
+```javascript
 import { Dialog, Drawer, Sheet } from '@ulam/sili/react'
 
 <Dialog open={isOpen} onClose={close} heading="Confirm deletion" actions={[...]}>
@@ -158,7 +158,7 @@ All three overlays handle focus trap, ARIA hide, Escape to dismiss, and return f
 
 For apps with multiple overlays that need to transition between each other (dialog → sheet, drawer → panel, etc.), use `OverlayManager` to handle focus management across all transitions:
 
-```jsx
+```javascript
 import { OverlayManager } from '@ulam/sili/react'
 
 const overlays = [
@@ -215,7 +215,7 @@ This means dialog can stack on top of any layer, sheet stacks on drawer/panel, b
 - When all overlays close, page title restores to the base
 - Dialogs cannot change page title (they're transient, not navigation destinations)
 
-```jsx
+```javascript
 const overlays = [
   {
     id: 'settings',
@@ -238,7 +238,7 @@ const overlays = [
 
 `@ulam/sili/remix` is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
 
-```jsx
+```javascript
 import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
 ```
 
@@ -258,7 +258,7 @@ Pair with `@ulam/taho/remix` for complete coverage. Sili handles moving keyboard
 
 All composables in `@ulam/sili/vue` wrap the same vanilla sili core used by the React adapter. They accept Vue `ref`s instead of React refs and use `watchEffect`/`onMounted`/`onUnmounted` instead of `useEffect`.
 
-```js
+```javascript
 import {
   useFocusTrap,
   useAriaHide,
@@ -426,7 +426,7 @@ This matches WCAG 2.4.3 guidance: "Give focus to the first heading or first item
 
 If the default doesn't work for your overlay, you can override with:
 
-```jsx
+```javascript
 {
   id: 'myOverlay',
   type: 'dialog',
@@ -442,7 +442,7 @@ If the default doesn't work for your overlay, you can override with:
 
 Sili automatically tracks which element was focused before the overlay opened. When the overlay closes, focus returns to that element by default. Override with `returnFocusRef` to restore focus elsewhere:
 
-```jsx
+```javascript
 {
   id: 'filter',
   type: 'sheet',
@@ -569,7 +569,7 @@ Multi-overlay orchestration. Manages focus across transitions, layer ordering, p
 
 **Overlay config shape:**
 
-```js
+```javascript
 {
   id: string,
   type: 'dialog' | 'sheet' | 'drawer' | 'panel',
@@ -616,7 +616,7 @@ Auto-focuses page heading on each route change. Call once at app root.
 
 Same API as React hooks. Accept Vue `ref` instead of React `ref`, use Vue lifecycle methods instead of useEffect.
 
-```js
+```javascript
 import { useFocusTrap, useDir, usePageTitle } from '@ulam/sili/vue'
 
 const containerRef = ref(null)
@@ -633,7 +633,7 @@ usePageTitle('Page Title')
 
 For a single overlay, use the component directly with state management:
 
-```jsx
+```javascript
 const [isOpen, setIsOpen] = useState(false)
 
 return (
@@ -650,7 +650,7 @@ return (
 
 For apps with multiple overlays that transition between each other:
 
-```jsx
+```javascript
 const [activeId, setActiveId] = useState(null)
 
 const overlays = [
@@ -665,7 +665,7 @@ return <OverlayManager overlays={overlays} activeId={activeId} onClose={() => se
 
 Focus an element other than the default (heading or first focusable):
 
-```jsx
+```javascript
 const customRef = useRef(null)
 
 <Dialog
@@ -680,7 +680,7 @@ const customRef = useRef(null)
 
 Or focus the container (for content-heavy panels):
 
-```jsx
+```javascript
 <Sheet
   open={isOpen}
   onClose={onClose}
@@ -694,7 +694,7 @@ Or focus the container (for content-heavy panels):
 
 Auto-focus page heading on route change:
 
-```jsx
+```javascript
 import { mountRouteFocus } from '@ulam/sili/react'
 
 useEffect(() => {
@@ -705,7 +705,7 @@ useEffect(() => {
 
 Or manually:
 
-```jsx
+```javascript
 import { focusPageHeading } from '@ulam/sili/react'
 
 router.on('navigate', () => focusPageHeading())
