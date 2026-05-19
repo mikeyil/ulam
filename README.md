@@ -115,14 +115,22 @@ function App() {
 
 ### Remix
 
-Replace `@ulam/sili/react` with `@ulam/sili/remix`, `@ulam/ube/react` with `@ulam/ube/remix`:
+For framework-agnostic focus management and vanilla utilities:
 
 ```javascript
-import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
-import { ButtonText } from '@ulam/ube/remix'
+import { mountRouteFocus, focusPageHeading } from '@ulam/sili/remix'
+import { announce } from '@ulam/taho/remix'
 ```
 
-All other packages work identically to React.
+For React routes in Remix, use the `/react` subexports:
+
+```javascript
+import { useRouter, useRouteMatch } from '@ulam/sili/remix/react'
+import { useRouteAnnouncer } from '@ulam/taho/remix/react'
+import { ButtonText } from '@ulam/ube/react'
+```
+
+Web components work identically across all frameworks (`@ulam/ube/remix` re-exports from core).
 
 ### Vue
 

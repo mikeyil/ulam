@@ -1,13 +1,10 @@
 // @ulam/ube/remix — Framework-agnostic adapter for Remix 3+
-// Exports vanilla web components and utilities (no React dependency for core features)
+// Exports vanilla web components and utilities (no React dependency)
 
 // Data export utilities (vanilla core, zero dependencies)
 export { exportAsCSV, exportAsMarkdown, exportAsText, downloadFile, downloadExcel } from '../core/exportData.js'
 
-// React hooks for Remix React routes
-export { useExport } from '../react/hooks/useExport.js'
-
-// Web components
+// Web components (framework-agnostic)
 export {
   UbeButtonText,
   UbeButtonIcon,

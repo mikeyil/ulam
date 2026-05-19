@@ -71,8 +71,18 @@ announce('Search: 12 results')
 
 ### Remix
 
+For vanilla route announcer (any framework):
+
 ```javascript
-import { Announcer, useRouteAnnouncer } from '@ulam/taho/remix'
+import { Announcer, mountRouteAnnouncer } from '@ulam/taho/remix'
+
+const unmount = mountRouteAnnouncer()
+```
+
+For React routes in Remix:
+
+```javascript
+import { Announcer, useRouteAnnouncer } from '@ulam/taho/remix/react'
 
 // In root.jsx
 export default function Root() {

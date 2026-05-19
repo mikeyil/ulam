@@ -241,10 +241,18 @@ const overlays = [
 
 ### Remix
 
-`@ulam/sili/remix` is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.
+`@ulam/sili/remix` provides framework-agnostic focus management and vanilla keyboard utilities. For React-based Remix routes, keyboard hooks are available via the `/react` subexport:
+
+**Vanilla/Isomorphic (any framework, including Remix with non-React routes):**
 
 ```javascript
-import { useRouter, useRouteMatch, mountRouteFocus } from '@ulam/sili/remix'
+import { mountRouteFocus, focusPageHeading, onKeydown } from '@ulam/sili/remix'
+```
+
+**React routes in Remix:**
+
+```javascript
+import { useKeydown, useListNavigation, usePrefersReducedMotion, useRouter, useRouteMatch } from '@ulam/sili/remix/react'
 ```
 
 ## Why Remix needs this
