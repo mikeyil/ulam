@@ -13,6 +13,9 @@ export { default as FormControlCheckbox } from './FormControlCheckbox.jsx'
 export { default as FormControlSelect } from './FormControlSelect.jsx'
 export { default as FormInputWithClear } from './FormInputWithClear.jsx'
 export { default as FormInputSearch } from './FormInputSearch.jsx'
+export { default as Badge } from './Badge.jsx'
+export { default as InfoBox } from './InfoBox.jsx'
+export { default as IconExternalLink } from './IconExternalLink.jsx'
 
 // Additional component adapters will be added as they're ported
 export { announce } from '@ulam/taho'
