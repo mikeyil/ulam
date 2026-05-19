@@ -1,6 +1,6 @@
 {
   "name": "@ulam/ube",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Framework-agnostic UI components (vanilla, React, Vue, Angular, Remix), theming, and design tokens.",
   "type": "module",
   "license": "MIT",
