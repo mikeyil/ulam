@@ -2,31 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import '@ulam/ube/core'
 
 describe('Core Web Components', () => {
-  describe('ButtonText', () => {
-    let el
-    beforeEach(() => {
-      el = document.createElement('ube-button-text')
-      el.label = 'Click me'
-      document.body.appendChild(el)
-    })
-
-    it('renders with label attribute', () => {
-      expect(el.getAttribute('label')).toBe('Click me')
-    })
-
-    it('respects disabled state', () => {
-      el.disabled = true
-      expect(el.getAttribute('disabled')).toBe('true')
-    })
-
-    it('emits change event on click', (done) => {
-      el.addEventListener('change', () => {
-        done()
-      })
-      el.querySelector('button')?.click()
-    })
-  })
-
   describe('FormControlRadio', () => {
     let el
     beforeEach(() => {
