@@ -1,6 +1,20 @@
 import { useMemo } from 'react'
 import { Dialog, Sheet, Drawer } from '@ulam/sili/react'
 
+/**
+ * OverlayManager: Generic overlay orchestration component.
+ *
+ * Supports single active overlay at a time with smooth transitions.
+ * When transitioning between overlays, the current overlay closes before
+ * the next one opens, allowing for sequential (drawer→sheet), same-type
+ * (dialog→dialog, sheet→sheet), or navigation transitions.
+ *
+ * Props:
+ *   overlays: Array of overlay configs { id, type, heading, content, actions, etc. }
+ *   activeId: ID of currently active overlay (null = no overlay open)
+ *   onClose: Callback when user closes overlay
+ *   returnFocusRef: Optional ref to restore focus on close
+ */
 export default function OverlayManager({
   overlays = [],
   activeId = null,
@@ -26,7 +40,7 @@ export default function OverlayManager({
     hideCloseBottom,
     focusOnClose,
     closeLabel,
-    returnFocusRef,
+    returnFocusRef: overlayReturnFocusRef,
   } = activeOverlay
 
   const isOpen = activeId === activeOverlay.id
@@ -39,7 +53,7 @@ export default function OverlayManager({
           onClose={onClose}
           heading={heading}
           actions={actions}
-          returnFocusRef={returnFocusRef}
+          returnFocusRef={overlayReturnFocusRef || returnFocusRef}
         >
           {content || children}
         </Dialog>
@@ -55,7 +69,7 @@ export default function OverlayManager({
           label={label || heading}
           heading={heading}
           closeLabel={closeLabel}
-          returnFocusRef={returnFocusRef}
+          returnFocusRef={overlayReturnFocusRef || returnFocusRef}
           hideCloseBottom={hideCloseBottom}
         >
           {content || children}
@@ -68,7 +82,7 @@ export default function OverlayManager({
           open={isOpen}
           onClose={onClose}
           label={label || heading}
-          focusOnClose={focusOnClose}
+          focusOnClose={focusOnClose || overlayReturnFocusRef}
         >
           {content || children}
         </Drawer>
