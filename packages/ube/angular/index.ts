@@ -10,8 +10,7 @@ import { LinkSkipToComponent } from './link-skip-to.component'
 import { FormControlRadioComponent } from './form-control-radio.component'
 import { FormControlCheckboxComponent } from './form-control-checkbox.component'
 import { FormControlSelectComponent } from './form-control-select.component'
-import { FormInputWithClearComponent } from './form-input-with-clear.component'
-import { FormInputSearchComponent } from './form-input-search.component'
+import { FormInputTextComponent } from './form-input-text.component'
 import { BadgeComponent } from './badge.component'
 import { InfoBoxComponent } from './info-box.component'
 import { IconExternalLinkComponent } from './icon-external-link.component'
@@ -31,8 +30,7 @@ const components = [
   FormControlRadioComponent,
   FormControlCheckboxComponent,
   FormControlSelectComponent,
-  FormInputWithClearComponent,
-  FormInputSearchComponent,
+  FormInputTextComponent,
   BadgeComponent,
   InfoBoxComponent,
   IconExternalLinkComponent,
@@ -58,8 +56,7 @@ export { LinkSkipToComponent }
 export { FormControlRadioComponent }
 export { FormControlCheckboxComponent }
 export { FormControlSelectComponent }
-export { FormInputWithClearComponent }
-export { FormInputSearchComponent }
+export { FormInputTextComponent }
 export { BadgeComponent }
 export { InfoBoxComponent }
 export { IconExternalLinkComponent }

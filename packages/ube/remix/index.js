@@ -9,8 +9,6 @@ export {
   UbeFormControlRadio,
   UbeFormControlCheckbox,
   UbeFormControlSelect,
-  UbeFormInputWithClear,
-  UbeFormInputSearch,
   UbeBadge,
   UbeInfoBox,
   UbeIconExternalLink,
