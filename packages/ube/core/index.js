@@ -1,9 +1,6 @@
 // @ulam/ube/core — Vanilla web components and utilities (framework-agnostic)
 // Import this to register all ube components
 
-// Data export utilities
-export { exportAsCSV, exportAsMarkdown, exportAsText, downloadFile, downloadExcel } from './exportData.js'
-
 // Web components
 export { UbeElement } from './base-element.js'
 export { default as UbeButtonText } from './button-text.js'
