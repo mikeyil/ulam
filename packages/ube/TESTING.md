@@ -28,31 +28,38 @@ Tests for vanilla web components verify:
 - **State management**: Internal state (checked, active, current) syncs with attributes
 - **Accessibility**: ARIA attributes are set appropriately
 
-### Example: ButtonText
+### Example: Button
 
 ```javascript
-it('respects disabled state', () => {
+it('respects disabled state (aria-disabled)', () => {
   el.disabled = true
-  expect(el.getAttribute('disabled')).toBe('true')
+  expect(el.getAttribute('aria-disabled')).toBe('true')
 })
 
-it('emits change event on click', (done) => {
-  el.addEventListener('change', () => {
+it('emits click event on button click', (done) => {
+  el.addEventListener('click', () => {
     done()
   })
   el.querySelector('button')?.click()
+})
+
+it('detects icon-only mode when no children', () => {
+  el.icon = svgElement  // icon property
+  // No children = icon-only mode
+  expect(el.classList.contains('btn--icon')).toBe(true)
 })
 ```
 
 ### Coverage Areas
 
-- ButtonText / ButtonIcon / ButtonBack
+- Button / ButtonBack
 - LinkBtnStyled / LinkSkipTo
 - FormControlRadio / FormControlCheckbox / FormControlSelect / FormControlToggle
-- FormInputWithClear / FormInputSearch
+- FormInputText (plain, search, clearable modes)
 - Badge / InfoBox / IconExternalLink
 - PanelFormControls / FadeTransition
 - FormControlRadioChip / FormControlRadioChipGroup
+- FormControlRadioGroup (new)
 
 ## React Adapter Tests (`react.test.jsx`)
 
@@ -276,7 +283,7 @@ npx vitest __tests__/core.test.js
 Run a specific test:
 
 ```bash
-npx vitest -t "ButtonText"
+npx vitest -t "Button"
 ```
 
 Watch mode:

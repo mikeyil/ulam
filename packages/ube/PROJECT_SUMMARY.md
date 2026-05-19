@@ -1,20 +1,21 @@
-# @ulam/ube Framework-Agnostic Refactor — Project Summary
+# @ulam/ube Framework-Agnostic Architecture — Current State (v0.3.2)
 
 ## Overview
 
-Successfully converted @ulam/ube from a React-only component library to a framework-agnostic architecture built on vanilla web components with adapters for React, Vue, Angular, and Remix.
+@ulam/ube is a framework-agnostic component library built on vanilla web components with adapters for React, Vue, Angular, and Remix. v0.3.2 completes consolidation of duplicate components and introduces aria-disabled pattern for accessibility.
 
 ## What Was Accomplished
 
-### Phase 1: Vanilla Web Components (20/20)
+### Phase 1: Vanilla Web Components (18/18)
 
-Created a complete set of 20 vanilla web components following web standards:
+Created a complete set of 18 vanilla web components following web standards:
 
-- **ButtonText, ButtonIcon, ButtonBack** — Button variants with icon support, RTL awareness
+- **Button, ButtonBack** — Unified button component with icon support, multiple sizes, RTL awareness
 - **LinkBtnStyled, LinkSkipTo** — Styled links with accessibility features
-- **FormControlRadio, FormControlCheckbox, FormControlSelect, FormControlToggle** — Form inputs
+- **FormControlRadio, FormControlCheckbox, FormControlSelect, FormControlToggle** — Form inputs with aria-disabled
 - **FormControlRadioChip, FormControlRadioChipGroup** — Chip-based selection
-- **FormInputWithClear, FormInputSearch** — Text input wrappers with utilities
+- **FormControlRadioGroup** — Semantic radio grouping (new in v0.3.2)
+- **FormInputText** — Unified text input (search mode, clearable mode, plain mode)
 - **Badge, InfoBox, IconExternalLink** — Display components
 - **PanelFormControls, FadeTransition** — Layout and animation components
 
@@ -24,30 +25,34 @@ Created a complete set of 20 vanilla web components following web standards:
 - Property vs Attribute serialization (primitives as attributes, objects as properties)
 - Custom events with detail payloads
 - `UbeElement` base class with lifecycle hooks
+- aria-disabled pattern for accessible disabled state (keyboard navigable, screen reader aware)
 - All components fully self-contained and framework-agnostic
 
-### Phase 2-3: Framework Adapters (118 total)
+### Phase 2-4: Framework Adapters (54 total)
 
-#### React (20 adapters)
+#### React (18 adapters)
 
 - Thin wrappers using `forwardRef`
 - Props → attributes/properties mapping
 - `useEffect` for complex property syncing
-- 100% backward compatible with original React API
+- `useAriaDisabled` hook for disabled state management
+- Backward compatible consolidation (Button replaces ButtonText + ButtonIcon)
 
-#### Vue (20 adapters)
+#### Vue (18 adapters)
 
 - Single-file components (.vue)
 - Vue conventions (camelCase props, v-model patterns)
 - Watcher-based property syncing
 - Slot support for content components
+- Standalone components (Vue 3)
 
-#### Angular (20 adapters)
+#### Angular (18 adapters)
 
-- Component decorators with @Input/@Output
+- Standalone component decorators with @Input/@Output
 - ViewChild for imperative API access
 - CUSTOM_ELEMENTS_SCHEMA enabled
 - Two-way binding compatible
+- Standalone directives
 
 #### Remix (20 adapters)
 
@@ -116,10 +121,10 @@ Created comprehensive test suite:
 import '@ulam/ube/core'
 
 // Framework-specific adapters
-import { ButtonText } from '@ulam/ube/react'    // React
-import { ButtonText } from '@ulam/ube/vue'      // Vue 3
-import { ButtonTextComponent } from '@ulam/ube/angular'  // Angular
-import { ButtonText } from '@ulam/ube/remix'    // Remix
+import { Button, FormInputText } from '@ulam/ube/react'    // React
+import { Button, FormInputText } from '@ulam/ube/vue'      // Vue 3
+import { UbeModule } from '@ulam/ube/angular'              // Angular
+import { Button, FormInputText } from '@ulam/ube/remix'    // Remix
 ```
 
 ## Strengths
@@ -150,12 +155,20 @@ import { ButtonText } from '@ulam/ube/remix'    // Remix
 
 ## Migration Path for Existing Users
 
-### React Users
+### React Users (v0.3.2)
 
-**No changes needed.** Continue using as before:
+If upgrading from v0.3.1:
 
 ```jsx
-import { ButtonText } from '@ulam/ube'
+// Before: ButtonText + ButtonIcon
+import { ButtonText, ButtonIcon } from '@ulam/ube/react'
+<ButtonText onClick={save}>Save</ButtonText>
+<ButtonIcon icon={<X />} label="Close" />
+
+// After: Single Button component
+import { Button } from '@ulam/ube/react'
+<Button onClick={save}>Save</Button>
+<Button icon={<X />} label="Close" />  // icon-only mode detected
 ```
 
 ### Vue Users
@@ -163,7 +176,7 @@ import { ButtonText } from '@ulam/ube'
 Install @ulam/ube and import from Vue adapter:
 
 ```javascript
-import { ButtonText } from '@ulam/ube/vue'
+import { Button, FormInputText } from '@ulam/ube/vue'
 ```
 
 ### Angular Users

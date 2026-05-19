@@ -1,37 +1,37 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import ButtonText from '../react/ButtonText.jsx'
+import Button from '../react/Button.jsx'
 import FormControlRadio from '../react/FormControlRadio.jsx'
 import FormControlRadioChipGroup from '../react/FormControlRadioChipGroup.jsx'
 import FadeTransition from '../react/FadeTransition.jsx'
 
 describe('React Adapters', () => {
-  describe('ButtonText', () => {
-    it('renders with label prop', () => {
-      render(<ButtonText label="Click me" />)
-      const btn = document.querySelector('ube-button-text')
-      expect(btn?.getAttribute('label')).toBe('Click me')
+  describe('Button', () => {
+    it('renders with text content', () => {
+      render(<Button>Click me</Button>)
+      const btn = document.querySelector('ube-button')
+      expect(btn?.textContent).toBe('Click me')
     })
 
     it('passes variant prop to element', () => {
-      render(<ButtonText variant="primary" label="Test" />)
-      const btn = document.querySelector('ube-button-text')
+      render(<Button variant="primary">Test</Button>)
+      const btn = document.querySelector('ube-button')
       expect(btn?.getAttribute('variant')).toBe('primary')
     })
 
     it('handles click events', async () => {
       const handleClick = vi.fn()
-      render(<ButtonText label="Click" onClick={handleClick} />)
-      const btn = document.querySelector('ube-button-text button')
+      render(<Button onClick={handleClick}>Click</Button>)
+      const btn = document.querySelector('ube-button button')
       await userEvent.click(btn!)
       expect(handleClick).toHaveBeenCalled()
     })
 
     it('sets icon property', () => {
       const icon = { type: 'svg', data: 'test' }
-      render(<ButtonText label="Test" icon={icon} />)
-      const btn = document.querySelector('ube-button-text') as any
+      render(<Button icon={icon}>Test</Button>)
+      const btn = document.querySelector('ube-button') as any
       expect(btn?.icon).toEqual(icon)
     })
   })

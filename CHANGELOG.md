@@ -4,9 +4,164 @@ All notable changes to the ulam framework are documented here.
 
 ---
 
+## [0.3.2] - 2026-05-19
+
+### Added (0.3.2)
+
+- **FormControlRadioGroup Component** (`packages/ube`): New container component for grouping radio buttons
+  - Wraps related radios with shared `name` and `disabled` state in semantic `<fieldset>`
+  - Supports all frameworks: React, Vue, Angular adapters
+  - Props: `legend`, `name`, `value`, `onChange`, `disabled`, `options` array
+
+### Changed (0.3.2)
+
+- **Button Component** (`packages/ube`): Consolidated ButtonText + ButtonIcon into single unified component
+  - Intelligent icon-only detection based on children presence
+  - New props: `iconPosition` (start/end), `size` (compact/default/large), `align` (left/center/right)
+  - Supports all variants: primary, secondary, tertiary, accent
+  - Updates across all frameworks: React, Vue, Angular, Remix
+  - Removed deprecated ButtonText and ButtonIcon components
+
+- **FormInputText Component** (`packages/ube`): Consolidated FormInputSearch + FormInputWithClear
+  - Single component supporting three modes: search, clearable, plain
+  - New props: `search`, `liveSearch`, `showSubmit`, `clearable`, `onSubmit`, `onClear`, `clearIcon`, `clearAriaLabel`, `submitAriaLabel`
+  - CSS renamed from form-input.css → form-input-text.css
+  - Disabled styles reconciled with aria-disabled pattern
+  - Supports `prefers-reduced-transparency` accessibility override
+  - Updates across all frameworks: React, Vue, Angular, Remix
+
+- **aria-disabled Pattern**: Form controls now consistently use aria-disabled instead of native disabled
+  - Keeps elements in tab order (improves keyboard navigation)
+  - Blocks Space/Enter keydown, click, and touch interactions
+  - Sets `aria-disabled="true"` attribute for CSS and assistive technology
+  - Visible focus ring with dashed outline on disabled controls
+  - Applies to: FormControlRadio, FormControlCheckbox, FormControlToggle, FormControlSelect, FormControlRadioGroup, FormControlRadioChip, FormControlRadioChipGroup
+
+- **Core Web Components**: Framework-agnostic vanilla web components updated
+  - All form controls adopt aria-disabled pattern
+  - Removed native disabled attribute from inputs
+  - Enhanced focus management for disabled state
+  - Updated: form-control-radio.js, form-control-checkbox.js, form-control-toggle.js, form-control-select.js, form-control-radio-chip.js, form-control-radio-chip-group.js
+
+- **React Adapters**: Updated to use consolidated components
+  - Button.jsx: Single component replaces ButtonText + ButtonIcon
+  - FormInputText.jsx: Single component replaces FormInputSearch + FormInputWithClear
+  - FormControlRadioGroup.jsx: New wrapper for radio groups
+  - Removed deprecated component exports
+  - useAriaDisabled hook: Updated to leverage vanilla core utility
+
+- **Vue Adapters**: Updated to use consolidated components
+  - Button.vue: Standalone component with icon positioning
+  - FormInputText.vue: Standalone component supporting all modes
+  - FormControlRadioGroup.vue: New wrapper component
+  - Removed deprecated ButtonText.vue, ButtonIcon.vue, FormInputSearch.vue, FormInputWithClear.vue
+
+- **Angular Adapters**: Updated to use consolidated components
+  - button.component.ts: Standalone component replacing ButtonText + ButtonIcon
+  - form-input-text.component.ts: Standalone component replacing FormInputSearch + FormInputWithClear
+  - form-control-radio-group.component.ts: New wrapper component
+  - Removed deprecated component files
+  - Updated index.ts exports
+
+- **CSS Disabled Styles**: Unified aria-disabled presentation across form controls
+  - All disabled controls show opacity 0.5 + not-allowed cursor
+  - Dashed focus outline on disabled-but-focused controls (visual distinction)
+  - @media (prefers-reduced-transparency: reduce) overrides using color/border changes instead of opacity
+  - Applied to: form-control-radio.css, form-control-checkbox.css, form-control-toggle.css, form-control-select.css, form-control-radio-chip.css, form-input-text.css
+
+### Removed (0.3.2)
+
+- **Deprecated Components**: Framework-agnostic consolidation complete
+  - Removed ButtonText, ButtonIcon components from all frameworks
+  - Removed FormInputSearch, FormInputWithClear components from all frameworks
+  - Removed component files: button-text.js, button-icon.js, form-input-search.js, form-input-with-clear.js (core), and all framework adapter versions
+  - Updated all exports in index files
+
+### Fixed (0.3.2)
+
+- **Markdown Linting**: Resolved MD032 (blanks-around-lists) across UPDATES.md
+- **CSS Dead Code**: aria-disabled selectors in toggle and select CSS are now live (JS now sets the attribute)
+- **Framework Consistency**: All adapters now feature-complete and follow same consolidation pattern
+
+### Migration Guide
+
+**If you're upgrading from 0.3.1:**
+
+1. **ButtonText → Button**
+
+   ```jsx
+   // Before
+   import { ButtonText } from '@ulam/ube/react'
+   <ButtonText onClick={handleClick}>Click me</ButtonText>
+
+   // After
+   import { Button } from '@ulam/ube/react'
+   <Button onClick={handleClick}>Click me</Button>
+   ```
+
+2. **ButtonIcon → Button (icon-only mode)**
+
+   ```jsx
+   // Before
+   import { ButtonIcon } from '@ulam/ube/react'
+   <ButtonIcon icon={MyIcon} onClick={handleClick} />
+
+   // After
+   import { Button } from '@ulam/ube/react'
+   <Button icon={MyIcon} onClick={handleClick} />
+   ```
+
+3. **FormInputSearch → FormInputText (search mode)**
+
+   ```jsx
+   // Before
+   import { FormInputSearch } from '@ulam/ube/react'
+   <FormInputSearch search liveSearch value={q} onChange={setQ} />
+
+   // After
+   import { FormInputText } from '@ulam/ube/react'
+   <FormInputText search liveSearch value={q} onChange={setQ} />
+   ```
+
+4. **FormInputWithClear → FormInputText (clearable mode)**
+
+   ```jsx
+   // Before
+   import { FormInputWithClear } from '@ulam/ube/react'
+   <FormInputWithClear clearable value={v} onClear={clear} onChange={set} />
+
+   // After
+   import { FormInputText } from '@ulam/ube/react'
+   <FormInputText clearable value={v} onClear={clear} onChange={set} />
+   ```
+
+5. **New: FormControlRadioGroup** (grouping related radios)
+
+   ```jsx
+   import { FormControlRadioGroup } from '@ulam/ube/react'
+   <FormControlRadioGroup
+     legend="Choose one"
+     name="choice"
+     value={selected}
+     onChange={setSelected}
+     options={[
+       { value: 'a', label: 'Option A' },
+       { value: 'b', label: 'Option B' }
+     ]}
+   />
+   ```
+
+6. **aria-disabled: Form controls now use aria-disabled instead of disabled**
+   - Elements remain in tab order (use keyboard to navigate to disabled controls)
+   - Disabled controls still show visual feedback (dashed focus outline, opacity 0.5)
+   - CSS and custom event handlers should target `[aria-disabled="true"]` instead of `:disabled`
+   - If you have custom keydown handlers for disabled controls, they may need updating
+
+---
+
 ## [0.3.1] - 2026-05-19
 
-### Added
+### Added (0.3.1)
 
 - **Consumer App Guide** (`docs/CONSUMER-APP-GUIDE.md`): Best practices for building apps with ulam
   - Two-tier component naming convention (App\* for framework integrations, A11y\* for custom features)
@@ -39,7 +194,7 @@ All notable changes to the ulam framework are documented here.
   - Cross-project organizational analysis (ulam vs a11yfred)
   - Decision points for future work
 
-### Changed
+### Changed (0.3.1)
 
 - **Package Documentation**: Added Purpose & Scope sections to all 6 packages
   - Defines what each package does, doesn't do, and who should use it
@@ -54,13 +209,13 @@ All notable changes to the ulam framework are documented here.
   - Package-level quick-reference tables remain for local lookup
   - Root README established as authoritative source
 
-### Fixed
+### Fixed (0.3.1)
 
 - Removed 6 redundant "License" sections from package READMEs
 - Removed empty `packages/sauce/` directory (leftover from earlier work)
 - Fixed markdown linting issues in UPDATES.md (emphasis-as-heading)
 
-### Documentation
+### Documentation (0.3.1)
 
 - Updated UPDATES.md with comprehensive session summary
 - All package documentation reflects current state

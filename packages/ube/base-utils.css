@@ -22,9 +22,38 @@ a:focus-visible {
 }
 
 /* ─── aria-disabled state ──────────────────────────────────── */
+/* Consistent disabled/aria-disabled styling across all controls.
+   Components should override for specific needs. */
 
-[aria-disabled="true"] {
+[aria-disabled="true"],
+[disabled] {
+  color: var(--text-disabled);
+  opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Reduce transparency fallback: use color/border instead of opacity */
+@media (prefers-reduced-transparency: reduce) {
+  [aria-disabled="true"],
+  [disabled] {
+    opacity: 1;
+  }
+}
+
+/* Disabled focus-visible: dashed outline indicates "focusable but inactive" */
+[aria-disabled="true"]:focus-visible,
+[disabled]:focus-visible {
+  outline: var(--focus-outline-width) dashed var(--focus-disabled);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* Suppress hover/active states on disabled elements */
+[aria-disabled="true"]:hover,
+[disabled]:hover,
+[aria-disabled="true"]:active,
+[disabled]:active {
+  background: inherit;
+  color: inherit;
 }
 
 /* ─── Visually hidden ─────────────────────────────────────── */

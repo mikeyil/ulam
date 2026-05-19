@@ -21,12 +21,12 @@ import '@ulam/ube/core'  // Registers all ube web components
   <link rel="stylesheet" href="node_modules/@ulam/ube/ui.css">
 </head>
 <body>
-  <ube-button-text variant="primary">Click me</ube-button-text>
+  <ube-button variant="primary">Click me</ube-button>
 
   <script type="module">
     import '@ulam/ube/core'
 
-    const btn = document.querySelector('ube-button-text')
+    const btn = document.querySelector('ube-button')
     btn.addEventListener('click', () => console.log('clicked'))
   </script>
 </body>
@@ -35,23 +35,27 @@ import '@ulam/ube/core'  // Registers all ube web components
 
 ## Components
 
-### ButtonText
+### Button
 
-Text button with icon support, state transitions, and semantic variants.
+Unified button component supporting text, text-with-icon, and icon-only layouts. Icon-only mode is automatically detected when no text content is provided.
 
 **Attributes:**
 
-- `variant` — `'primary'` | `'secondary'` | `'tertiary'` | `'danger'` (default: `'primary'`)
-- `disabled` — Boolean flag
+- `variant` — `'primary'` | `'secondary'` | `'tertiary'` | `'accent'` (default: `'primary'`)
+- `size` — `'compact'` | `'default'` | `'large'` (default: `'default'`)
+- `disabled` — Boolean flag (uses aria-disabled, stays in tab order)
+- `busy` — Boolean flag (loading/processing state)
 - `active` — Boolean flag (toggled state)
 - `full-width` — Boolean flag
-- `label` — aria-label text
+- `error` — Boolean flag (error/danger state)
+- `label` — aria-label text (required for icon-only mode)
 - `active-label` — aria-label when active
+- `icon-position` — `'start'` | `'end'` (default: `'start'`)
 - `title` — Tooltip text
 
 **Properties:**
 
-- `icon` — DOM Element (rendered left of label)
+- `icon` — DOM Element (rendered left or right of label based on iconPosition)
 - `activeIcon` — DOM Element (rendered when active)
 
 **Events:**
@@ -61,12 +65,24 @@ Text button with icon support, state transitions, and semantic variants.
 **Example:**
 
 ```html
-<ube-button-text variant="primary" label="Save">Save</ube-button-text>
+<!-- Text button -->
+<ube-button variant="primary">Save</ube-button>
+
+<!-- Text with icon -->
+<ube-button variant="primary" icon-position="end">
+  Next
+  <svg class="icon">...</svg>
+</ube-button>
+
+<!-- Icon-only button -->
+<ube-button label="Close" variant="accent">
+  <svg class="icon" aria-hidden="true">...</svg>
+</ube-button>
 
 <script type="module">
   import '@ulam/ube/core'
 
-  const btn = document.querySelector('ube-button-text')
+  const btn = document.querySelector('ube-button')
 
   // Set icon (must be a DOM element)
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -120,36 +136,46 @@ Components fire standard events: `click`, `change`, `input`, `submit`. No custom
 Run the test harness:
 
 ```bash
-# Serve packages/ube/core/test-button-text.html in a browser
+# Serve packages/ube/__tests__/test-button.html in a browser
 ```
 
-Open `test-button-text.html` to manually test ButtonText:
+Test files cover:
 
-- Basic variants (primary, secondary, tertiary, danger)
-- States (enabled, disabled, active)
-- Icon property
-- Click handling
-- Toggle active state
+- All component variants and props
+- Accessibility (keyboard, focus, ARIA)
+- State transitions
+- Event handling
+- Icon rendering
+- aria-disabled pattern (keyboard accessibility when disabled)
 
 ## Framework Adapters
 
-Need React? Use `@ulam/ube/react`:
+All framework adapters are available:
 
 ```javascript
-import { ButtonText } from '@ulam/ube/react'
+// React
+import { Button } from '@ulam/ube/react'
+
+// Vue
+import { Button } from '@ulam/ube/vue'
+
+// Angular
+import { UbeModule } from '@ulam/ube/angular'
+
+// Remix (React-based)
+import { Button } from '@ulam/ube/remix'
 ```
 
-Vue, Angular, and Remix adapters coming soon.
+## v0.3.2: Component Consolidation
 
-## Migrating from @ulam/ube/react
+The core web components have been consolidated:
 
-If you're currently using React components from `@ulam/ube`:
+- `ube-button-text` + `ube-button-icon` → `ube-button` (auto-detects icon-only mode)
+- `ube-form-input-search` + `ube-form-input-with-clear` → `ube-form-input-text` (modes: search, clearable, plain)
+- Added `ube-form-control-radio-group` for semantic radio grouping
+- All form controls now use aria-disabled pattern (keyboard accessible disabled state)
 
-**Old (React components directly from ube):**
-
-```javascript
-import { ButtonText } from '@ulam/ube'
-```
+See [MIGRATION.md](./MIGRATION.md) for detailed migration guide from v0.3.1.
 
 **New (React adapter):**
 

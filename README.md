@@ -94,7 +94,7 @@ import '@ulam/sili/base.css'
 import { Router } from '@ulam/sili/react'
 import { Announcer } from '@ulam/taho/react'
 import { I18nProvider } from '@ulam/calamansi/react'
-import { ButtonText, Dialog } from '@ulam/ube/react'
+import { Button, Dialog } from '@ulam/ube/react'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -103,7 +103,7 @@ function App() {
     <I18nProvider>
       <Router>
         <Announcer />
-        <ButtonText onClick={() => setIsOpen(true)}>Open</ButtonText>
+        <Button onClick={() => setIsOpen(true)}>Open</Button>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} heading="Title">
           Content
         </Dialog>
@@ -127,7 +127,7 @@ For React routes in Remix, use the `/react` subexports:
 ```javascript
 import { useRouter, useRouteMatch } from '@ulam/sili/remix/react'
 import { useRouteAnnouncer } from '@ulam/taho/remix/react'
-import { ButtonText } from '@ulam/ube/react'
+import { Button } from '@ulam/ube/react'
 ```
 
 Web components work identically across all frameworks (`@ulam/ube/remix` re-exports from core).
@@ -140,7 +140,7 @@ Use `/vue` subpaths:
 import { useFocusTrap, useDir } from '@ulam/sili/vue'
 import { useT } from '@ulam/calamansi/vue'
 import { useAnnounce } from '@ulam/taho/vue'
-import { ButtonText } from '@ulam/ube/vue'
+import { Button } from '@ulam/ube/vue'
 ```
 
 ### Angular

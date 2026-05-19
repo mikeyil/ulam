@@ -32,13 +32,13 @@ Components that **wrap or compose ulam framework components**.
 **Examples**:
 
 ```jsx
-// AppScreenHeader.jsx — wraps @ulam/ube ButtonIcon, LinkSkipTo
+// AppScreenHeader.jsx — wraps @ulam/ube Button, LinkSkipTo
 export function AppScreenHeader() {
   return (
     <header>
       <LinkSkipTo href="#main">Skip to main</LinkSkipTo>
       <h1>My App</h1>
-      <ButtonIcon onClick={toggleMenu} icon={<Menu />} />
+      <Button onClick={toggleMenu} icon={<Menu />} label="Menu" />
     </header>
   )
 }
@@ -47,8 +47,8 @@ export function AppScreenHeader() {
 export function AppSheetDetail({ open, onClose }) {
   return (
     <Sheet open={open} onClose={onClose} heading="Details">
-      <FormInputWithClear label="Name" />
-      <ButtonText onClick={save}>Save</ButtonText>
+      <FormInputText label="Name" clearable />
+      <Button onClick={save}>Save</Button>
     </Sheet>
   )
 }
@@ -392,7 +392,7 @@ When building with ulam, verify:
 Use `App*` components to wrap ube components:
 
 ```jsx
-<AppScreenHeader />           // wraps ButtonIcon, LinkSkipTo
+<AppScreenHeader />           // wraps Button, LinkSkipTo
 <AppSheetDetail />            // wraps Sheet, form controls
 <AppDrawerSettings />         // wraps Drawer, Panel
 ```

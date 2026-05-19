@@ -15,6 +15,7 @@ import { BadgeComponent } from './badge.component'
 import { InfoBoxComponent } from './info-box.component'
 import { IconExternalLinkComponent } from './icon-external-link.component'
 import { FormControlToggleComponent } from './form-control-toggle.component'
+import { PanelComponent } from './panel.component'
 import { PanelFormControlsComponent } from './panel-form-controls.component'
 import { FadeTransitionComponent } from './fade-transition.component'
 import { FormControlRadioChipComponent } from './form-control-radio-chip.component'
@@ -35,6 +36,7 @@ const components = [
   InfoBoxComponent,
   IconExternalLinkComponent,
   FormControlToggleComponent,
+  PanelComponent,
   PanelFormControlsComponent,
   FadeTransitionComponent,
   FormControlRadioChipComponent,
@@ -61,6 +63,7 @@ export { BadgeComponent }
 export { InfoBoxComponent }
 export { IconExternalLinkComponent }
 export { FormControlToggleComponent }
+export { PanelComponent }
 export { PanelFormControlsComponent }
 export { FadeTransitionComponent }
 export { FormControlRadioChipComponent }

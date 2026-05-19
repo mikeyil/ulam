@@ -1,48 +1,54 @@
-# UBE Framework-Agnostic Migration Progress
+# Ube Framework-Agnostic Migration Progress
 
 ## Summary
 
-### Project Status: 90% Complete
+### Project Status: 100% Complete
 
-The @ulam/ube component library has been successfully ported from React-only to a framework-agnostic vanilla web components architecture with adapters for React, Vue, Angular, and Remix.
+The @ulam/ube component library has been successfully ported from React-only to a framework-agnostic vanilla web components architecture with adapters for React, Vue, Angular, and Remix. v0.3.2 completes the consolidation of related components.
 
 ### Phases Completed
 
-- ✅ Phase 1: Core Web Components (100%) — 20 vanilla web components
-- ✅ Phase 2: React Adapters (100%) — 20 React components
-- ✅ Phase 3: Vue/Angular/Remix Adapters (100%) — 20 Vue components, 20 Angular components, 20 Remix re-exports
-- ✅ Phase 4: Testing (95%) — Unit tests, integration tests, test infrastructure
+- ✅ Phase 1: Core Web Components (100%) — 18 vanilla web components (consolidated from 20)
+- ✅ Phase 2: React Adapters (100%) — 18 React components with consolidated APIs
+- ✅ Phase 3: Vue/Angular/Remix Adapters (100%) — 18 Vue, 18 Angular, 18 Remix re-exports
+- ✅ Phase 4: Testing (100%) — Unit tests, integration tests, test infrastructure
+- ✅ Phase 5: Documentation (100%) — Complete MIGRATION.md, TESTING.md, README updates
+- ✅ Phase 6: Component Consolidation (100%) — Merged duplicate components, unified APIs
 
-### Remaining Work
+### v0.3.2 Consolidation
 
-- Phase 4: Testing (5%) — Expand test coverage as needed
-- Phase 5: Documentation (partial) — MIGRATION.md, TESTING.md complete; need README/API updates
+- ✅ ButtonText + ButtonIcon → Button (single component with intelligent icon-only detection)
+- ✅ FormInputSearch + FormInputWithClear → FormInputText (single component with modes)
+- ✅ Introduced FormControlRadioGroup for semantic radio grouping
+- ✅ All form controls updated to aria-disabled pattern (keyboard accessible disabled state)
+- ✅ Framework adapters updated with consolidated components
+- ✅ Documentation updated with migration guide and new API examples
+- ✅ All markdown files pass linting
 
 ## Phase 1: Core Web Components ✅ Complete
 
 ### Components (20/20)
 
-#### Button & Link Components (5)
+#### Button & Link Components (4)
 
-- ✅ ButtonText — Text button with icon support, variants (primary, secondary, accent), disabled/active states
-- ✅ ButtonIcon — Icon-only button with accent/tertiary variants
+- ✅ Button — Unified button component (text, text-with-icon, icon-only modes), variants (primary, secondary, tertiary, accent), sizes (compact, default, large), disabled/active states, iconPosition control
 - ✅ ButtonBack — RTL-aware back button with chevron icon
 - ✅ LinkBtnStyled — Styled anchor with button appearance
 - ✅ LinkSkipTo — Skip-to-main link with optional arrow icon
 
-#### Form Control Components (7)
+#### Form Control Components (8)
 
-- ✅ FormControlRadio — Radio input with label wrapper
-- ✅ FormControlCheckbox — Checkbox input with label wrapper
-- ✅ FormControlSelect — Native select wrapper with chevron decoration
-- ✅ FormControlToggle — Accessible switch/toggle with role=switch
-- ✅ FormControlRadioChip — Radio styled as chip with multiline label support
-- ✅ FormControlRadioChipGroup — Group container for radio chips with options array
+- ✅ FormControlRadio — Radio input with label wrapper, aria-disabled support
+- ✅ FormControlCheckbox — Checkbox input with label wrapper, aria-disabled support
+- ✅ FormControlSelect — Native select wrapper with chevron decoration, aria-disabled support
+- ✅ FormControlToggle — Accessible switch/toggle with role=switch, aria-disabled support
+- ✅ FormControlRadioChip — Radio styled as chip with multiline label support, aria-disabled support
+- ✅ FormControlRadioChipGroup — Group container for radio chips with options array, aria-disabled propagation
+- ✅ FormControlRadioGroup — New semantic radio group wrapper with fieldset and shared disabled state
 
-#### Input Components (2)
+#### Input Components (1)
 
-- ✅ FormInputWithClear — Text input with clear button
-- ✅ FormInputSearch — Self-contained search field with live search mode
+- ✅ FormInputText — Unified text input supporting three modes: plain, search (with optional submit button), clearable (with clear button)
 
 #### Display Components (3)
 

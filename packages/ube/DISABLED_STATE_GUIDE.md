@@ -13,12 +13,14 @@ All actionable elements (buttons, links, inputs, custom controls) should use the
 ## Usage
 
 ### Web Components
+
 ```javascript
 // Built-in to all @ulam/ube form controls
 chip.disabled = true   // automatically sets aria-disabled
 ```
 
 ### Any Element (Links, Buttons, Custom Controls)
+
 ```javascript
 import { setAriaDisabled } from '@ulam/ube'
 
@@ -28,6 +30,7 @@ setAriaDisabled(btn, false)  // disable aria-disabled
 ```
 
 ### React
+
 ```jsx
 import { useAriaDisabled } from '@ulam/ube'
 
@@ -40,6 +43,7 @@ function MyButton({ disabled }) {
 ```
 
 ### Manual Setup
+
 ```javascript
 import { applyAriaDisabled } from '@ulam/ube'
 
@@ -56,6 +60,7 @@ cleanup()
 ### Default Disabled Appearance
 
 All `[aria-disabled="true"]` elements get:
+
 - `opacity: 0.5` — visual indication of disabled state
 - `cursor: not-allowed` — shows interaction is blocked
 - Dashed outline on `:focus-visible` — communicates "focusable but inactive"

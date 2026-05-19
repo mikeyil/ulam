@@ -73,7 +73,7 @@ Your `package.json` will show:
 Then import using whichever name you installed under:
 
 ```jsx
-import { ButtonText, FormControlToggle } from 'ube'
+import { Button, FormControlToggle } from 'ube'
 import { useT, usePref } from 'calamansi'
 ```
 
@@ -102,22 +102,22 @@ For framework-specific adapters, use the subpath exports:
 
 ```jsx
 // React
-import { ButtonText } from '@ulam/ube/react'
+import { Button } from '@ulam/ube/react'
 
 // Vue
-import { ButtonText } from '@ulam/ube/vue'
+import { Button } from '@ulam/ube/vue'
 
 // Angular
 import { UbeModule } from '@ulam/ube/angular'
 
 // Remix (same as React)
-import { ButtonText } from '@ulam/ube/remix'
+import { Button } from '@ulam/ube/remix'
 ```
 
 ### Set up your app
 
 ```jsx
-import { ButtonText, Toggle, InputSearch } from '@ulam/ube'
+import { Button, FormControlToggle, FormInputText } from '@ulam/ube/react'
 import { Announcer } from '@ulam/taho/react'
 import { Router } from '@ulam/sili/react'
 
@@ -151,49 +151,55 @@ Ube provides **reusable UI components and tokens**. Sili provides **focus manage
 
 ## Components
 
-### ButtonText
+### Button
 
-Text button with icon support, state transitions, and semantic variants.
+Unified button component for text, text with icon, or icon-only layouts. Automatically detects icon-only mode based on whether children are provided.
 
 ```jsx
-import { ButtonText } from '@ulam/ube'
+import { Button } from '@ulam/ube/react'
 
-<ButtonText variant="primary" onClick={handleClick}>Save changes</ButtonText>
-<ButtonText variant="primary" icon={<Star size={16} />} active={saved} activeLabel="Saved">Save</ButtonText>
-<ButtonText variant="danger" fullWidth onClick={handleDelete}>Delete</ButtonText>
+// Text button
+<Button variant="primary" onClick={handleClick}>Save changes</Button>
+
+// Text with icon (icon on left by default)
+<Button variant="primary" icon={<Star size={16} />}>Save</Button>
+
+// Icon on right
+<Button icon={<ChevronRight size={16} />} iconPosition="end">Next</Button>
+
+// Icon-only button (no children)
+<Button icon={<X size={20} />} label="Close" variant="accent" />
+
+// With state transitions
+<Button icon={<Star size={16} />} active={saved} activeLabel="Saved" activeIcon={<StarFilled size={16} />}>
+  Save
+</Button>
+
+// Full-width variants and sizing
+<Button variant="secondary" fullWidth>Delete</Button>
+<Button size="large" align="left">Options</Button>
+<Button size="compact">Small</Button>
 ```
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'danger'` | `'primary'` | Visual style |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'accent'` | `'primary'` | Visual style |
+| `size` | `'compact' \| 'default' \| 'large'` | `'default'` | Button size |
 | `onClick` | function | - | Click handler |
-| `disabled` | boolean | `false` | Disabled state |
+| `disabled` | boolean | `false` | Disabled state (aria-disabled, stays in tab order) |
+| `busy` | boolean | `false` | Loading/processing state |
 | `fullWidth` | boolean | `false` | Stretches to container width |
-| `icon` | ReactNode | - | Decorative icon (left of label) |
-| `activeIcon` | ReactNode | - | Icon shown when `active` is true |
+| `error` | boolean | `false` | Error/danger state |
+| `icon` | ReactNode | - | Icon element |
+| `iconPosition` | `'start' \| 'end'` | `'start'` | Icon placement relative to text |
 | `active` | boolean | `false` | Active/toggled state |
-| `label` | string | - | `aria-label` override |
+| `activeIcon` | ReactNode | - | Icon shown when active |
+| `label` | string | - | `aria-label` (used in icon-only mode) |
 | `activeLabel` | string | - | `aria-label` when active |
+| `title` | string | - | Tooltip text |
 | `className` | string | - | Additional CSS classes |
 
-### ButtonIcon
-
-Icon-only button. Always requires `label` for screen readers.
-
-```jsx
-import { ButtonIcon } from '@ulam/ube'
-
-<ButtonIcon icon={<X size={20} />} label="Close" variant="accent" onClick={onClose} />
-<ButtonIcon icon={<Settings size={20} />} label="Settings" variant="tertiary" onClick={onSettings} />
-```
-
-| Prop | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `icon` | ReactNode | - | Icon element (required) |
-| `label` | string | - | `aria-label` (required) |
-| `variant` | `'accent' \| 'tertiary'` | `'accent'` | Visual style |
-| `onClick` | function | - | Click handler |
-| `disabled` | boolean | `false` | Disabled state |
+**Icon-only detection**: When no children are provided and an icon is present, Button automatically applies icon-only styling. The `label` prop is required in this case for accessibility.
 
 ### LinkBtnStyled
 
@@ -299,32 +305,53 @@ import { FormControlSelect } from '@ulam/ube'
 | `onChange` | function | Change handler |
 | `disabled` | boolean | Disabled state |
 
-### FormInputSearch
+### FormInputText
 
-Self-contained search field with `form[role="search"]` wrapper, live or submit mode, clear button, and submit icon button.
+Unified text input supporting three modes: plain, search, and clearable. Automatically applies appropriate wrapper and styling based on mode.
 
 ```jsx
-import { FormInputSearch } from '@ulam/ube'
+import { FormInputText } from '@ulam/ube/react'
 
-// Live search: fires onChange on every keystroke, no submit button
-<FormInputSearch
+// Plain text input
+<FormInputText
+  id="username"
+  type="text"
+  value={username}
+  onChange={setUsername}
+  placeholder="Username"
+/>
+
+// Search mode: form[role="search"] wrapper, live or submit mode
+<FormInputText
   id="site-search"
   value={query}
   onChange={setQuery}
+  search
   liveSearch
-  label="Search the site"
+  placeholder="Search the site"
   clearAriaLabel="Clear search"
 />
 
-// Submit mode: shows search icon submit button, fires onSubmit on Enter or click
-<FormInputSearch
-  id="site-search"
+// Search with submit button
+<FormInputText
+  id="filter-search"
   value={query}
   onChange={setQuery}
+  search
+  showSubmit
   onSubmit={handleSearch}
-  label="Search the site"
-  clearAriaLabel="Clear search"
   submitAriaLabel="Search"
+/>
+
+// Clearable mode: shows clear button when input has value
+<FormInputText
+  id="filter"
+  value={filter}
+  onChange={setFilter}
+  clearable
+  placeholder="Filter items"
+  clearAriaLabel="Clear filter"
+  clearIcon={<X size={16} />}
 />
 ```
 
@@ -339,43 +366,30 @@ const [liveSearch, setLiveSearch] = usePref('liveSearch', true)
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `id` | string | - | Input id |
+| `type` | string | `'text'` | Input type |
 | `value` | string | - | Controlled value (required) |
 | `onChange` | function | - | `(value: string) => void` (required) |
+| `placeholder` | string | - | Input placeholder |
+| `disabled` | boolean | `false` | Disabled state (aria-disabled) |
+| `label` | string | - | `aria-label` override |
+| `width` | string | - | Custom width |
+| `height` | string | - | Custom height |
+| **Search mode** | | | |
+| `search` | boolean | `false` | Enable search mode (form[role="search"] wrapper) |
+| `liveSearch` | boolean | `false` | Fire onChange on every keystroke, hide submit button |
+| `showSubmit` | boolean | `true` | Show submit icon button (when not liveSearch) |
 | `onSubmit` | function | - | Called on Enter or submit button click |
-| `onClear` | function | - | Called on clear; defaults to `onChange('')` |
-| `liveSearch` | boolean | `false` | Fire `onSubmit` on every keystroke, hide submit button |
-| `placeholder` | string | `'Search…'` | Input placeholder |
-| `disabled` | boolean | `false` | Disabled state |
-| `label` | string | - | `aria-label` on the form (use when no visible label) |
-| `submitAriaLabel` | string | `'Search'` | `aria-label` for the submit icon button |
-| `clearAriaLabel` | string | `'Clear'` | `aria-label` for the clear button |
-| `inputRef` | ref | - | Forward ref to the input element |
-
-### FormInputWithClear
-
-Generic text input with a clear button. Use `FormInputSearch` for dedicated search fields. Use this for any other clearable input (filter fields, tag inputs, etc.).
-
-```jsx
-import { FormInputWithClear } from '@ulam/ube'
-
-<FormInputWithClear
-  id="filter"
-  value={filter}
-  onChange={setFilter}
-  clearAriaLabel="Clear filter"
-  wrapClassName="filter-wrap"
-  inputClassName="filter-input"
-  clearButtonClassName="filter-clear"
-/>
-```
-
-| Prop | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `id` | string | - | Input id |
-| `type` | string | `'text'` | Input type |
-| `value` | string | - | Controlled value |
-| `onChange` | function | - | `(value: string) => void` |
-| `onClear` | function | - | Override clear behavior |
+| `submitAriaLabel` | string | `'Search'` | `aria-label` for submit button |
+| **Clearable mode** | | | |
+| `clearable` | boolean | `false` | Show clear button when value is not empty |
+| `onClear` | function | - | Called when clear button clicked |
+| `clearAriaLabel` | string | `'Clear'` | `aria-label` for clear button |
+| `clearIcon` | ReactNode | - | Custom clear button icon |
+| **Styling** | | | |
+| `wrapClassName` | string | - | CSS classes for wrapper div |
+| `inputClassName` | string | - | CSS classes for input element |
+| `clearButtonClassName` | string | - | CSS classes for clear button |
+| `inputRef` | ref | - | Forward ref to input element |
 | `clearAriaLabel` | string | - | `aria-label` for clear button (required) |
 | `clearIcon` | ReactNode | `'↺'` | Clear button icon |
 | `wrapClassName` | string | `''` | Class on the wrapper div |
@@ -618,8 +632,8 @@ import '@ulam/ube/ui.css'
 Each component imports its own CSS automatically. No additional imports needed:
 
 ```jsx
-import { ButtonText } from '@ulam/ube'  // buttons.css imported automatically
-import { FormControlRadio } from '@ulam/ube' // form-control-radio.css imported automatically
+import { Button } from '@ulam/ube'  // buttons.css imported automatically
+import { FormInputText } from '@ulam/ube' // form-input-text.css imported automatically
 ```
 
 Unused components are completely removed from production bundles, including their CSS.
@@ -734,7 +748,7 @@ This organization enables better tree-shaking: component tokens are removed if t
 
 | Import | Contents |
 | ------ | -------- |
-| `@ulam/ube` | `ButtonText`, `ButtonIcon`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `FormControlToggle`, `FormControlRadioChip`, `FormControlRadioChipGroup`, `FormControlRadio`, `FormControlCheckbox`, `FormControlSelect`, `FormInputSearch`, `FormInputWithClear`, `Badge`, `InfoBox`, `Panel`, `PanelFormControls`, `Screen`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
+| `@ulam/ube` | `Button`, `ButtonBack`, `LinkBtnStyled`, `LinkSkipTo`, `FormInputText`, `FormControlRadio`, `FormControlCheckbox`, `FormControlToggle`, `FormControlSelect`, `FormControlRadioGroup`, `FormControlRadioChip`, `FormControlRadioChipGroup`, `Badge`, `InfoBox`, `Panel`, `PanelFormControls`, `Screen`, `FadeTransition`, `IconExternalLink`, `useThemeManager` |
 
 Announce comes from `@ulam/taho/react`. Routing and overlays come from `@ulam/sili/react`.
 

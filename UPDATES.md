@@ -1,8 +1,50 @@
-# Recent Updates (v0.3.1+)
+# Recent Updates (v0.3.2+)
 
-## Current Session: Consumer Guides, i18n Best Practices, and Final Audits (2026-05-19)
+## Current Session: Component Consolidation, FormInputText, and Framework Cleanup (2026-05-19)
 
-### Comprehensive Consolidation Audit & Implementation
+### Phase 1: FormInputText, Button Consolidation & aria-disabled CSS Alignment
+
+✅ **FormInputText Component** (consolidated FormInputSearch + FormInputWithClear)
+
+- Unified text input supporting search mode (with optional submit button), clearable mode (with clear button), and plain mode
+- Props: `search`, `liveSearch`, `showSubmit`, `clearable`, `width`, `height`, `placeholder`, `disabled`, `label`
+- Full `aria-disabled` support via `useAriaDisabled` hook with prefers-reduced-transparency fallbacks
+- Implemented in React, Vue, and Angular frameworks
+- CSS styles consolidated into form-input-text.css with disabled state alignment
+
+✅ **Button Component** (consolidated ButtonText + ButtonIcon)
+
+- Single unified button supporting text-only, icon-only, and icon+text layouts
+- Props: `variant` (primary/secondary/tertiary/accent), `size` (compact/default/large), `align` (left/center/right), `iconPosition` (start/end)
+- States: `active`, `disabled` (aria-disabled), `busy`, `error`, `fullWidth`
+- Intelligent icon-only vs text layout detection via `isIconOnly = displayIcon && !children`
+- Implemented in React, Vue, and Angular frameworks
+
+✅ **FormControlRadioGroup Container** (new)
+
+- Mirrors FormControlRadioChipGroup pattern for regular radio buttons
+- fieldset-based with legend + aria-disabled support
+- Propagates disabled state to all child radios
+- Implemented in React, Vue, and Angular frameworks
+
+✅ **CSS Disabled Styles Reconciliation**
+
+- form-input-text.css unified with aria-disabled pattern from buttons.css
+- Wrapper disabled: `.form-input[aria-disabled="true"]` → opacity: 0.5 (set by useAriaDisabled hook)
+- Input disabled: `.form-input__field:disabled` → color: var(--text-disabled) (native attribute)
+- Prefers-reduced-transparency fallbacks on all opacity rules
+- Matches system pattern: `.btn[aria-disabled="true"]`, base-utils.css global rules
+
+✅ **Framework Adapters Cleanup & Completion**
+
+- Removed deprecated ButtonText, ButtonIcon, FormInputSearch, FormInputWithClear from React/Vue/Angular
+- Created unified ButtonComponent for Angular (standalone)
+- Created Button.vue for Vue 3 (standalone)
+- Updated all framework index exports for consistency
+- Removed ButtonText/ButtonIcon/FormInputSearch/WithClear from core web components
+- Total: 23 files deleted, 6 new component files created
+
+### Phase 2: Comprehensive Audit & Documentation (Previous Session)
 
 Completed the six-pass deduplication and consolidation audit identified earlier. **13 of 16 consolidation opportunities addressed** (HIGH IMPACT and MEDIUM IMPACT, LOW IMPACT identified but lower priority):
 

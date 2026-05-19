@@ -48,3 +48,38 @@ input[type="radio"].control[aria-disabled="true"]:focus-visible {
   outline: var(--focus-outline-width) dashed var(--focus-disabled);
   outline-offset: var(--focus-outline-offset);
 }
+
+/* ─── Radio group wrapper (fieldset + legend + options) ──────── */
+
+.radio-group-wrapper {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.radio-group-wrapper[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.radio-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.radio-control input[type="radio"] {
+  cursor: pointer;
+}
+
+.radio-control input[type="radio"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
