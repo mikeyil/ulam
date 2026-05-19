@@ -11,6 +11,8 @@ export { default as LinkSkipTo } from './LinkSkipTo.jsx'
 export { default as FormControlRadio } from './FormControlRadio.jsx'
 export { default as FormControlCheckbox } from './FormControlCheckbox.jsx'
 export { default as FormControlSelect } from './FormControlSelect.jsx'
+export { default as FormInputWithClear } from './FormInputWithClear.jsx'
+export { default as FormInputSearch } from './FormInputSearch.jsx'
 
 // Additional component adapters will be added as they're ported
 export { announce } from '@ulam/taho'

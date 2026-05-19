@@ -10,5 +10,7 @@ export { default as UbeLinkSkipTo } from './link-skip-to.js'
 export { default as UbeFormControlRadio } from './form-control-radio.js'
 export { default as UbeFormControlCheckbox } from './form-control-checkbox.js'
 export { default as UbeFormControlSelect } from './form-control-select.js'
+export { default as UbeFormInputWithClear } from './form-input-with-clear.js'
+export { default as UbeFormInputSearch } from './form-input-search.js'
 
 // Additional component exports will be added as they're ported
