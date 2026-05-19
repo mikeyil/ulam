@@ -139,10 +139,16 @@ See [UPDATES.md](UPDATES.md) for detailed migration instructions.
 
 ### In Progress
 
+- [ ] Contributing guide (CONTRIBUTING.md)
 - [ ] Video tutorials for getting started
 - [ ] Accessibility testing guide
 - [ ] Theming guide for ube
-- [ ] Contributing guide (CONTRIBUTING.md)
+
+### Needed
+
+- [ ] Focus flow diagram for sili (visual representation of focus movement through overlays)
+- [ ] Architecture overview for sili (how focus management, overlay stacking, and routing fit together)
+- [ ] Component story documentation for ube (Storybook or prop docs for 20+ components)
 
 ## Contact & Feedback
 
