@@ -182,6 +182,32 @@ const overlays = [
 
 This means dialog can stack on top of any layer, sheet stacks on drawer/panel, but closing always moves focus correctly based on the layer hierarchy.
 
+**Page title management:**
+- Non-dialog overlays (drawer, panel, sheet) can set `pageTitle` in their config
+- OverlayManager tracks the base page title (before any overlays opened)
+- When a non-dialog overlay opens, page title updates to its `pageTitle`
+- When all overlays close, page title restores to the base
+- Dialogs cannot change page title (they're transient, not navigation destinations)
+
+```jsx
+const overlays = [
+  {
+    id: 'settings',
+    type: 'drawer',
+    label: 'Settings',
+    pageTitle: 'Settings',  // Updates document.title
+    content: <SettingsPanel />,
+  },
+  {
+    id: 'confirmDelete',
+    type: 'dialog',
+    heading: 'Confirm deletion',
+    pageTitle: 'Delete?',   // Ignored - dialogs don't change page title
+    content: <p>This cannot be undone.</p>,
+  },
+]
+```
+
 ### Remix
 
 `@ulam/sili/remix` is a drop-in replacement for `@ulam/sili/react` in Remix apps. All focus hooks and overlay components are identical. The hash router is replaced with Remix-backed router hooks.

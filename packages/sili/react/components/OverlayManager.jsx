@@ -28,6 +28,7 @@ export default function OverlayManager({
   baseReturnFocusRef = null,
 }) {
   const baseTriggerRef = useRef(null)
+  const baseTitleRef = useRef(null)
 
   // Track base trigger (element focused before any overlay opened)
   useEffect(() => {
@@ -42,6 +43,35 @@ export default function OverlayManager({
       baseTriggerRef.current = null
     }
   }, [activeId])
+
+  // Track and manage page titles
+  useEffect(() => {
+    const activeOverlay = overlays.find(o => o.id === activeId)
+
+    if (!activeOverlay) {
+      // All overlays closed: restore base title
+      if (baseTitleRef.current) {
+        document.title = baseTitleRef.current
+      }
+      return
+    }
+
+    const { type, pageTitle } = activeOverlay
+
+    // Dialog cannot change page title
+    if (type === 'dialog') {
+      return
+    }
+
+    // Non-dialog overlay: update page title if provided
+    if (pageTitle) {
+      // Save base title on first overlay open
+      if (!baseTitleRef.current) {
+        baseTitleRef.current = document.title
+      }
+      document.title = pageTitle
+    }
+  }, [activeId, overlays])
 
   const activeOverlay = useMemo(
     () => overlays.find(o => o.id === activeId),
