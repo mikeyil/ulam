@@ -1,0 +1,180 @@
+# Recent Updates (v0.3.0)
+
+## Overview
+
+This is a significant release focused on improving focus management per WCAG standards, consolidating screen state handling, and providing comprehensive documentation for all adapters.
+
+## Major Changes
+
+### Focus Management Improvements
+
+**Problem**: Overlays were focusing the container by default, not meeting WCAG 2.4.3 best practices which recommend focusing the first heading or first focusable element.
+
+**Solution**: Implemented automatic focus strategy:
+1. Look for an element with `tabIndex={-1}` (usually a heading)
+2. Fall back to the first focusable element (button, input, link, etc.)
+3. Fall back to the container as last resort
+
+**Impact**: Keyboard and screen reader users now have a natural entry point when overlays open. Apps can still override with `focusElementRef` or `initialFocusContainer` props if needed.
+
+**Migration**: No changes needed if you're already using semantic HTML. If you were relying on container focus, add `initialFocusContainer={true}` to your overlay config.
+
+### Screen State Consolidation
+
+**Problem**: @ulam/ube had two similar components (DataError and NoResults) for displaying page-level states, creating duplication and confusion.
+
+**Solution**: Created a single `Screen` component with variants:
+- `variant="no-results"` for search/filter empty states
+- `variant="error"` for data loading failures
+
+**Impact**: Cleaner, more maintainable codebase. Single component for all screen-level states with customizable icons, actions, and filters.
+
+**Migration**:
+- `<DataError />` → `<Screen variant="error" />`
+- `<NoResults />` → `<Screen variant="no-results" />`
+
+### Modal to Dialog Rename
+
+**Problem**: Component was named `Modal` but better aligns with HTML `<dialog>` semantics and ARIA `role="dialog"`.
+
+**Solution**: Renamed `Modal` → `Dialog` across all adapters (React, Remix, Vue).
+
+**Impact**: Semantic accuracy, consistency with web standards, clearer intent in code.
+
+**Migration**: Update imports:
+- `import { Modal } from '@ulam/sili/react'` → `import { Dialog } from '@ulam/sili/react'`
+- Update all `<Modal>` usages to `<Dialog>`
+
+### OverlayManager Enhancements
+
+**Problem**: Managing focus and state across multiple overlays was complex, especially with transitions between different overlay types (dialog → sheet, drawer → panel, etc.).
+
+**Solution**: Enhanced OverlayManager with:
+- Automatic trigger element tracking (saves element focused before overlay opened)
+- Layer-based focus management (screen=0, drawer/panel=1, sheet=2, dialog=3)
+- Page title management (non-dialog overlays can set `pageTitle` prop)
+- Support for 23 transition scenarios with automatic focus restoration
+
+**Impact**: Apps can now have complex overlay systems without manual focus management. OverlayManager handles transitions automatically.
+
+**Example**:
+```jsx
+const overlays = [
+  { id: 'confirm', type: 'dialog', heading: 'Confirm?', ... },
+  { id: 'details', type: 'sheet', heading: 'Details', pageTitle: 'Details', ... },
+  { id: 'filters', type: 'drawer', label: 'Filters', ... },
+]
+
+<OverlayManager overlays={overlays} activeId={activeId} onClose={handleClose} />
+```
+
+When transitioning from sheet to dialog, focus automatically moves correctly based on layer hierarchy.
+
+## Package-Specific Updates
+
+### @ulam/sili
+
+- Added `getInitialFocusTarget()` utility for WCAG-compliant focus targeting
+- Added `focusElementRef` and `initialFocusContainer` props to all overlay components
+- Dialog, Sheet, Drawer now implement automatic focus strategy
+- OverlayManager enhanced with 23-scenario support and page title management
+- Comprehensive API documentation with method signatures
+- Common patterns documentation (single overlay, multiple overlays, custom focus, route focus)
+
+### @ulam/ube
+
+- Added `Screen` component for screen-state display
+- Removed `DataError` and `NoResults` (replaced by Screen)
+- Updated all documentation to reference Screen
+- Added Purpose & Scope section clarifying what ube does and doesn't do
+
+### Root Ulam
+
+- Enhanced README with quick-start guides for React, Remix, Vue, Angular
+- Added Core Concepts section
+- Improved framework support table documentation
+
+## Documentation Improvements
+
+- Added Purpose & Scope sections to all package READMEs
+- Added comprehensive API Reference to sili README
+- Added Common Patterns section to sili README
+- Updated all CHANGELOG.md files with accurate version history
+- Added quick-start code examples for all frameworks
+- Enhanced package descriptions with clear responsibilities
+
+## Breaking Changes
+
+- **Modal → Dialog**: All imports and usages must be updated
+- **DataError/NoResults → Screen**: Update component usage and imports
+- **baseReturnFocusRef removed**: OverlayManager now uses automatic trigger tracking
+- **Modal alias removed**: No backward-compatibility exports (intentionally clean break)
+
+## How to Update Your App
+
+### 1. Update Imports
+
+```diff
+- import { Modal } from '@ulam/sili/react'
++ import { Dialog } from '@ulam/sili/react'
+
+- import { DataError, NoResults } from '@ulam/ube'
++ import { Screen } from '@ulam/ube'
+```
+
+### 2. Update Component Usage
+
+```diff
+- <Modal open={isOpen} onClose={close} heading="Title">
+-   Content
+- </Modal>
++ <Dialog open={isOpen} onClose={close} heading="Title">
++   Content
++ </Dialog>
+
+- <DataError message="Error" onRetry={retry} />
++ <Screen variant="error" body="Error" action={retry} actionLabel="Retry" />
+
+- <NoResults message="No results" />
++ <Screen variant="no-results" body="No results" />
+```
+
+### 3. Update OverlayManager Props (if using)
+
+```diff
+  <OverlayManager
+    overlays={overlays}
+    activeId={activeId}
+    onClose={handleClose}
+-   baseReturnFocusRef={defaultRef}
+  />
+```
+
+The system now automatically tracks trigger elements and restores focus. If you need custom return focus behavior, use per-overlay `returnFocusRef`:
+
+```jsx
+const overlays = [
+  {
+    id: 'details',
+    type: 'sheet',
+    returnFocusRef: resultsAreaRef,  // Focus this on close
+    ...
+  }
+]
+```
+
+## Testing Recommendations
+
+- Test keyboard navigation: Tab through overlays, verify focus is at natural entry point
+- Test screen readers: Verify announcements and focus behavior
+- Test overlay transitions: Open dialog from sheet, close dialog, verify focus goes back to sheet
+- Test return focus: Close overlay, verify focus returns to trigger or specified element
+- Test with `initialFocusContainer={true}`: Verify container receives focus for content-heavy panels
+
+## Questions?
+
+See individual package READMEs for detailed documentation:
+- [@ulam/sili](packages/sili) for focus management and overlays
+- [@ulam/ube](packages/ube) for UI components
+- Root [README](README.md) for framework-specific quick starts
+

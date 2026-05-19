@@ -2,7 +2,7 @@
 
 All notable changes to @ulam/sili will be documented in this file.
 
-## [0.3.0] - Unreleased
+## [0.3.0] - 2026-05-18
 
 ### Added
 
