@@ -1,6 +1,6 @@
 # @ulam/sawsawan
 
-Integration bridge wiring ube and calamansi together. The dipping sauce of the ulam framework.
+The sauce: integration layer wiring ube and calamansi together. The dipping sauce of the ulam framework.
 
 Named for sawsawan, the Filipino dipping sauce: no purpose alone, exists only to bring other things together.
 
@@ -10,9 +10,9 @@ Sawsawan is one of four ulam packages:
 
 ```text
 ulam
-├── @ulam/ube          sweet  : UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     bridge : wires the three together  ← you are here
+├── @ulam/ube          sweet   : UI, components, CSS, theming, router, announce
+├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
+└── @ulam/sawsawan     sauce   : wires the three together  ← you are here
 ```
 
 ## Dependency rule

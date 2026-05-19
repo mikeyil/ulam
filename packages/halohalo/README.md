@@ -8,12 +8,12 @@ Named for halo-halo, the Filipino shaved ice dessert: a mix of many things that 
 
 ```text
 ulam
-├── @ulam/halohalo     mixed  : AI provider adapters  ← you are here
-├── @ulam/taho         warm   : ARIA live region announcer
-├── @ulam/sili         hot    : focus management, overlays, routing
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+├── @ulam/halohalo     mixed   : AI provider adapters  ← you are here
+├── @ulam/taho         warm    : ARIA live region announcer
+├── @ulam/sili         hot     : focus management, overlays, routing
+├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet   : React UI components, theming
+└── @ulam/sawsawan     sauce   : wires the above together
 ```
 
 ## Install

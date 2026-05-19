@@ -36,11 +36,11 @@ Accessible out of the box. Purple-first design. Zero external dependencies beyon
 
 ```text
 ulam
-├── @ulam/ube          sweet  : Framework-agnostic UI components, theming, design tokens  ← you are here
-├── @ulam/sili         hot    : focus management, overlays, routing
-├── @ulam/taho         warm   : ARIA live region announcer
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     bridge : wires the above together
+├── @ulam/ube          sweet   : Framework-agnostic UI components, theming, design tokens  ← you are here
+├── @ulam/sili         hot     : focus management, overlays, routing
+├── @ulam/taho         warm    : ARIA live region announcer
+├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
+└── @ulam/sawsawan     sauce   : wires the above together
 ```
 
 Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from taho, sili, calamansi, or sawsawan.

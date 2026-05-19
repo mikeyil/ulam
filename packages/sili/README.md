@@ -35,11 +35,11 @@ Named for sili, the Filipino chili pepper: small, sharp, does exactly what it ne
 
 ```text
 ulam
-├── @ulam/sili         hot    : focus management, overlays, routing  ← you are here
-├── @ulam/taho         warm   : ARIA live region announcer
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+├── @ulam/sili         hot     : focus management, overlays, routing  ← you are here
+├── @ulam/taho         warm    : ARIA live region announcer
+├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet   : React UI components, theming
+└── @ulam/sawsawan     sauce   : wires the above together
 ```
 
 ## Install

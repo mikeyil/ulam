@@ -10,11 +10,25 @@ Calamansi is one of four ulam packages:
 
 ```text
 ulam
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic  ← you are here
-├── @ulam/taho         warm   : ARIA live region announcer
-├── @ulam/sili         hot    : focus management, overlays, routing
-├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+├── @ulam/calamansi    sour      : i18n, hooks, utilities, logic  ← you are here
+├── @ulam/taho         warm      : ARIA live region announcer
+├── @ulam/sili         hot       : focus management, overlays, routing
+├── @ulam/ube          sweet     : React UI components, theming
+└── @ulam/sawsawan     sauce     : wires the above together
+```
+
+## Install
+
+```bash
+npm install @ulam/calamansi
+```
+
+Framework adapters are optional:
+
+```bash
+npm install @ulam/calamansi/react
+npm install @ulam/calamansi/vue
+npm install @ulam/calamansi/angular
 ```
 
 ## Usage

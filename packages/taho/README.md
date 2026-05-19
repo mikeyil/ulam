@@ -8,11 +8,11 @@ Named for taho, the Filipino street drink: warm, light, and always there when yo
 
 ```text
 ulam
-├── @ulam/taho         warm   : ARIA live region announcer  ← you are here
-├── @ulam/sili         hot    : focus management, overlays, routing
-├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet  : React UI components, theming
-└── @ulam/sawsawan     bridge : wires the above together
+├── @ulam/taho         warm    : ARIA live region announcer  ← you are here
+├── @ulam/sili         hot     : focus management, overlays, routing
+├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
+├── @ulam/ube          sweet   : React UI components, theming
+└── @ulam/sawsawan     sauce   : wires the above together
 ```
 
 ## Install
