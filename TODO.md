@@ -16,6 +16,7 @@
 
 ### @ulam/sili
 
+- [ ] Add Snackbar component (layer 4+, transient dismissible notifications, no focus trap)
 - [ ] Add Angular Dialog/Sheet/Drawer components (currently only services/directives)
 - [ ] Expand Vue adapter with Dialog/Sheet/Drawer components
 - [ ] Add `focusElementSelector` prop for finding focus target by CSS selector (complement to focusElementRef)
@@ -48,6 +49,7 @@
 
 ### @ulam/taho
 
+- [ ] Add Toast component (works with announcer, combines notification UI with live region announcements)
 - [ ] Add live region role documentation (polite, assertive, alert)
 - [ ] Create examples for async state announcements
 - [ ] Document screen reader testing approaches
