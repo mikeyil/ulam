@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useAriaDisabled } from './useAriaDisabled.js'
 import './form-control-button.css'
-import './form-input.css'
+import './form-input-text.css'
 
 /**
  * Consolidated text input wrapper supporting search and clear modes.
