@@ -1,7 +1,7 @@
 # Security, Optimization, Performance & Accessibility Audit Summary
 
-**Date**: 2026-05-19  
-**Framework**: Ulam v0.3.1  
+**Date**: 2026-05-19
+**Framework**: Ulam v0.3.1
 **Scope**: 186 source files across 6 packages
 
 ---
@@ -21,12 +21,12 @@
 
 ### 1. ✅ Fixed Google API Key URL Exposure
 
-**Issue**: Google provider exposed API key in URL query parameter  
-**Risk**: Keys visible in browser history, server logs, CDN logs, transparency logs  
+**Issue**: Google provider exposed API key in URL query parameter
+**Risk**: Keys visible in browser history, server logs, CDN logs, transparency logs
 **Solution**: Migrated to Authorization header pattern (line 62-74 in providers.js)
 
 ```diff
-- buildUrl: (key, model) => 
+- buildUrl: (key, model) =>
 -   `...?key=${key}`
 + url: 'https://.../{model}:generateContent',
 + buildHeaders: (key) => ({
@@ -36,12 +36,13 @@
 
 ### 2. ✅ Added Provider URL Whitelist
 
-**Issue**: Potential SSRF vulnerability from user-configured URLs  
+**Issue**: Potential SSRF vulnerability from user-configured URLs
 **Solution**: Validate all provider URLs against whitelisted hosts before fetching
 
 ### 3. ✅ Created Security Documentation
 
 **Files Created**:
+
 - `SECURITY.md`: Comprehensive audit covering all 4 dimensions
 - `packages/halohalo/SECURITY.md`: API key storage best practices
 
@@ -52,15 +53,18 @@
 ### Security (3 Issues)
 
 **CRITICAL**: ✅ Google API key URL exposure → FIXED
+
 - Moved key from URL to Authorization header
 - Prevents logging/interception
 
 **HIGH**: Documented localStorage limitations
+
 - Added SECURITY.md with safe usage patterns
 - Recommends backend proxy for production
 - Shows Electron/Extension patterns
 
 **MEDIUM**: ✅ Added URL whitelist validation
+
 - Prevents SSRF attacks
 - Validates all provider URLs
 
@@ -69,15 +73,16 @@
 ### Optimization (5 Issues)
 
 **Identified** (documented for future work):
+
 1. React hook duplication across calamansi, halohalo, sili packages
    - **Recommendation**: Extract shared `useSubscribe` utility
-   
+
 2. useProviderConfig re-render thrashing
    - **Recommendation**: Migrate to `useSyncExternalStore`
-   
+
 3. Potential event listener accumulation in form controls
    - **Recommendation**: Add initialization guards
-   
+
 4. Sync storage blocking on every state change
    - **Recommendation**: Optional debouncing
 
@@ -91,6 +96,7 @@
 **Status**: ✓ Excellent
 
 Framework demonstrates strong practices:
+
 - Proper cleanup functions in useEffect
 - No memory leaks from event listeners
 - GPU-accelerated animations
@@ -104,6 +110,7 @@ Framework demonstrates strong practices:
 **Status**: ✓ WCAG 2.2 AA Compliant
 
 **Strengths**:
+
 - ✅ Live region announcer (taho) - exemplary implementation
 - ✅ Focus management (sili) - trap, return, escape key, inert background
 - ✅ Skip link (ube) - proper hiding and keyboard reveal
@@ -112,6 +119,7 @@ Framework demonstrates strong practices:
 - ✅ User preferences - reduced motion, transparency, contrast, forced colors
 
 **Minor Gaps** (documented for enhancement):
+
 1. Form validation error announcements (add aria-invalid + aria-describedby examples)
 2. Modal dialog heading enforcement (document or make required)
 3. Arrow-key navigation documentation (for radio chip groups)
@@ -124,6 +132,7 @@ Framework demonstrates strong practices:
 ### localStorage API Key Storage
 
 The framework stores API keys in localStorage (plain text) by design:
+
 - **Why**: Browser JavaScript has no secure storage mechanism
 - **Who**: Intended for demos, prototypes, educational use
 - **Not**: Not secure for production web apps
@@ -136,16 +145,19 @@ This is a **design feature**, not a bug, and documented in `packages/halohalo/SE
 ## Action Items Created
 
 ### For This Release (v0.3.1)
+
 - ✅ Fix Google API key exposure
 - ✅ Add security documentation
 - ✅ Add provider URL whitelist
 
 ### For v0.3.2 Release
+
 - [ ] Deduplicate useSubscribe hooks → shared utility
 - [ ] Add form validation aria-invalid examples
 - [ ] Fix event listener guards in form-control-select
 
 ### For v0.4.0 Release
+
 - [ ] Migrate useProviderConfig to useSyncExternalStore
 - [ ] Add arrow-key cycling to radio chip groups
 - [ ] Implement prefers-reduced-data handling
@@ -156,10 +168,12 @@ This is a **design feature**, not a bug, and documented in `packages/halohalo/SE
 ## Files Changed/Created
 
 ### Code Changes
+
 - `packages/halohalo/providers.js` - Fixed Google API key pattern
 - `packages/halohalo/fetch.js` - Added URL validation and template substitution
 
 ### Documentation Created
+
 - `SECURITY.md` - 300+ lines comprehensive audit report
 - `packages/halohalo/SECURITY.md` - 250+ lines security best practices guide
 - `AUDIT_SUMMARY.md` - This document
@@ -169,6 +183,7 @@ This is a **design feature**, not a bug, and documented in `packages/halohalo/SE
 ## Testing Recommendations
 
 Before releasing v0.3.2:
+
 1. Test Google provider with new Authorization header pattern
 2. Verify other providers still work (Anthropic, OpenAI, Microsoft)
 3. Test provider URL whitelist (should block invalid URLs)
@@ -179,6 +194,7 @@ Before releasing v0.3.2:
 ## Contact
 
 For questions about:
+
 - **Security findings**: See `SECURITY.md`
 - **API key storage**: See `packages/halohalo/SECURITY.md`
 - **Accessibility compliance**: See component-specific documentation
@@ -189,6 +205,7 @@ For questions about:
 ## Full Report Location
 
 See `SECURITY.md` in root directory for:
+
 - Detailed findings per dimension
 - Code examples and recommendations
 - Implementation checklist

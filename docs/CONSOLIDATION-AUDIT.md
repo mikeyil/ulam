@@ -1,7 +1,7 @@
 # Deduplication & Consolidation Audit Report
 
-**Conducted:** 2026-05-19  
-**Methodology:** Six-pass systematic audit of code and documentation  
+**Conducted:** 2026-05-19
+**Methodology:** Six-pass systematic audit of code and documentation
 **Status:** HIGH IMPACT items implemented, MEDIUM IMPACT identified
 
 ## Executive Summary
@@ -9,6 +9,7 @@
 Six-pass analysis of the ulam codebase identified significant duplication opportunities, particularly in documentation. **No actual code duplication was found** – framework adapters intentionally implement the same patterns with framework-specific lifecycle management, which is by design.
 
 **Consolidations Implemented:**
+
 - ✅ Removed 6 redundant "License" sections from package READMEs
 - ✅ Consolidated framework hierarchy diagram to shared `docs/ARCHITECTURE.md`
 - ✅ Updated all package READMEs to reference shared architecture document
@@ -48,7 +49,7 @@ Six-pass analysis of the ulam codebase identified significant duplication opport
 
 ## Pass 2: Repeated Explanations & Framework Documentation
 
-### Findings
+### Pass 2 Findings
 
 1. **Vanilla-first Concept**
    - Mentioned in: halohalo, taho READMEs
@@ -72,13 +73,13 @@ Six-pass analysis of the ulam codebase identified significant duplication opport
 
 ## Pass 3: Duplicate Utility Functions & Code Logic
 
-### Findings
+### Pass 3 Findings
 
 **NO ACTUAL CODE DUPLICATION DETECTED**
 
 Analysis of exported functions showed apparent duplicates (e.g., 3x `usePageTitle`, 2x `useCompletion`) are actually **intentional framework-specific implementations:**
 
-```
+```text
 usePageTitle:
   ├── sili/react/hooks/usePageTitle.js (React hooks pattern)
   ├── sili/vue/usePageTitle.js (Vue composables pattern)
@@ -105,7 +106,7 @@ export function useAriaHide(panelRef, open) {
 
 ## Pass 4: Component Adapter Patterns & Shared Logic
 
-### Findings
+### Pass 4 Findings
 
 **Adapter Wrapper Sizes (Expected Lean Wrappers):**
 
@@ -117,7 +118,7 @@ export function useAriaHide(panelRef, open) {
 **Pattern Consistency:** ✅ Each framework properly wraps vanilla web components
 
 **Identified Inconsistency:**
-- React uses `is-button` attribute; Vue uses `isButton` prop  
+- React uses `is-button` attribute; Vue uses `isButton` prop
 - Documentation pattern repeated in adapters (minor issue)
 - Status: ⏳ IDENTIFIED (minor, not consolidated due to framework semantics)
 
@@ -125,11 +126,11 @@ export function useAriaHide(panelRef, open) {
 
 ## Pass 5: Documentation Structure Consolidation
 
-### Findings
+### Pass 5 Findings
 
 **Documentation Distribution:**
 
-```
+```text
 Root level:     5 files (README, UPDATES, TODO, CONTRIBUTING, MAINT-LOG)
 Package level:  14 files total
   ├── ube: 7 files (README, CORE, MIGRATION, TESTING, PROGRESS, PROJECT_SUMMARY, CHANGELOG)
@@ -161,8 +162,8 @@ Package level:  14 files total
 
 #### 1. Removed Redundant License Sections
 
-**Files Changed:** 6 package READMEs  
-**Lines Removed:** 24  
+**Files Changed:** 6 package READMEs
+**Lines Removed:** 24
 **Rationale:** MIT license specified in root package.json; redundant in each package README
 
 ```diff
@@ -173,8 +174,8 @@ Package level:  14 files total
 
 #### 2. Consolidated Framework Architecture Diagram
 
-**Files Changed:** 7 (6 package READMEs + new docs/ARCHITECTURE.md)  
-**Lines Removed:** ~130 from duplicate diagrams  
+**Files Changed:** 7 (6 package READMEs + new docs/ARCHITECTURE.md)
+**Lines Removed:** ~130 from duplicate diagrams
 **Impact:** Single source of truth, easier to maintain
 
 **New:** `docs/ARCHITECTURE.md` includes:
@@ -189,8 +190,8 @@ Package level:  14 files total
 ```markdown
 ## The ulam Framework
 
-[Package] is one of six independent packages in the ulam framework. 
-See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete 
+[Package] is one of six independent packages in the ulam framework.
+See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete
 framework structure and dependency graph.
 ```
 

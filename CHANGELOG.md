@@ -9,7 +9,7 @@ All notable changes to the ulam framework are documented here.
 ### Added
 
 - **Consumer App Guide** (`docs/CONSUMER-APP-GUIDE.md`): Best practices for building apps with ulam
-  - Two-tier component naming convention (App* for framework integrations, A11y* for custom features)
+  - Two-tier component naming convention (App\* for framework integrations, A11y\* for custom features)
   - Project organization patterns
   - Service abstraction examples
   - Integration patterns for all ulam packages
@@ -70,7 +70,7 @@ All notable changes to the ulam framework are documented here.
 
 ## [0.3.0] - 2026-05-18
 
-### Added
+### Added (0.3.0)
 
 - **@ulam/sili**:
   - OverlayManager component for multi-overlay orchestration (23 transition scenarios)
@@ -98,7 +98,7 @@ All notable changes to the ulam framework are documented here.
   - Purpose & Scope documentation for focus management and overlays
   - Full API reference and focus management guide
 
-### Changed
+### Changed (0.3.0)
 
 - **@ulam/ube**: Modal component renamed to Dialog (v0.3.0)
   - Aligns with HTML `<dialog>` semantics and ARIA `role="dialog"`
@@ -108,7 +108,7 @@ All notable changes to the ulam framework are documented here.
 - **CSS Reorganization**: Restructured base.css with clear section headers and logical grouping
 - **File Naming**: Standardized Angular file naming to kebab-case.component.ts / service.ts / directive.ts
 
-### Fixed
+### Fixed (0.3.0)
 
 - Package exports updated for CSS imports (`./core/sili.css` → `./base.css`)
 - Files array updated in package manifests
@@ -118,7 +118,7 @@ All notable changes to the ulam framework are documented here.
 
 ## [0.2.0] - 2026-05-18
 
-### Changed
+### Changed (0.2.0)
 
 - **@ulam/sili**: Overlay cleanup, removed unused token imports and keyboard handlers from Sheet component
 
@@ -132,7 +132,7 @@ Minor release with framework fixes.
 
 ## [0.1.0] - 2026-05-13
 
-### Added
+### Added (0.1.0)
 
 Initial public release of ulam framework:
 
@@ -144,6 +144,7 @@ Initial public release of ulam framework:
 - **@ulam/sawsawan**: Integration bridge wiring packages together
 
 All packages include:
+
 - Vanilla JavaScript core (zero dependencies)
 - Framework-specific adapters (React hooks, Vue composables, Angular services)
 - Comprehensive documentation
@@ -166,11 +167,11 @@ Documentation-only releases (like 0.3.1) include patch bumps to maintain version
 
 ## Release Timeline
 
-| Version | Date | Focus |
-|---------|------|-------|
-| [0.3.1](./CHANGELOG.md#031---2026-05-19) | 2026-05-19 | Consumer guides, i18n patterns, consolidation audit |
-| [0.3.0](./CHANGELOG.md#030---2026-05-18) | 2026-05-18 | Sili enhancements, ube framework-agnostic migration, comprehensive docs |
-| [0.2.0](./CHANGELOG.md#020---2026-05-18) | 2026-05-18 | Overlay refinements |
-| [0.1.2](./CHANGELOG.md#012---2026-05-14) | 2026-05-14 | Framework fixes |
-| [0.1.0](./CHANGELOG.md#010---2026-05-13) | 2026-05-13 | Initial release |
+|Version|Date|Focus|
+|---|---|---|
+|[0.3.1](./CHANGELOG.md#031---2026-05-19)|2026-05-19|Consumer guides, i18n patterns, consolidation audit|
+|[0.3.0](./CHANGELOG.md#030---2026-05-18)|2026-05-18|Sili enhancements, ube framework-agnostic migration, comprehensive docs|
+|[0.2.0](./CHANGELOG.md#020---2026-05-18)|2026-05-18|Overlay refinements|
+|[0.1.2](./CHANGELOG.md#012---2026-05-14)|2026-05-14|Framework fixes|
+|[0.1.0](./CHANGELOG.md#010---2026-05-13)|2026-05-13|Initial release|
 

