@@ -21,6 +21,7 @@
 - [ ] Add `focusElementSelector` prop for finding focus target by CSS selector (complement to focusElementRef)
 - [ ] Document performance considerations for large overlay lists
 - [ ] Add examples for nested overlays
+- [ ] Add form validation focus management (focus invalid field on submit, trap focus in error summary)
 
 ### @ulam/ube
 
@@ -41,6 +42,7 @@
 - [ ] Add live region role documentation (polite, assertive, alert)
 - [ ] Create examples for async state announcements
 - [ ] Document screen reader testing approaches
+- [ ] Add form validation error announcement examples (error summary, field-level errors)
 
 ## Known Limitations
 
@@ -77,10 +79,10 @@ If you encounter bugs, please:
 
 ### Accessibility Enhancements
 
-- [ ] Add `ariaLive` prop to Screen component for dynamic updates
-- [ ] Add tooltip component with focus and keyboard support
 - [ ] Add breadcrumb component with ARIA landmarks
 - [ ] Add combobox component (autocomplete with keyboard navigation)
+- [ ] Add tooltip announcer component (use @ulam/taho for dynamic announcements, not Screen ariaLive)
+- [ ] Create guide: "When to use @ulam/taho for announcements vs when to use Screen for static content"
 
 ### Developer Experience
 

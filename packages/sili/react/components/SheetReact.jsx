@@ -92,7 +92,6 @@ export default function SheetReact({
       chromeRef={chromeRef}
       dir={dir}
       isDesktop={isDesktop}
-      returnFocusRef={returnFocusRef}
       {...rest}
     >
       {children}
