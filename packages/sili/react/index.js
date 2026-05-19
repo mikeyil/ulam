@@ -20,6 +20,10 @@ export { usePaginationFocus } from './hooks/usePaginationFocus.js'
 export { useDir } from './hooks/useDir.js'
 export { useMediaQuery } from './hooks/useMediaQuery.js'
 export { usePageTitle } from './hooks/usePageTitle.js'
+export { useKeydown } from './hooks/useKeydown.js'
+export { useListNavigation } from './hooks/useListNavigation.js'
+export { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion.js'
+export { useFlipList } from './hooks/useFlipList.js'
 
 // React components (fully wired with sili hooks)
 export { default as Dialog } from './components/DialogReact.jsx'
