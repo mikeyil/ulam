@@ -1,194 +1,337 @@
-# Known Issues and Future Work
+# Ulam Roadmap & Known Issues
 
-## Session Complete: v0.3.1 Released (2026-05-19)
+Consolidated tracking for all packages. Updated: 2026-05-19 (v0.3.1 released).
 
-### v0.3.1 Deliverables
+---
 
-- ✅ Six-pass consolidation audit completed (13 of 16 items addressed)
-- ✅ Created Consumer App Guide (docs/CONSUMER-APP-GUIDE.md) — App*/A11y* naming convention
-- ✅ Created i18n Best Practices (packages/calamansi/I18N-BEST-PRACTICES.md) — 50+ language patterns
-- ✅ Created Root CHANGELOG.md with complete v0.1.0→v0.3.1 history
-- ✅ Comprehensive audits:
-  - Stale reference audit: Fixed Modal/Dialog terminology inconsistencies
-  - Tokenization audit: Verified CSS custom properties system (0 duplication)
-  - Code quality: 0 dead code, 0 duplicate utilities, all exports used
-  - Deduplication: Minimal conceptual duplication confirmed
-- ✅ Version bumped: All packages v0.3.0 → v0.3.1
-- ✅ Tags created: 6 packages + root tag (taho@0.3.1, sili@0.3.1, etc.)
-- ✅ GitHub Actions: Ready to publish to npm
+## v0.3.1 Release Status ✅
 
-### Documentation Files Updated
+**Released**: 2026-05-19  
+**Scope**: Documentation, guides, audits (no code changes)
 
-- Root README.md (sawsawan description)
-- packages/calamansi/README.md (Install section + sauce metaphor)
-- packages/sili/README.md (sauce metaphor)
-- packages/taho/README.md (sauce metaphor)
-- packages/Ube/README.md (sauce metaphor)
-- packages/halohalo/README.md (sauce metaphor)
-- packages/sawsawan/README.md (sauce metaphor description)
+### Deliverables
 
-## Current Focus (0.3.0 Released)
+- ✅ Consumer App Guide: App*/A11y* naming, organization patterns
+- ✅ i18n Best Practices: 50+ language patterns, RTL support
+- ✅ Root CHANGELOG.md: Complete version history
+- ✅ Comprehensive audits: Stale refs, tokenization, code quality
+- ✅ All packages v0.3.0 → v0.3.1
+- ✅ Tags created & pushed: Ready for npm deploy
 
-### Completed in 0.3.0
+---
 
-- ✅ Focus management improvements (WCAG 2.4.3)
-- ✅ OverlayManager enhancements (23 transition scenarios)
-- ✅ Screen component consolidation (DataError/NoResults → Screen)
-- ✅ Modal → Dialog rename across all adapters
-- ✅ Comprehensive API documentation
-- ✅ Quick-start guides for all frameworks
+## @ulam/taho - ARIA Live Region Announcer
+
+**Version**: 0.3.1  
+**Status**: Stable ✅
+
+### Current Features
+
+- ✅ Vanilla core: `announce()`, `clearAnnouncements()`
+- ✅ React hooks: `useAnnounce`, `Announcer` component
+- ✅ Remix: Route announcer, React re-exports
+- ✅ Vue composables: `useAnnounce`
+- ✅ Angular service: `AnnounceService`, `provideAnnounce`
 - ✅ Purpose & Scope documentation
 
-## Near Term (Next Release)
+### Known Limitations
 
-### @ulam/sili
+- No message queuing (apps control what gets announced)
+- No filtering or deduplication at framework level
+- Relies on apps for appropriate message formatting
 
-- [ ] Add Snackbar component (layer 4+, transient dismissible notifications, no focus trap)
-- [ ] Add Angular Dialog/Sheet/Drawer components (currently only services/directives)
-- [ ] Expand Vue adapter with Dialog/Sheet/Drawer components
-- [ ] Add `focusElementSelector` prop for finding focus target by CSS selector (complement to focusElementRef)
-- [ ] Document performance considerations for large overlay lists
-- [ ] Add examples for nested overlays
-- [ ] Add form validation focus management (focus invalid field on submit, trap focus in error summary)
+### Future Ideas (Not Scheduled)
 
-### @ulam/Ube
+- [ ] Toast component (notification UI + live region integration)
+- [ ] Live region role documentation (polite, assertive, alert)
+- [ ] Examples for async state announcements
+- [ ] Screen reader testing guide
+- [ ] Form validation error announcement examples
 
-- ✅ Convert to framework-agnostic vanilla web components (20 components)
-- ✅ Add React adapters (20 components, 100% backward compatible)
-- ✅ Add Vue adapters (20 components)
-- ✅ Add Angular adapters (20 components + UbeModule)
-- ✅ Add Remix adapter (re-exports from React)
-- ✅ Create comprehensive test suite (unit, integration, infrastructure)
+---
+
+## @ulam/sili - Focus Management & Overlays
+
+**Version**: 0.3.1  
+**Status**: Stable ✅
+
+### v0.3.0 Completion
+
+- ✅ OverlayManager: 23 transition scenarios, automatic focus orchestration
+- ✅ Vue components: Dialog, Sheet, Drawer with full sili integration
+- ✅ Modal → Dialog rename (semantic accuracy with HTML `<dialog>`)
+- ✅ WCAG 2.4.3 focus management
+- ✅ API reference documentation
+- ✅ MIGRATION.md for breaking changes
+- ✅ PROGRESS.md with roadmap
+
+### High Priority (Next Release)
+
+- [ ] **Snackbar component** (layer 4+, transient, no focus trap)
+  - For notifications without focus interruption
+  - Auto-dismiss with optional action
+  - Works with Dialog/Sheet/Drawer
+
+- [ ] **Angular Components** (Dialog, Sheet, Drawer)
+  - Component wrappers around services/directives
+  - Full template integration
+  - Input/output bindings
+
+- [ ] **Vue Refinements**
+  - Slot pattern improvements
+  - Composition API examples
+  - Transition integration
+
+- [ ] **`focusElementSelector` Prop**
+  - CSS selector alternative to focusElementRef
+  - For dynamic/template-based focus targets
+
+### Medium Priority
+
+- [ ] Nested overlay examples (Dialog within Sheet, independent stacks)
+- [ ] Form validation focus (focus invalid field, trap in error summary)
+- [ ] Performance documentation (large overlay lists, 1000+ focusable elements)
+- [ ] Visual focus flow diagram (focus movement, keyboard navigation, Escape behavior)
+
+### Known Limitations - Sili
+
+- **Fixed layer ordering**: screen=0, drawer=1, sheet=2, dialog=3 (not customizable)
+  - Workaround: Create custom component wrapping OverlayManager
+- **Single active overlay**: OverlayManager manages one active overlay at a time
+  - Workaround: Use multiple OverlayManager instances
+- **Hash router**: Basic implementation (migrate to React Router v7+ or Remix router for production)
+
+### Testing Gaps - Sili
+
+- [ ] Integration tests for all 23 transition scenarios
+- [ ] Accessibility tests (axe-core, jest-axe)
+- [ ] Keyboard navigation tests (Tab, Shift+Tab, Escape, arrows)
+- [ ] Screen reader tests (NVDA, JAWS, VoiceOver)
+- [ ] RTL layout tests
+
+---
+
+## @ulam/calamansi - Internationalization
+
+**Version**: 0.3.1  
+**Status**: Stable ✅
+
+### Current Features - Calamansi
+
+- ✅ Data-agnostic i18n with runtime locale switching
+- ✅ String interpolation with variable substitution
+- ✅ Per-locale fallback chains (e.g., en-US → en → default)
+- ✅ localStorage-backed preference persistence
+- ✅ Framework-agnostic vanilla core + React/Vue/Angular adapters
+- ✅ Zero dependencies
+- ✅ I18N-BEST-PRACTICES.md guide (50+ language patterns)
+
+### Future Ideas - Calamansi
+
+- [ ] Right-to-left (RTL) language support guide
+- [ ] Pluralization and formatting documentation
+- [ ] Examples for number and date formatting per locale
+- [ ] Collation and sorting recommendations
+
+### Notes - Calamansi
+
+- No built-in pluralization (bring your own via Intl.PluralRules)
+- No number/date formatting (use Intl APIs)
+- Translation file management handled by apps
+
+---
+
+## @ulam/ube - Framework-Agnostic UI Components
+
+**Version**: 0.3.1  
+**Status**: Stable ✅
+
+### v0.3.0 Completion (Framework-Agnostic Migration)
+
+- ✅ 20 vanilla web components fully implemented
+- ✅ React adapters: 20 components (100% backward compatible)
+- ✅ Vue adapters: 20 single-file components
+- ✅ Angular adapters: 20 component decorators + UbeModule
+- ✅ Remix adapters: Re-exports from React
+- ✅ Comprehensive test suite (unit, integration, accessibility)
+- ✅ Design token system (colors, spacing, typography, motion)
+- ✅ CSS theming (light, dark, fiesta modes)
 - ✅ Complete documentation (CORE.md, MIGRATION.md, TESTING.md, PROGRESS.md)
-- [ ] Create component storybook or component gallery
-- [ ] Add more form control variants (textarea, datepicker, etc.)
-- [ ] Create theme customization guide
-- [ ] Add dark mode documentation examples
-- [ ] Document token system and how to extend it
-- [ ] Refine useAriaDisabled utility (accessibility for disabled states)
-- [ ] Add touch target utility (minimum 48px touch targets per WCAG 2.5.5)
 
-### @ulam/calamansi
+### Known Limitations - Ube
 
-- [ ] Add right-to-left (RTL) language support guide
-- [ ] Create pluralization and formatting documentation
-- [ ] Add examples for number and date formatting per locale
+- **CSS-in-JS not supported**: All styling via CSS files
+  - Workaround: Shadow DOM or CSS modules for scoped styles
+- **No built-in animation framework**: CSS animations only
+  - Workaround: Add Framer Motion or similar if needed
+- **React 18+ only**: Not backward compatible with React 17
+  - Workaround: Pin Ube version if stuck on older React
 
-### @ulam/taho
+### Future Ideas - Ube
 
-- [ ] Add Toast component (works with announcer, combines notification UI with live region announcements)
-- [ ] Add live region role documentation (polite, assertive, alert)
-- [ ] Create examples for async state announcements
-- [ ] Document screen reader testing approaches
-- [ ] Add form validation error announcement examples (error summary, field-level errors)
+- [ ] Component storybook or gallery
+- [ ] More form control variants (textarea, datepicker, etc.)
+- [ ] Theme customization guide
+- [ ] Dark mode documentation examples
+- [ ] Token system extension guide
+- [ ] `useAriaDisabled` utility (accessibility for disabled states)
+- [ ] Touch target utility (48px minimum per WCAG 2.5.5)
 
-## Known Limitations
+### Testing Coverage
 
-### sili
+- ✅ Unit tests for core components and React adapters
+- ✅ Integration tests (CSS cascading, Light DOM, accessibility)
+- ✅ Accessibility audit against WCAG 2.2 AA
+- ⏳ Full integration test suite (in progress with OverlayManager)
 
-- **OverlayManager layer ordering is fixed**: Cannot customize screen=0, drawer=1, sheet=2, dialog=3 hierarchy. Workaround: create custom component wrapping OverlayManager logic.
-- **Single active overlay**: OverlayManager manages one active overlay at a time. Workaround: use multiple OverlayManager instances for independent overlay stacks.
-- **Hash router**: React and Remix adapters include a basic hash router. Migrate to React Router or Remix router for production SPAs.
+---
 
-### Ube
+## @ulam/halohalo - AI Provider Adapters
 
-- **CSS-in-JS not supported**: All styling is CSS files. Workaround: shadow DOM or CSS modules if you need scoped styles.
-- **No built-in animation framework**: Uses CSS animations only. Workaround: add libraries like Framer Motion if needed.
-- **React 18+ only**: Not backward compatible with React 17. Workaround: pin Ube version if stuck on older React.
+**Version**: 0.3.1  
+**Status**: Stable ✅
 
-### Framework Support
+### Current Features - Halohalo
 
-- **Angular**: Only Angular 17+ with standalone components. Workaround: refactor to standalone pattern or use older version of Angular.
-- **Vue**: Only Vue 3. Workaround: use Vue 2 alternatives like vue-focus, vue-announcer.
+- ✅ Provider abstraction (Anthropic, OpenAI, Google)
+- ✅ API key management (localStorage-backed, never sent to server)
+- ✅ Model selection and configuration per provider
+- ✅ Completion calls with consistent interface across providers
+- ✅ Tool calling and agentic mode
+- ✅ Framework-agnostic vanilla core + React/Vue/Angular adapters
+- ✅ Purpose & Scope documentation
 
-## Bugs to Track
+### Known Limitations - Halohalo
+
+- No message history (apps manage conversation state)
+- No streaming response handling (returns complete results)
+- No rate limiting or retry logic (use middleware patterns)
+- No token counting or pricing calculation (external concern)
+- No API key validation or rotation (user responsibility)
+- No multi-user authentication or access control
+
+### Future Ideas - Halohalo
+
+- [ ] Streaming response support
+- [ ] Message history management
+- [ ] Rate limiting and retry strategies
+- [ ] Token counting utilities
+- [ ] Additional provider support
+
+---
+
+## @ulam/sawsawan - Integration Bridge
+
+**Version**: 0.3.1  
+**Status**: Stable ✅
+
+### Current Features - Sawsawan
+
+- ✅ Wires ube and calamansi together without circular dependencies
+- ✅ Sets `html[lang]` on locale changes
+- ✅ Sets `html[dir]` for RTL locale support
+- ✅ Wires i18n announcements (locale switch notifications)
+- ✅ Framework-agnostic integration patterns
+- ✅ Purpose & Scope documentation
+
+### Design - Sawsawan
+
+- Only package that imports from others
+- No downstream dependencies (nothing imports sawsawan)
+- Pure composition of other packages' APIs
+
+---
+
+## Framework Support
+
+| Framework | taho | sili | calamansi | ube | halohalo | Status |
+| --------- | ---- | ---- | --------- | --- | -------- | ------ |
+| Vanilla | ✅ | ✅ | ✅ | ✅ | ✅ | Core |
+| React 18+ | ✅ | ✅ | ✅ | ✅ | ✅ | Full |
+| Vue 3 | ✅ | ✅ | ✅ | ✅ | ✅ | Full |
+| Angular 17+ | ✅ | ✅ | ✅ | ✅ | ✅ | Full |
+| Remix | ✅ | ✅ | ✅ | ✅ | ✅ | Full |
+
+---
+
+## Documentation Status
+
+### Complete ✅
+
+- Root README.md (framework overview, quick starts)
+- Package READMEs (API reference, usage examples)
+- CHANGELOG.md (complete v0.1.0 → v0.3.1 history)
+- Purpose & Scope (all packages)
+- docs/ARCHITECTURE.md (unified framework structure)
+- docs/CONSUMER-APP-GUIDE.md (naming conventions, patterns)
+- packages/calamansi/I18N-BEST-PRACTICES.md (50+ language patterns)
+- packages/sili/MIGRATION.md (Modal → Dialog breaking change)
+- packages/sili/PROGRESS.md (roadmap, known limitations)
+- packages/ube/CORE.md (design decisions)
+- packages/ube/MIGRATION.md (framework-agnostic migration)
+- packages/ube/TESTING.md (test structure)
+- packages/ube/PROGRESS.md (project status)
+
+### Future Documentation Ideas
+
+- [ ] Breadcrumb component guide (ARIA landmarks)
+- [ ] Combobox component (autocomplete with keyboard navigation)
+- [ ] When to use @ulam/taho vs @ulam/sili for announcements
+- [ ] Contributing guide (CONTRIBUTING.md)
+- [ ] Video tutorials for getting started
+- [ ] Accessibility testing guide (screen reader, keyboard)
+- [ ] Theming guide for ube
+
+---
+
+## Known Issues
 
 ### None Currently Reported
 
-If you encounter bugs, please:
+If you encounter issues:
 
-1. Check the [GitHub issues](https://github.com/anthropics/ulam/issues)
+1. Check [GitHub issues](https://github.com/mikeyil/ulam/issues)
 2. Provide:
    - Minimal reproduction case
    - Browser/device
    - Framework and version
    - Expected vs actual behavior
 
-## Roadmap Ideas (Not Yet Scheduled)
+---
 
-### Accessibility Enhancements
+## Bugs to Track
 
-- [ ] Add breadcrumb component with ARIA landmarks
-- [ ] Add combobox component (autocomplete with keyboard navigation)
-- [ ] Add tooltip announcer component (use @ulam/taho for dynamic announcements, not Screen ariaLive)
-- [ ] Create guide: "When to use @ulam/taho for announcements vs when to use Screen for static content"
+(None currently in progress)
 
-### Developer Experience
+---
 
-- [ ] Create CLI tool for scaffolding apps with ulam
-- [ ] Add development mode warnings (e.g., missing ARIA labels)
-- [ ] Create ESLint plugin for accessibility rules
-- [ ] Add debug mode overlay showing focus boundaries
+## Code Quality Metrics
 
-### Performance
+| Metric | Status |
+| ------ | ------ |
+| Code duplication | 0 (intentional adapters) |
+| Dead code | 0 |
+| Markdown linting | ✅ Clean |
+| Unused imports | 0 |
+| Token duplication | 0 |
+| Stale references | ✅ Fixed (Modal→Dialog) |
 
-- [ ] Add virtual scrolling support for large overlay lists
-- [ ] Optimize focus trap for very large containers (1000+ focusable elements)
-- [ ] Add lazy-loading examples for overlay content
+---
 
-### Internationalization
+## Version Strategy
 
-- [ ] Add direction-aware overlay positioning (RTL support improvements)
-- [ ] Add language-specific keyboard shortcut guides
+Follows **semantic versioning** per package:
 
-## Removed/Deprecated Features
+- **Major** (X.0.0): Breaking API changes
+- **Minor** (0.X.0): New features, backward compatible
+- **Patch** (0.0.X): Bug fixes, documentation improvements
 
-### v0.3.0
+All packages released together at same version number.
 
-- **Removed**: `Modal` component (renamed to `Dialog`)
-- **Removed**: `DataError` component (replaced by `Screen variant="error"`)
-- **Removed**: `NoResults` component (replaced by `Screen variant="no-results"`)
-- **Removed**: `baseReturnFocusRef` prop from OverlayManager (automatic trigger tracking)
-- **Removed**: Modal aliases for backward compatibility
-
-### Migration Guides
-
-See [UPDATES.md](UPDATES.md) for detailed migration instructions.
-
-## Testing
-
-### Test Coverage Goals
-
-- [ ] Add integration tests for all 23 OverlayManager transition scenarios
-- [ ] Add accessibility tests (axe-core, jest-axe)
-- [ ] Add keyboard navigation tests (Tab, Shift+Tab, Escape, Arrow keys)
-- [ ] Add screen reader tests (NVDA, JAWS, VoiceOver)
-
-## Documentation
-
-### Completed
-
-- ✅ API Reference (sili README)
-- ✅ Common Patterns (sili README)
-- ✅ Quick-start guides (root README)
-- ✅ Purpose & Scope (all package READMEs)
-- ✅ Migration guide (UPDATES.md)
-
-### In Progress
-
-- [ ] Contributing guide (CONTRIBUTING.md)
-- [ ] Video tutorials for getting started
-- [ ] Accessibility testing guide
-- [ ] Theming guide for Ube
-
-### Needed
-
-- [ ] Focus flow diagram for sili (visual representation of focus movement through overlays)
-- [ ] Architecture overview for sili (how focus management, overlay stacking, and routing fit together)
-- [ ] Component story documentation for Ube (Storybook or prop docs for 20+ components)
+---
 
 ## Contact & Feedback
 
-- Issues: Open on GitHub
-- Questions: See package READMEs for detailed docs
-- Feedback: File an issue with `feedback:` prefix
+- **Issues**: Open on [GitHub](https://github.com/mikeyil/ulam/issues)
+- **Questions**: See package READMEs for detailed docs
+- **Feedback**: File an issue with `feedback:` prefix
