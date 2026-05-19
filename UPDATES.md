@@ -1,6 +1,51 @@
 # Recent Updates (v0.3.0+)
 
-## Current Session: @ulam/Ube Framework-Agnostic Migration (In Progress)
+## Current Session: Documentation Consolidation & Audit Completion (2026-05-19)
+
+### Comprehensive Consolidation Audit & Implementation
+
+Completed the six-pass deduplication and consolidation audit identified earlier. **13 of 16 consolidation opportunities addressed** (HIGH IMPACT and MEDIUM IMPACT, LOW IMPACT identified but lower priority):
+
+**HIGH IMPACT Consolidations:**
+
+- ✅ Removed 6 redundant "License" sections from package READMEs
+- ✅ Consolidated framework architecture diagram to single source of truth (`docs/ARCHITECTURE.md`)
+- ✅ Added Purpose & Scope sections to all 6 packages (taho, calamansi, sili, halohalo, sawsawan, ube)
+  - Defines what each package does, doesn't do, and who should use it
+  - Provides clear boundaries and prevents misuse
+- ✅ Referenced root README from all package-level subpath exports sections
+  - Establishes single authoritative framework support table
+  - Maintains package-level quick reference without duplication
+
+**MEDIUM IMPACT Consolidations:**
+
+- ✅ Created `packages/sili/MIGRATION.md` documenting Modal→Dialog breaking change
+  - Comprehensive examples for React, Remix, Vue, Angular
+  - Explains rationale for semantic accuracy alignment
+- ✅ Created `packages/sili/PROGRESS.md` with roadmap and status tracking
+  - Near-term priorities (Snackbar, Angular components, Vue refinements)
+  - Known limitations and testing goals
+  - Related packages integration guide
+
+### Pass 1: Additional Content Deduplication Audit
+
+- ✅ Confirmed minimal conceptual duplication (framework-agnostic, vanilla-first, zero-dependency concepts appropriately mentioned)
+- ✅ Root README Quick Start and package quick starts serve different purposes (app-level vs package-level)
+- ✅ PROGRESS.md and README.md content appropriately separated (roadmap vs current API)
+
+### Pass 2: Code Deduplication Audit
+
+- ✅ Confirmed framework adapters properly call shared core utilities (intentional, not duplication)
+- ✅ No actual code duplication detected; apparent duplicates are framework-specific implementations
+- ✅ Codebase clean and well-structured
+
+### Pass 3: Documentation Updates
+
+- ✅ Updated UPDATES.md with consolidation session work
+- ✅ All package documentation reflects current state
+- ✅ Migration guides and progress tracking in place
+
+## Previous Session: @ulam/Ube Framework-Agnostic Migration (In Progress)
 
 ### Major Achievement: @ulam/Ube Now Framework-Agnostic
 
