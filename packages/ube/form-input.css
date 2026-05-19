@@ -1,4 +1,28 @@
-/* ─── Input field base styling ─────────────────────────────── */
+/* ─── Form input base ──────────────────────────────────────── */
+
+.form-input {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.form-input--search {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-control);
+  border-radius: var(--rounded);
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.form-input--search:focus-within {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 var(--focus-outline-width) var(--focus);
+}
+
+.form-input--with-clear {
+  position: relative;
+}
+
+/* ─── Input field ──────────────────────────────────────────── */
 
 input[type="text"],
 input[type="search"] {
@@ -19,6 +43,36 @@ input[type="search"]:focus-visible {
   border-radius: var(--rounded-sm);
   outline: var(--focus-outline-width) solid var(--focus);
   outline-offset: 0;
+}
+
+.form-input__field {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-input--with-clear .form-input__field {
+  border-radius: var(--rounded);
+}
+
+.form-input__field:disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .form-input__field:disabled {
+    opacity: 1;
+  }
+}
+
+/* Remove browser default search input clear button */
+.form-input--search .form-input__field::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Live mode: full radius on input (no submit button) */
+.form-input--live .form-input__field {
+  border-radius: var(--rounded);
 }
 
 /* ─── Placeholder styling ──────────────────────────────────── */
@@ -52,4 +106,58 @@ input[type="search"][aria-disabled="true"]:focus-visible {
   border-color: var(--focus-disabled);
   outline: var(--focus-outline-width) dashed var(--focus-disabled);
   outline-offset: 0;
+}
+
+/* ─── Clear button ─────────────────────────────────────────── */
+
+.form-input__clear {
+  border-radius: 0;
+}
+
+.form-input--live .form-input__clear {
+  border-radius: 0 var(--rounded) var(--rounded) 0;
+}
+
+.form-input--with-clear .form-input__clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: 10px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-circle);
+  color: inherit;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+/* ─── Submit button ────────────────────────────────────────── */
+
+.form-input__submit {
+  background: var(--accent);
+  border-radius: 0 var(--rounded) var(--rounded) 0;
+  color: var(--accent-text, #fff);
+  transition: background var(--duration-fast);
+}
+
+.form-input__submit:hover:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(1.1);
+}
+
+.form-input__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .form-input__submit:disabled {
+    opacity: 1;
+    color: var(--text-disabled);
+    background: var(--bg-subtle);
+  }
 }
