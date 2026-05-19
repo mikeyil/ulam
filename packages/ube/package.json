@@ -12,7 +12,11 @@
   "keywords": ["accessibility", "a11y", "react", "ui", "components", "design-tokens", "ulam"],
   "exports": {
     ".": "./index.js",
-    "./react": "./react.js",
+    "./core": "./core/index.js",
+    "./react": "./react/index.js",
+    "./vue": "./vue/index.js",
+    "./ng": "./ng/index.ts",
+    "./remix": "./remix/index.js",
     "./tokens.css": "./tokens.css",
     "./ui.css": "./ui.css"
   },
