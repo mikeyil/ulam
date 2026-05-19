@@ -24,17 +24,25 @@ const Button = forwardRef(function Button({
 }, ref) {
   useAriaDisabled(ref, disabled)
 
-  const variantClass = `btn--${variant}`
-  const baseClasses = `btn ${variantClass}`
+  const displayIcon = active ? activeIcon : icon
+  const displayLabel = active ? activeLabel : label
+  const isIconOnly = displayIcon && !children
+
+  // Icon-only button variant handling
+  let variantClass
+  if (isIconOnly) {
+    variantClass = variant === 'accent' ? 'btn--icon-accent' : variant === 'tertiary' ? 'btn--icon-tertiary' : ''
+  } else {
+    variantClass = `btn--${variant}`
+  }
+
+  const baseClasses = isIconOnly ? `btn--icon${variantClass ? ` ${variantClass}` : ''}` : `btn ${variantClass}`
   const stateClass = active ? ' btn__field--success' : ''
   const busyClass = busy ? ' btn--busy' : ''
   const fullWidthClass = fullWidth ? ' btn--full-width' : ''
-  const alignClass = align !== 'center' ? ` btn--align-${align}` : ''
-  const sizeClass = size !== 'default' ? ` btn--size-${size}` : ''
+  const alignClass = !isIconOnly && align !== 'center' ? ` btn--align-${align}` : ''
+  const sizeClass = !isIconOnly && size !== 'default' ? ` btn--size-${size}` : ''
   const errorClass = error ? ' btn--error' : ''
-
-  const displayIcon = active ? activeIcon : icon
-  const displayLabel = active ? activeLabel : label
 
   const finalClassName = `${baseClasses}${stateClass}${busyClass}${fullWidthClass}${alignClass}${sizeClass}${errorClass}${className ? ` ${className}` : ''}`
 
