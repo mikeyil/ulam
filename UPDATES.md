@@ -1,10 +1,10 @@
 # Recent Updates (v0.3.0+)
 
-## Current Session: @ulam/ube Framework-Agnostic Migration (In Progress)
+## Current Session: @ulam/Ube Framework-Agnostic Migration (In Progress)
 
-### Major Achievement: @ulam/ube Now Framework-Agnostic
+### Major Achievement: @ulam/Ube Now Framework-Agnostic
 
-Completed a comprehensive refactor of @ulam/ube from React-only to a framework-agnostic architecture using vanilla web components.
+Completed a comprehensive refactor of @ulam/Ube from React-only to a framework-agnostic architecture using vanilla web components.
 
 **Core Web Components (20 total)**:
 
@@ -43,7 +43,7 @@ Completed a comprehensive refactor of @ulam/ube from React-only to a framework-a
 
 **Breaking Changes**: None (React API is 100% backward compatible)
 
-### Documentation Polish: Sawsawan Metaphor Update & ube Plan Review
+### Documentation Polish: Sawsawan Metaphor Update & Ube Plan Review
 
 Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" instead of "bridge" in descriptions, maintaining the culinary metaphor throughout:
 
@@ -51,7 +51,7 @@ Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" in
 - ✅ All package READMEs: Consistent "sauce" terminology in framework hierarchy diagrams
 - ✅ Added missing Install section to calamansi README
 
-**ube Framework-Agnostic Migration Review**: Verified all phases of the refactor are complete:
+**Ube Framework-Agnostic Migration Review**: Verified all phases of the refactor are complete:
 
 - ✅ Phase 1: 20 vanilla web components fully ported (18 exportable + 2 internal primitives)
 - ✅ Phase 2-3: 120 framework adapters (React 20, Vue 20, Angular 20, Remix 20)
@@ -61,7 +61,7 @@ Updated all package documentation to refer to `@ulam/sawsawan` as "the sauce" in
 - ✅ Package exports configured correctly for all frameworks
 - ✅ Backward compatibility maintained
 
-**Status**: ube migration 90% complete (minor documentation expansions remaining per TODO.md)
+**Status**: Ube migration 90% complete (minor documentation expansions remaining per TODO.md)
 
 ### Markdown Linting: Complete Project Cleanup
 
@@ -150,7 +150,7 @@ This is a significant release focused on improving focus management per WCAG sta
 
 ### Screen State Consolidation
 
-**Problem**: @ulam/ube had two similar components (DataError and NoResults) for displaying page-level states, creating duplication and confusion.
+**Problem**: @ulam/Ube had two similar components (DataError and NoResults) for displaying page-level states, creating duplication and confusion.
 
 **Solution**: Created a single `Screen` component with variants:
 
@@ -215,12 +215,12 @@ When transitioning from sheet to dialog, focus automatically moves correctly bas
 - Comprehensive API documentation with method signatures
 - Common patterns documentation (single overlay, multiple overlays, custom focus, route focus)
 
-### @ulam/ube
+### @ulam/Ube
 
 - Added `Screen` component for screen-state display
 - Removed `DataError` and `NoResults` (replaced by Screen)
 - Updated all documentation to reference Screen
-- Added Purpose & Scope section clarifying what ube does and doesn't do
+- Added Purpose & Scope section clarifying what Ube does and doesn't do
 
 ### Root Ulam
 
@@ -252,8 +252,8 @@ When transitioning from sheet to dialog, focus automatically moves correctly bas
 - import { Modal } from '@ulam/sili/react'
 + import { Dialog } from '@ulam/sili/react'
 
-- import { DataError, NoResults } from '@ulam/ube'
-+ import { Screen } from '@ulam/ube'
+- import { DataError, NoResults } from '@ulam/Ube'
++ import { Screen } from '@ulam/Ube'
 ```
 
 ### 2. Update Component Usage
@@ -310,5 +310,5 @@ const overlays = [
 See individual package READMEs for detailed documentation:
 
 - [@ulam/sili](packages/sili) for focus management and overlays
-- [@ulam/ube](packages/ube) for UI components
+- [@ulam/Ube](packages/Ube) for UI components
 - Root [README](README.md) for framework-specific quick starts

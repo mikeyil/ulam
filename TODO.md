@@ -1,13 +1,13 @@
 # Known Issues and Future Work
 
-## Current Session: Documentation Polish & ube Plan Verification (2026-05-19)
+## Current Session: Documentation Polish & Ube Plan Verification (2026-05-19)
 
 ### Completed Today
 
 - ✅ Reverted incorrect sawsawan→sauce package rename (kept package name as @ulam/sawsawan)
 - ✅ Updated all package documentation to use "sauce" metaphor instead of "bridge" for sawsawan
 - ✅ Added missing Install section to calamansi README
-- ✅ Verified ube framework-agnostic migration completion (all 5 phases complete)
+- ✅ Verified Ube framework-agnostic migration completion (all 5 phases complete)
 - ✅ Reviewed plan against actual implementation (no missed items)
 - ✅ Updated UPDATES.md with session progress
 
@@ -17,7 +17,7 @@
 - packages/calamansi/README.md (Install section + sauce metaphor)
 - packages/sili/README.md (sauce metaphor)
 - packages/taho/README.md (sauce metaphor)
-- packages/ube/README.md (sauce metaphor)
+- packages/Ube/README.md (sauce metaphor)
 - packages/halohalo/README.md (sauce metaphor)
 - packages/sawsawan/README.md (sauce metaphor description)
 
@@ -45,7 +45,7 @@
 - [ ] Add examples for nested overlays
 - [ ] Add form validation focus management (focus invalid field on submit, trap focus in error summary)
 
-### @ulam/ube
+### @ulam/Ube
 
 - ✅ Convert to framework-agnostic vanilla web components (20 components)
 - ✅ Add React adapters (20 components, 100% backward compatible)
@@ -84,11 +84,11 @@
 - **Single active overlay**: OverlayManager manages one active overlay at a time. Workaround: use multiple OverlayManager instances for independent overlay stacks.
 - **Hash router**: React and Remix adapters include a basic hash router. Migrate to React Router or Remix router for production SPAs.
 
-### ube
+### Ube
 
 - **CSS-in-JS not supported**: All styling is CSS files. Workaround: shadow DOM or CSS modules if you need scoped styles.
 - **No built-in animation framework**: Uses CSS animations only. Workaround: add libraries like Framer Motion if needed.
-- **React 18+ only**: Not backward compatible with React 17. Workaround: pin ube version if stuck on older React.
+- **React 18+ only**: Not backward compatible with React 17. Workaround: pin Ube version if stuck on older React.
 
 ### Framework Support
 
@@ -173,13 +173,13 @@ See [UPDATES.md](UPDATES.md) for detailed migration instructions.
 - [ ] Contributing guide (CONTRIBUTING.md)
 - [ ] Video tutorials for getting started
 - [ ] Accessibility testing guide
-- [ ] Theming guide for ube
+- [ ] Theming guide for Ube
 
 ### Needed
 
 - [ ] Focus flow diagram for sili (visual representation of focus movement through overlays)
 - [ ] Architecture overview for sili (how focus management, overlay stacking, and routing fit together)
-- [ ] Component story documentation for ube (Storybook or prop docs for 20+ components)
+- [ ] Component story documentation for Ube (Storybook or prop docs for 20+ components)
 
 ## Contact & Feedback
 
