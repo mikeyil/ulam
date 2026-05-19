@@ -63,7 +63,7 @@ restore()
 returnFocus()
 
 // Escape key handler
-const off = onEscapeKey(() => closeModal())
+const off = onEscapeKey(() => closeOverlay())
 off()
 
 // Scroll lock

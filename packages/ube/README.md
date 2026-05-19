@@ -570,8 +570,8 @@ usePageTitle('Page Name')      // sets document.title = "AppName | Page Name"
 **Focus rules (WCAG 2.4.3):**
 
 1. New page: focus the main heading (`tabIndex={-1}`)
-2. Modal open: focus first focusable element (usually close button)
-3. Modal close: restore focus to trigger (`useReturnFocus`)
+2. Dialog/overlay open: focus first focusable element (usually close button)
+3. Dialog/overlay close: restore focus to trigger (`useReturnFocus`)
 4. Overlay open: set background inert (`useAriaHide`, overlays do this automatically)
 5. Escape: each overlay layer handles its own
 6. Paginated content: use `usePaginationFocus` on page change

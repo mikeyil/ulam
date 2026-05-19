@@ -1,6 +1,10 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import '@ulam/ube/core'
 
+/**
+ * Angular adapter for <ube-badge>
+ * Wraps vanilla web component with Angular property bindings and event handling
+ */
 @Component({
   selector: 'ube-badge',
   template: `<ube-badge

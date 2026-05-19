@@ -1,6 +1,6 @@
-# Recent Updates (v0.3.0+)
+# Recent Updates (v0.3.1+)
 
-## Current Session: Documentation Consolidation & Audit Completion (2026-05-19)
+## Current Session: Consumer Guides, i18n Best Practices, and Final Audits (2026-05-19)
 
 ### Comprehensive Consolidation Audit & Implementation
 
@@ -44,6 +44,59 @@ Completed the six-pass deduplication and consolidation audit identified earlier.
 - ✅ Updated UPDATES.md with consolidation session work
 - ✅ All package documentation reflects current state
 - ✅ Migration guides and progress tracking in place
+
+### Pass 4-6: Consumer Guides, i18n Best Practices, Audits & Fixes
+
+✅ **Created Consumer App Guide** (`docs/CONSUMER-APP-GUIDE.md`)
+
+- Two-tier component naming convention (App* / A11y*)
+- Project organization patterns
+- Service abstraction examples
+- Integration patterns for all ulam packages
+- Accessibility checklist
+- Real-world example with complete integration code
+
+✅ **Created i18n Best Practices Guide** (`packages/calamansi/I18N-BEST-PRACTICES.md`)
+
+- Language-appropriate capitalization (English title case, Romance sentence case, East Asian as-is)
+- Right-to-left language support with CSS patterns and logical properties
+- Cross-language search implementation (preserve English keywords)
+- Locale fallback chains and error handling
+- Format strings, pluralization, number/date formatting
+- Accessibility considerations (lang attribute, dir, live regions)
+- Real-world patterns from a11yfred (50+ languages)
+- Performance optimization (lazy loading, caching)
+
+✅ **Created Root CHANGELOG.md** (v0.3.1 documentation release)
+
+- Comprehensive changelog from v0.1.0 to v0.3.1
+- Version bumped to 0.3.1 for documentation improvements
+- Release timeline and versioning strategy documented
+
+✅ **Stale Reference Audit**
+
+- Fixed `closeModal()` → `closeOverlay()` in sili README example
+- Updated ube README focus rules to use "Dialog/overlay" terminology
+- All references now consistent with Modal → Dialog rename
+
+✅ **Tokenization Audit**
+
+- Verified CSS custom properties system (no duplicate token definitions)
+- No hardcoded spacing/sizing in component code
+- Token system is clean and maintainable
+
+✅ **Code Quality Verification**
+
+- No dead code detected
+- No duplicate utility functions
+- Index files appropriately sized (largest 71 lines for calamansi core)
+- All exports are actively used
+
+✅ **Additional Deduplication Audit**
+
+- Confirmed minimal conceptual duplication
+- Framework adapters appropriately follow vanilla-first pattern
+- No cleanup opportunities remaining
 
 ## Previous Session: @ulam/Ube Framework-Agnostic Migration (In Progress)
 

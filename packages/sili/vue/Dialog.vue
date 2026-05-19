@@ -1,3 +1,7 @@
+<!--
+  Vue adapter for sili Dialog component.
+  Wraps DialogShell with state management and accessibility hooks (focus trap, escape key, aria-hide).
+-->
 <template>
   <DialogShell v-bind="$props" :open="open" :on-close="onClose">
     <slot />
