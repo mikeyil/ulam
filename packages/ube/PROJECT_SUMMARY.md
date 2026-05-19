@@ -179,7 +179,7 @@ import { UbeModule } from '@ulam/ube/angular'
 
 Use the same component library across all frameworks:
 
-```
+```text
 my-monorepo/
 ├── packages/web-react/    → imports from @ulam/ube/react
 ├── packages/web-vue/      → imports from @ulam/ube/vue
@@ -188,7 +188,7 @@ my-monorepo/
 
 ## Git History
 
-```
+```text
 24da866 refactor(ube): rename ng folder to angular for consistency with sili
 bb06a1d feat(ube): complete Phase 5 documentation (project 90% complete)
 9a5a192 feat(ube): add comprehensive test suite (Phase 4 in progress)
@@ -217,13 +217,13 @@ bb06a1d feat(ube): complete Phase 5 documentation (project 90% complete)
 - `PROJECT_SUMMARY.md` — High-level overview and conclusion
 - `README.md` — Updated overview (framework-agnostic)
 
-### Code
+### Implementation
 
 - `core/base-element.js` — Base class for all components
 - `core/*.js` — 20 vanilla web component implementations
 - `react/*.jsx` — 20 React adapters
 - `vue/*.vue` — 20 Vue adapters
-- `angular/*.ts` — 20 Angular components + UbeModule
+- `angular/*.ts` — 20 Angular components and UbeModule
 - `remix/index.js` — Remix adapter (re-exports from React)
 - `__tests__/*.js` — Test suite
 

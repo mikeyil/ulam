@@ -122,7 +122,7 @@ import { UbeModule } from '@ulam/ube/angular'
 export class AppModule {}
 ```
 
-### Use in templates
+### Use in templates (Angular)
 
 The Angular API uses Angular conventions (property binding, event binding):
 
@@ -266,7 +266,7 @@ All components expose the same API across frameworks:
 
 ### ButtonText
 
-```
+```text
 Props: variant, disabled, active, fullWidth, label, activeLabel, title, icon, activeIcon
 Events: click
 Methods: focus()
@@ -274,21 +274,21 @@ Methods: focus()
 
 ### FormControlRadio
 
-```
+```text
 Props: name, value, label, checked, disabled
 Events: change
 ```
 
 ### FormControlRadioChipGroup
 
-```
+```text
 Props: legend, name, value, options: [{value, label}], onChange
 Events: change (detail.value)
 ```
 
 ### FadeTransition
 
-```
+```text
 Props: watchKey, direction, prefersReducedMotion
 Events: (none)
 Slots: children

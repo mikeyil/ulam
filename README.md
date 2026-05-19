@@ -21,7 +21,7 @@ Named for the Filipino word for dish: the thing everything else is built around.
 
 Each package is independently installable. Dependency flow is strictly one direction:
 
-```
+```text
 calamansi ──┐
 taho ────────┤──► sawsawan
 sili ────────┤
@@ -153,14 +153,12 @@ export class AppModule {}
 
 ## Core Concepts
 
-
 - **Vanilla-first**: Every package has a vanilla core with zero dependencies. Framework adapters are optional add-ons.
 - **Independent**: Install only what you need. Packages don't import each other.
 - **Accessible by default**: All components handle focus, keyboard, ARIA, and screen reader support automatically.
 - **Tree-shakeable**: Component CSS imports only what's used. Unused code doesn't bundle.
 
 ## Resources
-
 
 - [@ulam/sili](packages/sili) — Focus management, overlays, routing
 - [@ulam/taho](packages/taho) — Live region announcements

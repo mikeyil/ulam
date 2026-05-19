@@ -6,7 +6,7 @@ Named for taho, the Filipino street drink: warm, light, and always there when yo
 
 ## The ulam framework
 
-```
+```text
 ulam
 ├── @ulam/taho         warm   : ARIA live region announcer  ← you are here
 ├── @ulam/sili         hot    : focus management, overlays, routing

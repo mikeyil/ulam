@@ -8,7 +8,7 @@ Named for the iconic Filipino sour citrus. Small, essential, full of character.
 
 Calamansi is one of four ulam packages:
 
-```
+```text
 ulam
 ├── @ulam/calamansi    sour   : i18n, hooks, utilities, logic  ← you are here
 ├── @ulam/taho         warm   : ARIA live region announcer
@@ -83,6 +83,7 @@ import { I18nService, PrefService } from '@ulam/calamansi/angular'
 `@angular/localize` is a compile-time system. It extracts and bakes translated strings into the bundle at build time. It does not support runtime locale switching without a page reload or a rebuild. If that constraint works for your project, use `@angular/localize`.
 
 Use calamansi when you need:
+
 - Runtime locale switching without a page reload
 - Locale data from an API or CMS (not baked into the bundle)
 - Shared locale logic between Angular and non-Angular code in the same project

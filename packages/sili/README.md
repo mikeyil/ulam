@@ -33,7 +33,7 @@ Named for sili, the Filipino chili pepper: small, sharp, does exactly what it ne
 
 ## The ulam framework
 
-```
+```text
 ulam
 ├── @ulam/sili         hot    : focus management, overlays, routing  ← you are here
 ├── @ulam/taho         warm   : ARIA live region announcer
@@ -196,12 +196,14 @@ const overlays = [
 ```
 
 **Layer order (automatic focus management):**
+
 - Screen: 0 (lowest)
 - Drawer/Panel: 1
 - Sheet: 2
 - Dialog: 3 (highest)
 
 **Transition rules:**
+
 - **Higher → Lower**: Current overlay closes, focus moves to target
 - **Lower → Higher**: Lower layer stays open (inert), higher overlay opens with focus
 - **Same level**: Current closes, new opens, focus in new
@@ -209,6 +211,7 @@ const overlays = [
 This means dialog can stack on top of any layer, sheet stacks on drawer/panel, but closing always moves focus correctly based on the layer hierarchy.
 
 **Page title management:**
+
 - Non-dialog overlays (drawer, panel, sheet) can set `pageTitle` in their config
 - OverlayManager tracks the base page title (before any overlays opened)
 - When a non-dialog overlay opens, page title updates to its `pageTitle`
@@ -399,9 +402,10 @@ Sili provides **generic focus management foundations**. Your app provides **app-
 | Content of each overlay | — | ✓ Define config with headings, content, actions |
 | App-level focus patterns | — | ✓ Handle (e.g., "closing sheet focuses results area") |
 
-**Example: A11yFred's approach**
+### Example: A11yFred's approach
 
 A11yFred uses a centralized overlay manager (A11yOverlayManager) that:
+
 - Tracks all app overlay state (viewAllConfirm, pendingEntry, privacy sheet, etc.)
 - Determines `activeId` based on state priority
 - Passes `returnFocusRef` for each overlay to sili's OverlayManager

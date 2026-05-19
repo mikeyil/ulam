@@ -110,7 +110,6 @@ Fixed all markdown linting issues across the entire project:
 
 ## Overview
 
-
 This is a significant release focused on improving focus management per WCAG standards, consolidating screen state handling, and providing comprehensive documentation for all adapters.
 
 ## Major Changes

@@ -4,7 +4,7 @@ Thanks for your interest in improving ulam! This guide explains how the framewor
 
 ## Repository Structure
 
-```
+```text
 ulam/
 ├── packages/                    # Monorepo packages
 │   ├── sili/                   # Focus management, overlays, routing
@@ -109,6 +109,7 @@ npm test -w packages/sili
 ### Accessibility Requirements
 
 All components must:
+
 - Handle keyboard navigation (Tab, Shift+Tab, Escape, Arrow keys)
 - Include appropriate ARIA attributes
 - Work with screen readers (test with NVDA, JAWS, VoiceOver)
@@ -140,10 +141,10 @@ Update documentation when adding features:
 
 Example JSDoc:
 
-```js
+```javascript
 /**
  * Focus on element when component mounts.
- * 
+ *
  * @param {HTMLElement} [element] - Element to focus. If not provided, focuses current element.
  * @returns {void}
  */
@@ -156,7 +157,7 @@ export function useFocusOnMount(element) {
 
 Follow conventional commits:
 
-```
+```text
 feat: add new feature
 fix: fix a bug
 docs: update documentation
@@ -166,7 +167,8 @@ chore: dependency updates, tooling
 ```
 
 Example:
-```
+
+```text
 feat(sili): add focusElementSelector prop for CSS selector-based focus
 
 Allows targeting focus element by CSS selector in addition to ref.
@@ -191,12 +193,14 @@ Useful when ref not available but selector is specific enough.
 **Doesn't**: UI rendering, state management, styling
 
 **To contribute**:
+
 - Add focus management features
 - Improve overlay orchestration
 - Add framework adapters
 - Fix accessibility bugs
 
 **Not for**:
+
 - UI component features (use ube)
 - i18n features (use calamansi)
 - Live region announcements (use taho)
@@ -208,12 +212,14 @@ Useful when ref not available but selector is specific enough.
 **Doesn't**: Focus management (use sili), i18n (use calamansi), routing (use sili)
 
 **To contribute**:
+
 - Add new components (with accessibility built-in)
 - Improve theming system
 - Add component variants
 - Fix styling bugs
 
 **Not for**:
+
 - Focus/overlay behavior (use sili)
 - Non-React frameworks (that's other repos)
 
@@ -258,4 +264,3 @@ To prepare a release:
 ## Code of Conduct
 
 Be respectful and inclusive. This framework is for everyone, regardless of background or experience level.
-

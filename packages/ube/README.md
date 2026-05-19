@@ -586,7 +586,6 @@ usePageTitle('Page Name')      // sets document.title = "AppName | Page Name"
 
 ### Theme
 
-
 Dark, light, auto, and fiesta modes as first-class features.
 
 ```jsx

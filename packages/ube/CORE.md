@@ -187,7 +187,6 @@ This is imperative (no JSX), but efficient: each attribute change triggers a loc
 
 ### Icon handling
 
-
 Icons must be DOM elements, not strings. This allows React to pass JSX, vanilla JS to pass SVG elements, etc.
 
 ```javascript
@@ -205,7 +204,6 @@ if (displayIcon) {
 
 ### Disabled state
 
-
 Disabled buttons prevent click propagation:
 
 ```javascript
@@ -220,7 +218,6 @@ connectedCallback() {
 ```
 
 ## Browser Support
-
 
 - Chrome/Edge 89+ (web components standard)
 - Safari 14+

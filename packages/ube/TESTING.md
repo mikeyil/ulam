@@ -89,6 +89,7 @@ it('serializes options to JSON', () => {
 ### Setup
 
 React tests use:
+
 - `@testing-library/react` for rendering
 - `@testing-library/user-event` for user interactions
 - `vitest` for test runner
@@ -118,6 +119,7 @@ it('applies CSS tokens from host app to components', () => {
 ### Light DOM Pattern
 
 Verify that components render in light DOM (not shadow DOM) so:
+
 - CSS tokens cascade from host
 - Slot-based content displays correctly
 - External styling can target components
@@ -138,6 +140,7 @@ it('components render without shadow DOM', () => {
 ### Property vs Attribute Serialization
 
 Verify correct serialization strategy:
+
 - Primitives (string, boolean, number) → attributes
 - Complex objects (icons, options) → properties
 
