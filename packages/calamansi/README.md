@@ -4,18 +4,9 @@ Data-agnostic i18n, hooks, and logic utilities. The sour layer of the ulam frame
 
 Named for the iconic Filipino sour citrus. Small, essential, full of character.
 
-## Packages
+## The ulam Framework
 
-Calamansi is one of four ulam packages:
-
-```text
-ulam
-├── @ulam/calamansi    sour      : i18n, hooks, utilities, logic  ← you are here
-├── @ulam/taho         warm      : ARIA live region announcer
-├── @ulam/sili         hot       : focus management, overlays, routing
-├── @ulam/ube          sweet     : React UI components, theming
-└── @ulam/sawsawan     sauce     : wires the above together
-```
+Calamansi is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 ## Install
 

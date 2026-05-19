@@ -6,15 +6,9 @@ Named for halo-halo, the Filipino shaved ice dessert: a mix of many things that 
 
 ## The ulam framework
 
-```text
-ulam
-├── @ulam/halohalo     mixed   : AI provider adapters  ← you are here
-├── @ulam/taho         warm    : ARIA live region announcer
-├── @ulam/sili         hot     : focus management, overlays, routing
-├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet   : React UI components, theming
-└── @ulam/sawsawan     sauce   : wires the above together
-```
+## The ulam Framework
+
+Halohalo is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 ## Install
 

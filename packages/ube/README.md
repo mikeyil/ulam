@@ -32,16 +32,9 @@ Accessible out of the box. Purple-first design. Zero external dependencies beyon
 - SPAs wanting tree-shakeable, zero-dependency component libraries
 - Multi-framework monorepos that want to reuse the same component library
 
-## The ulam framework
+## The ulam Framework
 
-```text
-ulam
-├── @ulam/ube          sweet   : Framework-agnostic UI components, theming, design tokens  ← you are here
-├── @ulam/sili         hot     : focus management, overlays, routing
-├── @ulam/taho         warm    : ARIA live region announcer
-├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     sauce   : wires the above together
-```
+Ube is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 Use ube independently, or with the full ulam stack. No cross-package dependencies: ube does not import from taho, sili, calamansi, or sawsawan.
 

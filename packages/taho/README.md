@@ -4,16 +4,9 @@ ARIA live region announcer. Vanilla core with React, Remix, Vue, and Angular ada
 
 Named for taho, the Filipino street drink: warm, light, and always there when you need it.
 
-## The ulam framework
+## The ulam Framework
 
-```text
-ulam
-├── @ulam/taho         warm    : ARIA live region announcer  ← you are here
-├── @ulam/sili         hot     : focus management, overlays, routing
-├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet   : React UI components, theming
-└── @ulam/sawsawan     sauce   : wires the above together
-```
+Taho is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 ## Install
 

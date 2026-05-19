@@ -4,16 +4,9 @@ The sauce: integration layer wiring ube and calamansi together. The dipping sauc
 
 Named for sawsawan, the Filipino dipping sauce: no purpose alone, exists only to bring other things together.
 
-## Packages
+## The ulam Framework
 
-Sawsawan is one of four ulam packages:
-
-```text
-ulam
-├── @ulam/ube          sweet   : UI, components, CSS, theming, router, announce
-├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
-└── @ulam/sawsawan     sauce   : wires the three together  ← you are here
-```
+Sawsawan is one of six packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 ## Dependency rule
 

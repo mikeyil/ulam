@@ -31,16 +31,9 @@ Named for sili, the Filipino chili pepper: small, sharp, does exactly what it ne
 - Custom overlay systems needing automatic focus orchestration
 - Accessibility-first projects requiring WCAG 2.4.3 compliance
 
-## The ulam framework
+## The ulam Framework
 
-```text
-ulam
-├── @ulam/sili         hot     : focus management, overlays, routing  ← you are here
-├── @ulam/taho         warm    : ARIA live region announcer
-├── @ulam/calamansi    sour    : i18n, hooks, utilities, logic
-├── @ulam/ube          sweet   : React UI components, theming
-└── @ulam/sawsawan     sauce   : wires the above together
-```
+Sili is one of six independent packages in the ulam framework. See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the complete framework structure and dependency graph.
 
 ## Install
 
