@@ -2,7 +2,7 @@
 // Import this to register all ube components
 
 // Utilities
-export { applyAriaDisabled, isAriaDisabledKeydown, setAriaDisabled } from './ariaDisabled.js'
+export { applyAriaDisabled, isAriaDisabledKeydown } from './ariaDisabled.js'
 
 // Web components
 export { UbeElement } from './base-element.js'
