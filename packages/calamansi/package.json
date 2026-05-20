@@ -1,6 +1,6 @@
 {
   "name": "@ulam/calamansi",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Data-agnostic i18n, locale hooks, and logic utilities.",
   "type": "module",
   "license": "MIT",
