@@ -24,8 +24,16 @@
  *   because setLocale() notifies the same subscriber set.
  */
 import { useCallback, useEffect, useState } from 'react'
-import { useSubscribe } from '@ulam/shared'
 import { setLocale, getT, _subscribe, getPref, setPref } from './index.js'
+
+function useSubscribe(subscribe, getValue) {
+  const [state, setState] = useState(getValue())
+  useEffect(() => {
+    setState(getValue())
+    return subscribe(setState)
+  }, [subscribe, getValue])
+  return state
+}
 
 /**
  * Sets the active locale for the app. Mount once at the root.
