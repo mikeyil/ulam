@@ -29,7 +29,6 @@ import { setLocale, getT, _subscribe, getPref, setPref } from './index.js'
 function useSubscribe(subscribe, getValue) {
   const [state, setState] = useState(getValue())
   useEffect(() => {
-    setState(getValue())
     return subscribe(setState)
   }, [subscribe, getValue])
   return state
