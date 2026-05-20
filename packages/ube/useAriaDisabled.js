@@ -5,7 +5,7 @@ import { applyAriaDisabled, isAriaDisabledKeydown } from './core/ariaDisabled.js
 // Manages aria-disabled attribute, blocks keyboard/click/touch interactions
 export function useAriaDisabled(ref, disabled) {
   useEffect(() => {
-    if (!ref.current) return
+    if (!ref || !ref.current) return
     if (disabled) {
       return applyAriaDisabled(ref.current)
     } else {
